@@ -1,0 +1,11 @@
+div.day_rule	{ position: absolute; background-color: #000; }
+div.double_width_rule	{ opacity: 0.067; }
+div.single_width_rule	{ opacity: 0.1; }
+div.status_canvas	{ position: absolute; background-color: #333; resize: both; }
+div.status_period_abed			{ background-color: #009999 /* 0e5387} /* 00f */ }
+div.status_period_visiting_Lauren	{ background-color: #FF0000}
+div.status_period_offline		{ background-color: #A60000 /* ff5300} /* fb0 */ }
+div.status_period_online		{ background-color: #9FEE00 /* ffc700} /* ef0 */ }
+div.status_period	{ position: absolute; }
+div.status_period_unknown	{ background-color: #555 }
+div.hour_rule	{ position: absolute; background-color: #000; }
