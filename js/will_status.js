@@ -302,8 +302,10 @@
           if      (status_record_status_split.length == 2 && status_record_status_split [1] == abed_str           ) current_status_str =            abed_str; // 'offline: abed'
           else if (status_record_status_split.length == 2 && status_record_status_split [1] == visiting_lauren_str) current_status_str = visiting_lauren_str;
           else                                                                                                      current_status_str =         offline_str;
-        } else if (current_status_str != online_str && current_status_str != 'p') {
-          alert (status_record_label + ' has unrecognized type: ' + status_record);
+        } else if (current_status_str != online_str {
+          if (current_status_str != 'p') {
+            alert (status_record_label + ' has unrecognized type: ' + status_record);
+          }
           continue;
         }
       }
