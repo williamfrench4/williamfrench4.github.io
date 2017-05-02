@@ -8,7 +8,7 @@
    current_window_height,
    current_window_width,
    date_length                 =   28, // 'Mon Jan 17 17:05:37 EST 2011'.length,
-   debug_mode                  = true,
+   debug_mode                  = false,
    document_body,
    hour_labels_count           =   25,
    inter_row_margin            =    0, // spacing between        day rows                                 -- 0 for no gap
