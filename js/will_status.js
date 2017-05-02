@@ -191,6 +191,7 @@
   function build_status_display () {
     //alert (status_log_data);
     now_date = Date ();
+    console.log('66 ' + status_display_div);
     if (status_display_div) status_display_div.remove ();
     status_display_div              = document.createElement ('div');
     Element.extend (status_display_div);
