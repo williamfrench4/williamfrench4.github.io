@@ -338,7 +338,7 @@ $(function () {
       count_words: {append: '.byline-and-date', subject: '#content'},
       //css_article_rules: '.single-post #articleBody p a, .single-post #articleBody .gallery-caption a, .single-post #articleBody u, .articleBody p a, .articleBody .gallery-caption a, .articleBody u, .author-masthead p a, .author-masthead .gallery-caption a, .author-masthead u {text-shadow: none; background: none}',
       css_article_rules: 'a {text-shadow: none; background: none}',
-      css_article_hides: 'iframe, .social-module, .strongbox-promo-wrapper',
+      css_article_hides: 'iframe, .social-module, .strongbox-promo-wrapper, .social-hover',
       css_homepage_hides: '.fixed-topnav, iframe, #strongbox-promo',
       customize: function () {
         var
