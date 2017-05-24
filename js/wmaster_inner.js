@@ -9,6 +9,7 @@
 // @require      http://code.jquery.com/jquery-3.2.1.min.js
 // ==/UserScript==
 
+
 /* jshint undef: true, unused: true, esversion: 6 */
 /* globals $, alert, console, document, window, URLSearchParams */
 
