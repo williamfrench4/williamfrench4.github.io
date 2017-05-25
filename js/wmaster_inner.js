@@ -51,7 +51,7 @@ $(function () {
       name: 'New York Times',
       alternate_origins: ['https://cooking.nytimes.com'],
       alternate_prefixes: ['file:///root/wayback/nytimes/', 'file:///root/wayback/nytimes_todayspaper/'],
-      count_words: {append: '.byline,.byline-column', prefix: ' ', subject: '.story-body'},
+      count_words: {append: '.byline:last-of-type,.byline-column', prefix: ' ', subject: '.story-body'},
       css_article_rules: '' +
         '.masthead .masthead-menu li, .headline, .kicker, .dateline, .story-quote, .caption, figcaption {' + dark_theme_background_rule + dark_theme_foreground_rule + '}' + // NYT dark theme
         'h1, .dropcap {' + dark_theme_foreground_rule + '} .shell {padding-top: 0} .main {border-top: none} .nytg-chart {color: #000; background-color: #fff}' + // NYT dark theme
@@ -122,13 +122,14 @@ $(function () {
       origin: 'https://www.theguardian.com',
       alternate_origins: ['https://interactive.guim.co.uk/'],
       alternate_prefixes: ['file:///root/wayback/guardian_uk/'],
-      append_loaded_date: 'footer',
+      append_loaded_date: 'footer.l-footer',
       count_words: {append: '.content__dateline, .content__standfirst', subject: '.content__article-body'},
       css_article_rules: '.js-headline-text {font-weight: normal} p {line-height: 170%} a {border-bottom: none} figure.element-tweet {margin-right: 4rem} img.byline-img__img {background: transparent} .content__article-body {font-family: "Adobe Caslon Pro"}' +
         'a:link   [data-link-name="auto-linked-tag"] {color: #00e766} a:link:hover[data-link-name="auto-linked-tag"] {color: #00f} div.explainer {background-color: #002b45;' + dark_theme_foreground_rule + 'border: 1px solid ' + dark_theme_foreground_color + '}' + 
-        '.tonal--tone-live, .content__main, .block--content, .navigation, .local-navigation, .navigation-container, .navigation:before, .top-navigation, .navigation-toggle, .navigation__container--first, .signposting {' + dark_theme_background_rule + '}' +
-        '.signposting {border-right-width:0} a:visited[data-link-name="auto-linked-tag"] {color: #99d700} a:visited:hover[data-link-name="auto-linked-tag"] {color: purple} .tonal__standfirst, .tonal__header, .content__standfirst, .content__headline {' + 
-        dark_theme_background_rule + dark_theme_foreground_rule + '}',
+        '.tonal--tone-live, .tonal--tone-feature, .tonal--tone-comment, .content__main, .block--content, .navigation, .local-navigation, .navigation-container, .navigation:before, .top-navigation, .navigation-toggle, .navigation__container--first, .signposting, .tabs__tab--selected a, .tabs__tab--selected .tab__link, .tabs__tab a, .tabs__tab .tab__link {' + dark_theme_background_rule + '}' +
+        '.signposting {border-right-width:0} a:visited[data-link-name="auto-linked-tag"] {color: #99d700} a:visited:hover[data-link-name="auto-linked-tag"] {color: purple} .tonal__standfirst, .tonal__header, .content__standfirst, .content__headline, .drop-cap {' + 
+        dark_theme_background_rule + dark_theme_foreground_rule + '}' +
+        '.tabs__tab {border-top: 0.0625rem solid #aaa}',
       css_hides: '.adverts, .site-message',
       css_article_hides: '.element-video, .contributions__epic, .js-outbrain, .related, .submeta, #onward, #more-in-section, .element-pullquote, .element-rich-link, .meta__twitter, .meta__extras, .meta__email, .selection-sharing, .block-share',
       css_homepage_hides: '.footer__email-container, div.image>div.video, #securedrop',
@@ -729,7 +730,10 @@ $(function () {
   }
   
   function append_loaded_date(e) {
-    e.append('Loaded ' + dateFormat(new Date(), 'dddd, mmmm dS, yyyy @ h:MM:ss TT') + '<br><br>');
+    var html = '';
+    //html += location_href + '<br>';
+    html += 'Loaded ' + dateFormat(new Date(), 'dddd, mmmm dS, yyyy @ h:MM:ss TT') + '<br><br>';
+    e.append(html);
   }
   
   function remove_fixed_positioning(site_data) {
