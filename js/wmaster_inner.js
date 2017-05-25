@@ -140,11 +140,11 @@ $(function () {
       alternate_origins: ['http://www.washingtonpost.com', 'https://live.washingtonpost.com'],
       alternate_prefixes: ['file:///root/wayback/washingtonpost/'],
       count_words: {append: '.pg-pubDate, .bottomizer, .pb-sig-line, .pbHeader', subject: '#article-body>article, #pg-content>article'},
-      css_article_rules: '#main-content {background-image: none} #article-body, article p, .pg-bodyCopy {text-shadow: none} #et-nav {position: absolute}' + //.pb-f-homepage-story {background-color: #300},
-        '.headline {font-family: "PostoniWide", Georgia, serif} a, .powerpost-header, .layout_article #top-content {border-bottom: none} p {line-height: 155%} body {overflow-y: visible}',
+      css_article_rules: '#main-content {background-image: none} #article-body, article p, .pg-bodyCopy, h1 {' + dark_theme_foreground_rule + 'text-shadow: none} #et-nav {position: absolute}' + //.pb-f-homepage-story {background-color: #300},
+        '.headline {font-family: "PostoniWide", Georgia, serif} a, .powerpost-header, .layout_article #top-content {border-bottom: none} p {line-height: 155%} body {overflow-y: visible} .skin.skin-card, .skin.skin-button {' + dark_theme_foreground_rule + dark_theme_background_rule + '}',
       css_article_hides: '#wp-header, #top-furniture, .pb-f-ad-flex-2, .pb-f-ad-flex-3, .pb-f-games-gamesWidget, .pb-f-page-footer-v2, .pb-f-page-recommended-strip, .pb-f-page-editors-picks, .chain-wrapper, .extra, .pb-f-generic-promo-image, .interstitial-link,' +
         '.pg-interstitial-link, .pb-f-posttv-sticky-player, .pb-f-posttv-sticky-player-powa, .pb-f-article-article-author-bio, .pb-tool.email, .pb-f-page-newsletter-inLine, .pb-f-page-comments, .inline-video, [channel="wp.com"], .pb-f-page-jobs-search,' +
-        '.pb-f-homepage-story, .pb-f-sharebars-top-share-bar, .wp_signin, #wp_Signin, .inline-graphic-linked, .share-individual, .pb-f-page-trump-can-he-do-that-podcast',
+        '.pb-f-homepage-story, .pb-f-sharebars-top-share-bar, .wp_signin, #wp_Signin, .inline-graphic-linked, .share-individual, .pb-f-page-trump-can-he-do-that-podcast, .pb-f-page-post-most img',
       css_homepage_rules: 'header {position: relative} .pb-f-homepage-story .headline a, .related-links a, #bottom-content a {font-family: "PostoniWide", Georgia, serif; font-weight: normal}',
       css_homepage_hides: '.pb-f-homepage-brandconnect-sidebar, .section-story-photo-1',
       unwanted_query_fields: 'hpid tid utm_term wpisrc wpmk',
