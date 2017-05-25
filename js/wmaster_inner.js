@@ -71,7 +71,7 @@ $(function () {
         //'header {background-color: #aaa}' +
         '.summary {' + dark_theme_foreground_rule + '}' + // NYT dark theme
         '',
-      css_homepage_hides: '#masthead-placeholder, .masthead-cap-container, div.editions.tab, #nytint-hp-watching, #site-index .section-header, #markets, .all-sections-button, #mini-navigation',
+      css_homepage_hides: '#masthead-placeholder, .masthead-cap-container, div.editions.tab, #nytint-hp-watching, #site-index .section-header, #markets, .all-sections-button, #mini-navigation, #WelcomAd_optly',
       css_hides: '.ad',
       css_rules: '' + 
         'body, #masthead {' + dark_theme_background_rule + dark_theme_foreground_rule + '}' + // NYT dark theme
@@ -120,15 +120,19 @@ $(function () {
     {
       name: 'Manchester Guardian',
       origin: 'https://www.theguardian.com',
+      alternate_origins: ['https://interactive.guim.co.uk/'],
       alternate_prefixes: ['file:///root/wayback/guardian_uk/'],
       append_loaded_date: 'footer',
       count_words: {append: '.content__dateline, .content__standfirst', subject: '.content__article-body'},
       css_article_rules: '.js-headline-text {font-weight: normal} p {line-height: 170%} a {border-bottom: none} figure.element-tweet {margin-right: 4rem} img.byline-img__img {background: transparent} .content__article-body {font-family: "Adobe Caslon Pro"}' +
-        'a:link   [data-link-name="auto-linked-tag"] {color: #00e766} a:link:hover[data-link-name="auto-linked-tag"] {color: #00f}' +
-        'a:visited[data-link-name="auto-linked-tag"] {color: #99d700} a:visited:hover[data-link-name="auto-linked-tag"] {color: purple}' ,
+        'a:link   [data-link-name="auto-linked-tag"] {color: #00e766} a:link:hover[data-link-name="auto-linked-tag"] {color: #00f} div.explainer {background-color: #002b45;' + dark_theme_foreground_rule + 'border: 1px solid ' + dark_theme_foreground_color + '}' + 
+        '.tonal--tone-live, .content__main, .block--content, .navigation, .local-navigation, .navigation-container, .navigation:before, .top-navigation, .navigation-toggle, .navigation__container--first, .signposting {' + dark_theme_background_rule + '}' +
+        '.signposting {border-right-width:0} a:visited[data-link-name="auto-linked-tag"] {color: #99d700} a:visited:hover[data-link-name="auto-linked-tag"] {color: purple} .tonal__standfirst, .tonal__header, .content__standfirst, .content__headline {' + 
+        dark_theme_background_rule + dark_theme_foreground_rule + '}',
       css_hides: '.adverts, .site-message',
       css_article_hides: '.element-video, .contributions__epic, .js-outbrain, .related, .submeta, #onward, #more-in-section, .element-pullquote, .element-rich-link, .meta__twitter, .meta__extras, .meta__email, .selection-sharing, .block-share',
       css_homepage_hides: '.footer__email-container, div.image>div.video, #securedrop',
+      dark_theme: 1,
     },
     {
       name: 'Washington Post',
@@ -140,7 +144,7 @@ $(function () {
         '.headline {font-family: "PostoniWide", Georgia, serif} a, .powerpost-header, .layout_article #top-content {border-bottom: none} p {line-height: 155%} body {overflow-y: visible}',
       css_article_hides: '#wp-header, #top-furniture, .pb-f-ad-flex-2, .pb-f-ad-flex-3, .pb-f-games-gamesWidget, .pb-f-page-footer-v2, .pb-f-page-recommended-strip, .pb-f-page-editors-picks, .chain-wrapper, .extra, .pb-f-generic-promo-image, .interstitial-link,' +
         '.pg-interstitial-link, .pb-f-posttv-sticky-player, .pb-f-posttv-sticky-player-powa, .pb-f-article-article-author-bio, .pb-tool.email, .pb-f-page-newsletter-inLine, .pb-f-page-comments, .inline-video, [channel="wp.com"], .pb-f-page-jobs-search,' +
-        '.pb-f-homepage-story, .pb-f-sharebars-top-share-bar, .wp_signin, #wp_Signin, .inline-graphic-linked, .share-individual',
+        '.pb-f-homepage-story, .pb-f-sharebars-top-share-bar, .wp_signin, #wp_Signin, .inline-graphic-linked, .share-individual, .pb-f-page-trump-can-he-do-that-podcast',
       css_homepage_rules: 'header {position: relative} .pb-f-homepage-story .headline a, .related-links a, #bottom-content a {font-family: "PostoniWide", Georgia, serif; font-weight: normal}',
       css_homepage_hides: '.pb-f-homepage-brandconnect-sidebar, .section-story-photo-1',
       unwanted_query_fields: 'hpid tid utm_term wpisrc wpmk',
@@ -203,6 +207,11 @@ $(function () {
         //console.log(47, direct_text_content(content_body_element_children [61]));
         //console.log(49, direct_text_content(content_body_element_children [62]));
       }
+    },
+    {
+      name: 'The Verge',
+      origin: 'https://www.theverge.com',
+      css_article_hides: '.c-entry-content>[class^=c-float-]>aside>q',
     },
     {
       name: 'Vox',
@@ -474,7 +483,7 @@ $(function () {
     });
     //console.log(74, site_data.append_loaded_date);
     if      (!site_data                 .hasOwnProperty('append_loaded_date'      )) site_data.append_loaded_date             = 'body';
-    if      (!site_data                 .hasOwnProperty('dark_theme'              )) site_data.dark_theme                     = 2;
+    if      (!site_data                 .hasOwnProperty('dark_theme'              )) site_data.dark_theme                     = 1;
     if      (!site_data                 .hasOwnProperty('std_link_colors'         )) site_data.std_link_colors                = true;
 
     if      (!site_data                 .hasOwnProperty('count_words'             )) site_data.count_words                    = {};
