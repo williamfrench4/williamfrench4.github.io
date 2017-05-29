@@ -25,38 +25,18 @@ $(function () {
     theme_foreground_rule  =            'color: ' + theme_foreground_color + '; text-shadow: none;',
      program_name = 'wmaster';
   var
-    alternate,
-    alternates,
-    alternates_length,
-    hide_selector,
-    css_rules,
-    css_rules_split,
-    css_text,
-    location,
-    location_href,
-    location_origin,
-    location_pathname,
-    page_level,
-    prefix_index,
-    site_data,
-    sites_data,
-    sites_data_by_prefix,
-    sites_data_length,
-    stylesheet,
-    theme_background_selector,
-    theme_foreground_selector,
-    theme_selector,
-    unwanted_classes,
-    unwanted_classes_split;
+    alternate, alternates, alternates_length, css_rules, css_rules_split, css_text, hide_selector, location, location_href, location_origin, location_pathname, page_level, prefix_index,
+    site_data, sites_data, sites_data_by_prefix, sites_data_length, stylesheet, theme_background_selector, theme_foreground_selector, theme_selector, unwanted_classes, unwanted_classes_split;
 
   sites_data = [
     {
       name: 'New York Times',
-      alternate_origins: ['https://cooking.nytimes.com'],
+      alternate_origins: ['https://cooking.nytimes.com', 'https://douthat.blogs.nytimes.com', 'https://kristof.blogs.nytimes.com', 'https://www.nytimes.com/section/magazine'],
       alternate_prefixes: ['file:///root/wayback/nytimes/', 'file:///root/wayback/nytimes_todayspaper/'],
       count_words: {append: '.byline:last-of-type,.byline-column', prefix: ' ', subject: '.story-body'},
-      article_theme_selector: '.masthead .masthead-menu li, .headline, .kicker, .dateline, .story-quote, .caption, figcaption, input, textarea', // NYT dark theme
-      article_theme_foreground_selector: 'h1, .dropcap',
+      article_theme_selector: '.masthead .masthead-menu li, .headline, .kicker, .dateline, .story-quote, .caption, figcaption, input, textarea, .columnGroup', // NYT dark theme
+      article_theme_background_selector: '.bcColumn, .cColumn', // NYT dark theme
+      article_theme_foreground_selector: 'h1, h2, h3, h4, h5, h6, .dropcap',
       article_css: '.App__app {margin-top: 0} .story-body-text {font-family: "Times New Roman"} .caption-text {font-family: Helvetica} .story-header, .image {position: relative}' +
         'input, textarea {background-image: none} .shell {padding-top: 0} .main {border-top: none} .nytg-chart {color: #000; background-color: #fff}' + // NYT dark theme
         'figure.layout-vertical-full-bleed .image img {width: 47%; margin-left: 30px}' +
@@ -65,21 +45,20 @@ $(function () {
         'figure.layout-jumbo-horizontal .image img {width: 87%; margin-left: 30px}' +
         'figure.layout-large-vertical .image img {width: 47%; margin-left: 30px}' +
         'figure.layout-jumbo-vertical .image img {width: 47%; margin-left: 30px}',
-      article_hide_selector: 'nav, #masthead, .newsletter-signup, #whats-next, #site-index, .story-meta-footer-sharetools, .comments-button, [id="18-insider-promo-module"], #obstruction-justice-promo, #how-republican-voted-on-health-bill, #brexit-latest-fallout-tracker,' +
+      article_hide_selector: 'nav, #masthead, .newsletter-signup, #whats-next, #site-index, .story-meta-footer-sharetools, .comments-button, [id="18-insider-promo-module"], #obstruction-justice-promo, #how-republican-voted-on-health-bill, #brexit-latest-fallout-tracker, #news-tips-article-promo, .cColumn>.first, ' +
         '#story-ad-1-wrapper, #story-ad-2-wrapper, #story-ad-3-wrapper, #story-ad-4-wrapper, #opinion-aca-callout, #next-steps-for-health-care-bill, [id="06up-acachart"], #house-vote-republican-health-care-bill, #morning-briefing-weather-module, #nyt-weather,' +
         '#related-combined-coverage, .text-ad, #comey-promo, figure.video, .page-footer, .story-info, .story-print-citation, #fbi-congress-trump-russia-investigations, .vis-survey-box, #oil-prices, #Ask-Real-Estate-Promo, #wannacry-ransomware-map,' +
         '#how-self-driving-cars-work, #ransomware-attack-coverage, #fall-upfront-2017, figure[id*=pullquote], figure[id*=email-promo], figure[id*=DAILY-player], #why-its-so-hard-to-have-an-independent-russia-investigation, #navigation-edge, #europe-terror-attacks, ' +
-        '#document-Robert-Mueller-Special-Counsel-Russia, #julian-assange-timeline, #anthony-weiner-plea-agreement, #assange-fblive-promo',
+        '#document-Robert-Mueller-Special-Counsel-Russia, #julian-assange-timeline, #anthony-weiner-plea-agreement, #assange-fblive-promo, .meter-asset-wrapper',
       homepage_theme_foreground_selector: '.summary', // NYT dark theme
       //homepage_css: 'header {background-color: #aaa}', // NYT dark theme
-      homepage_hide_selector: '#masthead-placeholder, .masthead-cap-container, div.editions.tab, #nytint-hp-watching, #site-index .section-header, #markets, .all-sections-button, #mini-navigation, #WelcomAd_optly',
+      homepage_hide_selector: '#masthead-placeholder, .masthead-cap-container, div.editions.tab, #nytint-hp-watching, #site-index .section-header, #markets, .all-sections-button, #mini-navigation, #WelcomeAd_optly',
       hide_selector: '.ad',
       theme_selector: 'body, #masthead', // NYT dark theme
-      css_rules: '' + 
-        '.story.theme-main .story-meta-footer {border-top: none; border-bottom: none}',
+      css_rules: '.story.theme-main .story-meta-footer {border-top: none; border-bottom: none}',
       dark_theme: 1, // to turn this off, change the 1 to a 0 and comment out all other lines that are commented "NYT dark theme"
       origin: 'https://www.nytimes.com',
-      unwanted_query_fields: 'action clickSource contentCollection contentPlacement hp module pgtype _r ref region rref smid smtyp src version WT.nav WT.z_jog hF vS utm_campaign utm_content utm_medium utm_source t target',
+      unwanted_query_fields: 'action clickSource contentCollection contentPlacement hp module pgtype _r ref region rref smid smtyp src version WT.nav WT.z_jog hF vS utm_campaign utm_content utm_medium utm_source t target mcubz',
       unwanted_classes: 'theme-pinned-masthead',
       customize: function () {
         const js_header_class_signature = 'Masthead-mastheadContainer--';
@@ -115,6 +94,11 @@ $(function () {
           if (logo_element) logo_element.innerHTML = '<img width="573" height="138" src="file:/home/will/public_html/green_york_times.png">';
           else console.log('warning: logo not found');
         }
+        $('img.g-lazy').each(function (element_index, element) {
+          var $element = $(element);
+          $element.css({'padding-top': '0'});
+          element.src = element.dataset.hiRes || element.dataset.hiResSrc;
+        });
         //remove_fixed_positioning(site_data);
       },
     },
@@ -123,6 +107,7 @@ $(function () {
       origin: 'https://www.theguardian.com',
       alternate_origins: ['https://interactive.guim.co.uk/'],
       alternate_prefixes: ['file:///root/wayback/guardian_uk/'],
+      alternate_homepages: ['https://www.theguardian.com/us', 'https://www.theguardian.com/uk'],
       append_loaded_date: 'footer.l-footer',
       count_words: {append: '.content__dateline, .content__standfirst', subject: '.content__article-body'},
       article_css: '.js-headline-text {font-weight: normal} p {line-height: 170%} a {border-bottom: none} figure.element-tweet {margin-right: 4rem} img.byline-img__img {background: transparent} .content__article-body {font-family: "Adobe Caslon Pro"}' +
@@ -130,11 +115,11 @@ $(function () {
         '.signposting {border-right-width:0} a:visited[data-link-name="auto-linked-tag"] {color: #99d700} a:visited:hover[data-link-name="auto-linked-tag"] {color: purple}' +
         '.tabs__tab {border-top: 0.0625rem solid #aaa}',
       article_theme_selector: '.tonal__standfirst, .tonal__header, .content__standfirst, .content__headline, .byline',
-      article_theme_background_selector: '.tonal--tone-live, .tonal--tone-editorial, .tonal--tone-feature, .tonal--tone-comment, .tonal--tone-review, .content__main, .block--content, .navigation, .local-navigation, .navigation-container, .navigation:before,' +
+      article_theme_background_selector: '.tonal--tone-live, .tonal--tone-editorial, .tonal--tone-feature, .tonal--tone-comment, .tonal--tone-analysis, .tonal--tone-review, .content__main, .block--content, .navigation, .local-navigation, .navigation-container, .navigation:before,' +
         '.top-navigation, .navigation-toggle, .navigation__container--first, .signposting, .tabs__tab--selected a, .tabs__tab--selected .tab__link, .tabs__tab a, .tabs__tab .tab__link',
       article_theme_foreground_selector: '.content__dateline, div.explainer',
       hide_selector: '.adverts, .site-message',
-      article_hide_selector: '.element-video, .contributions__epic, .js-outbrain, .related, .submeta, #onward, #more-in-section, .element-pullquote, .element-rich-link, .meta__twitter, .meta__extras, .meta__email, .selection-sharing, .block-share,' +
+      article_hide_selector: '.element-video, .contributions__epic, .js-outbrain, .related, .submeta, #onward, #more-in-section, .element-pullquote, .element-rich-link, .meta__twitter, .meta__extras, .meta__email, .selection-sharing, .block-share, .ad-slot, ' +
         'figure[data-canonical-url="https://interactive.guim.co.uk/embed/2017/05/americas-unequal-future/embed.html"]',
       homepage_hide_selector: '.footer__email-container, div.image>div.video, #securedrop',
       homepage_theme_selector: '.fc-container--story-package, .facia-page, .index-page, .voices-and-votes-container__wrapper, .l-side-margins, .fc-container--thrasher, .tone-news--item.fc-item, .u-faux-block-link--hover, .tone-feature--item, .fc-container--story-package .fc-item, .tone-analysis--item.fc-item, .tone-comment--item.fc-item, .tone-editorial--item, .tone-media--item, .tone-review--item',
@@ -310,8 +295,8 @@ $(function () {
       name: 'National Review',
       origin: 'http://www.nationalreview.com',
       count_words: {append: 'time', subject: '[itemprop="articleBody"]'},
-      article_hide_selector: '.horizontal-share-menu, .twitter-follow-header, .pullquote',
-      //dark_theme: 0,
+      article_hide_selector: '.horizontal-share-menu, .twitter-follow-header, .pullquote, .pullad',
+      dark_theme: 2,
     },
     {
       name: 'The Federalist',
@@ -657,9 +642,9 @@ $(function () {
   }
 
   function regularize_links() {
-    //console.log(10);
+    console.log(10);
     $.each ($('a'), function (element_index, element) {
-      //console.log(11);
+      console.log(11);
       var
         href = element.href,
         origin = element.origin,
@@ -686,6 +671,7 @@ $(function () {
         console.log(22, query_params.toString());
         $.each(unwanted_query_fields_array, function (field_index, field) {
           query_params.delete(field);
+          //console.log(22.5, field, query_params.toString());
         });
         console.log(23, query_params.toString());
         query_string = query_params.toString();
@@ -765,7 +751,7 @@ $(function () {
     });
   }
 
-
+  console.log(91);
   location = window.location;
   location_href = location.href;
   location_origin = location.origin;
@@ -773,14 +759,34 @@ $(function () {
   sites_data_length = sites_data.length;
   $.each (sites_data, function (site_index, test_site_data) {
     test_site_data.id = site_index;
-    //console.log(33, test_site_data.name, location_origin);
+    console.log(33, test_site_data.name, location_origin, test_site_data.origin);
+    if (test_site_data.origin && location_origin == test_site_data.origin) {
+      if (location_href == location_origin + '/') {
+        site_data = test_site_data;
+        page_level = 0;
+        return false;
+      }
+    }
+    console.log(92);
+    if (test_site_data.alternate_homepages) {
+      alternates = test_site_data.alternate_homepages;
+      alternates_length = alternates.length;
+      for (prefix_index = 0; prefix_index < alternates_length; prefix_index++) {
+        alternate = alternates [prefix_index];
+        console.log(92.5, location_href, alternate);
+        if (location_href == alternate) {
+          site_data = test_site_data;
+          page_level = 0;
+          console.log(92.6);
+          break;
+        }
+      }
+      if (site_data) return false;
+    }
+    console.log(93);
     if (test_site_data.origin && location_origin == test_site_data.origin) {
       site_data = test_site_data;
-      if (location_href == location_origin + '/') {
-        page_level = 0;
-      } else {
-        page_level = 2;
-      }
+      page_level = 2;
       return false;
     }
     if (test_site_data.alternate_prefixes) {
@@ -796,6 +802,7 @@ $(function () {
       }
       if (site_data) return false;
     }
+    console.log(94);
     if (test_site_data.alternate_origins) {
       alternates = test_site_data.alternate_origins;
       alternates_length = alternates.length;
@@ -814,6 +821,7 @@ $(function () {
       }
       if (site_data) return false;
     }
+    console.log(95);
   });
   if (site_data) {
     //alert(site_data.name + ' detected');
@@ -832,7 +840,7 @@ $(function () {
     console.log(44, site_data);
     regularize_links();
     unwanted_classes = site_data.unwanted_classes;
-    //console.log(14);
+    //console.log(14, site_data);
     if (unwanted_classes) {
        unwanted_classes_split = unwanted_classes.split(/\s+/);
       $.each(unwanted_classes_split, function(unwanted_class_index, unwanted_class) {
