@@ -25,7 +25,7 @@ $(function () {
     theme_foreground_rule  =            'color: ' + theme_foreground_color + '; text-shadow: none;',
      program_name = 'wmaster';
   var
-    alternate, alternates, alternates_length, css_rules, css_rules_split, css_text, hide_selector, location, location_href, location_origin, location_pathname, page_level, prefix_index,
+    alternate, alternates, alternates_length, cooked_site_css, raw_site_css, raw_site_css_split, hide_selector, location, location_href, location_origin, location_pathname, page_level, prefix_index,
     site_data, sites_data, sites_data_by_prefix, sites_data_length, stylesheet, theme_background_selector, theme_foreground_selector, theme_selector, unwanted_classes, unwanted_classes_split;
 
   sites_data = [
@@ -33,12 +33,14 @@ $(function () {
       name: 'New York Times',
       alternate_origins: ['https://cooking.nytimes.com', 'https://douthat.blogs.nytimes.com', 'https://kristof.blogs.nytimes.com', 'https://www.nytimes.com/section/magazine'],
       alternate_prefixes: ['file:///root/wayback/nytimes/', 'file:///root/wayback/nytimes_todayspaper/'],
-      count_words: {append: '.byline:last-of-type,.byline-column', prefix: ' ', subject: '.story-body'},
+      count_words: {append: '.byline:last-of-type, .byline-column', prefix: ' ', subject: '.story-body'},
       article_theme_selector: '.masthead .masthead-menu li, .headline, .kicker, .dateline, .story-quote, .caption, figcaption, input, textarea, .columnGroup', // NYT dark theme
       article_theme_background_selector: '.bcColumn, .cColumn', // NYT dark theme
-      article_theme_foreground_selector: 'h1, h2, h3, h4, h5, h6, .dropcap',
+      article_theme_foreground_selector: 'h1, h2, h3, h4, h5, h6, .dropcap, ' +
+        selector_for_elements_with_a_class_that_starts_with('ResponsiveMedia-captionText--'),
       article_css: '.App__app {margin-top: 0} .story-body-text {font-family: "Times New Roman"} .caption-text {font-family: Helvetica} .story-header, .image {position: relative}' +
         'input, textarea {background-image: none} .shell {padding-top: 0} .main {border-top: none} .nytg-chart {color: #000; background-color: #fff}' + // NYT dark theme
+        selector_for_elements_with_a_class_that_starts_with('SectionBar-sectionBar--') + '{border-width: 0} ' +
         'figure.layout-vertical-full-bleed .image img {width: 47%; margin-left: 30px}' +
         'figure.layout-small-horizontal .image img {width: 98%; margin-left: 5px}' +
         'figure.layout-large-horizontal .image img {width: 47%; margin-left: 30px}' +
@@ -47,32 +49,41 @@ $(function () {
         'figure.layout-jumbo-vertical .image img {width: 47%; margin-left: 30px}',
       article_hide_selector: 'nav, #masthead, .newsletter-signup, #whats-next, #site-index, .story-meta-footer-sharetools, .comments-button, [id="18-insider-promo-module"], #obstruction-justice-promo, #how-republican-voted-on-health-bill, #brexit-latest-fallout-tracker, #news-tips-article-promo, .cColumn>.first, ' +
         '#story-ad-1-wrapper, #story-ad-2-wrapper, #story-ad-3-wrapper, #story-ad-4-wrapper, #opinion-aca-callout, #next-steps-for-health-care-bill, [id="06up-acachart"], #house-vote-republican-health-care-bill, #morning-briefing-weather-module, #nyt-weather,' +
-        '#related-combined-coverage, .text-ad, #comey-promo, figure.video, .page-footer, .story-info, .story-print-citation, #fbi-congress-trump-russia-investigations, .vis-survey-box, #oil-prices, #Ask-Real-Estate-Promo, #wannacry-ransomware-map,' +
+        '#related-combined-coverage, .text-ad, #comey-promo, figure.video, .page-footer, .story-info, .story-print-citation, #fbi-congress-trump-russia-investigations, .vis-survey-box, #oil-prices, #Ask-Real-Estate-Promo, #wannacry-ransomware-map, #app > div > div' +
         '#how-self-driving-cars-work, #ransomware-attack-coverage, #fall-upfront-2017, figure[id*=pullquote], figure[id*=email-promo], figure[id*=DAILY-player], #why-its-so-hard-to-have-an-independent-russia-investigation, #navigation-edge, #europe-terror-attacks, ' +
-        '#document-Robert-Mueller-Special-Counsel-Russia, #julian-assange-timeline, #anthony-weiner-plea-agreement, #assange-fblive-promo, .meter-asset-wrapper',
+        '#document-Robert-Mueller-Special-Counsel-Russia, #julian-assange-timeline, #anthony-weiner-plea-agreement, #assange-fblive-promo, .meter-asset-wrapper, ' +
+        selector_for_elements_with_a_class_that_starts_with('Masthead-mastheadContainer--') + ',' +
+        selector_for_elements_with_a_class_that_starts_with('SectionBarShare-shareMenu--') + ',' +
+        selector_for_elements_with_a_class_that_starts_with('Recirculation-recirculation--'),
       homepage_theme_foreground_selector: '.summary', // NYT dark theme
       //homepage_css: 'header {background-color: #aaa}', // NYT dark theme
       homepage_hide_selector: '#masthead-placeholder, .masthead-cap-container, div.editions.tab, #nytint-hp-watching, #site-index .section-header, #markets, .all-sections-button, #mini-navigation, #WelcomeAd_optly',
       hide_selector: '.ad',
       theme_selector: 'body, #masthead', // NYT dark theme
-      css_rules: '.story.theme-main .story-meta-footer {border-top: none; border-bottom: none}',
+      site_css: '.story.theme-main .story-meta-footer {border-top: none; border-bottom: none}',
       dark_theme: 1, // to turn this off, change the 1 to a 0 and comment out all other lines that are commented "NYT dark theme"
       origin: 'https://www.nytimes.com',
       unwanted_query_fields: 'action clickSource contentCollection contentPlacement hp module pgtype _r ref region rref smid smtyp src version WT.nav WT.z_jog hF vS utm_campaign utm_content utm_medium utm_source t target mcubz',
       unwanted_classes: 'theme-pinned-masthead',
       customize: function () {
-        const js_header_class_signature = 'Masthead-mastheadContainer--';
+        const
+          //js_header_class_signature = 'Masthead-mastheadContainer--',
+          js_header_selector = selector_for_elements_with_a_class_that_starts_with('HeaderBasic-bylineTimestamp--');
         var
-          class_list,
-          js_header_class_name = false,
-          js_header_element,
+          //class_list,
+          //js_header_class_name = false,
+          //js_header_element,
           logo_element;
+        this.article_theme_foreground_selector += ',' + selector_for_elements_with_a_class_that_starts_with('HeaderBasic-headerBasic--');
+        this.count_words.append                += ',' + js_header_selector;
+        console.log(11, this.article_theme_foreground_selector);
         if (location_href.indexOf('?') != -1) return; //alert(location_href);
         if (page_level == 2) {
           $('figure.video').css({'width': '30%', 'margin-left': '30px'});
           $('.g-artboard' ).css({'width': '90%', 'margin-left': '30px'});
           document.styleSheets[0].addRule('.g-artboard *, .g-graphic *, .nytg-chart *', 'background-color: transparent !important; color: #000 !important');
-          //css_text += ' .interactive-graphic * {background-color: #fff !important; color: #000 !important}';
+          //cooked_site_css += ' .interactive-graphic * {background-color: #fff !important; color: #000 !important}';
+          /* This block replaced by selector_for_elements_with_a_class_that_starts_with('Masthead-mastheadContainer--')
           js_header_element = $('#app>:first-child>:first-child') [0];
           if (js_header_element) {
             //console.log(44, js_header_element);
@@ -84,10 +95,11 @@ $(function () {
                 return false; // break out of class_list loop
               }
             });
-            if (js_header_class_name) hide_selector += '.' + js_header_class_name;
+            if (js_header_class_name) hide_selector += ', .' + js_header_class_name;
             else alert('class signature "' + js_header_class_signature + '" not found in list "' + class_list + '"');
             //console.log(47, hide_selector);
           }
+          */
         } else {
           Object.freeze(document.location);
           logo_element = $('h2.branding') [0];
@@ -123,6 +135,7 @@ $(function () {
         'figure[data-canonical-url="https://interactive.guim.co.uk/embed/2017/05/americas-unequal-future/embed.html"]',
       homepage_hide_selector: '.footer__email-container, div.image>div.video, #securedrop',
       homepage_theme_selector: '.fc-container--story-package, .facia-page, .index-page, .voices-and-votes-container__wrapper, .l-side-margins, .fc-container--thrasher, .tone-news--item.fc-item, .u-faux-block-link--hover, .tone-feature--item, .fc-container--story-package .fc-item, .tone-analysis--item.fc-item, .tone-comment--item.fc-item, .tone-editorial--item, .tone-media--item, .tone-review--item',
+      homepage_css: '.tone-live--item {background-color: #5a0b00}',
       dark_theme: 1,
     },
     {
@@ -130,19 +143,22 @@ $(function () {
       origin: 'https://www.washingtonpost.com',
       alternate_origins: ['http://www.washingtonpost.com', 'https://live.washingtonpost.com'],
       alternate_prefixes: ['file:///root/wayback/washingtonpost/'],
-      count_words: {append: '.pg-pubDate, .bottomizer, .pb-sig-line, .pbHeader', subject: '#article-body>article, #pg-content>article'},
-      theme_selector: 'body, .skin.skin-card, .skin.skin-button, input',
-      //hide_selector:'.pb-f-page-post-most img',
-      article_theme_selector: '#article-body, article p, .pg-bodyCopy, h1',
-      article_css: '#main-content {background-image: none} #et-nav {position: absolute}.headline {font-family: "PostoniWide", Georgia, serif} a, .powerpost-header, .layout_article #top-content {border-bottom: none} p {line-height: 155%} body {overflow-y: visible}', //.pb-f-homepage-story {background-color: #300},
-      article_theme_background_selector: '.wp-volt-gal-embed-promo-container, .wp-volt-gal-embed-promo-bottom',
+      article_css: '#main-content {background-image: none} #et-nav {position: absolute}.headline {font-family: sans-serif} a, .powerpost-header, .layout_article #top-content {border-bottom: none} p {line-height: 155%} body {overflow-y: visible}', //.pb-f-homepage-story {background-color: #300},
       article_hide_selector: '#wp-header, #top-furniture, .pb-f-ad-flex-2, .pb-f-ad-flex-3, .pb-f-games-gamesWidget, .pb-f-page-footer-v2, .pb-f-page-recommended-strip, .pb-f-page-editors-picks, .chain-wrapper, .extra, .pb-f-generic-promo-image, .interstitial-link,' +
         '.pg-interstitial-link, .pb-f-posttv-sticky-player, .pb-f-posttv-sticky-player-powa, .pb-f-article-article-author-bio, .pb-tool.email, .pb-f-page-newsletter-inLine, .pb-f-page-comments, .inline-video, [channel="wp.com"], .pb-f-page-jobs-search,' +
         '.pb-f-homepage-story, .pb-f-sharebars-top-share-bar, .wp_signin, #wp_Signin, .inline-graphic-linked, .share-individual, .pb-f-page-trump-can-he-do-that-podcast',
-      homepage_css: 'header {position: relative} .pb-f-homepage-story .headline a, .related-links a, #bottom-content a {font-family: "PostoniWide", Georgia, serif; font-weight: normal}',
-      homepage_theme_background_selector: '#pb-root, .pb-f-homepage-card .panel, .homepage-footer-button, .pb-f-page-todays-paper-rr .large, .pb-f-homepage-chat-schedule .chat-schedule-button a',
+      article_theme_selector: '#article-body, article p, .pg-bodyCopy',
+      article_theme_background_selector: '.wp-volt-gal-embed-promo-container, .wp-volt-gal-embed-promo-bottom',
+      article_theme_foreground_selector: '.pb-caption, h1, h2',
+      count_words: {append: '.pg-pubDate, .bottomizer, .pb-sig-line, .pbHeader', subject: '#article-body>article, #pg-content>article'},
+      site_css: '.overlineLabel {font-family: "Helvetica Black", sans-serif; font-weight: bold}',
+      homepage_css: 'header {position: relative} .pb-f-homepage-story .headline a, .related-links a, #bottom-content a {font-family: sans-serif; font-weight: normal}',
+      homepage_theme_background_selector: '#pb-root, .homepage-footer-button, .pb-f-page-todays-paper-rr .large, .pb-f-homepage-chat-schedule .chat-schedule-button a',
+      homepage_theme_selector: '.pb-f-homepage-card .panel',
+      //hide_selector:'.pb-f-page-post-most img',
       homepage_theme_foreground_selector: '.blurb',
       homepage_hide_selector: '.pb-f-homepage-brandconnect-sidebar, .section-story-photo-1', //, .standard-chain img, .opinions-chain img',
+      theme_selector: 'body, .skin.skin-card, .skin.skin-button, input',
       unwanted_query_fields: 'hpid tid utm_term wpisrc wpmk',
       customize: function () {
         var stylesheet_links = $("link[rel='stylesheet']");
@@ -213,9 +229,10 @@ $(function () {
       name: 'Vox',
       origin: 'https://www.vox.com',
       article_hide_selector: '.main-social, .c-article-feedback, .c-tab-bar, .c-rock-newsletter',
-      css_rules: '.c-global-header__logo path {fill: ' + theme_foreground_color + '}',
-      article_theme_background_selector: 'header .l-wrapper {max-width: none} .l-main-content, .c-global-header:before, .c-global-header__logo, .c-rock-list__title-wrapper:before',
+      article_theme_background_selector: 'header .l-wrapper {max-width: none} .l-main-content, .c-global-header:before, .c-global-header__logo, .c-rock-list__title-wrapper:before, .c-compact-river__entry, .c-footer',
       article_theme_foreground_selector: '.c-page-title, .c-byline, .p-dek, .p-rock-head',
+      count_words: {append: '.c-byline', subject: '.c-entry-content'},
+      site_css: '.c-global-header__logo path {fill: ' + theme_foreground_color + '} .c-compact-river__entry, .c-footer {border-top-width: 0}',
     },
     {
       name: 'USA Today',
@@ -316,9 +333,10 @@ $(function () {
     {
       name: 'Reuters',
       origin: 'http://www.reuters.com',
-      count_words: {append: '#article-byline', subject: '#article-text', nbsp_size: '100%'},
-      article_hide_selector: '#headerNav, .edition-header, .core-share, .related-content',
       article_css: '.wmaster_total_words_count {font-size: 150%; margin-left: 0.3em}',
+      article_hide_selector: '#headerNav, .edition-header, .core-share, .related-content',
+      article_theme_foreground_selector: '#article-text p, .article-headline',
+      count_words: {append: '#article-byline', subject: '#article-text', nbsp_size: '100%'},
       unwanted_classes: 'mod-sticky-article article-sticky',
     },
     {
@@ -367,6 +385,19 @@ $(function () {
       article_hide_selector: '.header-bar.utility, .sticky, .twitter-quote, .takeaction, .article-share, #paywall, aside.related-article',
       article_css: 'body {overflow: visible}',
       count_words: {append: '.byline', subject: '.article-body'},
+    },
+    {
+      name: 'The Baltimore Sun',
+      origin: 'http://www.baltimoresun.com',
+      article_hide_selector: '.trb_nls_c, .trb_bnn, .trb_mh_adB', //, aside:has([data-content-kicker="Related"])',
+      article_theme_background_selector: '.trb_allContentWrapper, .trb_nh_lw',
+      article_theme_foreground_selector: '.trb_ar_page>ol, .trb_ar_page>p, .trb_ar_page>ul, .trb_ar_page[data-content-page="1"]>p:first-child:first-letter',
+      //article_css: 'body {overflow: visible}',
+      count_words: {append: '.trb_ar_dateline', subject: '[itemprop=articleBody'},
+      //count_words: {append: '.byline', subject: '.article-body'},
+      customize: function () {
+        $('aside:has([data-content-kicker="Related"])').hide(); // This would be in article_hide_selector, but that fails enigmatically as of 2017-05-30
+      },
     },
     {
       name: 'The Week',
@@ -484,7 +515,7 @@ $(function () {
     if      (!site_data                 .hasOwnProperty('dark_theme'              )) site_data.dark_theme                     = 1;
     if      (!site_data                 .hasOwnProperty('std_link_colors'         )) site_data.std_link_colors                = true;
     if      (!site_data                 .hasOwnProperty('theme_selector'            )) site_data.theme_selector                   = 'body';
-    if      (!site_data                 .hasOwnProperty('theme_background_selector' )) site_data.theme_background_selector        = '';
+    if      (!site_data                 .hasOwnProperty('theme_background_selector' )) site_data.theme_background_selector        = ''; 
     if      (!site_data                 .hasOwnProperty('theme_foreground_selector' )) site_data.theme_foreground_selector        = '';
 
     if      (!site_data                 .hasOwnProperty('count_words'             )) site_data.count_words                    = {};
@@ -517,6 +548,13 @@ $(function () {
       if (child_node.nodeType === 3) text += child_node.textContent;
     });
     return text;
+  }
+
+  function selector_for_elements_with_a_class_that_starts_with(target) {
+    const logging = true;
+    var result =  '[class^="' + target + '"], [class*=" ' + target + '"]';
+    if (logging) console.log(31, target, result);
+    return result;
   }
 
 
@@ -631,20 +669,21 @@ $(function () {
     if (!aggressiveness_level) return;
     //$('body').css({'background-color': '' + theme_background_color + ' !important; color: ' + theme_foreground_color + ' !important'});
     if (aggressiveness_level > 1) document.styleSheets[0].addRule('*', 'background-color: ' + theme_background_color + ' !important; color: ' + theme_foreground_color + ' !important');
-    //css_rules += target + '{' + theme_background_rule + theme_foreground_rule + '}';
-    css_rules += '::-webkit-scrollbar {height: 2px; width: 2px} ::-webkit-scrollbar-track {background: #000} ::-webkit-scrollbar-thumb {background: #f00} ';
+    //raw_site_css += target + '{' + theme_background_rule + theme_foreground_rule + '}';
+    raw_site_css += '::-webkit-scrollbar {height: 2px; width: 2px} ::-webkit-scrollbar-track {background: #000} ::-webkit-scrollbar-thumb {background: #f00} ';
   }
 
   function std_link_colors() {
-    css_rules += ' a {text-decoration: none}' +
+    raw_site_css += ' a {text-decoration: none}' +
       ' a:link, a:link h2, a:link h3, a:link h4, a:link h5, a:link div, a:link p, a:link span, a:link em {color: #00f}' +
       ' a:visited, a:visited h2, a:visited h3, a:visited h4, a:visited h5, a:visited div, a:visited p, a:visited span, a:visited em {color: #a0a}';
   }
 
   function regularize_links() {
-    console.log(10);
+  const logging = false;
+    if (logging) console.log(10);
     $.each ($('a'), function (element_index, element) {
-      console.log(11);
+      if (logging) console.log(11);
       var
         href = element.href,
         origin = element.origin,
@@ -662,25 +701,25 @@ $(function () {
       if (!unwanted_query_fields_array) return;
       unwanted_query_fields_array_length = unwanted_query_fields_array.length;
       query_string_index = href.indexOf('?');
-      console.log(12, href);
+      if (logging) console.log(12, href);
       if (query_string_index !== -1) {
-        console.log('20');
+        if (logging) console.log('20');
         query_string = href.substring(query_string_index);
         url_without_query_string = href.substring(0, query_string_index);
         query_params = new URLSearchParams(query_string);
-        console.log(22, query_params.toString());
+        if (logging) console.log(22, query_params.toString());
         $.each(unwanted_query_fields_array, function (field_index, field) {
           query_params.delete(field);
-          //console.log(22.5, field, query_params.toString());
+          if (logging) console.log(22.5, field, query_params.toString());
         });
-        console.log(23, query_params.toString());
+        if (logging) console.log(23, query_params.toString());
         query_string = query_params.toString();
-        console.log(24, query_string);
+        if (logging) console.log(24, query_string);
         href = url_without_query_string;
         if (query_string.length) href += '?' + query_string;
         element.href = href;
       }
-      console.log(17, href);
+      if (logging) console.log(17, href);
     });
   }
 
@@ -727,8 +766,8 @@ $(function () {
       console.log(96, prepend_selector, $prepend_elements);
     }
     console.log(97, nbsp_size);
-    if (show_graf_counts) css_rules += '.' +  graf_words_count_name + ' {color: #333}';
-    css_rules                       += '.' + total_words_count_name + ' {color: #880} .' + total_words_count_name + '>.nbsp {font-size: ' + nbsp_size + '}';
+    if (show_graf_counts) raw_site_css += '.' +  graf_words_count_name + ' {color: #333}';
+    raw_site_css                       += '.' + total_words_count_name + ' {color: #880} .' + total_words_count_name + '>.nbsp {font-size: ' + nbsp_size + '}';
   }
   
   function append_loaded_date(e) {
@@ -825,6 +864,7 @@ $(function () {
   });
   if (site_data) {
     //alert(site_data.name + ' detected');
+    if (site_data.customize) site_data.customize();
     if (site_data.theme_selector           ) theme_selector            = [site_data.theme_selector           ];
     else                                     theme_selector            = [                                   ];
     if (site_data.theme_background_selector) theme_background_selector = [site_data.theme_background_selector];
@@ -833,9 +873,10 @@ $(function () {
     else                                     theme_foreground_selector = [                                   ];
     if (site_data.hide_selector            ) hide_selector             = [site_data.hide_selector            ];
     else                                     hide_selector             = [                                   ];
-    if (site_data.css_rules                ) css_rules                 = site_data.css_rules;
-    else                                     css_rules                 = '';
-    css_text = '';
+    console.log(48.1, theme_foreground_selector);
+    if (site_data.site_css                 ) raw_site_css              = site_data.site_css;
+    else                                     raw_site_css              = '';
+    cooked_site_css = '';
     if (site_data.std_link_colors) std_link_colors();
     console.log(44, site_data);
     regularize_links();
@@ -851,35 +892,34 @@ $(function () {
     }
     if (site_data.remove_fixed_positioning) remove_fixed_positioning(site_data);
     if (site_data.append_loaded_date) append_loaded_date($(site_data.append_loaded_date));
-    //console.log(47, hide_selector);
+    console.log(48.2, theme_foreground_selector);
     if (page_level === 0) {
       if (site_data.homepage_theme_selector           ) theme_selector           .push(site_data.homepage_theme_selector);
       if (site_data.homepage_theme_background_selector) theme_background_selector.push(site_data.homepage_theme_background_selector);
       if (site_data.homepage_theme_foreground_selector) theme_foreground_selector.push(site_data.homepage_theme_foreground_selector);
       if (site_data.homepage_hide_selector            ) hide_selector            .push(site_data.homepage_hide_selector);
-      if (site_data.homepage_css                      ) css_rules += ' ' +             site_data.homepage_css;
+      if (site_data.homepage_css                      ) raw_site_css += ' ' +          site_data.homepage_css;
     } else if (page_level == 2) {
       if (site_data. article_theme_selector           ) theme_selector           .push(site_data. article_theme_selector);
       if (site_data. article_theme_background_selector) theme_background_selector.push(site_data. article_theme_background_selector);
       if (site_data. article_theme_foreground_selector) theme_foreground_selector.push(site_data. article_theme_foreground_selector);
       if (site_data. article_hide_selector            ) hide_selector            .push(site_data. article_hide_selector);
-      if (site_data. article_css                      ) css_rules += ' ' +             site_data. article_css;
+      if (site_data. article_css                      ) raw_site_css += ' ' +          site_data. article_css;
       count_words(site_data);
     }
-    console.log(46, site_data.homepage_theme_selector);
+    console.log(46, site_data.article_hide_selector);
     console.log(47, theme_background_selector);
     if (site_data.dark_theme) dark_theme(site_data.dark_theme);
-    if (site_data.customize) site_data.customize();
-    console.log(48, hide_selector);
-    if (hide_selector            .length) css_rules += hide_selector            .join(',') + '{display: none}';
-    if (theme_selector           .length) css_rules += theme_selector           .join(',') + '{' + theme_background_rule + theme_foreground_rule + '}';
-    if (theme_background_selector.length) css_rules += theme_background_selector.join(',') + '{' + theme_background_rule + '}';
-    if (theme_foreground_selector.length) css_rules += theme_foreground_selector.join(',') + '{' + theme_foreground_rule + '}';
-    console.log(55, css_rules);
-    css_rules_split = css_rules.split('}');
-    console.log(63, css_text);
-    console.log(64, css_rules);
-    $.each(css_rules_split, function (rule_index, rule) {
+    console.log(48.4, theme_foreground_selector);
+    if (hide_selector            .length) raw_site_css += hide_selector                       + '{display: none}';
+    if (theme_selector           .length) raw_site_css += theme_selector           .join(',') + '{' + theme_background_rule + theme_foreground_rule + '}';
+    if (theme_background_selector.length) raw_site_css += theme_background_selector.join(',') + '{' + theme_background_rule + '}';
+    if (theme_foreground_selector.length) raw_site_css += theme_foreground_selector.join(',') + '{' + theme_foreground_rule + '}';
+    console.log(55, raw_site_css);
+    raw_site_css_split = raw_site_css.split('}');
+    console.log(63, cooked_site_css);
+    console.log(64, raw_site_css);
+    $.each(raw_site_css_split, function (rule_index, rule) {
       console.log(56, rule);
       if (!rule) return;
       var
@@ -897,11 +937,11 @@ $(function () {
       });
       rule_text += '}';
       console.log('65 ' + rule_text);
-      css_text += ' ' + rule_text;
+      cooked_site_css += ' ' + rule_text;
     });
     stylesheet = document.createElement('style');
-    stylesheet.innerHTML = css_text;
-    //alert(css_text);
+    stylesheet.innerHTML = cooked_site_css;
+    //alert(cooked_site_css);
     document.body.appendChild(stylesheet);
     window.sss=stylesheet;
   }
