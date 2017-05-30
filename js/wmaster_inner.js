@@ -306,6 +306,7 @@ $(function () {
       count_words: {append: '.article-cover-extra', subject: '.article-body'},
       //count_words_grafs: true,
       article_hide_selector: '.module-related.video, .js-inject-promo, .social-kit-top, .article-tools',
+      article_theme_background_selector: '#site',
       article_css: 'figure.lead-img .img {outline: none} .article-cover-extra {padding-bottom: 0; border-bottom: none}',
     },
     {
@@ -333,8 +334,8 @@ $(function () {
     {
       name: 'Reuters',
       origin: 'http://www.reuters.com',
-      article_css: '.wmaster_total_words_count {font-size: 150%; margin-left: 0.3em}',
-      article_hide_selector: '#headerNav, .edition-header, .core-share, .related-content',
+      article_css: '.wmaster_total_words_count {font-size: 150%; margin-left: 0.3em} #headerNav {top: 0} #content {margin-top: 0px} #breakingNewsContainer.breaking {background-color: #840}',
+      article_hide_selector: '#headerNav, .edition-header, .nav-white-space, .core-share, .related-content',
       article_theme_foreground_selector: '#article-text p, .article-headline',
       count_words: {append: '#article-byline', subject: '#article-text', nbsp_size: '100%'},
       unwanted_classes: 'mod-sticky-article article-sticky',
