@@ -132,7 +132,7 @@ $(function () {
       article_theme_foreground_selector: '.content__dateline, div.explainer',
       hide_selector: '.adverts, .site-message',
       article_hide_selector: '.element-video, .contributions__epic, .js-outbrain, .related, .submeta, #onward, #more-in-section, .element-pullquote, .element-rich-link, .meta__twitter, .meta__extras, .meta__email, .selection-sharing, .block-share, .ad-slot, ' +
-        'figure[data-canonical-url="https://interactive.guim.co.uk/embed/2017/05/americas-unequal-future/embed.html"]',
+        'figure[data-canonical-url="https://interactive.guim.co.uk/embed/2017/05/americas-unequal-future/embed.html"], figure[data-canonical-url="https://interactive.guim.co.uk/embed/2017/02/outside-in-america/embed.html"]',
       homepage_hide_selector: '.footer__email-container, div.image>div.video, #securedrop',
       homepage_theme_selector: '.fc-container--story-package, .facia-page, .index-page, .voices-and-votes-container__wrapper, .l-side-margins, .fc-container--thrasher, .tone-news--item.fc-item, .u-faux-block-link--hover, .tone-feature--item, .fc-container--story-package .fc-item, .tone-analysis--item.fc-item, .tone-comment--item.fc-item, .tone-editorial--item, .tone-media--item, .tone-review--item',
       homepage_css: '.tone-live--item {background-color: #5a0b00}',
@@ -143,7 +143,8 @@ $(function () {
       origin: 'https://www.washingtonpost.com',
       alternate_origins: ['http://www.washingtonpost.com', 'https://live.washingtonpost.com'],
       alternate_prefixes: ['file:///root/wayback/washingtonpost/'],
-      article_css: '#main-content {background-image: none} #et-nav {position: absolute}.headline {font-family: sans-serif} a, .powerpost-header, .layout_article #top-content {border-bottom: none} p {line-height: 155%} body {overflow-y: visible}', //.pb-f-homepage-story {background-color: #300},
+      article_css: '#main-content {background-image: none} #et-nav {position: absolute}.headline {font-family: sans-serif} a, .powerpost-header, .layout_article #top-content {border-bottom: none} p {line-height: 155%} body {overflow-y: visible}' +
+        '.fixed-image {position: static}', //.pb-f-homepage-story {background-color: #300},
       article_hide_selector: '#wp-header, #top-furniture, .pb-f-ad-flex-2, .pb-f-ad-flex-3, .pb-f-games-gamesWidget, .pb-f-page-footer-v2, .pb-f-page-recommended-strip, .pb-f-page-editors-picks, .chain-wrapper, .extra, .pb-f-generic-promo-image, .interstitial-link,' +
         '.pg-interstitial-link, .pb-f-posttv-sticky-player, .pb-f-posttv-sticky-player-powa, .pb-f-article-article-author-bio, .pb-tool.email, .pb-f-page-newsletter-inLine, .pb-f-page-comments, .inline-video, [channel="wp.com"], .pb-f-page-jobs-search,' +
         '.pb-f-homepage-story, .pb-f-sharebars-top-share-bar, .wp_signin, #wp_Signin, .inline-graphic-linked, .share-individual, .pb-f-page-trump-can-he-do-that-podcast',
@@ -473,6 +474,13 @@ $(function () {
         //console.log(47, direct_text_content(content_body_element_children [61]));
         //console.log(49, direct_text_content(content_body_element_children [62]));
       }
+    },
+    {
+      name: 'Huffington Post',
+      origin: 'http://www.huffingtonpost.com',
+      article_hide_selector: '.nav-sticky__bar, .header__social-list',
+      article_theme_foreground_selector: '.headline__title, .headline__subtitle, .entry__body',
+      article_css: 'html {font-family: sans-serif}',
     },
     {name: 'Just Security'          , origin: 'https://www.justsecurity.org'},
     {name: 'Washington Examiner'    , origin: 'http://www.washingtonexaminer.com'},
