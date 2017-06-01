@@ -77,7 +77,7 @@ $(function () {
         this.article_theme_foreground_selector += ',' + selector_for_elements_with_a_class_that_starts_with('HeaderBasic-headerBasic--');
         this.count_words.append                += ',' + js_header_selector;
         console.log(11, this.article_theme_foreground_selector);
-        if (location_href.indexOf('?') != -1) return; //alert(location_href);
+        if (location_href.indexOf('?') != -1) alert(location_href);
         if (page_level == 2) {
           $('figure.video').css({'width': '30%', 'margin-left': '30px'});
           $('.g-artboard' ).css({'width': '90%', 'margin-left': '30px'});
@@ -411,6 +411,9 @@ $(function () {
     {
       name: 'Salon',
       origin: 'http://www.salon.com',
+      article_theme_background_selector: '.mainContent .mainInner',
+      article_theme_foreground_selector: 'h1, h2, .byline',
+      count_words: {append: '.byline', subject: '.articleContent'},
     },
     {
       name: 'PJ Media',
