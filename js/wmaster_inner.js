@@ -38,7 +38,7 @@ $(function () {
       article_theme_background_selector: '.bcColumn, .cColumn', // NYT dark theme
       article_theme_foreground_selector: 'h1, h2, h3, h4, h5, h6, .dropcap, .g-artboard *, .g-graphic *, .nytg-chart *' +
         selector_for_elements_with_a_class_that_starts_with('ResponsiveMedia-captionText--'),
-      article_css: '.App__app {margin-top: 0} .story-body-text {font-family: "Times New Roman"} .caption-text {font-family: Helvetica} .story-header, .image {position: relative}' +
+      article_css: '.App__app {margin-top: 0} .story-body-text {font-family: "Times New Roman"} .caption-text {font-family: sans-serif} .story-header, .image {position: relative}' +
         'input, textarea {background-image: none} .shell {padding-top: 0} .main {border-top: none} .nytg-chart {color: #000; background-color: #fff}' + // NYT dark theme
         selector_for_elements_with_a_class_that_starts_with('SectionBar-sectionBar--') + '{border-width: 0} ' +
         'figure.layout-vertical-full-bleed .image img {width: 47%; margin-left: 30px}' +
@@ -179,7 +179,7 @@ $(function () {
           element.src = element.dataset.hiRes || element.dataset.hiResSrc;
         });
         if (page_level == 2) {
-          $('article>p, article>p>i').each(function (element_index, element) {
+          $('article p, article p>i, article p>em').each(function (element_index, element) {
             var $element = $(element);
             var element_contents = $element.contents();
             if (element_contents.length == 3 && element_contents [0].textContent == "[") $element.hide();
@@ -307,7 +307,9 @@ $(function () {
       count_words: {append: '.article-cover-extra', subject: '.article-body'},
       //count_words_grafs: true,
       article_hide_selector: '.module-related.video, .js-inject-promo, .social-kit-top, .article-tools',
-      article_theme_background_selector: '#site',
+      theme_background_selector: '#site',
+      homepage_theme_background_selector: '.c-hp, .c-hp-lead__content, .c-hp-news, .c-hp-filmstrip, .c-hp-offlead, .c-hp-featured, .c-writers__container, .c-latest, .c-popular__container, .c-sections, input',
+      homepage_hide_selector: '.c-writers__item--magazine',
       article_css: 'figure.lead-img .img {outline: none} .article-cover-extra {padding-bottom: 0; border-bottom: none}',
     },
     {
@@ -327,10 +329,11 @@ $(function () {
     },
     {
       name: 'Associated Press',
-      origin: 'https://www.apnews.com',
+      origin: 'https://apnews.com',
+      alternate_origins: ['https://www.apnews.com'],
       count_words: {append: '.mobile h6', subject: '.articleBody'},
-      article_css: '.articleView {padding-top: 0}',
-      article_hide_selector: '#drawerMenu, .mobileTitle ul',
+      article_css: '.articleView {padding-top: 80px}',
+      article_hide_selector: '#drawerMenu, .mobileTitle ul, footer',
     },
     {
       name: 'Reuters',
