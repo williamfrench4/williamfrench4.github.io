@@ -434,6 +434,11 @@ $(function () {
       article_hide_selector: '.navbar-scroll',
     },
     {
+      name: 'Weather Underground',
+      origin: 'https://www.wunderground.com/',
+      dark_theme: 0,
+    },
+    {
       name: 'Los Angeles Times',
       origin: 'http://www.latimes.com',
       article_hide_selector: '.trb_nh_lw, .trb_mh_adB, .trb_sc, .trb_ar_bc, .trb_gptAd.trb_ar_rail_ad, .trb_embed[data-content-type=story], .wf_interstitial_link, [name="support-our-journalism"]',
