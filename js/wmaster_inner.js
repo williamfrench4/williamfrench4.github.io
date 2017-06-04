@@ -36,7 +36,7 @@ $(function () {
       count_words: {append: '.byline:last-of-type, .byline-column', prefix: ' ', subject: '.story-body'},
       article_theme_selector: '.masthead .masthead-menu li, .headline, .kicker, .dateline, .story-quote, .caption, figcaption, input, textarea, .columnGroup', // NYT dark theme
       article_theme_background_selector: '.bcColumn, .cColumn', // NYT dark theme
-      article_theme_foreground_selector: 'h1, h2, h3, h4, h5, h6, .dropcap, .g-artboard *, .g-graphic *, .nytg-chart *' +
+      article_theme_foreground_selector: 'h1, h2, h3, h4, h5, h6, .byline, .dropcap, .g-artboard *, .g-graphic *, .nytg-chart *' +
         selector_for_elements_with_a_class_that_starts_with('ResponsiveMedia-captionText--'),
       article_css: '.App__app {margin-top: 0} .story-body-text {font-family: "Times New Roman"} .caption-text {font-family: sans-serif} .story-header, .image {position: relative}' +
         'input, textarea {background-image: none} .shell {padding-top: 0} .main {border-top: none} .nytg-chart {color: #000; background-color: #fff}' + // NYT dark theme
@@ -127,8 +127,8 @@ $(function () {
         '.signposting {border-right-width:0} a:visited[data-link-name="auto-linked-tag"] {color: #99d700} a:visited:hover[data-link-name="auto-linked-tag"] {color: purple}' +
         '.tabs__tab {border-top: 0.0625rem solid #aaa}',
       article_theme_selector: '.tonal__standfirst, .tonal__header, .content__standfirst, .content__headline, .byline',
-      article_theme_background_selector: '.tonal--tone-live, .tonal--tone-editorial, .tonal--tone-feature, .tonal--tone-comment, .tonal--tone-analysis, .tonal--tone-review, .content__main, .block--content, .navigation, .local-navigation, .navigation-container, .navigation:before,' +
-        '.top-navigation, .navigation-toggle, .navigation__container--first, .signposting, .tabs__tab--selected a, .tabs__tab--selected .tab__link, .tabs__tab a, .tabs__tab .tab__link',
+      article_theme_background_selector: '.tonal--tone-live, .tonal--tone-editorial, .tonal--tone-feature, .tonal--tone-comment, .tonal--tone-analysis, .tonal--tone-review, .content__main, .block--content, .navigation, .local-navigation, .navigation-container,' +
+        '.top-navigation, .navigation:before, .navigation-toggle, .navigation__container--first, .signposting, .tabs__tab--selected a, .tabs__tab--selected .tab__link, .tabs__tab a, .tabs__tab .tab__link',
       article_theme_foreground_selector: '.content__dateline, div.explainer',
       hide_selector: '.adverts, .site-message',
       article_hide_selector: '.element-video, .contributions__epic, .js-outbrain, .related, .submeta, #onward, #more-in-section, .element-pullquote, .element-rich-link, .meta__twitter, .meta__extras, .meta__email, .selection-sharing, .block-share, .ad-slot, ' +
@@ -309,6 +309,7 @@ $(function () {
       //count_words_grafs: true,
       article_hide_selector: '.module-related.video, .js-inject-promo, .social-kit-top, .article-tools',
       theme_background_selector: '#site',
+      article_theme_background_selector: '.article-body blockquote',
       homepage_theme_background_selector: '.c-hp, .c-hp-lead__content, .c-hp-news, .c-hp-filmstrip, .c-hp-offlead, .c-hp-featured, .c-writers__container, .c-latest, .c-popular__container, .c-sections, input',
       homepage_hide_selector: '.c-writers__item--magazine',
       article_css: 'figure.lead-img .img {outline: none} .article-cover-extra {padding-bottom: 0; border-bottom: none}',
@@ -344,6 +345,14 @@ $(function () {
       article_theme_foreground_selector: '#article-text p, .article-headline',
       count_words: {append: '#article-byline', subject: '#article-text', nbsp_size: '100%'},
       unwanted_classes: 'mod-sticky-article article-sticky',
+    },
+    {
+      name: 'LEDs Magazine',
+      origin: 'http://www.ledsmagazine.com',
+      alternate_homepages: ['http://www.ledsmagazine.com/index.html'],
+      //count_words: {append: '#editorial-article-wrapper-container>:first-child>:first-child>:first-child>:first-child>:first-child', subject: 'article'},
+      //article_hide_selector: '.clay-share',
+      homepage_theme_background_selector: '#templateOuterLeft, #container',
     },
     {
       name: 'Time Magazine',
@@ -427,9 +436,10 @@ $(function () {
     {
       name: 'Los Angeles Times',
       origin: 'http://www.latimes.com',
-      article_hide_selector: '.trb_nh_lw, .trb_mh_adB, .trb_sc, .trb_ar_bc, .trb_gptAd.trb_ar_rail_ad, .trb_embed[data-content-type=story], .wf_interstitial_link',
-      article_theme_foreground_selector: '.trb_mh {margin-top: 70px} .trb_ar_page[data-content-page="1"]>p:first-child:first-letter',
-      article_css: 'a:link[   href^="/topic/"] {color: #00e766} a:link:hover[href^="/topic/"] {color: #00f}' +
+      article_hide_selector: '.trb_nh_lw, .trb_mh_adB, .trb_sc, .trb_ar_bc, .trb_gptAd.trb_ar_rail_ad, .trb_embed[data-content-type=story], .wf_interstitial_link, [name="support-our-journalism"]',
+      article_theme_background_selector: '.trb_allContentWrapper',
+      article_theme_foreground_selector: 'article p, .dropcap, .trb_ar_page[data-content-page="1"]>p:first-child:first-letter',
+      article_css: '.trb_mh {margin-top: 70px} a:link[   href^="/topic/"] {color: #00e766} a:link:hover[href^="/topic/"] {color: #00f}' +
         ' a:visited[href^="/topic/"] {color: #99d700} a:visited:hover[href^="/topic/"] {color: purple}' ,
       count_words: {append: '.trb_ar_dateline', subject: 'div[itemprop="articleBody"]', nbsp_size: '100%'},
       customize: function () {
