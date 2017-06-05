@@ -63,7 +63,7 @@ $(function () {
       site_css: '.story.theme-main .story-meta-footer {border-top: none; border-bottom: none}',
       dark_theme: 1, // to turn this off, change the 1 to a 0 and comment out all other lines that are commented "NYT dark theme"
       origin: 'https://www.nytimes.com',
-      unwanted_query_fields: 'action clickSource contentCollection contentPlacement hp module pgtype _r ref region rref smid smtyp src version WT.nav WT.z_jog hF vS utm_campaign utm_content utm_medium utm_source t target mcubz',
+      unwanted_query_fields: 'action clickSource contentCollection contentPlacement hp module pgtype _r ref region rref smid smtyp src version WT.nav WT.z_jog hF vS utm_campaign utm_content utm_medium utm_source t target mcubz gwh gwt mtrref',
       unwanted_classes: 'theme-pinned-masthead',
       customize: function () {
         const
@@ -126,7 +126,7 @@ $(function () {
         'a:link   [data-link-name="auto-linked-tag"] {color: #00e766} a:link:hover[data-link-name="auto-linked-tag"] {color: #00f} div.explainer {background-color: #002b45; border: 1px solid ' + theme_foreground_color + '}' + 
         '.signposting {border-right-width:0} a:visited[data-link-name="auto-linked-tag"] {color: #99d700} a:visited:hover[data-link-name="auto-linked-tag"] {color: purple}' +
         '.tabs__tab {border-top: 0.0625rem solid #aaa}',
-      article_theme_selector: '.tonal__standfirst, .tonal__header, .content__standfirst, .content__headline, .byline',
+      article_theme_selector: '.tonal__standfirst, .tonal__header, .content__standfirst, .content__headline, .byline, .d-top-comment__bubble',
       article_theme_background_selector: '.tonal--tone-live, .tonal--tone-editorial, .tonal--tone-feature, .tonal--tone-comment, .tonal--tone-analysis, .tonal--tone-review, .content__main, .block--content, .navigation, .local-navigation, .navigation-container,' +
         '.top-navigation, .navigation:before, .navigation-toggle, .navigation__container--first, .signposting, .tabs__tab--selected a, .tabs__tab--selected .tab__link, .tabs__tab a, .tabs__tab .tab__link',
       article_theme_foreground_selector: '.content__dateline, div.explainer',
@@ -149,8 +149,8 @@ $(function () {
         '.pg-interstitial-link, .pb-f-posttv-sticky-player, .pb-f-posttv-sticky-player-powa, .xpb-f-article-article-author-bio, .pb-tool.email, .pb-f-page-newsletter-inLine, .pb-f-page-comments, .inline-video, [channel="wp.com"], .pb-f-page-jobs-search,' +
         '.pb-f-homepage-story, .pb-f-sharebars-top-share-bar, .wp_signin, #wp_Signin, .inline-graphic-linked, .share-individual, .pb-f-page-trump-can-he-do-that-podcast',
       article_theme_selector: '#article-body, article p, .pg-bodyCopy',
-      article_theme_background_selector: '.wp-volt-gal-embed-promo-container, .wp-volt-gal-embed-promo-bottom',
-      article_theme_foreground_selector: '.pb-caption, .pb-bottom-author, .pb-timestamp',
+      article_theme_background_selector: '.wp-volt-gal-embed-promo-container, .wp-volt-gal-embed-promo-bottom, #weather-glance, #weather_now, .cwgdropdown, #heat-tracker, #weather-almanac, .pb-f-capital_weather_gang-weather-almanac select',
+      article_theme_foreground_selector: '.pb-caption, .pb-bottom-author, .pb-timestamp, .weather-gray, #weather_now .time',
       count_words: {append: '.pg-pubDate, .bottomizer, .pb-sig-line, .pbHeader', subject: '#article-body>article, #pg-content>article'},
       homepage_css: 'header {position: relative} .pb-f-homepage-story .headline a, .related-links a, #bottom-content a {font-family: sans-serif; font-weight: normal}',
       homepage_theme_background_selector: '#pb-root, .homepage-footer-button, .pb-f-page-todays-paper-rr .large, .pb-f-homepage-chat-schedule .chat-schedule-button a',
@@ -318,7 +318,7 @@ $(function () {
       name: 'National Review',
       origin: 'http://www.nationalreview.com',
       count_words: {append: 'time', subject: '[itemprop="articleBody"]'},
-      article_hide_selector: '.horizontal-share-menu, .twitter-follow-header, .pullquote, .pullad',
+      article_hide_selector: '.horizontal-share-menu, .twitter-follow-header, .pullquote, .pullad, form[action="http://www.nationalreview.com/content/get-free-nr-e-newsletters"]',
       dark_theme: 2,
     },
     {
@@ -378,8 +378,11 @@ $(function () {
       count_words: {append: '.byline-and-date', subject: '#content'},
       //article_css: '.single-post #articleBody p a, .single-post #articleBody .gallery-caption a, .single-post #articleBody u, .articleBody p a, .articleBody .gallery-caption a, .articleBody u, .author-masthead p a, .author-masthead .gallery-caption a, .author-masthead u {text-shadow: none; background: none}',
       article_css: 'a {text-shadow: none; background: none}',
-      article_hide_selector: 'iframe, .social-module, .strongbox-promo-wrapper, .social-hover',
+      article_hide_selector: 'iframe, .social-module, .strongbox-promo-wrapper, .social-hover, .footer-content, #recirc-pos-2',
+      article_theme_background_selector: 'article>header, .hamburger-dropdowns-navigation__top-level, footer',
+      article_theme_foreground_selector: 'article>header .title, article>header time.blog-post-date, .articleBody p, .caption, .author-masthead',
       homepage_hide_selector: '.fixed-topnav, iframe, #strongbox-promo',
+      homepage_theme_background_selector: '#main, .logo-container',
       customize: function () {
         var
           logo_element;
@@ -393,6 +396,7 @@ $(function () {
         //remove_fixed_positioning(site_data);
       },
       unwanted_classes: 'js-sticky-wrap',
+      unwanted_query_fields: 'intcid',	
     },
     {
       name: 'The Nation',
@@ -400,19 +404,6 @@ $(function () {
       article_hide_selector: '.header-bar.utility, .sticky, .twitter-quote, .takeaction, .article-share, #paywall, aside.related-article',
       article_css: 'body {overflow: visible}',
       count_words: {append: '.byline', subject: '.article-body'},
-    },
-    {
-      name: 'The Baltimore Sun',
-      origin: 'http://www.baltimoresun.com',
-      article_hide_selector: '.trb_nls_c, .trb_bnn, .trb_mh_adB', //, aside:has([data-content-kicker="Related"])',
-      article_theme_background_selector: '.trb_allContentWrapper, .trb_nh_lw',
-      article_theme_foreground_selector: '.trb_ar_page>ol, .trb_ar_page>p, .trb_ar_page>ul, .trb_ar_page[data-content-page="1"]>p:first-child:first-letter',
-      //article_css: 'body {overflow: visible}',
-      count_words: {append: '.trb_ar_dateline', subject: '[itemprop=articleBody'},
-      //count_words: {append: '.byline', subject: '.article-body'},
-      customize: function () {
-        $('aside:has([data-content-kicker="Related"])').hide(); // This would be in article_hide_selector, but that fails enigmatically as of 2017-05-30
-      },
     },
     {
       name: 'The Week',
@@ -439,9 +430,22 @@ $(function () {
       dark_theme: 0,
     },
     {
+      name: 'The Baltimore Sun',
+      origin: 'http://www.baltimoresun.com',
+      article_hide_selector: '.trb_nls_c, .trb_bnn, .trb_mh_adB', //, aside:has([data-content-kicker="Related"])',
+      article_theme_background_selector: '.trb_allContentWrapper, .trb_nh_lw',
+      article_theme_foreground_selector: '.trb_ar_page>ol, .trb_ar_page>p, .trb_ar_page>ul, .trb_ar_page[data-content-page="1"]>p:first-child:first-letter',
+      //article_css: 'body {overflow: visible}',
+      count_words: {append: '.trb_ar_dateline', subject: '[itemprop=articleBody'},
+      //count_words: {append: '.byline', subject: '.article-body'},
+      customize: function () {
+        $('aside:has([data-content-kicker="Related"])').hide(); // This would be in article_hide_selector, but that fails enigmatically as of 2017-05-30
+      },
+    },
+    {
       name: 'Los Angeles Times',
       origin: 'http://www.latimes.com',
-      article_hide_selector: '.trb_nh_lw, .trb_mh_adB, .trb_sc, .trb_ar_bc, .trb_gptAd.trb_ar_rail_ad, .trb_embed[data-content-type=story], .wf_interstitial_link, [name="support-our-journalism"]',
+      article_hide_selector: '.trb_nh_lw, .trb_mh_adB, .trb_sc, .trb_ar_bc, .trb_gptAd.trb_ar_rail_ad, .trb_embed[data-content-type=story], .wf_interstitial_link, [name="support-our-journalism"], [data-content-type="pullquote"]',
       article_theme_background_selector: '.trb_allContentWrapper',
       article_theme_foreground_selector: 'article p, .dropcap, .trb_ar_page[data-content-page="1"]>p:first-child:first-letter',
       article_css: '.trb_mh {margin-top: 70px} a:link[   href^="/topic/"] {color: #00e766} a:link:hover[href^="/topic/"] {color: #00f}' +
