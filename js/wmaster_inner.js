@@ -406,6 +406,14 @@ $(function () {
       count_words: {append: '.byline', subject: '.article-body'},
     },
     {
+      name: 'Defense One',
+      origin: 'http://www.defenseone.com',
+      article_css: 'body, .d1-article-subhead {font-family: Georgia} .d1-sticky-nav-stick {position: absolute}',
+      article_hide_selector: '.conversion-module-bootstrap, .d1-social-article',
+      article_theme_background_selector: '.content, .d1-article-subhead-inner-a, .d1-article-subhead-inner-b, .d1-article-subhead-inner-c',
+      article_theme_foreground_selector: '.d1-article-subhead',
+    },
+    {
       name: 'The Week',
       origin: 'http://theweek.com',
       article_css: '#sub-header {margin-top: 50px}',
