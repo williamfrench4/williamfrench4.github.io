@@ -19,18 +19,14 @@ $(function () {
   //alert(8);
   //return;
   const
+    program_name           = 'wmaster',
     theme_background_color = '#000',
     theme_background_rule  = 'background: ' + theme_background_color + '; background-color: ' + theme_background_color + ';',
     theme_foreground_color = '#0f0',
-    theme_foreground_rule  =            'color: ' + theme_foreground_color + '; text-shadow: none;',
-     program_name = 'wmaster';
-  let
-    //alternate, alternates, alternates_length, 
-    cooked_site_css, raw_site_css, raw_site_css_split, hide_selector, location, location_href, location_origin, location_pathname, page_level,
-    // prefix_index,
-    site_data, sites_data, sites_data_by_prefix, sites_data_length, stylesheet, theme_background_selector, theme_foreground_selector, theme_selector, unwanted_classes, unwanted_classes_split;
+    theme_foreground_rule  = 'color: '      + theme_foreground_color + '; text-shadow: none;';
+  let hide_selector, page_level, raw_site_css, site_data, theme_background_selector, theme_foreground_selector, theme_selector;
 
-  sites_data = [
+  const sites_data = [
     {
       name: 'New York Times',
       alternate_origins: ['https://cooking.nytimes.com', 'https://douthat.blogs.nytimes.com', 'https://krugman.blogs.nytimes.com', 'https://kristof.blogs.nytimes.com', 'https://www.nytimes.com/section/magazine'],
@@ -71,11 +67,11 @@ $(function () {
         const
           //js_header_class_signature = 'Masthead-mastheadContainer--',
           js_header_selector = selector_for_elements_with_a_class_that_starts_with('HeaderBasic-bylineTimestamp--');
-        let
+        //let
           //class_list,
           //js_header_class_name = false,
           //js_header_element,
-          logo_element;
+          //logo_element;
         this.article_theme_foreground_selector += ',' + selector_for_elements_with_a_class_that_starts_with('HeaderBasic-headerBasic--');
         this.count_words.append                += ',' + js_header_selector;
         console.log(11, this.article_theme_foreground_selector);
@@ -103,16 +99,16 @@ $(function () {
           }
           */
         } else {
-          Object.freeze(document.location);
-          logo_element = $('h2.branding') [0];
+          //Object.freeze(document.location); // doesn't work -- and why would anyone expect it to?
+          const logo_element = $('h2.branding') [0];
           if (logo_element) logo_element.innerHTML = '<img width="573" height="138" src="file:/home/will/public_html/green_york_times.png">';
           else console.log('warning: logo not found');
         }
-        $('img.g-lazy').each(function (element_index, element) {
-          let $element = $(element);
-          $element.css({'padding-top': '0'});
+        for (const element of $('img.g-lazy')) {
+        //$('img.g-lazy').each(function () {
+          $(element).css({'padding-top': '0'});
           element.src = element.dataset.hiRes || element.dataset.hiResSrc;
-        });
+        }
         //remove_fixed_positioning(site_data);
       },
     },
@@ -164,29 +160,41 @@ $(function () {
       theme_selector: 'body, .skin.skin-card, .skin.skin-button, input',
       unwanted_query_fields: 'hpid tid utm_term wpisrc wpmk',
       customize() {
-        let stylesheet_links = $("link[rel='stylesheet']");
-        stylesheet_links.each(function () {
-          let stylesheet_link = this;
-          let stylesheet_link_href = stylesheet_link.href;
+        //let stylesheet_links = $("link[rel='stylesheet']");
+        for (const stylesheet_link of $("link[rel='stylesheet']")) {
+        //stylesheet_links.each(function () {
+          //let stylesheet_link = this;
+          const stylesheet_link_href = stylesheet_link.href;
           //console.log(stylesheet_link_href);
+/*          
           let alt_prefix = 'file://www.washingtonpost.com/';
           if (stylesheet_link_href.startsWith(alt_prefix)) {stylesheet_link.href = site_data.origin + stylesheet_link_href.substring(alt_prefix.length - 1);}
           alt_prefix = 'file:///';
           if (stylesheet_link_href.startsWith(alt_prefix)) {stylesheet_link.href = site_data.origin + stylesheet_link_href.substring(alt_prefix.length - 1);}
+*/        
+          for (const prefix of ['file://www.washingtonpost.com/', 'file:///']) {
+            if (stylesheet_link_href.startsWith(prefix)) {
+              stylesheet_link.href = site_data.origin + stylesheet_link_href.substring(prefix.length - 1);
+              break;
+            }
+          }
+          
           //console.log(stylesheet_link.href);
-        });
-        $('img.lzyld, img.placeholder').each(function (element_index, element) {
-          let $element = $(element);
-          $element.css({'padding-top': '0'});
+        }
+        for (const element of $('img.lzyld, img.placeholder')) {
+        //$('img.lzyld, img.placeholder').each(function () {
+          $(element).css({'padding-top': '0'});
           element.src = element.dataset.hiRes || element.dataset.hiResSrc;
-        });
+        }
         if (page_level == 2) {
-          $('article p, article p>i, article p>em').each(function (element_index, element) {
-            let $element = $(element);
-            let element_contents = $element.contents();
+          for (const element of $('article p, article p>i, article p>em')) {
+          //$('article p, article p>i, article p>em').each(function () {
+            const
+              $element = $(element),
+              element_contents = $element.contents();
             if (element_contents.length == 3 && element_contents [0].textContent == "[") $element.hide();
             //console.log(85, $(element).contents() [0], ($(element).contents() [0].textContent == "["));
-          });
+          }
         $('div.inline-content:has([data-slug="a-look-at-president-trumps-first-year-in-office-so-far"])').hide();
         }
         //regularize_links(site_data);
@@ -197,28 +205,26 @@ $(function () {
       origin: 'http://www.mcclatchydc.com',
       article_hide_selector: '.share-tools-wrapper, #ndnWidget, .highline-quote, #story-related, .wf_interstitial_link',
       customize() {
-        let
+        const
           content_body_element = $('#content-body-'),
           content_body_element_children = content_body_element.children();
         //console.log(41, content_body_element, content_body_element_children);
         //window.c = [];
-        content_body_element_children.each(function(chunk_index, chunk_element) {
-          let
-            chunk_direct_text,
-            chunk_element_child,
-            chunk_element_children = chunk_element.children;
-          if (chunk_element_children.length == 1) {
-            chunk_element_child = chunk_element_children [0];
-            if (chunk_element_child.tagName == 'A') {
-              chunk_direct_text = direct_text_content(chunk_element);
-              if (chunk_direct_text == '[RELATED: ]' || (chunk_direct_text === '' && chunk_element_child.textContent [0] == '[')) {
-                $(chunk_element).addClass('wf_interstitial_link');
+        for (const content_body_element_child of content_body_element_children) {
+        //content_body_element_children.each(function() {
+          const content_body_element_grandchildren = content_body_element_child.children;
+          if (content_body_element_grandchildren.length == 1) {
+            const content_body_element_grandchild = content_body_element_grandchildren [0];
+            if (content_body_element_grandchild.tagName == 'A') {
+              const chunk_direct_text = direct_text_content(content_body_element_child);
+              if (chunk_direct_text == '[RELATED: ]' || (chunk_direct_text === '' && content_body_element_grandchild.textContent [0] == '[')) {
+                $(content_body_element_child).addClass('wf_interstitial_link');
               }
             }
           }
-          //console.log(45, chunk_element, direct_text_content(chunk_element), chunk_element_children);
-          //if (direct_text_content(chunk_element) == '' && 
-        });
+          //console.log(45, content_body_element_child, direct_text_content(content_body_element_child), content_body_element_grandchildren);
+          //if (direct_text_content(content_body_element_child) == '' && 
+        }
         //console.log(47, direct_text_content(content_body_element_children [61]));
         //console.log(49, direct_text_content(content_body_element_children [62]));
       }
@@ -295,8 +301,9 @@ $(function () {
       article_css: 'header {position: static}',
       article_hide_selector: '.hide, .partner-slots, .fb-like, .relatedlinkslist, .layout-component-i100, .layout-component-ines-video-sidebar, .box-comments:first-of-type, .syndication-btn',
       customize() {
-        let elements = $('.box-comments');
-        let elements_length = elements.length;
+        const
+          elements = $('.box-comments'),
+          elements_length = elements.length;
         //console.log(55, elements);
         if (elements_length == 3) {
           $(elements [0]).addClass('hide');
@@ -407,12 +414,10 @@ $(function () {
       homepage_hide_selector: '.fixed-topnav, iframe, #strongbox-promo',
       homepage_theme_background_selector: '#main, .logo-container',
       customize() {
-        let
-          logo_element;
         if (location_href.indexOf('?') != -1) alert(location_href);
         if (page_level == 2) {
         } else {
-          logo_element = $('h1') [0];
+          const logo_element = $('h1') [0];
           if (logo_element) logo_element.innerHTML = '<img width="400" height="94" src="file:/home/will/public_html/green_yorker.png">';
           else console.log('warning: logo not found');
         }
@@ -487,51 +492,45 @@ $(function () {
       article_css: '.trb_mh {margin-top: 70px} a:link[   href^="/topic/"] {color: #00e766} a:link:hover[href^="/topic/"] {color: #00f} a:visited[href^="/topic/"] {color: #99d700} a:visited:hover[href^="/topic/"] {color: purple}' ,
       count_words: {append: '.trb_ar_dateline', subject: 'div[itemprop="articleBody"]', nbsp_size: '100%'},
       customize() {
-        let
-          chunks = $('div[itemprop="articleBody"] p');
+        const chunks = $('div[itemprop="articleBody"] p');
         console.log(41, chunks);
         //window.c = [];
-        chunks.each(function(chunk_index, chunk_element) {
-          const
-            children = chunk_element.children,
-            debug = true;
-          let
-            child,
-            grandchild,
-            grandchildren,
-            text;
+        for (const chunk of chunks) {
+        //chunks.each(function() {
+          const children = chunk.children;
+          const debug = true;
           if (children.length == 1) {
             if (debug) console.log(42);
-            child = children [0];
+            const child = children [0];
             if (debug) console.log(43, child);
             if (child.tagName == 'STRONG') {
               if (debug) console.log(44);
-              text = direct_text_content(child);
-              if (debug) console.log(45, text);
-              if (text === '') {
+              const child_text = direct_text_content(child);
+              if (debug) console.log(45, child_text);
+              if (child_text === '') {
                 if (debug) console.log(46);
-                grandchildren = child.children;
+                const grandchildren = child.children;
                 if (debug) console.log(47, grandchildren);
                 if (grandchildren.length == 1) {
                   if (debug) console.log(48);
-                  grandchild = grandchildren [0];
+                  const grandchild = grandchildren [0];
                   if (debug) console.log(49, grandchild);
                   if (grandchild.tagName == 'A') {
                     if (debug) console.log(50);
-                    text = direct_text_content(grandchild);
+                    const grandchild_text = direct_text_content(grandchild);
                     if (debug) console.log(51);
-                    if (text [text.length - 1] == '»') {
+                    if (grandchild_text [grandchild_text.length - 1] == '»') {
                       if (debug) console.log(52);
-                      $(chunk_element).addClass('wf_interstitial_link');
+                      $(chunk).addClass('wf_interstitial_link');
                     }
                   }
                 }
               }
             }
           }
-          //console.log(45, chunk_element, direct_text_content(chunk_element), chunk_element_children);
-          //if (direct_text_content(chunk_element) == '' && 
-        });
+          //console.log(45, this, direct_text_content(this), this_children);
+          //if (direct_text_content(this) == '' && 
+        }
         //console.log(47, direct_text_content(content_body_element_children [61]));
         //console.log(49, direct_text_content(content_body_element_children [62]));
       }
@@ -557,22 +556,17 @@ $(function () {
     {name: 'Local wayback'          , alternate_prefixes: ['file:///root/wayback/'], append_loaded_date: false, count_words_subject: false},
   ];
   //console.table(sites_data);
-  window.sites_data = sites_data;
+  //window.sites_data = sites_data;
   
-  sites_data_by_prefix = {};
+  const sites_data_by_prefix = {};
   for (const site_data of sites_data) {
   //$.each(sites_data, function (site_index, site_data) {
-    let
-      alternate_origins  = site_data.alternate_origins,
-      alternate_prefixes = site_data.alternate_prefixes,
-      count_words_settings,
-      remove_fixed_positioning_settings,
-      origin = site_data.origin,
-      prefixes = [],
-      unwanted_query_fields = site_data.unwanted_query_fields;
-    if (origin) prefixes = prefixes.concat(origin);
-    if (alternate_origins ) prefixes = prefixes.concat(alternate_origins );
-    if (alternate_prefixes) prefixes = prefixes.concat(alternate_prefixes);
+    const unwanted_query_fields = site_data.unwanted_query_fields;
+    let prefixes, remove_fixed_positioning_settings;
+    if (site_data.origin) prefixes = [site_data.origin];
+    else        prefixes = [];
+    if (site_data.alternate_origins ) prefixes = prefixes.concat(site_data.alternate_origins );
+    if (site_data.alternate_prefixes) prefixes = prefixes.concat(site_data.alternate_prefixes);
     if (unwanted_query_fields) site_data.unwanted_query_fields_array = unwanted_query_fields.split(/\s+/);
     //console.log(34, site_data.unwanted_query_fields_array);
     //console.log(35, prefixes);
@@ -590,7 +584,7 @@ $(function () {
     if      (!site_data                 .hasOwnProperty('theme_foreground_selector' )) site_data.theme_foreground_selector        = '';
 
     if      (!site_data                 .hasOwnProperty('count_words'             )) site_data.count_words                    = {};
-    count_words_settings = site_data.count_words;
+    const count_words_settings = site_data.count_words;
     if      (!count_words_settings      .hasOwnProperty('append'                  )) count_words_settings.append              = 'body';
     if      (!count_words_settings      .hasOwnProperty('nbsp_size'               )) count_words_settings.nbsp_size           = '50%';
     if      (!count_words_settings      .hasOwnProperty('subject'                 )) count_words_settings.subject             = 'body';
@@ -598,9 +592,9 @@ $(function () {
     if      (!count_words_settings      .hasOwnProperty( 'graf_prefix'            )) count_words_settings. graf_prefix        = count_words_settings.prefix;
     if      (!count_words_settings      .hasOwnProperty('total_prefix'            )) count_words_settings.total_prefix        = count_words_settings.prefix;
 
-    if      (!site_data                 .hasOwnProperty('remove_fixed_positioning')) site_data.remove_fixed_positioning       = {};
-    else if ( site_data.remove_fixed_positioning === false                         ) site_data.remove_fixed_positioning       = {enable: false};
-    remove_fixed_positioning_settings = site_data.remove_fixed_positioning;
+    if      (!site_data                 .hasOwnProperty('remove_fixed_positioning')) remove_fixed_positioning_settings       = {};
+    else if ( site_data.remove_fixed_positioning === false                         ) remove_fixed_positioning_settings       = {enable: false};
+    else                                                                             remove_fixed_positioning_settings       = site_data.remove_fixed_positioning;
     if      (!remove_fixed_positioning_settings  .hasOwnProperty('enable'         )) remove_fixed_positioning_settings.enable = true;
 
 
@@ -624,14 +618,14 @@ $(function () {
 
   function selector_for_elements_with_a_class_that_starts_with(target) {
     const logging = true;
-    let result =  '[class^="' + target + '"], [class*=" ' + target + '"]';
+    const result =  '[class^="' + target + '"], [class*=" ' + target + '"]';
     if (logging) console.log(31, target, result);
     return result;
   }
 
 
-  let dateFormat = function () {
-    let	token = /d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTt])\1?|[LloSZ]|"[^"]*"|'[^']*'/g,
+  const dateFormat = function () {
+    const	token = /d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTt])\1?|[LloSZ]|"[^"]*"|'[^']*'/g,
         timezone = /\b(?:[PMCEA][SDP]T|(?:Pacific|Mountain|Central|Eastern|Atlantic) (?:Standard|Daylight|Prevailing) Time|(?:GMT|UTC)(?:[-+]\d{4})?)\b/g,
         timezoneClip = /[^-+\dA-Z]/g,
         pad = function (val, len) {
@@ -643,7 +637,7 @@ $(function () {
 
     // Regexes and supporting functions are cached through closure
     return function (date, mask, utc) {
-      let dF = dateFormat;
+      const dF = dateFormat;
 
       // You can't provide utc if you skip other args (use the "UTC:" mask prefix)
       if (arguments.length == 1 && Object.prototype.toString.call(date) == "[object String]" && !/\d/.test(date)) {
@@ -663,7 +657,7 @@ $(function () {
         utc = true;
       }
 
-      let	_ = utc ? "getUTC" : "get",
+      const	_ = utc ? "getUTC" : "get",
           d = date[_ + "Date"](),
           D = date[_ + "Day"](),
           m = date[_ + "Month"](),
@@ -757,29 +751,21 @@ $(function () {
     //$.each ($('a'), function (element_index, element) {
     for (const element of $('a')) {
       if (logging) console.log(11);
-      let
-        href = element.href,
-        origin = element.origin,
-        query_params,
-        query_string,
-        query_string_index,
-        site_data,
-        unwanted_query_fields_array,
-        unwanted_query_fields_array_length,
-        url_without_query_string;
+      let href = element.href;
       //if (typeof href === 'undefined') return;
-      site_data = sites_data_by_prefix [origin];
+      const origin = element.origin;
+      const site_data = sites_data_by_prefix [origin];
       if (typeof site_data === 'undefined') return;
-      unwanted_query_fields_array = site_data.unwanted_query_fields_array;
+      const unwanted_query_fields_array = site_data.unwanted_query_fields_array;
       if (!unwanted_query_fields_array) return;
-      unwanted_query_fields_array_length = unwanted_query_fields_array.length;
-      query_string_index = href.indexOf('?');
+      //const unwanted_query_fields_array_length = unwanted_query_fields_array.length;
+      const query_string_index = href.indexOf('?');
       if (logging) console.log(12, href);
       if (query_string_index !== -1) {
         if (logging) console.log('20');
-        query_string = href.substring(query_string_index);
-        url_without_query_string = href.substring(0, query_string_index);
-        query_params = new URLSearchParams(query_string);
+        let query_string = href.substring(query_string_index);
+        const url_without_query_string = href.substring(0, query_string_index);
+        const query_params = new URLSearchParams(query_string);
         if (logging) console.log(22, query_params.toString());
         for (const field of unwanted_query_fields_array) {
         //$.each(unwanted_query_fields_array, function (field_index, field) {
@@ -798,32 +784,36 @@ $(function () {
   }
 
   function count_words(site_data) {
-    let
-      words_count_name = program_name +  '_words_count',
-      graf_words_count     ,  graf_words_count_name = words_count_name + '_graf',
-      total_words_count = 0, total_words_count_name = words_count_name + '_total',
-      html_prefix = '<span class="' + words_count_name + ' ',
-      html_suffix = '<span class="nbsp">&nbsp;</span>words</span>',
-      html_graf_prefix,
-      settings = site_data.count_words,
-      nbsp_size         = settings.nbsp_size,
-      append_selector   = settings.append , $append_elements,
-      prepend_selector  = settings.prepend, $prepend_elements,
-      subject_selector  = settings.subject, $subject_elements = $(subject_selector),
-      show_graf_counts  = settings.grafs, output;
+
+    const words_count_name = program_name +  '_words_count';
+    const graf_words_count_name = words_count_name + '_graf';
+    let total_words_count = 0;
+    const total_words_count_name = words_count_name + '_total';
+    const html_prefix = '<span class="' + words_count_name + ' ';
+    const html_suffix = '<span class="nbsp">&nbsp;</span>words</span>';
+    let html_graf_prefix;
+    const settings = site_data.count_words;
+    const nbsp_size       = settings.nbsp_size;
+    const append_selector   = settings.append ;
+    let $append_elements;
+    let prepend_selector  = settings.prepend;
+    const subject_selector  = settings.subject;
+    const $subject_elements = $(subject_selector);
+    const show_graf_counts  = settings.grafs;
+ 
     console.log(92, subject_selector, $subject_elements);
     if (show_graf_counts) html_graf_prefix = html_prefix + graf_words_count_name + '">' + settings.graf_prefix;
-    $subject_elements.find('p').each(function (graf_index, graf) {
-      let
-        $graf = $(graf),
-        graf_text = $graf.text();
+    for (const graf of $subject_elements.find('p')) {
+    //$subject_elements.find('p').each(function () {
+      let $graf = $(graf);
+      let graf_text = $graf.text();
       if (graf_text.length) {
-        graf_words_count = graf_text.split(/\s+/).length;
+        const graf_words_count = graf_text.split(/\s+/).length;
         if (show_graf_counts) $graf.append(html_graf_prefix + graf_words_count + html_suffix);
         total_words_count += graf_words_count;
       }
-    });
-    output = html_prefix + total_words_count_name + '">' + settings.total_prefix + total_words_count + html_suffix;
+    }
+    const output = html_prefix + total_words_count_name + '">' + settings.total_prefix + total_words_count + html_suffix;
     if (append_selector) {
       if (append_selector == subject_selector) $append_elements = $subject_elements;
       else                                     $append_elements = $(append_selector);
@@ -833,6 +823,7 @@ $(function () {
       prepend_selector = subject_selector;
     }
     if (prepend_selector) {
+      let $prepend_elements;
       if      (prepend_selector == subject_selector) $prepend_elements = $subject_elements;
       else if (prepend_selector ==  append_selector) $prepend_elements =  $append_elements;
       else $prepend_elements = $(prepend_selector);
@@ -852,24 +843,25 @@ $(function () {
   }
   
   function remove_fixed_positioning(site_data) {
-    let settings = site_data.remove_fixed_positioning;
+    const settings = site_data.remove_fixed_positioning;
     console.log('remove_fixed_positioning: called with settings: ' + settings);
     if (settings) {} // stub
-    $('*').each(function () {
-      let $this = $(this);
-      if ($this.css('position') == 'fixed' || $this.css('position') == 'sticky') {
-        console.log('remove_fixed_positioning:', this);
-        $this.css({'position': 'absolute'});
+    for (const element of $('*')) {
+    //$('*').each(function () {
+      const $element = $(element);
+      const old_position = $element.css('position');
+      if (old_position == 'fixed' || old_position == 'sticky') {
+        console.log('remove_fixed_positioning:', element);
+        $element.css({'position': 'absolute'});
       }
-    });
+    }
   }
 
   console.log(91);
-  location = window.location;
-  location_href = location.href;
-  location_origin = location.origin;
-  location_pathname = location.pathname;
-  sites_data_length = sites_data.length;
+  const
+    location = window.location,
+    location_href = location.href,
+    location_origin = location.origin;
   //$.each (sites_data, function (site_index, test_site_data) {
   for (const test_site_data of sites_data) {
     console.log(33, test_site_data.name, location_origin, test_site_data.origin);
@@ -962,14 +954,14 @@ $(function () {
     console.log(48.1, theme_foreground_selector);
     if (site_data.site_css                 ) raw_site_css              = site_data.site_css;
     else                                     raw_site_css              = '';
-    cooked_site_css = '';
+    let cooked_site_css = '';
     if (site_data.std_link_colors) std_link_colors();
     console.log(44, site_data);
     regularize_links();
-    unwanted_classes = site_data.unwanted_classes;
+    const unwanted_classes = site_data.unwanted_classes;
     //console.log(14, site_data);
     if (unwanted_classes) {
-       unwanted_classes_split = unwanted_classes.split(/\s+/);
+      const unwanted_classes_split = unwanted_classes.split(/\s+/);
       //$.each(unwanted_classes_split, function(unwanted_class_index, unwanted_class) {
       for (const unwanted_class of unwanted_classes_split) {
         if (!unwanted_class.length) return;
@@ -1003,20 +995,19 @@ $(function () {
     if (theme_background_selector.length) raw_site_css += theme_background_selector.join(',') + '{' + theme_background_rule + '}';
     if (theme_foreground_selector.length) raw_site_css += theme_foreground_selector.join(',') + '{' + theme_foreground_rule + '}';
     console.log(55, raw_site_css);
-    raw_site_css_split = raw_site_css.split('}');
+    const raw_site_css_split = raw_site_css.split('}');
     console.log(63, cooked_site_css);
     console.log(64, raw_site_css);
     //$.each(raw_site_css_split, function (rule_index, rule) {
     for (const rule of raw_site_css_split) {
       console.log(56, rule);
       if (!rule) break;
-      let
+      const
         rule_split = rule.split('{'),
-        rule_text,
         declarations = rule_split [1],
         declarations_split = declarations.split(';');
       console.log(25, declarations, declarations_split);
-      rule_text = rule_split [0] + ' {';
+      let rule_text = rule_split [0] + ' {';
       //$.each(declarations_split, function (declaration_index, declaration) {
       for (const [declaration_index, declaration] of declarations_split.entries()) {
         console.log(55, declaration_index, declaration);
@@ -1028,7 +1019,7 @@ $(function () {
       console.log('65 ' + rule_text);
       cooked_site_css += ' ' + rule_text;
     }
-    stylesheet = document.createElement('style');
+    const stylesheet = document.createElement('style');
     stylesheet.innerHTML = cooked_site_css;
     //alert(cooked_site_css);
     document.body.appendChild(stylesheet);
