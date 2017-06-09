@@ -75,7 +75,7 @@ $(function () {
         this.article_theme_foreground_selector += ',' + selector_for_elements_with_a_class_that_starts_with('HeaderBasic-headerBasic--');
         this.count_words.append                += ',' + js_header_selector;
         console.log(11, this.article_theme_foreground_selector);
-        if (location_href.indexOf('?') != -1) alert(location_href);
+        if (location_href.indexOf('?') != -1) alert('location_href: ' + location_href);
         if (page_level == 2) {
           $('figure.video').css({'width': '30%', 'margin-left': '30px'});
           $('.g-artboard' ).css({'width': '90%', 'margin-left': '30px'});
