@@ -10,7 +10,7 @@
 // ==/UserScript==
 
 /* jshint undef: true, unused: true, esversion: 6 */
-/* globals $, alert, console, document, window, URLSearchParams */
+/* globals $, alert, console, document, window, URL */
 
 
 //alert(36);
@@ -74,7 +74,7 @@ $(function () {
           //logo_element;
         this.article_theme_foreground_selector += ',' + selector_for_elements_with_a_class_that_starts_with('HeaderBasic-headerBasic--');
         this.count_words.append                += ',' + js_header_selector;
-        console.log(11, this.article_theme_foreground_selector);
+        //console.log(11, this.article_theme_foreground_selector);
         if (location_href.indexOf('?') != -1) alert('location_href: ' + location_href);
         if (page_level == 2) {
           $('figure.video').css({'width': '30%', 'margin-left': '30px'});
@@ -493,12 +493,12 @@ $(function () {
       count_words: {append: '.trb_ar_dateline', subject: 'div[itemprop="articleBody"]', nbsp_size: '100%'},
       customize() {
         const chunks = $('div[itemprop="articleBody"] p');
-        console.log(41, chunks);
+        //console.log(41, chunks);
         //window.c = [];
         for (const chunk of chunks) {
         //chunks.each(function() {
           const children = chunk.children;
-          const debug = true;
+          const debug = false;
           if (children.length == 1) {
             if (debug) console.log(42);
             const child = children [0];
@@ -746,40 +746,45 @@ $(function () {
   }
 
   function regularize_links() {
-  const logging = false;
+  const logging = true;
     if (logging) console.log(10);
     //$.each ($('a'), function (element_index, element) {
     for (const element of $('a')) {
-      if (logging) console.log(11);
-      let href = element.href;
+      if (logging) console.log(11, element);
+      const old_href = element.href;
+      if (logging) console.log(12, old_href);
+      if (!old_href) continue;
+      const old_url = new URL (old_href);
       //if (typeof href === 'undefined') return;
       const origin = element.origin;
       const site_data = sites_data_by_prefix [origin];
-      if (typeof site_data === 'undefined') return;
+      if (!site_data) continue;
       const unwanted_query_fields_array = site_data.unwanted_query_fields_array;
-      if (!unwanted_query_fields_array) return;
+      if (!unwanted_query_fields_array) continue;
       //const unwanted_query_fields_array_length = unwanted_query_fields_array.length;
-      const query_string_index = href.indexOf('?');
-      if (logging) console.log(12, href);
+      const query_string_index = old_href.indexOf('?');
       if (query_string_index !== -1) {
         if (logging) console.log('20');
-        let query_string = href.substring(query_string_index);
-        const url_without_query_string = href.substring(0, query_string_index);
-        const query_params = new URLSearchParams(query_string);
+        //let query_string = old_href.substring(query_string_index); // the query string without the '?' that delimits it
+        let query_string = old_url.search;
+        //let new_href = old_href.substring(0, query_string_index); // the url without the query string or the '?' that delimits it
+        const query_params = old_url.searchParams;
         if (logging) console.log(22, query_params.toString());
         for (const field of unwanted_query_fields_array) {
         //$.each(unwanted_query_fields_array, function (field_index, field) {
           query_params.delete(field);
           if (logging) console.log(22.5, field, query_params.toString());
+          // BUG: would be nice to break if query_params is empty
         }
         if (logging) console.log(23, query_params.toString());
         query_string = query_params.toString();
         if (logging) console.log(24, query_string);
-        href = url_without_query_string;
-        if (query_string.length) href += '?' + query_string;
-        element.href = href;
+        //if (query_string.length) new_href += '?' + query_string;
+        //element.href = new_href;
+        old_url.search = query_string;
+        element.href = old_url.href;
       }
-      if (logging) console.log(17, href);
+      if (logging) console.log(17, element.href);
     }
   }
 
@@ -801,7 +806,7 @@ $(function () {
     const $subject_elements = $(subject_selector);
     const show_graf_counts  = settings.grafs;
  
-    console.log(92, subject_selector, $subject_elements);
+    //console.log(92, subject_selector, $subject_elements);
     if (show_graf_counts) html_graf_prefix = html_prefix + graf_words_count_name + '">' + settings.graf_prefix;
     for (const graf of $subject_elements.find('p')) {
     //$subject_elements.find('p').each(function () {
@@ -818,7 +823,7 @@ $(function () {
       if (append_selector == subject_selector) $append_elements = $subject_elements;
       else                                     $append_elements = $(append_selector);
       $append_elements.append(output);
-      console.log(94, append_selector, $append_elements);
+      //console.log(94, append_selector, $append_elements);
     } else if (!prepend_selector) {
       prepend_selector = subject_selector;
     }
@@ -828,9 +833,9 @@ $(function () {
       else if (prepend_selector ==  append_selector) $prepend_elements =  $append_elements;
       else $prepend_elements = $(prepend_selector);
       $prepend_elements.prepend(output);
-      console.log(96, prepend_selector, $prepend_elements);
+      //console.log(96, prepend_selector, $prepend_elements);
     }
-    console.log(97, nbsp_size);
+    //console.log(97, nbsp_size);
     if (show_graf_counts) raw_site_css += '.' +  graf_words_count_name + ' {color: #333}';
     raw_site_css                       += '.' + total_words_count_name + ' {color: #880} .' + total_words_count_name + '>.nbsp {font-size: ' + nbsp_size + '}';
   }
@@ -844,27 +849,27 @@ $(function () {
   
   function remove_fixed_positioning(site_data) {
     const settings = site_data.remove_fixed_positioning;
-    console.log('remove_fixed_positioning: called with settings: ' + settings);
+    //console.log('remove_fixed_positioning: called with settings: ' + settings);
     if (settings) {} // stub
     for (const element of $('*')) {
     //$('*').each(function () {
       const $element = $(element);
       const old_position = $element.css('position');
       if (old_position == 'fixed' || old_position == 'sticky') {
-        console.log('remove_fixed_positioning:', element);
+        //console.log('remove_fixed_positioning:', element);
         $element.css({'position': 'absolute'});
       }
     }
   }
 
-  console.log(91);
+  //console.log(91);
   const
     location = window.location,
     location_href = location.href,
     location_origin = location.origin;
   //$.each (sites_data, function (site_index, test_site_data) {
   for (const test_site_data of sites_data) {
-    console.log(33, test_site_data.name, location_origin, test_site_data.origin);
+    //console.log(33, test_site_data.name, location_origin, test_site_data.origin);
     if (test_site_data.origin && location_origin == test_site_data.origin) {
       if (location_href == location_origin + '/') {
         site_data = test_site_data;
@@ -872,7 +877,7 @@ $(function () {
         break;
       }
     }
-    console.log(92);
+    //console.log(92);
     if (test_site_data.alternate_homepages) {
 /*
       alternates = test_site_data.alternate_homepages;
@@ -882,17 +887,17 @@ $(function () {
 */
       for (const alternate of test_site_data.alternate_homepages) {
 
-        console.log(92.5, location_href, alternate);
+        //console.log(92.5, location_href, alternate);
         if (location_href == alternate) {
           site_data = test_site_data;
           page_level = 0;
-          console.log(92.6);
+          //console.log(92.6);
           break;
         }
       }
       if (site_data) break;
     }
-    console.log(93);
+    //console.log(93);
     if (test_site_data.origin && location_origin == test_site_data.origin) {
       site_data = test_site_data;
       page_level = 2;
@@ -915,7 +920,7 @@ $(function () {
       }
       if (site_data) break;
     }
-    console.log(94);
+    //console.log(94);
     if (test_site_data.alternate_origins) {
 /*    
       alternates = test_site_data.alternate_origins;
@@ -938,7 +943,7 @@ $(function () {
       }
       if (site_data) break;
     }
-    console.log(95);
+    //console.log(95);
   }
   if (site_data) {
     //alert(site_data.name + ' detected');
@@ -951,12 +956,12 @@ $(function () {
     else                                     theme_foreground_selector = [                                   ];
     if (site_data.hide_selector            ) hide_selector             = [site_data.hide_selector            ];
     else                                     hide_selector             = [                                   ];
-    console.log(48.1, theme_foreground_selector);
+    //console.log(48.1, theme_foreground_selector);
     if (site_data.site_css                 ) raw_site_css              = site_data.site_css;
     else                                     raw_site_css              = '';
     let cooked_site_css = '';
     if (site_data.std_link_colors) std_link_colors();
-    console.log(44, site_data);
+    //console.log(44, site_data);
     regularize_links();
     const unwanted_classes = site_data.unwanted_classes;
     //console.log(14, site_data);
@@ -964,14 +969,14 @@ $(function () {
       const unwanted_classes_split = unwanted_classes.split(/\s+/);
       //$.each(unwanted_classes_split, function(unwanted_class_index, unwanted_class) {
       for (const unwanted_class of unwanted_classes_split) {
-        if (!unwanted_class.length) return;
+        if (!unwanted_class.length) continue;
         //console.log(15, $('.' + unwanted_class));
         $('.' + unwanted_class).removeClass(unwanted_class);
       }
     }
     if (site_data.remove_fixed_positioning) remove_fixed_positioning(site_data);
     if (site_data.append_loaded_date) append_loaded_date($(site_data.append_loaded_date));
-    console.log(48.2, theme_foreground_selector);
+    //console.log(48.2, theme_foreground_selector);
     if (page_level === 0) {
       if (site_data.homepage_theme_selector           ) theme_selector           .push(site_data.homepage_theme_selector);
       if (site_data.homepage_theme_background_selector) theme_background_selector.push(site_data.homepage_theme_background_selector);
@@ -986,37 +991,37 @@ $(function () {
       if (site_data. article_css                      ) raw_site_css += ' ' +          site_data. article_css;
       count_words(site_data);
     }
-    console.log(46, site_data.article_hide_selector);
-    console.log(47, theme_background_selector);
+    //console.log(46, site_data.article_hide_selector);
+    //console.log(47, theme_background_selector);
     if (site_data.dark_theme) dark_theme(site_data.dark_theme);
-    console.log(48.4, theme_foreground_selector);
+    //console.log(48.4, theme_foreground_selector);
     if (hide_selector            .length) raw_site_css += hide_selector                       + '{display: none}';
     if (theme_selector           .length) raw_site_css += theme_selector           .join(',') + '{' + theme_background_rule + theme_foreground_rule + '}';
     if (theme_background_selector.length) raw_site_css += theme_background_selector.join(',') + '{' + theme_background_rule + '}';
     if (theme_foreground_selector.length) raw_site_css += theme_foreground_selector.join(',') + '{' + theme_foreground_rule + '}';
-    console.log(55, raw_site_css);
+    //console.log(55, raw_site_css);
     const raw_site_css_split = raw_site_css.split('}');
-    console.log(63, cooked_site_css);
-    console.log(64, raw_site_css);
+    //console.log(63, cooked_site_css);
+    //console.log(64, raw_site_css);
     //$.each(raw_site_css_split, function (rule_index, rule) {
     for (const rule of raw_site_css_split) {
-      console.log(56, rule);
+      //console.log(56, rule);
       if (!rule) break;
       const
         rule_split = rule.split('{'),
         declarations = rule_split [1],
         declarations_split = declarations.split(';');
-      console.log(25, declarations, declarations_split);
+      //console.log(25, declarations, declarations_split);
       let rule_text = rule_split [0] + ' {';
       //$.each(declarations_split, function (declaration_index, declaration) {
       for (const [declaration_index, declaration] of declarations_split.entries()) {
-        console.log(55, declaration_index, declaration);
+        //console.log(55, declaration_index, declaration);
         if (!declaration) break;
         if (declaration_index) rule_text += '; ';
         rule_text += $.trim(declaration) + ' !important';
       }
       rule_text += '}';
-      console.log('65 ' + rule_text);
+      //console.log('65 ' + rule_text);
       cooked_site_css += ' ' + rule_text;
     }
     const stylesheet = document.createElement('style');
