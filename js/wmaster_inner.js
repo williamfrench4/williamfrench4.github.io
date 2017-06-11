@@ -56,7 +56,7 @@ $(function () {
       homepage_theme_foreground_selector: '.summary', // NYT dark theme
       //homepage_css: 'header {background-color: #aaa}', // NYT dark theme
       homepage_hide_selector: '#masthead-placeholder, .masthead-cap-container, div.editions.tab, #nytint-hp-watching, #site-index .section-header, #markets, .all-sections-button, #mini-navigation, #WelcomeAd_optly',
-      hide_selector: '.ad',
+      site_hide_selector: '.ad',
       theme_selector: 'body, #masthead, .searchsubmit', // NYT dark theme
       site_css: '.story.theme-main .story-meta-footer {border-top: none; border-bottom: none}',
       dark_theme: 1, // to turn this off, change the 1 to a 0 and comment out all other lines that are commented "NYT dark theme"
@@ -104,10 +104,9 @@ $(function () {
           if (logo_element) logo_element.innerHTML = '<img width="573" height="138" src="file:/home/will/public_html/green_york_times.png">';
           else console.log('warning: logo not found');
         }
-        for (const element of $('img.g-lazy')) {
-        //$('img.g-lazy').each(function () {
-          $(element).css({'padding-top': '0'});
-          element.src = element.dataset.hiRes || element.dataset.hiResSrc;
+        for (const img of $('img.g-lazy')) {
+          $(img).css({'padding-top': '0'});
+          img.src = img.dataset.hiRes || img.dataset.hiResSrc;
         }
         //remove_fixed_positioning(site_data);
       },
@@ -127,10 +126,10 @@ $(function () {
       article_theme_background_selector: '.tonal--tone-live, .tonal--tone-editorial, .tonal--tone-feature, .tonal--tone-comment, .tonal--tone-analysis, .tonal--tone-review, .content__main, .block--content, .navigation, .local-navigation, .navigation-container,' +
         '.top-navigation, .navigation:before, .navigation-toggle, .navigation__container--first, .signposting, .tabs__tab--selected a, .tabs__tab--selected .tab__link, .tabs__tab a, .tabs__tab .tab__link',
       article_theme_foreground_selector: '.content__dateline, div.explainer, .caption5~',
-      hide_selector: '.adverts, .site-message',
+      site_hide_selector: '.adverts, .site-message',
       article_hide_selector: '.element-video, .contributions__epic, .js-outbrain, .related, .submeta, #onward, #more-in-section, .element-pullquote, .element-rich-link, .meta__twitter, .meta__extras, .meta__email, .selection-sharing, .block-share, .ad-slot, ' +
         'figure[data-canonical-url="https://interactive.guim.co.uk/embed/2017/05/americas-unequal-future/embed.html"], figure[data-canonical-url="https://interactive.guim.co.uk/embed/2017/02/outside-in-america/embed.html"], #this_land_epic_bottom_environment_iframe',
-      homepage_hide_selector: '.footer__email-container, div.image>div.video, #securedrop',
+      homepage_hide_selector: '.footer__email-container, div.image>div.video, #securedrop, #membership-thrasher',
       homepage_theme_selector: '.fc-container--story-package, .facia-page, .index-page, .voices-and-votes-container__wrapper, .l-side-margins, .fc-container--thrasher, .tone-news--item.fc-item, .u-faux-block-link--hover, .tone-feature--item, .fc-container--story-package .fc-item, .tone-analysis--item.fc-item, .tone-comment--item.fc-item, .tone-editorial--item, .tone-media--item, .tone-review--item',
       homepage_css: '.tone-live--item {background-color: #5a0b00}',
       dark_theme: 1,
@@ -152,7 +151,7 @@ $(function () {
       homepage_css: 'header {position: relative} .pb-f-homepage-story .headline a, .related-links a, #bottom-content a {font-family: sans-serif; font-weight: normal}',
       homepage_theme_background_selector: '#pb-root, .homepage-footer-button, .pb-f-page-todays-paper-rr .large, .pb-f-homepage-chat-schedule .chat-schedule-button a',
       homepage_theme_selector: '.pb-f-homepage-card .panel',
-      //hide_selector:'.pb-f-page-post-most img',
+      //site_hide_selector:'.pb-f-page-post-most img',
       homepage_theme_foreground_selector: '.label, .blurb, .byline, .caption',
       homepage_hide_selector: '.pb-f-homepage-brandconnect-sidebar, .section-story-photo-1', //, .standard-chain img, .opinions-chain img',
       site_css: '.overlineLabel {font-family: "Helvetica Black", sans-serif; font-weight: bold}',
@@ -160,10 +159,7 @@ $(function () {
       theme_selector: 'body, .skin.skin-card, .skin.skin-button, input',
       unwanted_query_fields: 'hpid tid utm_term wpisrc wpmk',
       customize() {
-        //let stylesheet_links = $("link[rel='stylesheet']");
         for (const stylesheet_link of $("link[rel='stylesheet']")) {
-        //stylesheet_links.each(function () {
-          //let stylesheet_link = this;
           const stylesheet_link_href = stylesheet_link.href;
           //console.log(stylesheet_link_href);
 /*          
@@ -181,14 +177,12 @@ $(function () {
           
           //console.log(stylesheet_link.href);
         }
-        for (const element of $('img.lzyld, img.placeholder')) {
-        //$('img.lzyld, img.placeholder').each(function () {
-          $(element).css({'padding-top': '0'});
-          element.src = element.dataset.hiRes || element.dataset.hiResSrc;
+        for (const img of $('img.lzyld, img.placeholder')) {
+          $(img).css({'padding-top': '0'});
+          img.src = img.dataset.hiRes || img.dataset.hiResSrc;
         }
         if (page_level == 2) {
           for (const element of $('article p, article p>i, article p>em')) {
-          //$('article p, article p>i, article p>em').each(function () {
             const
               $element = $(element),
               element_contents = $element.contents();
@@ -211,7 +205,6 @@ $(function () {
         //console.log(41, content_body_element, content_body_element_children);
         //window.c = [];
         for (const content_body_element_child of content_body_element_children) {
-        //content_body_element_children.each(function() {
           const content_body_element_grandchildren = content_body_element_child.children;
           if (content_body_element_grandchildren.length == 1) {
             const content_body_element_grandchild = content_body_element_grandchildren [0];
@@ -407,15 +400,21 @@ $(function () {
       origin: 'http://www.newyorker.com',
       count_words: {append: '.byline-and-date', subject: '#content'},
       //article_css: '.single-post #articleBody p a, .single-post #articleBody .gallery-caption a, .single-post #articleBody u, .articleBody p a, .articleBody .gallery-caption a, .articleBody u, .author-masthead p a, .author-masthead .gallery-caption a, .author-masthead u {text-shadow: none; background: none}',
-      article_css: 'a {text-shadow: none; background: none}',
+      article_css: 'a {text-shadow: none; background: none} body>header {position: static}',
       article_hide_selector: 'iframe, .social-module, .strongbox-promo-wrapper, .social-hover, .footer-content, #recirc-pos-2',
       article_theme_background_selector: 'article>header, .hamburger-dropdowns-navigation__top-level, footer',
-      article_theme_foreground_selector: 'article>header .title, article>header time.blog-post-date, .articleBody p, .caption, .author-masthead',
+      article_theme_foreground_selector: 'article>header .title, article>header time.blog-post-date, .articleBody p, .caption, .author-masthead, .hero-image-caption',
       homepage_hide_selector: '.fixed-topnav, iframe, #strongbox-promo',
       homepage_theme_background_selector: '#main, .logo-container',
       customize() {
         if (location_href.indexOf('?') != -1) alert(location_href);
         if (page_level == 2) {
+          /*
+          console.log(390, 1, location_href);
+          for (const element of $('body>header')) {
+            console.log(390, 2, element);
+          }
+          */
         } else {
           const logo_element = $('h1') [0];
           if (logo_element) logo_element.innerHTML = '<img width="400" height="94" src="file:/home/will/public_html/green_yorker.png">';
@@ -473,7 +472,9 @@ $(function () {
     {
       name: 'The Baltimore Sun',
       origin: 'http://www.baltimoresun.com',
-      article_hide_selector: '.trb_nls_c, .trb_bnn, .trb_mh_adB', //, aside:has([data-content-kicker="Related"])',
+      site_css: '.trb_nh {position: absolute}',
+      site_hide_selector: '.trb_bnn',
+      article_hide_selector: '.trb_nls_c, .trb_mh_adB, .trb_gptAd', //, aside:has([data-content-kicker="Related"])',
       article_theme_background_selector: '.trb_allContentWrapper, .trb_nh_lw',
       article_theme_foreground_selector: '.trb_ar_page>ol, .trb_ar_page>p, .trb_ar_page>ul, .trb_ar_page[data-content-page="1"]>p:first-child:first-letter',
       //article_css: 'body {overflow: visible}',
@@ -481,6 +482,7 @@ $(function () {
       //count_words: {append: '.byline', subject: '.article-body'},
       customize() {
         $('aside:has([data-content-kicker="Related"])').hide(); // This would be in article_hide_selector, but that fails enigmatically as of 2017-05-30
+        for (const img of $('img[data-baseurl]')) img.src = img.dataset.baseurl;
       },
     },
     {
@@ -496,7 +498,6 @@ $(function () {
         //console.log(41, chunks);
         //window.c = [];
         for (const chunk of chunks) {
-        //chunks.each(function() {
           const children = chunk.children;
           const debug = false;
           if (children.length == 1) {
@@ -560,7 +561,6 @@ $(function () {
   
   const sites_data_by_prefix = {};
   for (const site_data of sites_data) {
-  //$.each(sites_data, function (site_index, site_data) {
     const unwanted_query_fields = site_data.unwanted_query_fields;
     let prefixes, remove_fixed_positioning_settings;
     if (site_data.origin) prefixes = [site_data.origin];
@@ -570,7 +570,6 @@ $(function () {
     if (unwanted_query_fields) site_data.unwanted_query_fields_array = unwanted_query_fields.split(/\s+/);
     console.log(34, site_data.unwanted_query_fields_array);
     //console.log(35, prefixes);
-    //$.each(prefixes, function (prefix_index, prefix) {
     for (const prefix of prefixes) {
       if (sites_data_by_prefix.hasOwnProperty(prefix)) console.log('warning: URL prefix "' + prefix + '" is a duplicate!');
       else sites_data_by_prefix [prefix] = site_data;
@@ -610,7 +609,6 @@ $(function () {
     // Return the text from this element only, not including any text from child elements
     let text = '';
     for (const child_node of element.childNodes) {
-    //$.each(element.childNodes, function (child_node_index, child_node) {
       if (child_node.nodeType === 3) text += child_node.textContent;
     }
     return text;
@@ -748,15 +746,14 @@ $(function () {
   function regularize_links() {
   const logging = true;
     if (logging) console.log(10);
-    //$.each ($('a'), function (element_index, element) {
-    for (const element of $('a')) {
-      if (logging) console.log(11, element);
-      const old_href = element.href;
+    for (const anchor of $('a')) {
+      if (logging) console.log(11, anchor);
+      const old_href = anchor.href;
       if (logging) console.log(12, old_href);
       if (!old_href) continue;
-      const old_url = new URL (old_href);
+      const url = new URL (old_href);
       //if (typeof href === 'undefined') return;
-      const origin = element.origin;
+      const origin = anchor.origin;
       const site_data = sites_data_by_prefix [origin];
       if (!site_data) continue;
       const unwanted_query_fields_array = site_data.unwanted_query_fields_array;
@@ -766,12 +763,11 @@ $(function () {
       if (query_string_index !== -1) {
         if (logging) console.log('20');
         //let query_string = old_href.substring(query_string_index); // the query string without the '?' that delimits it
-        let query_string = old_url.search;
+        let query_string = url.search;
         //let new_href = old_href.substring(0, query_string_index); // the url without the query string or the '?' that delimits it
-        const query_params = old_url.searchParams;
+        const query_params = url.searchParams;
         if (logging) console.log(22, query_params.toString());
         for (const field of unwanted_query_fields_array) {
-        //$.each(unwanted_query_fields_array, function (field_index, field) {
           query_params.delete(field);
           if (logging) console.log(22.5, field, query_params.toString());
           // BUG: would be nice to break if query_params is empty
@@ -780,11 +776,11 @@ $(function () {
         query_string = query_params.toString();
         if (logging) console.log(24, query_string);
         //if (query_string.length) new_href += '?' + query_string;
-        //element.href = new_href;
-        old_url.search = query_string;
-        element.href = old_url.href;
+        //anchor.href = new_href;
+        url.search = query_string;
+        anchor.href = url.href;
       }
-      if (logging) console.log(17, element.href);
+      if (logging) console.log(17, anchor.href);
     }
   }
 
@@ -948,13 +944,13 @@ $(function () {
   if (site_data) {
     //alert(site_data.name + ' detected');
     if (site_data.customize) site_data.customize();
-    if (site_data.theme_selector           ) theme_selector            = [site_data.theme_selector           ];
+    if (site_data.theme_selector           ) theme_selector            = [site_data.           theme_selector];
     else                                     theme_selector            = [                                   ];
     if (site_data.theme_background_selector) theme_background_selector = [site_data.theme_background_selector];
     else                                     theme_background_selector = [                                   ];
     if (site_data.theme_foreground_selector) theme_foreground_selector = [site_data.theme_foreground_selector];
     else                                     theme_foreground_selector = [                                   ];
-    if (site_data.hide_selector            ) hide_selector             = [site_data.hide_selector            ];
+    if (site_data.site_hide_selector       ) hide_selector             = [site_data.       site_hide_selector];
     else                                     hide_selector             = [                                   ];
     //console.log(48.1, theme_foreground_selector);
     if (site_data.site_css                 ) raw_site_css              = site_data.site_css;
