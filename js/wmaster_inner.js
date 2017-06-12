@@ -129,7 +129,7 @@ $(function () {
       site_hide_selector: '.adverts, .site-message',
       article_hide_selector: '.element-video, .contributions__epic, .js-outbrain, .related, .submeta, #onward, #more-in-section, .element-pullquote, .element-rich-link, .meta__twitter, .meta__extras, .meta__email, .selection-sharing, .block-share, .ad-slot, ' +
         'figure[data-canonical-url="https://interactive.guim.co.uk/embed/2017/05/americas-unequal-future/embed.html"], figure[data-canonical-url="https://interactive.guim.co.uk/embed/2017/02/outside-in-america/embed.html"], #this_land_epic_bottom_environment_iframe',
-      homepage_hide_selector: '.footer__email-container, div.image>div.video, #securedrop, #membership-thrasher',
+      homepage_hide_selector: '.footer__email-container, div.image>div.video, #securedrop, #membership-thrasher, #support-the-guardian',
       homepage_theme_selector: '.fc-container--story-package, .facia-page, .index-page, .voices-and-votes-container__wrapper, .l-side-margins, .fc-container--thrasher, .tone-news--item.fc-item, .u-faux-block-link--hover, .tone-feature--item, .fc-container--story-package .fc-item, .tone-analysis--item.fc-item, .tone-comment--item.fc-item, .tone-editorial--item, .tone-media--item, .tone-review--item',
       homepage_css: '.tone-live--item {background-color: #5a0b00}',
       dark_theme: 1,
@@ -488,6 +488,7 @@ $(function () {
     {
       name: 'Los Angeles Times',
       origin: 'http://www.latimes.com',
+      site_css: '.trb_nh {position: absolute}',
       article_hide_selector: '.trb_nh_lw, .trb_mh_adB, .trb_sc, .trb_ar_bc, .trb_gptAd.trb_ar_rail_ad, .trb_embed[data-content-type=story], .wf_interstitial_link, [name="support-our-journalism"], [data-content-type="pullquote"]',
       article_theme_background_selector: '.trb_allContentWrapper',
       article_theme_foreground_selector: 'article p, .dropcap, .trb_ar_page[data-content-page="1"]>p:first-child:first-letter',
@@ -1027,5 +1028,8 @@ $(function () {
     window.sss=stylesheet;
   }
   //$('#anti-white-flash-curtain').remove();
+  
+//  $('o
+  
   $.noConflict();
 });
