@@ -126,13 +126,20 @@ $(function () {
       article_theme_background_selector: '.tonal--tone-live, .tonal--tone-editorial, .tonal--tone-feature, .tonal--tone-comment, .tonal--tone-analysis, .tonal--tone-review, .content__main, .block--content, .navigation, .local-navigation, .navigation-container,' +
         '.top-navigation, .navigation:before, .navigation-toggle, .navigation__container--first, .signposting, .tabs__tab--selected a, .tabs__tab--selected .tab__link, .tabs__tab a, .tabs__tab .tab__link',
       article_theme_foreground_selector: '.content__dateline, div.explainer, .caption5~',
-      site_hide_selector: '.adverts, .site-message',
       article_hide_selector: '.element-video, .contributions__epic, .js-outbrain, .related, .submeta, #onward, #more-in-section, .element-pullquote, .element-rich-link, .meta__twitter, .meta__extras, .meta__email, .selection-sharing, .block-share, .ad-slot, ' +
         'figure[data-canonical-url="https://interactive.guim.co.uk/embed/2017/05/americas-unequal-future/embed.html"], figure[data-canonical-url="https://interactive.guim.co.uk/embed/2017/02/outside-in-america/embed.html"], #this_land_epic_bottom_environment_iframe',
+      dark_theme: 1,
       homepage_hide_selector: '.footer__email-container, div.image>div.video, #securedrop, #membership-thrasher, #support-the-guardian',
       homepage_theme_selector: '.fc-container--story-package, .facia-page, .index-page, .voices-and-votes-container__wrapper, .l-side-margins, .fc-container--thrasher, .tone-news--item.fc-item, .u-faux-block-link--hover, .tone-feature--item, .fc-container--story-package .fc-item, .tone-analysis--item.fc-item, .tone-comment--item.fc-item, .tone-editorial--item, .tone-media--item, .tone-review--item',
       homepage_css: '.tone-live--item {background-color: #5a0b00}',
-      dark_theme: 1,
+      site_hide_selector: '.adverts, .site-message',
+      customize() {
+        if (page_level === 0) {
+          //$('#opinion .button--show-more, #from-the-uk .button--show-more, #around-the-world .button--show-more').click();
+          //d
+          $('.button--show-more').click();
+        }
+      },
     },
     {
       name: 'Washington Post',
@@ -410,9 +417,9 @@ $(function () {
         if (location_href.indexOf('?') != -1) alert(location_href);
         if (page_level == 2) {
           /*
-          console.log(390, 1, location_href);
+          //console.log(390, 1, location_href);
           for (const element of $('body>header')) {
-            console.log(390, 2, element);
+            //console.log(390, 2, element);
           }
           */
         } else {
@@ -474,7 +481,7 @@ $(function () {
       origin: 'http://www.baltimoresun.com',
       site_css: '.trb_nh {position: absolute}',
       site_hide_selector: '.trb_bnn',
-      article_hide_selector: '.trb_nls_c, .trb_mh_adB, .trb_gptAd', //, aside:has([data-content-kicker="Related"])',
+      article_hide_selector: '.trb_nls_c, .trb_mh_adB, .trb_gptAd, .trb_ar_sponsoredmod, [data-content-type="tweetembed"]', //, aside:has([data-content-kicker="Related"])',
       article_theme_background_selector: '.trb_allContentWrapper, .trb_nh_lw',
       article_theme_foreground_selector: '.trb_ar_page>ol, .trb_ar_page>p, .trb_ar_page>ul, .trb_ar_page[data-content-page="1"]>p:first-child:first-letter',
       //article_css: 'body {overflow: visible}',
@@ -569,7 +576,7 @@ $(function () {
     if (site_data.alternate_origins ) prefixes = prefixes.concat(site_data.alternate_origins );
     if (site_data.alternate_prefixes) prefixes = prefixes.concat(site_data.alternate_prefixes);
     if (unwanted_query_fields) site_data.unwanted_query_fields_array = unwanted_query_fields.split(/\s+/);
-    console.log(34, site_data.unwanted_query_fields_array);
+    //console.log(34, site_data.unwanted_query_fields_array);
     //console.log(35, prefixes);
     for (const prefix of prefixes) {
       if (sites_data_by_prefix.hasOwnProperty(prefix)) console.log('warning: URL prefix "' + prefix + '" is a duplicate!');
@@ -616,7 +623,7 @@ $(function () {
   }
 
   function selector_for_elements_with_a_class_that_starts_with(target) {
-    const logging = true;
+    const logging = false;
     const result =  '[class^="' + target + '"], [class*=" ' + target + '"]';
     if (logging) console.log(31, target, result);
     return result;
@@ -745,14 +752,27 @@ $(function () {
   }
 
   function regularize_links() {
-  const logging = true;
+    const logging = false;
+    let url;
     if (logging) console.log(10);
     for (const anchor of $('a')) {
       if (logging) console.log(11, anchor);
       const old_href = anchor.href;
       if (logging) console.log(12, old_href);
       if (!old_href) continue;
-      const url = new URL (old_href);
+      try {
+        url = new URL (old_href);
+      } catch (ex) {
+        if (logging) console.log(12.1);
+        if (ex instanceof TypeError) {
+          if (logging) console.log(12.2);
+          continue;
+        } else {
+          if (logging) console.log(12.3);
+          throw ex;
+        }
+      }
+      if (logging) console.log(13);
       //if (typeof href === 'undefined') return;
       const origin = anchor.origin;
       const site_data = sites_data_by_prefix [origin];
@@ -953,6 +973,7 @@ $(function () {
     else                                     theme_foreground_selector = [                                   ];
     if (site_data.site_hide_selector       ) hide_selector             = [site_data.       site_hide_selector];
     else                                     hide_selector             = [                                   ];
+    console.log(231, hide_selector, location, site_data.name);
     //console.log(48.1, theme_foreground_selector);
     if (site_data.site_css                 ) raw_site_css              = site_data.site_css;
     else                                     raw_site_css              = '';
@@ -988,6 +1009,7 @@ $(function () {
       if (site_data. article_css                      ) raw_site_css += ' ' +          site_data. article_css;
       count_words(site_data);
     }
+    console.log(233, hide_selector, page_level);
     //console.log(46, site_data.article_hide_selector);
     //console.log(47, theme_background_selector);
     if (site_data.dark_theme) dark_theme(site_data.dark_theme);
