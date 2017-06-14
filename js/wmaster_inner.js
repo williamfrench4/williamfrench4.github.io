@@ -387,10 +387,13 @@ $(function () {
     {
       name: 'Time Magazine',
       origin: 'http://time.com',
-      dark_theme: 2,
       count_words: {append: '#editorial-article-wrapper-container>:first-child>:first-child>:first-child>:first-child>:first-child', subject: 'article'},
+      article_hide_selector: '.ssv3__nav',
+      article_theme_background_selector: 'h1, h2, h3, blockquote, .article-viewport',
+      article_theme_foreground_selector: '.xxx_oneoff_special_story_v3_headline',
+      article_theme_selector: 'p',
       //article_hide_selector: '.clay-share',
-      article_theme_foreground_selector: 'p:first-letter',
+      //article_theme_foreground_selector: 'p:first-letter',
     },
     {
       name: 'New York Magazine',
