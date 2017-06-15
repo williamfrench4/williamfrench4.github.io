@@ -298,12 +298,19 @@ $(function () {
     {
       name: 'The Independent',
       origin: 'http://www.independent.co.uk',
-      article_css: 'header {position: static}',
-      article_hide_selector: '.hide, .partner-slots, .fb-like, .relatedlinkslist, .layout-component-i100, .layout-component-ines-video-sidebar, .box-comments:first-of-type, .syndication-btn',
+      article_css: '#masthead {position: absolute}',
+      article_theme_background_selector: '#masthead nav, .article-wrapper',
+      article_theme_foreground_selector: '.dark-background',
+      article_hide_selector: '.hide, .partner-slots, .fb-like, .relatedlinkslist, .layout-component-i100, .layout-component-ines-video-sidebar, .box-comments:first-of-type, .syndication-btn, .video-playlist, .video-popout-wrap',
       customize() {
         const
           elements = $('.box-comments'),
           elements_length = elements.length;
+        /*
+        const w = $ ('.video-poput-wrap');
+        console.log(455, w);
+        w.remove();
+        */
         //console.log(55, elements);
         if (elements_length == 3) {
           $(elements [0]).addClass('hide');
@@ -313,7 +320,7 @@ $(function () {
           alert('warning: expected 3 elements, found:', elements);
         }
       },
-      dark_theme: 0,
+      ddark_theme: 0,
     },
     {
       name: 'The Atlantic',
@@ -363,8 +370,8 @@ $(function () {
       origin: 'https://apnews.com',
       alternate_origins: ['https://www.apnews.com'],
       count_words: {append: '.mobile h6', subject: '.articleBody'},
-      article_css: '.articleView {padding-top: 80px}',
-      article_hide_selector: '#drawerMenu, .mobileTitle ul, footer',
+      article_css: '.articleView {padding-top: 80px} .header {position: absolute}',
+      article_hide_selector: '#drawerMenu, .mobileTitle ul, footer, .header.smaller',
     },
     {
       name: 'Reuters',
