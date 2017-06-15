@@ -418,11 +418,16 @@ $(function () {
       count_words: {append: '.byline-and-date', subject: '#content'},
       //article_css: '.single-post #articleBody p a, .single-post #articleBody .gallery-caption a, .single-post #articleBody u, .articleBody p a, .articleBody .gallery-caption a, .articleBody u, .author-masthead p a, .author-masthead .gallery-caption a, .author-masthead u {text-shadow: none; background: none}',
       article_css: 'a {text-shadow: none; background: none} body>header {position: static}',
-      article_hide_selector: 'iframe, .social-module, .strongbox-promo-wrapper, .social-hover, .footer-content, #recirc-pos-2',
+      //article_hide_selector: '.social-module, .strongbox-promo-wrapper, .social-hover, .footer-content, #recirc-pos-2',
+      article_hide_selector: selector_for_elements_with_a_class_that_starts_with('MainHeader__topBarItems___ MainHeader__topBar MainHeader__collapsed___ Layout__social___ RecirculationMostPopular__default___'),
       article_theme_background_selector: 'article>header, .hamburger-dropdowns-navigation__top-level, footer',
-      article_theme_foreground_selector: 'article>header .title, article>header time.blog-post-date, .articleBody p, .caption, .author-masthead, .hero-image-caption',
+      //article_theme_foreground_selector: 'article>header .title, article>header time.blog-post-date, .articleBody p, .caption, .author-masthead, .hero-image-caption',
+      article_theme_foreground_selector: '.caption, p:first-child:first-letter,' + selector_for_elements_with_a_class_that_starts_with('ArticleBody__articleBody___ ImageCaption__caption___ ArticleContributors__bio___'),
+      homepage_css: selector_for_elements_with_a_class_that_starts_with('SiteHeader__siteHeader___') + '{position: absolute}',
       homepage_hide_selector: '.fixed-topnav, iframe, #strongbox-promo',
       homepage_theme_background_selector: '#main, .logo-container',
+      homepage_theme_foreground_selector: selector_for_elements_with_a_class_that_starts_with('Hero__dek___ River__dek___ Card__dek___ Byline__by___ RecirculationMostPopular__counter___ RecirculationMostPopular__byLine___ RecirculationMostPopular__title___ Card__timestamp___'),
+      site_hide_selector: 'iframe, ' + selector_for_elements_with_a_class_that_starts_with('MainHeader__partial___'),
       customize() {
         if (location_href.indexOf('?') != -1) alert(location_href);
         if (page_level == 2) {
@@ -433,9 +438,11 @@ $(function () {
           }
           */
         } else {
+          /*
           const logo_element = $('h1') [0];
           if (logo_element) logo_element.innerHTML = '<img width="400" height="94" src="file:/home/will/public_html/green_yorker.png">';
           else console.log('warning: logo not found');
+          */
         }
         //remove_fixed_positioning(site_data);
       },
@@ -632,10 +639,16 @@ $(function () {
     return text;
   }
 
-  function selector_for_elements_with_a_class_that_starts_with(target) {
+  function selector_for_elements_with_a_class_that_starts_with(targets) {
     const logging = false;
-    const result =  '[class^="' + target + '"], [class*=" ' + target + '"]';
-    if (logging) console.log(31, target, result);
+    const targets_split = targets.split(/\s+/);
+    let result = '';
+    for (const target of targets_split) {
+      if (target [0] == '.') throw new Error('selector_for_elements_with_a_class_that_starts_with: class "' + target + '" begins with a dot');
+      if (result) result += ', ';
+      result +=  '[class^="' + target + '"], [class*=" ' + target + '"]';
+      if (logging) console.log(31, target, result);
+    }
     return result;
   }
 
@@ -757,8 +770,8 @@ $(function () {
 
   function std_link_colors() {
     raw_site_css += ' a {text-decoration: none}' +
-      ' a:link, a:link h2, a:link h3, a:link h4, a:link h5, a:link div, a:link p, a:link span, a:link em {color: #00f}' +
-      ' a:visited, a:visited h2, a:visited h3, a:visited h4, a:visited h5, a:visited div, a:visited p, a:visited span, a:visited em {color: #a0a}';
+      ' a:link, a:link h1, a:link h2, a:link h3, a:link h4, a:link h5, a:link div, a:link p, a:link span, a:link em {color: #00f}' +
+      ' a:visited, a:visited h1, a:visited h2, a:visited h3, a:visited h4, a:visited h5, a:visited div, a:visited p, a:visited span, a:visited em {color: #a0a}';
   }
 
   function regularize_links() {
@@ -1004,7 +1017,7 @@ $(function () {
     }
     if (site_data.remove_fixed_positioning) remove_fixed_positioning(site_data);
     if (site_data.append_loaded_date) append_loaded_date($(site_data.append_loaded_date));
-    //console.log(48.2, theme_foreground_selector);
+    console.log(253, theme_foreground_selector);
     if (page_level === 0) {
       if (site_data.homepage_theme_selector           ) theme_selector           .push(site_data.homepage_theme_selector);
       if (site_data.homepage_theme_background_selector) theme_background_selector.push(site_data.homepage_theme_background_selector);
@@ -1019,16 +1032,17 @@ $(function () {
       if (site_data. article_css                      ) raw_site_css += ' ' +          site_data. article_css;
       count_words(site_data);
     }
-    console.log(233, hide_selector, page_level);
+    //console.log(233, hide_selector, page_level);
+    //console.log(243, raw_site_css);
     //console.log(46, site_data.article_hide_selector);
     //console.log(47, theme_background_selector);
     if (site_data.dark_theme) dark_theme(site_data.dark_theme);
-    //console.log(48.4, theme_foreground_selector);
+    console.log(255, theme_foreground_selector);
     if (hide_selector            .length) raw_site_css += hide_selector                       + '{display: none}';
     if (theme_selector           .length) raw_site_css += theme_selector           .join(',') + '{' + theme_background_rule + theme_foreground_rule + '}';
     if (theme_background_selector.length) raw_site_css += theme_background_selector.join(',') + '{' + theme_background_rule + '}';
     if (theme_foreground_selector.length) raw_site_css += theme_foreground_selector.join(',') + '{' + theme_foreground_rule + '}';
-    //console.log(55, raw_site_css);
+    //console.log(245, raw_site_css);
     const raw_site_css_split = raw_site_css.split('}');
     //console.log(63, cooked_site_css);
     //console.log(64, raw_site_css);
