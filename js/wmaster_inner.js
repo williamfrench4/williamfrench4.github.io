@@ -104,7 +104,11 @@ $(function () {
           if (logo_element) logo_element.innerHTML = '<img width="573" height="138" src="file:/home/will/public_html/green_york_times.png">';
           else console.log('warning: logo not found');
         }
-        for (const img of $('img.g-lazy')) {
+        for (const img of $('img.g-freebird-lazy')) {
+          //$(img).css({'padding-top': '0'});
+          img.src = img.dataset.src;
+        }
+        for (const img of $('img.lzyld, img.placeholder')) {
           $(img).css({'padding-top': '0'});
           img.src = img.dataset.hiRes || img.dataset.hiResSrc;
         }
