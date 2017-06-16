@@ -163,7 +163,7 @@ $(function () {
       homepage_theme_background_selector: '#pb-root, .homepage-footer-button, .pb-f-page-todays-paper-rr .large, .pb-f-homepage-chat-schedule .chat-schedule-button a',
       homepage_theme_selector: '.pb-f-homepage-card .panel',
       //site_hide_selector:'.pb-f-page-post-most img',
-      homepage_theme_foreground_selector: '.label, .blurb, .byline, .caption',
+      homepage_theme_foreground_selector: '.label, .blurb, .byline, .author, .caption',
       homepage_hide_selector: '.pb-f-homepage-brandconnect-sidebar, .section-story-photo-1', //, .standard-chain img, .opinions-chain img',
       site_css: '.overlineLabel {font-family: "Helvetica Black", sans-serif; font-weight: bold}',
       theme_foreground_selector: 'h1, h2, h3, h4, h5, h6',
