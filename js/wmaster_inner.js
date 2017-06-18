@@ -17,8 +17,10 @@
 $(function () {
   'use strict';
   //alert(8);
+  //console.log ('wmaster running');
   //return;
   const
+    body                   = $('body'),
     program_name           = 'wmaster',
     theme_background_color = '#000',
     theme_background_rule  = 'background: ' + theme_background_color + '; background-color: ' + theme_background_color + ';',
@@ -123,13 +125,13 @@ $(function () {
       alternate_homepages: ['https://www.theguardian.com/us', 'https://www.theguardian.com/uk'],
       append_loaded_date: 'footer.l-footer',
       count_words: {append: '.content__dateline, .content__standfirst', subject: '.content__article-body'},
-      article_css: '.js-headline-text {font-weight: normal} p {line-height: 170%} a {border-bottom: none} figure.element-tweet {margin-right: 4rem} img.byline-img__img {background: transparent} .content__article-body {font-family: "Adobe Caslon Pro"}' +
+      article_css: '.js-headline-text {font-weight: normal} p {line-height: 170%} a {border-bottom: none} figure.element-tweet {margin-right: 4rem} img.byline-img__img {background: transparent} .content__article-body {font-family: Adobe Caslon Pro; font-size: 109%}' +
         'a:link   [data-link-name="auto-linked-tag"] {color: #00e766} a:link:hover[data-link-name="auto-linked-tag"] {color: #00f} div.explainer {background-color: #002b45; border: 1px solid ' + theme_foreground_color + '}' + 
         '.signposting {border-right-width:0} a:visited[data-link-name="auto-linked-tag"] {color: #99d700} a:visited:hover[data-link-name="auto-linked-tag"] {color: purple} .tabs__tab {border-top: 0.0625rem solid #aaa}',
       article_theme_selector: '.tonal__standfirst, .tonal__header, .content__standfirst, .content__headline, .byline, .d-top-comment__bubble',
       article_theme_background_selector: '.tonal--tone-live, .tonal--tone-editorial, .tonal--tone-feature, .tonal--tone-comment, .tonal--tone-analysis, .tonal--tone-review, .content__main, .block--content, .navigation, .local-navigation, .navigation-container,' +
         '.top-navigation, .navigation:before, .navigation-toggle, .navigation__container--first, .signposting, .tabs__tab--selected a, .tabs__tab--selected .tab__link, .tabs__tab a, .tabs__tab .tab__link',
-      article_theme_foreground_selector: '.content__dateline, div.explainer, .caption5~',
+      article_theme_foreground_selector: '.content__dateline, div.explainer, .caption',
       article_hide_selector: '.element-video, .contributions__epic, .js-outbrain, .related, .submeta, #onward, #more-in-section, .element-pullquote, .element-rich-link, .meta__twitter, .meta__extras, .meta__email, .selection-sharing, .block-share, .ad-slot, ' +
         'figure[data-canonical-url="https://interactive.guim.co.uk/embed/2017/05/americas-unequal-future/embed.html"], figure[data-canonical-url="https://interactive.guim.co.uk/embed/2017/02/outside-in-america/embed.html"], #this_land_epic_bottom_environment_iframe',
       dark_theme: 1,
@@ -234,23 +236,9 @@ $(function () {
       }
     },
     {
-      name: 'The Verge',
-      origin: 'https://www.theverge.com',
-      article_hide_selector: '.c-entry-content>[class^=c-float-]>aside>q',
-    },
-    {
       name: 'The Intercept',
       origin: 'https://theintercept.com',
       article_theme_foreground_selector: '.PostContent, .PostContent u, h1, h2, h3, h4, h5, h6, .caption',
-    },
-    {
-      name: 'Vox',
-      origin: 'https://www.vox.com',
-      article_hide_selector: '.main-social, .c-article-feedback, .c-tab-bar, .c-rock-newsletter',
-      article_theme_background_selector: 'header .l-wrapper {max-width: none} .l-main-content, .c-global-header:before, .c-global-header__logo, .c-rock-list__title-wrapper:before, .c-compact-river__entry, .c-footer',
-      article_theme_foreground_selector: '.c-page-title, .c-byline, .p-dek, .p-rock-head',
-      count_words: {append: '.c-byline', subject: '.c-entry-content'},
-      site_css: '.c-global-header__logo path {fill: ' + theme_foreground_color + '} .c-compact-river__entry, .c-footer {border-top-width: 0}',
     },
     {
       name: 'USA Today',
@@ -331,7 +319,7 @@ $(function () {
       origin: 'https://www.theatlantic.com',
       count_words: {append: '.article-cover-extra', subject: '.article-body'},
       //count_words_grafs: true,
-      article_hide_selector: '.module-related.video, .js-inject-promo, .social-kit-top, .article-tools',
+      article_hide_selector: '.module-related.video, .js-inject-promo, .social-kit-top, .article-tools, .callout, .pullquote',
       theme_background_selector: '#site',
       article_theme_background_selector: '.article-body blockquote',
       homepage_theme_background_selector: '.c-hp, .c-hp-lead__content, .c-hp-news, .c-hp-filmstrip, .c-hp-offlead, .c-hp-featured, .c-writers__container, .c-latest, .c-popular__container, .c-sections, input',
@@ -409,7 +397,6 @@ $(function () {
     {
       name: 'New York Magazine',
       origin: 'http://nymag.com',
-      dark_theme: 1,
       count_words: {append: '.article-timestamp', subject: '.article-content'},
       article_hide_selector: '.clay-share',
       article_theme_foreground_selector: 'h1, p, figcaption, time, .by-authors',
@@ -417,9 +404,39 @@ $(function () {
       homepage_theme_background_selector: '.newsHeadlinesByPublication section, .dek, .hed',
     },
     {
+      name: 'The Cut',
+      origin: 'https://www.thecut.com',
+      count_words: {append: '.article-timestamp', subject: '.article-content'},
+      article_hide_selector: '.related-stories',
+      article_theme_foreground_selector: 'h1, .clay-paragraph, .mediaplay-image-figcaption',
+    },
+    {
+      name: 'Vulture',
+      origin: 'http://www.vulture.com',
+      article_theme_background_selector: '.global-nav',
+      article_theme_foreground_selector: 'h1, .by-authors, time',
+      article_css: '.logo-wrap {background-color: #333}',
+    },
+    {
+      name: 'Vox',
+      origin: 'https://www.vox.com',
+      article_hide_selector: '.main-social, .c-article-feedback, .c-tab-bar, .c-rock-newsletter',
+      article_theme_background_selector: 'header .l-wrapper {max-width: none} .l-main-content, .c-global-header:before, .c-global-header__logo, .c-rock-list__title-wrapper:before, .c-compact-river__entry, .c-footer',
+      article_theme_foreground_selector: '.c-page-title, .c-byline, .p-dek, .p-rock-head',
+      count_words: {append: '.c-byline', subject: '.c-entry-content'},
+      site_css: '.c-global-header__logo path {fill: ' + theme_foreground_color + '} .c-compact-river__entry, .c-footer {border-top-width: 0}',
+    },
+    {
+      name: 'The Verge',
+      origin: 'https://www.theverge.com',
+      article_hide_selector: '.c-entry-content>[class^=c-float-]>aside>q, #newsletter-signup-short-form, .tab-bar-fixed',
+      article_theme_background_selector: '.l-main-content',
+      article_theme_foreground_selector: '.c-page-title, .c-byline, .e-image__meta, .p-dek' //, .p-rock-head',
+    },
+    {
       name: 'The New Yorker',
       origin: 'http://www.newyorker.com',
-      count_words: {append: '.byline-and-date', subject: '#content'},
+      count_words: {append: selector_for_elements_with_a_class_that_starts_with('ArticleHeader__metaInfo___'), subject: '#articleBody'},
       //article_css: '.single-post #articleBody p a, .single-post #articleBody .gallery-caption a, .single-post #articleBody u, .articleBody p a, .articleBody .gallery-caption a, .articleBody u, .author-masthead p a, .author-masthead .gallery-caption a, .author-masthead u {text-shadow: none; background: none}',
       article_css: 'a {text-shadow: none; background: none} body>header {position: static}',
       //article_hide_selector: '.social-module, .strongbox-promo-wrapper, .social-hover, .footer-content, #recirc-pos-2',
@@ -494,7 +511,7 @@ $(function () {
     },
     {
       name: 'Weather Underground',
-      origin: 'https://www.wunderground.com/',
+      origin: 'https://www.wunderground.com',
       dark_theme: 0,
     },
     {
@@ -765,8 +782,10 @@ $(function () {
 
 
   function dark_theme(aggressiveness_level) { //, target) {
+    //body.css({'background-color': '' + theme_background_color + ' !important; color: ' + theme_foreground_color + ' !important'});
+    console.log(847, 'dark_theme_' + aggressiveness_level);
+    body.addClass('dark_theme_' + aggressiveness_level);
     if (!aggressiveness_level) return;
-    //$('body').css({'background-color': '' + theme_background_color + ' !important; color: ' + theme_foreground_color + ' !important'});
     if (aggressiveness_level > 1) document.styleSheets[0].addRule('*', 'background-color: ' + theme_background_color + ' !important; color: ' + theme_foreground_color + ' !important');
     //raw_site_css += target + '{' + theme_background_rule + theme_foreground_rule + '}';
     raw_site_css += '::-webkit-scrollbar {height: 2px; width: 2px} ::-webkit-scrollbar-track {background: #000} ::-webkit-scrollbar-thumb {background: #f00} ';
@@ -850,7 +869,7 @@ $(function () {
     const $subject_elements = $(subject_selector);
     const show_graf_counts  = settings.grafs;
  
-    //console.log(92, subject_selector, $subject_elements);
+    console.log(192, 3, subject_selector, $subject_elements);
     if (show_graf_counts) html_graf_prefix = html_prefix + graf_words_count_name + '">' + settings.graf_prefix;
     for (const graf of $subject_elements.find('p')) {
     //$subject_elements.find('p').each(function () {
@@ -866,8 +885,11 @@ $(function () {
     if (append_selector) {
       if (append_selector == subject_selector) $append_elements = $subject_elements;
       else                                     $append_elements = $(append_selector);
-      $append_elements.append(output);
-      //console.log(94, append_selector, $append_elements);
+      for (const append_element of $append_elements) {
+        console.log(192, 4, append_element, append_element.className, output);
+        $(append_element).append(output);
+      }
+      console.log(192, 5, append_selector, $append_elements);
     } else if (!prepend_selector) {
       prepend_selector = subject_selector;
     }
@@ -877,9 +899,9 @@ $(function () {
       else if (prepend_selector ==  append_selector) $prepend_elements =  $append_elements;
       else $prepend_elements = $(prepend_selector);
       $prepend_elements.prepend(output);
-      //console.log(96, prepend_selector, $prepend_elements);
+      console.log(192, 7, prepend_selector, $prepend_elements);
     }
-    //console.log(97, nbsp_size);
+    console.log(192, 9, nbsp_size);
     if (show_graf_counts) raw_site_css += '.' +  graf_words_count_name + ' {color: #333}';
     raw_site_css                       += '.' + total_words_count_name + ' {color: #880} .' + total_words_count_name + '>.nbsp {font-size: ' + nbsp_size + '}';
   }
@@ -911,17 +933,18 @@ $(function () {
     location = window.location,
     location_href = location.href,
     location_origin = location.origin;
-  //$.each (sites_data, function (site_index, test_site_data) {
   for (const test_site_data of sites_data) {
-    //console.log(33, test_site_data.name, location_origin, test_site_data.origin);
-    if (test_site_data.origin && location_origin == test_site_data.origin) {
+    const test_site_origin = test_site_data.origin;
+    //console.log(225, 3, test_site_data.name, location_origin, test_site_origin);
+    if (test_site_origin.endsWith('/')) console.log ('wmaster: warning: origin "' + test_site_origin + '" ends in a slash');
+    if (test_site_origin && location_origin == test_site_origin) {
       if (location_href == location_origin + '/') {
         site_data = test_site_data;
         page_level = 0;
         break;
       }
     }
-    //console.log(92);
+    //console.log(225, 5, site_data);
     if (test_site_data.alternate_homepages) {
 /*
       alternates = test_site_data.alternate_homepages;
@@ -990,7 +1013,7 @@ $(function () {
     //console.log(95);
   }
   if (site_data) {
-    //alert(site_data.name + ' detected');
+    console.log('wmaster: ' + site_data.name + ' detected');
     if (site_data.customize) site_data.customize();
     if (site_data.theme_selector           ) theme_selector            = [site_data.           theme_selector];
     else                                     theme_selector            = [                                   ];
@@ -1040,12 +1063,15 @@ $(function () {
     //console.log(243, raw_site_css);
     //console.log(46, site_data.article_hide_selector);
     //console.log(47, theme_background_selector);
-    if (site_data.dark_theme) dark_theme(site_data.dark_theme);
+    console.log(846, site_data.dark_theme);
+    dark_theme(site_data.dark_theme);
     console.log(255, theme_foreground_selector);
     if (hide_selector            .length) raw_site_css += hide_selector                       + '{display: none}';
-    if (theme_selector           .length) raw_site_css += theme_selector           .join(',') + '{' + theme_background_rule + theme_foreground_rule + '}';
-    if (theme_background_selector.length) raw_site_css += theme_background_selector.join(',') + '{' + theme_background_rule + '}';
-    if (theme_foreground_selector.length) raw_site_css += theme_foreground_selector.join(',') + '{' + theme_foreground_rule + '}';
+    if (body.hasClass('dark_theme_1') ||body.hasClass('dark_theme_2')) {
+      if (theme_selector           .length) raw_site_css += theme_selector           .join(',') + '{' + theme_background_rule + theme_foreground_rule + '}';
+      if (theme_background_selector.length) raw_site_css += theme_background_selector.join(',') + '{' + theme_background_rule + '}';
+      if (theme_foreground_selector.length) raw_site_css += theme_foreground_selector.join(',') + '{' + theme_foreground_rule + '}';
+    }
     //console.log(245, raw_site_css);
     const raw_site_css_split = raw_site_css.split('}');
     //console.log(63, cooked_site_css);
