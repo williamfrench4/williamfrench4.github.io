@@ -280,6 +280,15 @@ $(function () {
       count_words: {append: '.timestamp', subject: '.story-text'},
     },
     {
+      name: 'Bloomberg',
+      origin: 'https://www.bloomberg.com',
+      article_css: '.lede-text-only__highlight {box-shadow: none} .bb-nav[data-theme=view] {background-color: #600} .wmaster_words_count_total {margin-left: 0.4em} .sticky-container {position: absolute}',
+      article_hide_selector: '#adBlockerContainer, .persist-nav, .sticky-social-buttons, .inline-newsletter',
+      article_theme_foreground_selector: '.body-copy, blockquote, .lede-media-image__caption, .lede-text-only__byline',
+      article_theme_selector: '.lede-text-only__highlight',
+      count_words: {append: '.article-timestamp', subject: '.body-copy'},
+    },
+    {
       name: 'FiveThirtyEight',
       origin: 'https://fivethirtyeight.com',
       article_css: '.site-main, .site-wrapper, .header-global, .header-global-wrapper {background-color: inherit} .header-global-logo {max-width: 210px; background-color: #888; padding:6px 0 3px 6px}',
@@ -589,8 +598,12 @@ $(function () {
       article_theme_foreground_selector: '.headline__title, .headline__subtitle, .entry__body',
       article_css: 'html {font-family: sans-serif}',
     },
+    {
+      name: 'Washington Examiner',
+      origin: 'http://www.washingtonexaminer.com',
+      article_css: '.fixed-top {position: absolute}',
+    },
     {name: 'Just Security'          , origin: 'https://www.justsecurity.org'},
-    {name: 'Washington Examiner'    , origin: 'http://www.washingtonexaminer.com'},
     {name: 'New York Post'          , origin: 'http://nypost.com'                    , article_hide_selector: '.floating-share'},
     {name: 'Stack Overflow'         , origin: 'http://stackoverflow.com'             , dark_theme: 0},
     {name: 'Review of Ophthalmology', origin: 'https://www.reviewofophthalmology.com'},
@@ -935,7 +948,8 @@ $(function () {
     location_origin = location.origin;
   for (const test_site_data of sites_data) {
     const test_site_origin = test_site_data.origin;
-    //console.log(225, 3, test_site_data.name, location_origin, test_site_origin);
+    console.log(225, 3, test_site_data.name, location_origin, test_site_origin);
+    if (!test_site_origin) continue;
     if (test_site_origin.endsWith('/')) console.log ('wmaster: warning: origin "' + test_site_origin + '" ends in a slash');
     if (test_site_origin && location_origin == test_site_origin) {
       if (location_href == location_origin + '/') {
@@ -1063,43 +1077,44 @@ $(function () {
     //console.log(243, raw_site_css);
     //console.log(46, site_data.article_hide_selector);
     //console.log(47, theme_background_selector);
-    console.log(846, site_data.dark_theme);
+    console.log(846, 10, site_data.dark_theme);
     dark_theme(site_data.dark_theme);
-    console.log(255, theme_foreground_selector);
+    console.log(846, 20, theme_foreground_selector);
     if (hide_selector            .length) raw_site_css += hide_selector                       + '{display: none}';
     if (body.hasClass('dark_theme_1') ||body.hasClass('dark_theme_2')) {
       if (theme_selector           .length) raw_site_css += theme_selector           .join(',') + '{' + theme_background_rule + theme_foreground_rule + '}';
       if (theme_background_selector.length) raw_site_css += theme_background_selector.join(',') + '{' + theme_background_rule + '}';
       if (theme_foreground_selector.length) raw_site_css += theme_foreground_selector.join(',') + '{' + theme_foreground_rule + '}';
     }
-    //console.log(245, raw_site_css);
+    console.log(846, 50, cooked_site_css);
+    console.log(846, 30, raw_site_css);
     const raw_site_css_split = raw_site_css.split('}');
-    //console.log(63, cooked_site_css);
-    //console.log(64, raw_site_css);
-    //$.each(raw_site_css_split, function (rule_index, rule) {
+    console.log(846, 60, raw_site_css_split);
     for (const rule of raw_site_css_split) {
-      //console.log(56, rule);
+      console.log(846, 70, rule);
       if (!rule) break;
       const
         rule_split = rule.split('{'),
         declarations = rule_split [1],
         declarations_split = declarations.split(';');
-      //console.log(25, declarations, declarations_split);
+      console.log(846, 80, declarations, declarations_split);
       let rule_text = rule_split [0] + ' {';
-      //$.each(declarations_split, function (declaration_index, declaration) {
-      for (const [declaration_index, declaration] of declarations_split.entries()) {
-        //console.log(55, declaration_index, declaration);
-        if (!declaration) break;
-        if (declaration_index) rule_text += '; ';
-        rule_text += $.trim(declaration) + ' !important';
+      let declaration_index = 0;
+      for (const declaration of declarations_split) {
+        console.log(846, 90, declaration_index, declaration);
+        if (declaration) {
+          if (declaration_index) rule_text += '; ';
+          rule_text += $.trim(declaration) + ' !important';
+        }
+        declaration_index++;
       }
       rule_text += '}';
-      //console.log('65 ' + rule_text);
+      console.log(846, 100, rule_text);
       cooked_site_css += ' ' + rule_text;
     }
     const stylesheet = document.createElement('style');
     stylesheet.innerHTML = cooked_site_css;
-    //alert(cooked_site_css);
+    console.log(846, 110, cooked_site_css);
     document.body.appendChild(stylesheet);
     window.sss=stylesheet;
   }
