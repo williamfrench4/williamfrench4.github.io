@@ -136,7 +136,7 @@ $(function () {
       article_theme_selector: '.tonal__standfirst, .tonal__header, .content__standfirst, .content__headline, .byline, .d-top-comment__bubble',
       article_theme_background_selector: '.tonal--tone-live, .tonal--tone-editorial, .tonal--tone-feature, .tonal--tone-comment, .tonal--tone-analysis, .tonal--tone-review, .content__main, .block--content, .navigation, .local-navigation, .navigation-container,' +
         '.top-navigation, .navigation:before, .navigation-toggle, .navigation__container--first, .signposting, .tabs__tab--selected a, .tabs__tab--selected .tab__link, .tabs__tab a, .tabs__tab .tab__link',
-      article_theme_foreground_selector: '.content__dateline, div.explainer, .caption',
+      article_theme_foreground_selector: '.content__dateline, div.explainer, .caption, .quoted',
       article_hide_selector: '.element-video, .contributions__epic, .js-outbrain, .related, .submeta, #onward, #more-in-section, .element-pullquote, .element-rich-link, .meta__twitter, .meta__extras, .meta__email, .selection-sharing, .block-share, .ad-slot, ' +
         'figure[data-canonical-url="https://interactive.guim.co.uk/embed/2017/05/americas-unequal-future/embed.html"], figure[data-canonical-url="https://interactive.guim.co.uk/embed/2017/02/outside-in-america/embed.html"], #this_land_epic_bottom_environment_iframe',
       dark_theme: 1,
@@ -534,6 +534,15 @@ $(function () {
       dark_theme: 0,
     },
     {
+      name: 'Ars Technica',
+      origin: 'https://arstechnica.com',
+      alternate_origins: ['https://arstechnica.co.uk'],
+      hide_selector: '.site-header.is_stuck.scrolled-up',
+      article_hide_selector: '.share-links, .pullbox',
+      article_css: '.site-wrapper {background-color: transparent}', // if set to black, this hides images in Chrome as of 6/19/2017
+      count_words: {append: '.byline', subject: '.article-content', grafs: 2},
+    },
+    {
       name: 'The Baltimore Sun',
       origin: 'http://www.baltimoresun.com',
       css: '.trb_nh {position: absolute} .trb_nh_lw {border-bottom-width: 0}',
@@ -882,7 +891,8 @@ $(function () {
     let total_words_count = 0;
     const total_words_count_name = words_count_name + '_total';
     const html_prefix = '<span class="' + words_count_name + ' ';
-    const html_suffix = '<span class="nbsp">&nbsp;</span>words</span>';
+    const html_infix = '<span class="nbsp">&nbsp;</span>words';
+    const html_suffix = '</span>';
     let html_graf_prefix;
     const settings = site_data.count_words;
     const nbsp_size       = settings.nbsp_size;
@@ -892,20 +902,34 @@ $(function () {
     const subject_selector  = settings.subject;
     const $subject_elements = $(subject_selector);
     const show_graf_counts  = settings.grafs;
+    let graf_index = 1;
  
     console.log(192, 3, subject_selector, $subject_elements);
     if (show_graf_counts) html_graf_prefix = html_prefix + graf_words_count_name + '">' + settings.graf_prefix;
+    
     for (const graf of $subject_elements.find('p, li')) {
-    //$subject_elements.find('p').each(function () {
       let $graf = $(graf);
       let graf_text = $graf.text();
       if (graf_text.length) {
         const graf_words_count = graf_text.split(/\s+/).length;
-        if (show_graf_counts) $graf.append(html_graf_prefix + graf_words_count + html_suffix);
         total_words_count += graf_words_count;
+        if (show_graf_counts) {
+          let new_html = html_graf_prefix;
+          console.log (263, 1, new_html);
+          if (show_graf_counts > 1) new_html += '&para' + graf_index + ':&nbsp;';
+          console.log (263, 3, new_html);
+          new_html += graf_words_count + html_infix;
+          console.log (263, 5, new_html);
+          if (show_graf_counts > 1) new_html += ' (' + total_words_count + ' total)';
+          console.log (263, 7, new_html);
+          new_html += html_suffix;
+          console.log (263, 9, new_html);
+          $graf.append(new_html);
+        }
+        graf_index++;
       }
     }
-    const output = html_prefix + total_words_count_name + '">' + settings.total_prefix + total_words_count + html_suffix;
+    const output = html_prefix + total_words_count_name + '">' + settings.total_prefix + total_words_count + html_infix + html_suffix;
     if (append_selector) {
       if (append_selector == subject_selector) $append_elements = $subject_elements;
       else                                     $append_elements = $(append_selector);
