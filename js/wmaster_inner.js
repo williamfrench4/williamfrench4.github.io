@@ -115,9 +115,9 @@ $(function () {
           //$(img).css({'padding-top': '0'});
           img.src = img.dataset.src;
         }
-        for (const img of $('img.lzyld, img.placeholder')) {
+        for (const img of $('img[data-superjumbosrc]')) {
           $(img).css({'padding-top': '0'});
-          img.src = img.dataset.hiRes || img.dataset.hiResSrc;
+          img.src = img.dataset.superjumbosrc;
         }
         //remove_fixed_positioning(site_data);
       },
