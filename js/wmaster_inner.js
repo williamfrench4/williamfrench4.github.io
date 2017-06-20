@@ -623,6 +623,14 @@ $(function () {
       origin: 'http://www.washingtonexaminer.com',
       article_css: '.fixed-top {position: absolute}',
     },
+    {
+      name: 'Yale Law Journal',
+      origin: 'http://www.yalelawjournal.org',
+      article_theme_foreground_selector: 'p, .author, h1, #content_type',
+      article_css: 'nav {position: absolute} .wmaster_words_count_total {margin-left: 0.5em}',
+      article_hide_selector: '#article_tool_stack',
+      count_words: {append: '.author', subject: '#article_wrapper'}
+    },
     {name: 'Just Security'          , origin: 'https://www.justsecurity.org'},
     {name: 'New York Post'          , origin: 'http://nypost.com'                    , article_hide_selector: '.floating-share'},
     {name: 'Stack Overflow'         , origin: 'http://stackoverflow.com'             , dark_theme: 0},
