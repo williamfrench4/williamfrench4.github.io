@@ -38,10 +38,10 @@ $(function () {
       name: 'New York Times',
       alternate_origins: ['https://cooking.nytimes.com', 'https://douthat.blogs.nytimes.com', 'https://krugman.blogs.nytimes.com', 'https://kristof.blogs.nytimes.com', 'https://www.nytimes.com/section/magazine'],
       alternate_prefixes: ['file:///root/wayback/nytimes/', 'file:///root/wayback/nytimes_todayspaper/'],
-      count_words: {append: '.byline:last-of-type, .byline-column', prefix: ' ', subject: '.story-body'},
+      count_words: {append: '.byline:last-of-type, .byline-column', prefix: ' ', subject: '.story-body, .g-body'},
       article_theme_selector: '.masthead .masthead-menu li, .headline, .kicker, .dateline, .story-quote, .caption, figcaption, input, textarea, .columnGroup', // NYT dark theme
       article_theme_background_selector: '.bcColumn, .cColumn', // NYT dark theme
-      article_theme_foreground_selector: 'h1, h2, h3, h4, h5, h6, .byline, .dropcap, .g-artboard *, .g-graphic *, .nytg-chart *' +
+      article_theme_foreground_selector: 'h1, h2, h3, h4, h5, h6, .byline, .dropcap, .g-body' +
         selector_for_elements_with_a_class_that_starts_with('ResponsiveMedia-captionText-- HeaderBasic-bylineTimestamp-- HeaderBasic-summary-- HeaderBasic-label--'),
       article_css: '.App__app {margin-top: 0} .story-body-text {font-family: "Times New Roman"} .caption-text {font-family: sans-serif} .story-header, .image {position: relative}' +
         'input, textarea {background-image: none} .shell {padding-top: 0} .main {border-top: none} .nytg-chart {color: #000; background-color: #fff}' + // NYT dark theme
@@ -86,7 +86,7 @@ $(function () {
         if (page_level == 2) {
           $('figure.video').css({'width': '30%', 'margin-left': '30px'});
           $('.g-artboard' ).css({'width': '90%', 'margin-left': '30px'});
-          document.styleSheets[0].addRule('.g-artboard *, .g-graphic *, .nytg-chart *', 'background-color: transparent !important; color: #000 !important');
+          document.styleSheets[0].addRule('.g-artboard *, .g-graphic *, .nytg-chart *', 'background-color: transparent !important');
           //cooked_site_css += ' .interactive-graphic * {background-color: #fff !important; color: #000 !important}';
           /* This block replaced by selector_for_elements_with_a_class_that_starts_with('Masthead-mastheadContainer--')
           js_header_element = $('#app>:first-child>:first-child') [0];
@@ -130,9 +130,10 @@ $(function () {
       alternate_homepages: ['https://www.theguardian.com/us', 'https://www.theguardian.com/uk'],
       append_loaded_date: 'footer.l-footer',
       count_words: {append: '.content__dateline, .content__standfirst', subject: '.content__article-body'},
-      article_css: '.js-headline-text {font-weight: normal} p {line-height: 170%} a {border-bottom: none} figure.element-tweet {margin-right: 4rem} img.byline-img__img {background: transparent} .content__article-body {font-family: Adobe Caslon Pro; font-size: 109%}' +
+      article_css: '.js-headline-text {font-weight: normal} p {line-height: 170%} a {border-bottom: none} figure.element-tweet {margin-right: 4rem} .tweet {font-family: sans-serif} img.byline-img__img {background: transparent}' +
         'a:link   [data-link-name="auto-linked-tag"] {color: #00e766} a:link:hover[data-link-name="auto-linked-tag"] {color: #00f} div.explainer {background-color: #002b45; border: 1px solid ' + theme_foreground_color + '}' + 
-        '.signposting {border-right-width:0} a:visited[data-link-name="auto-linked-tag"] {color: #99d700} a:visited:hover[data-link-name="auto-linked-tag"] {color: purple} .tabs__tab {border-top: 0.0625rem solid #aaa}',
+        '.signposting {border-right-width:0} a:visited[data-link-name="auto-linked-tag"] {color: #99d700} a:visited:hover[data-link-name="auto-linked-tag"] {color: purple} .tabs__tab {border-top: 0.0625rem solid #aaa}' +
+        ' .content__article-body {font-family: Adobe Caslon Pro; font-size: 109%}',
       article_theme_selector: '.tonal__standfirst, .tonal__header, .content__standfirst, .content__headline, .byline, .d-top-comment__bubble',
       article_theme_background_selector: '.tonal--tone-live, .tonal--tone-editorial, .tonal--tone-feature, .tonal--tone-comment, .tonal--tone-analysis, .tonal--tone-review, .content__main, .block--content, .navigation, .local-navigation, .navigation-container,' +
         '.top-navigation, .navigation:before, .navigation-toggle, .navigation__container--first, .signposting, .tabs__tab--selected a, .tabs__tab--selected .tab__link, .tabs__tab a, .tabs__tab .tab__link',
@@ -144,7 +145,7 @@ $(function () {
       // '.fc-container--story-package, .facia-page, .index-page, .voices-and-votes-container__wrapper, .l-side-margins, .fc-container--thrasher, .tone-news--item.fc-item, .du-faux-block-link--hover, .tone-feature--item, .fc-container--story-package .fc-item, .tone-analysis--item.fc-item, .tone-comment--item.fc-item, .tone-editorial--item, .tone-media--item, .tone-review--item',
       homepage_theme_background_selector: '.fc-container--story-package, .u-faux-block-link--hover, .facia-page, .fc-item__container',
       homepage_theme_selector: '',
-      homepage_css: '.tone-live--item {background-color: #5a0b00} .fc-item.tone-letters--item {background-color: #333} .fc-container--story-package {border-top-width: 0}',
+      homepage_css: '.tone-live--item {background-color: #5a0b00} .fc-item.tone-letters--item {background-color: #333} .fc-container--story-package {border-top-width: 0} .js-on .fc-show-more--hidden .fc-show-more--hide {display: block}',
       hide_selector: '.adverts, .site-message',
       customize() {
         if (page_level === 0) {
@@ -160,13 +161,13 @@ $(function () {
       alternate_origins: ['http://www.washingtonpost.com', 'https://live.washingtonpost.com'],
       alternate_prefixes: ['file:///root/wayback/washingtonpost/'],
       article_css: '#main-content {background-image: none} #et-nav {position: absolute}.headline {font-family: sans-serif} a, .powerpost-header, .layout_article #top-content {border-bottom: none} p {line-height: 155%} body {overflow-y: visible}' +
-        '.fixed-image {position: static}', //.pb-f-homepage-story {background-color: #300},
+        '.fixed-image {position: static} .g-artboard img {border-bottom: 30px solid white} .g-artboard p {color: black; background-color: transparent} .bg-none {background-color: transparent}', //.pb-f-homepage-story {background-color: #300},
       article_hide_selector: '#wp-header, #top-furniture, .pb-f-ad-flex-2, .pb-f-ad-flex-3, .pb-f-games-gamesWidget, .pb-f-page-footer-v2, .pb-f-page-recommended-strip, .pb-f-page-editors-picks, disabled.chain-wrapper, .extra, .pb-f-generic-promo-image, .interstitial-link,' +
         '.pg-interstitial-link, .pb-f-posttv-sticky-player, .pb-f-posttv-sticky-player-powa, .xpb-f-article-article-author-bio, .pb-tool.email, .pb-f-page-newsletter-inLine, .pb-f-page-comments, .inline-video, [channel="wp.com"], .pb-f-page-jobs-search,' +
         '.pb-f-homepage-story, .pb-f-sharebars-top-share-bar, .pb-f-page-share-bar, .wp_signin, #wp_Signin, .inline-graphic-linked, .share-individual, .pb-f-page-trump-can-he-do-that-podcast',
-      article_theme_selector: '#article-body, article p, .pg-bodyCopy',
+      article_theme_selector: '#article-body, p, .pg-bodyCopy',
       article_theme_background_selector: '.wp-volt-gal-embed-promo-container, .wp-volt-gal-embed-promo-bottom, #weather-glance, #weather_now, .cwgdropdown, #heat-tracker, #weather-almanac, .pb-f-capital_weather_gang-weather-almanac select',
-      article_theme_foreground_selector: '.pb-caption, .pb-bottom-author, .pb-timestamp, .weather-gray, #weather_now .time',
+      article_theme_foreground_selector: '.pb-caption, .pg-caption, .pb-bottom-author, .pb-timestamp, .pg-pubDate, .weather-gray, #weather_now .time',
       count_words: {append: '.pg-pubDate, .bottomizer, .pb-sig-line, .pbHeader', subject: '#article-body>article, #pg-content>article'},
       homepage_css: 'header {position: relative} .pb-f-homepage-story .headline a, .related-links a, #bottom-content a {font-family: sans-serif; font-weight: normal}',
       homepage_theme_background_selector: '#pb-root, .homepage-footer-button, .pb-f-page-todays-paper-rr .large, .pb-f-homepage-chat-schedule .chat-schedule-button a',
@@ -200,6 +201,9 @@ $(function () {
         for (const img of $('img.lzyld, img.placeholder')) {
           $(img).css({'padding-top': '0'});
           img.src = img.dataset.hiRes || img.dataset.hiResSrc;
+        }
+        for (const img of $('img.lazy-image')) {
+          img.src = img.dataset.original;
         }
         if (page_level == 2) {
           for (const element of $('article p, article p>i, article p>em')) {
@@ -631,6 +635,13 @@ $(function () {
       article_hide_selector: '#article_tool_stack',
       count_words: {append: '.author', subject: '#article_wrapper'}
     },
+    {
+      name: 'Wired',
+      origin: 'https://www.wired.com',
+      article_css: '.header {position: absolute} .nav--design.nav--is-active {background-color: #344} .article-body-component a {border-bottom-width: 0; box-shadow: none}',
+      article_theme_background_selector: '.article-main-component, .header, .logo-bar--design',
+      article_theme_foreground_selector: '.article-body-component, .title, .brow-component, .content-header-component .meta-list li, .lede, .caption-component__credit, .article-body-component h3',
+    },
     {name: 'Just Security'          , origin: 'https://www.justsecurity.org'},
     {name: 'New York Post'          , origin: 'http://nypost.com'                    , article_hide_selector: '.floating-share'},
     {name: 'Stack Overflow'         , origin: 'http://stackoverflow.com'             , dark_theme: 0},
@@ -894,28 +905,41 @@ $(function () {
 
   function count_words(site_data) {
 
-    const words_count_name = program_name +  '_words_count';
-    const graf_words_count_name = words_count_name + '_graf';
-    let total_words_count = 0;
+    const words_count_name       = program_name +  '_words_count';
+    const graf_words_count_name  = words_count_name + '_graf';
+    let total_words_count        = 0;
     const total_words_count_name = words_count_name + '_total';
-    const html_prefix = '<span class="' + words_count_name + ' ';
-    const html_infix = '<span class="nbsp">&nbsp;</span>words';
-    const html_suffix = '</span>';
+    const html_prefix            = '<span class="' + words_count_name + ' ';
+    const html_infix             = '<span class="nbsp">&nbsp;</span>words';
+    const html_suffix            = '</span>';
     let html_graf_prefix;
-    const settings = site_data.count_words;
-    const nbsp_size       = settings.nbsp_size;
-    const append_selector   = settings.append ;
+    const settings               = site_data.count_words;
+    const nbsp_size              = settings.nbsp_size;
+    const append_selector        = settings.append ;
     let $append_elements;
-    let prepend_selector  = settings.prepend;
-    const subject_selector  = settings.subject;
-    const $subject_elements = $(subject_selector);
-    const show_graf_counts  = settings.grafs;
-    let graf_index = 1;
+    let prepend_selector         = settings.prepend;
+    const subject_selector       = settings.subject;
+    const $subject_elements      = $(subject_selector);
+    const show_graf_counts       = settings.grafs;
+    let graf_index               = 1;
  
     console.log(192, 3, subject_selector, $subject_elements);
     if (show_graf_counts) html_graf_prefix = html_prefix + graf_words_count_name + '">' + settings.graf_prefix;
-    
-    for (const graf of $subject_elements.find('p, li')) {
+    let grafs = [];
+    let graf_containers = [];
+    for (const element of $subject_elements) {
+      if (element.tagName == 'P' || element.tagName == 'LI') {
+        grafs.push(element);
+      } else {
+        graf_containers.push(element);
+      }
+    }
+    console.log(192, 5, grafs, grafs.length)
+    const contained_grafs = $(graf_containers).find('p, li');
+    console.log(192, 6, contained_grafs, contained_grafs.length)
+    grafs = grafs.concat(contained_grafs);
+    console.log(192, 7, grafs, grafs.length);
+    for (const graf of grafs) {
       let $graf = $(graf);
       let graf_text = $graf.text();
       if (graf_text.length) {
@@ -923,15 +947,15 @@ $(function () {
         total_words_count += graf_words_count;
         if (show_graf_counts) {
           let new_html = html_graf_prefix;
-          console.log (263, 1, new_html);
+          console.log (192, 9, new_html);
           if (show_graf_counts > 1) new_html += '&para' + graf_index + ':&nbsp;';
-          console.log (263, 3, new_html);
+          console.log (192, 11, new_html);
           new_html += graf_words_count + html_infix;
-          console.log (263, 5, new_html);
+          console.log (192, 13, new_html);
           if (show_graf_counts > 1) new_html += ' (' + total_words_count + ' total)';
-          console.log (263, 7, new_html);
+          console.log (192, 15, new_html);
           new_html += html_suffix;
-          console.log (263, 9, new_html);
+          console.log (192, 17, new_html);
           $graf.append(new_html);
         }
         graf_index++;
@@ -942,10 +966,10 @@ $(function () {
       if (append_selector == subject_selector) $append_elements = $subject_elements;
       else                                     $append_elements = $(append_selector);
       for (const append_element of $append_elements) {
-        console.log(192, 4, append_element, append_element.className, output);
+        console.log(192, 19, append_element, append_element.className, output);
         $(append_element).append(output);
       }
-      console.log(192, 5, append_selector, $append_elements);
+      console.log(192, 21, append_selector, $append_elements);
     } else if (!prepend_selector) {
       prepend_selector = subject_selector;
     }
@@ -955,9 +979,9 @@ $(function () {
       else if (prepend_selector ==  append_selector) $prepend_elements =  $append_elements;
       else $prepend_elements = $(prepend_selector);
       $prepend_elements.prepend(output);
-      console.log(192, 7, prepend_selector, $prepend_elements);
+      console.log(192, 23, prepend_selector, $prepend_elements);
     }
-    console.log(192, 9, nbsp_size);
+    console.log(192, 25, nbsp_size);
     if (show_graf_counts) raw_site_css += '.' +  graf_words_count_name + ' {color: #333}';
     raw_site_css                       += '.' + total_words_count_name + ' {color: #880} .' + total_words_count_name + '>.nbsp {font-size: ' + nbsp_size + '}';
   }
