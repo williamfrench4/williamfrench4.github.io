@@ -41,7 +41,7 @@ $(function () {
       count_words: {append: '.byline:last-of-type, .byline-column', prefix: ' ', subject: '.story-body, .g-body'},
       article_theme_selector: '.masthead .masthead-menu li, .headline, .kicker, .dateline, .story-quote, .caption, figcaption, input, textarea, .columnGroup', // NYT dark theme
       article_theme_background_selector: '.bcColumn, .cColumn', // NYT dark theme
-      article_theme_foreground_selector: 'h1, h2, h3, h4, h5, h6, .byline, .dropcap, .g-body' +
+      article_theme_foreground_selector: 'h1, h2, h3, h4, h5, h6, .byline, .dropcap, .g-body, .swiper-text p,' +
         selector_for_elements_with_a_class_that_starts_with('ResponsiveMedia-captionText-- HeaderBasic-bylineTimestamp-- HeaderBasic-summary-- HeaderBasic-label--'),
       article_css: '.App__app {margin-top: 0} .story-body-text {font-family: "Times New Roman"} .caption-text {font-family: sans-serif} .story-header, .image {position: relative}' +
         'input, textarea {background-image: none} .shell {padding-top: 0} .main {border-top: none} .nytg-chart {color: #000; background-color: #fff}' + // NYT dark theme
@@ -470,7 +470,7 @@ $(function () {
       homepage_css: selector_for_elements_with_a_class_that_starts_with('SiteHeader__siteHeader___') + '{position: absolute}',
       homepage_hide_selector: '.fixed-topnav, iframe, #strongbox-promo',
       homepage_theme_background_selector: '#main, .logo-container',
-      homepage_theme_foreground_selector: selector_for_elements_with_a_class_that_starts_with('Hero__dek___ River__dek___ Card__dek___ Byline__by___ RecirculationMostPopular__counter___ RecirculationMostPopular__byLine___ RecirculationMostPopular__title___ Card__timestamp___'),
+      homepage_theme_foreground_selector: selector_for_elements_with_a_class_that_starts_with('Hero__dek___ River__dek___ Card__dek___ Byline__by___ RecirculationMostPopular__counter___ RecirculationMostPopular__byLine___ RecirculationMostPopular__title___ Card__timestamp___ ImageCaption__cartoon Video__description___'),
       hide_selector: 'iframe, ' + selector_for_elements_with_a_class_that_starts_with('MainHeader__partial___'),
       customize() {
         if (location_href.indexOf('?') != -1) alert(location_href);
