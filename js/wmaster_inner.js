@@ -62,7 +62,7 @@ $(function () {
         selector_for_elements_with_a_class_that_starts_with('Recirculation-recirculation--'),
       homepage_theme_foreground_selector: '.summary', // NYT dark theme
       //homepage_css: 'header {background-color: #aaa}', // NYT dark theme
-      homepage_hide_selector: '#masthead-placeholder, .masthead-cap-container, div.editions.tab, #nytint-hp-watching, #site-index .section-header, #markets, .all-sections-button, #mini-navigation, #WelcomeAd_optly',
+      homepage_hide_selector: '#masthead-placeholder, .masthead-cap-container, .masthead.theme-in-content, div.editions.tab, #nytint-hp-watching, #site-index .section-header, #markets, .all-sections-button, #mini-navigation, #WelcomeAd_optly',
       hide_selector: '.ad',
       theme_selector: 'body, #masthead, .searchsubmit', // NYT dark theme
       css: '.story.theme-main .story-meta-footer {border-top: none; border-bottom: none}',
@@ -158,13 +158,13 @@ $(function () {
     {
       name: 'Washington Post',
       origin: 'https://www.washingtonpost.com',
-      alternate_origins: ['http://www.washingtonpost.com', 'https://live.washingtonpost.com'],
+      alternate_origins: ['http://washingtonpost.com', 'http://www.washingtonpost.com', 'https://live.washingtonpost.com'],
       alternate_prefixes: ['file:///root/wayback/washingtonpost/'],
       article_css: '#main-content {background-image: none} #et-nav {position: absolute}.headline {font-family: sans-serif} a, .powerpost-header, .layout_article #top-content {border-bottom: none} p {line-height: 155%} body {overflow-y: visible}' +
         '.fixed-image {position: static} .g-artboard img {border-bottom: 30px solid white} .g-artboard p {color: black; background-color: transparent} .bg-none {background-color: transparent}', //.pb-f-homepage-story {background-color: #300},
       article_hide_selector: '#wp-header, #top-furniture, .pb-f-ad-flex-2, .pb-f-ad-flex-3, .pb-f-games-gamesWidget, .pb-f-page-footer-v2, .pb-f-page-recommended-strip, .pb-f-page-editors-picks, disabled.chain-wrapper, .extra, .pb-f-generic-promo-image, .interstitial-link,' +
         '.pg-interstitial-link, .pb-f-posttv-sticky-player, .pb-f-posttv-sticky-player-powa, .xpb-f-article-article-author-bio, .pb-tool.email, .pb-f-page-newsletter-inLine, .pb-f-page-comments, .inline-video, [channel="wp.com"], .pb-f-page-jobs-search,' +
-        '.pb-f-homepage-story, .pb-f-sharebars-top-share-bar, .pb-f-page-share-bar, .wp_signin, #wp_Signin, .inline-graphic-linked, .share-individual, .pb-f-page-trump-can-he-do-that-podcast',
+        '.pb-f-homepage-story, .pb-f-sharebars-top-share-bar, .pb-f-page-share-bar, .wp_signin, #wp_Signin, .inline-graphic-linked, .share-individual, .pb-f-page-trump-can-he-do-that-podcast, .bottom-ad--bigbox',
       article_theme_selector: '#article-body, p, .pg-bodyCopy',
       article_theme_background_selector: '.wp-volt-gal-embed-promo-container, .wp-volt-gal-embed-promo-bottom, #weather-glance, #weather_now, .cwgdropdown, #heat-tracker, #weather-almanac, .pb-f-capital_weather_gang-weather-almanac select, .border-bottom-hairline::after',
       article_theme_foreground_selector: '.pb-caption, .pg-caption, .pb-bottom-author, .pb-timestamp, .pg-pubDate, .weather-gray, #weather_now .time',
@@ -852,54 +852,58 @@ $(function () {
   function regularize_links() {
     const logging = false;
     let url;
-    if (logging) console.log(10);
+    if (logging) console.log(394, 10);
     for (const anchor of $('a')) {
-      if (logging) console.log(11, anchor);
+      if (logging) console.log(394, 20, anchor);
       const old_href = anchor.href;
-      if (logging) console.log(12, old_href);
+      if (logging) console.log(394, 30, old_href);
       if (!old_href) continue;
       try {
+        if (logging) console.log(394, 40);
         url = new URL (old_href);
       } catch (ex) {
-        if (logging) console.log(12.1);
+        if (logging) console.log(394, 50);
         if (ex instanceof TypeError) {
-          if (logging) console.log(12.2);
+          if (logging) console.log(394, 60);
           continue;
         } else {
-          if (logging) console.log(12.3);
+          if (logging) console.log(394, 70);
           throw ex;
         }
       }
-      if (logging) console.log(13);
+      if (logging) console.log(394, 80);
       //if (typeof href === 'undefined') return;
       const origin = anchor.origin;
       const site_data = sites_data_by_prefix [origin];
+      if (logging) console.log(394, 85, origin, site_data);
       if (!site_data) continue;
       const unwanted_query_fields_array = site_data.unwanted_query_fields_array;
+      if (logging) console.log(394, 87, unwanted_query_fields_array);
       if (!unwanted_query_fields_array) continue;
       //const unwanted_query_fields_array_length = unwanted_query_fields_array.length;
       const query_string_index = old_href.indexOf('?');
+      if (logging) console.log(394, 89, query_string_index);
       if (query_string_index !== -1) {
-        if (logging) console.log('20');
+        if (logging) console.log('394, 90');
         //let query_string = old_href.substring(query_string_index); // the query string without the '?' that delimits it
         let query_string = url.search;
         //let new_href = old_href.substring(0, query_string_index); // the url without the query string or the '?' that delimits it
         const query_params = url.searchParams;
-        if (logging) console.log(22, query_params.toString());
+        if (logging) console.log(394, 100, query_params.toString());
         for (const field of unwanted_query_fields_array) {
           query_params.delete(field);
-          if (logging) console.log(22.5, field, query_params.toString());
+          if (logging) console.log(394, 110, field, query_params.toString());
           // BUG: would be nice to break if query_params is empty
         }
-        if (logging) console.log(23, query_params.toString());
+        if (logging) console.log(394, 120, query_params.toString());
         query_string = query_params.toString();
-        if (logging) console.log(24, query_string);
+        if (logging) console.log(394, 130, query_string);
         //if (query_string.length) new_href += '?' + query_string;
         //anchor.href = new_href;
         url.search = query_string;
         anchor.href = url.href;
       }
-      if (logging) console.log(17, anchor.href);
+      if (logging) console.log(394, 140, anchor.href);
     }
   }
 
