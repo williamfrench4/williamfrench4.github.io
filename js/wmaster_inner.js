@@ -38,7 +38,7 @@ $(function () {
       name: 'New York Times',
       alternate_origins: ['https://cooking.nytimes.com', 'https://douthat.blogs.nytimes.com', 'https://krugman.blogs.nytimes.com', 'https://kristof.blogs.nytimes.com', 'https://www.nytimes.com/section/magazine'],
       alternate_prefixes: ['file:///root/wayback/nytimes/', 'file:///root/wayback/nytimes_todayspaper/'],
-      count_words: {append: '.byline:last-of-type, .byline-column', prefix: ' ', subject: '.story-body, .g-body'},
+      count_words: {append: '.byline:last-of-type, .byline-column', prefix: ' ', subject: '.story-body, .story-body-text, .g-body'},
       article_theme_selector: '.masthead .masthead-menu li, .headline, .kicker, .dateline, .story-quote, .caption, figcaption, input, textarea, .columnGroup', // NYT dark theme
       article_theme_background_selector: '.bcColumn, .cColumn', // NYT dark theme
       article_theme_foreground_selector: 'h1, h2, h3, h4, h5, h6, .byline, .dropcap, .g-body, .swiper-text p,' +
@@ -119,6 +119,37 @@ $(function () {
           $(img).css({'padding-top': '0'});
           img.src = img.dataset.superjumbosrc;
         }
+        console.log(571, 10);
+        for (const img of $('img.media-viewer-candidate')) {
+          const mediaviewer_src = img.dataset.mediaviewerSrc;
+          console.log(571, 20, mediaviewer_src);
+          if (mediaviewer_src) {
+            console.log(571, 30);
+            img.src = mediaviewer_src;
+          } else {
+            const raw_widths = img.dataset.widths;
+            console.log(571, 40, raw_widths);
+            const parsed_widths = JSON.parse(raw_widths);
+            let max_width_found = 0;
+            let slug = '';
+            console.log(571, 50, parsed_widths);
+            for (const width of parsed_widths) {
+              const size = width.size;
+              console.log(571, 60, width);
+              if (size > max_width_found) {
+                max_width_found = size;
+                slug = width.slug;
+                console.log(571, 70);
+              }
+            }
+            if (max_width_found) {
+              img.src = slug;
+              console.log(571, 80, slug);
+            }
+          }
+          console.log(571, 90);
+        }
+        console.log(571, 100);
         //remove_fixed_positioning(site_data);
       },
     },
@@ -550,15 +581,16 @@ $(function () {
       name: 'The Baltimore Sun',
       origin: 'http://www.baltimoresun.com',
       css: '.trb_nh {position: absolute} .trb_nh_lw {border-bottom-width: 0}',
-      hide_selector: '.trb_bnn',
-      article_hide_selector: '.trb_nls_c, .trb_mh_adB, .trb_gptAd, .trb_ar_sponsoredmod, [data-content-type="tweetembed"]', //, aside:has([data-content-kicker="Related"])',
+      hide_selector: '.trb_bnn, .met-promo',
+      article_hide_selector: '#reg-overlay, .trb_nls_c, .trb_mh_adB, .trb_gptAd, .trb_ar_sponsoredmod, [data-content-type="tweetembed"]', //, aside:has([data-content-kicker="Related"])',
       theme_background_selector: '.trb_nh_uw, .trb_nh_lw, .trb_allContentWrapper',
       article_theme_foreground_selector: '.trb_ar_page>ol, .trb_ar_page>p, .trb_ar_page>ul, .trb_ar_page[data-content-page="1"]>p:first-child:first-letter',
-      article_css: 'body {overflow: visible}',
+      article_css: 'html, body {overflow: visible}',
       homepage_theme_foreground_selector: '.trb_outfit_group_list_item_brief',
       count_words: {append: '.trb_ar_dateline', subject: '[itemprop=articleBody'},
       //count_words: {append: '.byline', subject: '.article-body'},
       customize() {
+        //body.css('overflow', 'visible')
         $('aside:has([data-content-kicker="Related"])').hide(); // This would be in article_hide_selector, but that fails enigmatically as of 2017-05-30
         for (const img of $('img[data-baseurl]')) img.src = img.dataset.baseurl;
       },
@@ -571,6 +603,7 @@ $(function () {
       article_theme_background_selector: '.trb_allContentWrapper',
       article_theme_foreground_selector: 'article p, .dropcap, .trb_ar_page[data-content-page="1"]>p:first-child:first-letter',
       article_css: '.trb_mh {margin-top: 70px} a:link[   href^="/topic/"] {color: #00e766} a:link:hover[href^="/topic/"] {color: #00f} a:visited[href^="/topic/"] {color: #99d700} a:visited:hover[href^="/topic/"] {color: purple}' ,
+      hide_selector: '.met-promo',
       count_words: {append: '.trb_ar_dateline', subject: 'div[itemprop="articleBody"]', nbsp_size: '100%'},
       customize() {
         const chunks = $('div[itemprop="articleBody"] p');
@@ -938,9 +971,9 @@ $(function () {
         graf_containers.push(element);
       }
     }
-    console.log(192, 5, grafs, grafs.length)
+    console.log(192, 5, grafs, grafs.length);
     const contained_grafs = $(graf_containers).find('p, li');
-    console.log(192, 6, contained_grafs, contained_grafs.length)
+    console.log(192, 6, contained_grafs, contained_grafs.length);
     grafs = grafs.concat(contained_grafs);
     console.log(192, 7, grafs, grafs.length);
     for (const graf of grafs) {
