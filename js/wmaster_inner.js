@@ -197,9 +197,9 @@ jQuery(function () {
         '.pg-interstitial-link, .pb-f-posttv-sticky-player, .pb-f-posttv-sticky-player-powa, .xpb-f-article-article-author-bio, .pb-tool.email, .pb-f-page-newsletter-inLine, .pb-f-page-comments, .inline-video, [channel="wp.com"], .pb-f-page-jobs-search,' +
         '.pb-f-homepage-story, .pb-f-sharebars-top-share-bar, .pb-f-page-share-bar, .wp_signin, #wp_Signin, .inline-graphic-linked, .share-individual, .pb-f-page-trump-can-he-do-that-podcast, .bottom-ad--bigbox',
       article_theme_selector: '#article-body, p, .pg-bodyCopy',
-      article_theme_background_selector: '.wp-volt-gal-embed-promo-container, .wp-volt-gal-embed-promo-bottom, #weather-glance, #weather_now, .cwgdropdown, #heat-tracker, #weather-almanac, .pb-f-capital_weather_gang-weather-almanac select, .border-bottom-hairline::after',
-      article_theme_foreground_selector: '.pb-caption, .pg-caption, .pb-bottom-author, .pb-timestamp, .pg-pubDate, .weather-gray, #weather_now .time',
-      count_words: {append: '.pg-pubDate, .bottomizer, .pb-sig-line, .pbHeader', subject: '#article-body>article, #pg-content>article'},
+      article_theme_background_selector: '.wp-volt-gal-embed-promo-container, .wp-volt-gal-embed-promo-bottom, #weather-glance, #weather_now, .cwgdropdown, #heat-tracker, #weather-almanac, .pb-f-capital_weather_gang-weather-almanac select, .border-bottom-hairline::after, .span12',
+      article_theme_foreground_selector: '.pb-caption, .pg-caption, .pb-bottom-author, .pb-timestamp, .pg-pubDate, .weather-gray, #weather_now .time, .firstgraf::first-letter',
+      count_words: {append: '.pg-pubDate, .bottomizer, .pb-sig-line, .pbHeader, .publish-date', subject: '#article-body>article, #pg-content>article, .sections>.container'},
       homepage_css: 'header {position: relative} .pb-f-homepage-story .headline a, .related-links a, #bottom-content a {font-family: sans-serif; font-weight: normal} img.wplogo {-webkit-filter: invert(70%) sepia(100%) hue-rotate(65deg) saturate(7)}',
       homepage_theme_background_selector: '#pb-root, .homepage-footer-button, .pb-f-page-todays-paper-rr .large, .pb-f-homepage-chat-schedule .chat-schedule-button a',
       homepage_theme_selector: '.pb-f-homepage-card .panel',
@@ -234,7 +234,7 @@ jQuery(function () {
           img.src = img.dataset.hiRes || img.dataset.hiResSrc;
         }
         for (const img of jQuery('img.lazy-image')) {
-          img.src = img.dataset.original;
+          img.src = img.dataset.original + '&w=1200';
         }
         if (page_level == 2) {
           for (const element of jQuery('article p, article p>i, article p>em')) {
@@ -602,8 +602,8 @@ jQuery(function () {
       name: 'Los Angeles Times',
       origin: 'http://www.latimes.com',
       css: '.trb_nh {position: absolute}',
-      article_hide_selector: '.trb_nh_lw, .trb_mh_adB, .trb_sc, .trb_ar_bc, .trb_gptAd.trb_ar_rail_ad, .trb_embed[data-content-type=story], .wf_interstitial_link, [name="support-our-journalism"], [data-content-type="pullquote"]',
-      article_theme_background_selector: '.trb_allContentWrapper',
+      article_hide_selector: '.trb_nh_lw, .trb_mh_adB, .trb_sc, .trb_ar_bc, .trb_gptAd.trb_ar_rail_ad, .trb_embed[data-content-type=story], .wf_interstitial_link, [name="support-our-journalism"], [data-content-type="pullquote"], .journo-promo',
+      theme_background_selector: '.trb_allContentWrapper',
       article_theme_foreground_selector: 'article p, .dropcap, .trb_ar_page[data-content-page="1"]>p:first-child:first-letter',
       article_css: '.trb_mh {margin-top: 70px} a:link[   href^="/topic/"] {color: #00e766} a:link:hover[href^="/topic/"] {color: #00f} a:visited[href^="/topic/"] {color: #99d700} a:visited:hover[href^="/topic/"] {color: purple}' ,
       hide_selector: '.met-promo',
