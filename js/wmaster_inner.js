@@ -610,9 +610,11 @@ jQuery(function () {
     {
       name: 'Los Angeles Times',
       origin: 'http://www.latimes.com',
-      css: '.trb_nh {position: absolute}',
-      article_hide_selector: '.trb_nh_lw, .trb_mh_adB, .trb_sc, .trb_ar_bc, .trb_gptAd.trb_ar_rail_ad, .trb_embed[data-content-type=story], .wf_interstitial_link, [name="support-our-journalism"], [data-content-type="pullquote"], .journo-promo',
+      css: '.trb_nh {position: absolute} .trb_nh_l, .trb_nh_sm_o_svg {fill: #0f0} .trb_nh_unh_hr {border-color: #0f0}',
+      article_hide_selector: '.trb_nh_lw, .trb_mh_adB, .trb_sc, .trb_ar_bc, .trb_gptAd.trb_ar_rail_ad, .trb_embed[data-content-type=story], .wf_interstitial_link, [name="support-our-journalism"], [data-content-type="pullquote"], .journo-promo, .promo',
       theme_background_selector: '.trb_allContentWrapper',
+      theme_foreground_selector: '.trb_nh_un_hw:before',
+      article_theme_background_selector: '.trb_article',
       article_theme_foreground_selector: 'article p, .dropcap, .trb_ar_page[data-content-page="1"]>p:first-child:first-letter',
       article_css: '.trb_mh {margin-top: 70px} a:link[   href^="/topic/"] {color: #00e766} a:link:hover[href^="/topic/"] {color: #00f} a:visited[href^="/topic/"] {color: #99d700} a:visited:hover[href^="/topic/"] {color: purple}' ,
       hide_selector: '.met-promo',
@@ -980,24 +982,30 @@ jQuery(function () {
     const graf_words_count_name       = words_count_name + '_graf';
     let total_words_count             = 0;
     const total_words_count_name      = words_count_name + '_total';
-    const html_prefix                 = '<span class     ="' + words_count_name + ' ';
-    const html_infix                  = '<span class     ="nbsp">&nbsp;</span>words';
+    const html_prefix1                = '<span class ="';
+    const html_prefix                 = html_prefix1 + words_count_name + ' ';
+    const html_nbsp                   = html_prefix1 + 'nbsp">&nbsp;</span>';
+    const html_infix                  = html_nbsp + 'words';
+    const uncounted_html_infix        = html_nbsp + 'uncounted' + html_infix;
     const html_suffix                 = '</span>';
     let html_graf_prefix;
     const settings                    = site_data.count_words;
     const nbsp_size                   = settings.nbsp_size;
     const append_selector             = settings.append ;
-    let $append_elements;
     let prepend_selector              = settings.prepend;
     const raw_subject                 = settings.subject;
     let subject_selectors;
-    const show_graf_counts            = 2; //settings.grafs;
+    const show_graf_counts            = settings.grafs;
     let graf_index                    = 1;
     let grafs_by_selector             = {};
     let total_words_count_by_selector = [];
     let all_grafs                     = jQuery('');
+    let $append_elements;
+    let $prepend_elements;
  
  
+    if (append_selector) $append_elements = jQuery(append_selector);
+    if (prepend_selector) $prepend_elements = jQuery(prepend_selector);
     if (       typeof raw_subject     === 'string') {
       subject_selectors = [raw_subject];
     } else if (typeof raw_subject [0] === 'string') {
@@ -1010,7 +1018,6 @@ jQuery(function () {
     for (const subject_selector of subject_selectors) {
       const $subject_elements      = jQuery(subject_selector);
       console.log(192, 10, subject_selector, $subject_elements);
-      if (show_graf_counts) html_graf_prefix = html_prefix + graf_words_count_name + '">' + settings.graf_prefix;
       let grafs = jQuery('');
       total_words_count_by_selector.push(0);
       let graf_containers = [];
@@ -1058,34 +1065,54 @@ jQuery(function () {
     let chosen_subject_selector_index, chosen_subject_selector, chosen_words_count;
     for ([chosen_subject_selector_index, chosen_subject_selector] of subject_selectors.entries()) {
       chosen_words_count = total_words_count_by_selector [chosen_subject_selector_index];
-      //if (chosen_words_count) break;
+      if (chosen_words_count) break;
     }
     let chosen_grafs = grafs_by_selector [chosen_subject_selector];
     let chosen_words_count2 = 0;
     console.log(192, 120, grafs_by_selector, chosen_grafs);
     if (show_graf_counts) {
-      for (const [graf_index, graf] of chosen_grafs.toArray().entries()) {
+      const verbose = show_graf_counts > 1;
+      html_graf_prefix = html_prefix + graf_words_count_name + '">' + settings.graf_prefix;
+      let graf_index = 1;
+      for (const graf of all_grafs) {
         let $graf = jQuery(graf);
         let new_html = html_graf_prefix;
         console.log (192, 130, new_html);
-        if (show_graf_counts > 1) new_html += '&para' + (graf_index + 1) + ':&nbsp;';
-        console.log (192, 140, new_html);
+        const is_chosen = jQuery.inArray(graf, chosen_grafs) != -1;
         const graf_words_count = $graf.data(graf_words_count_name);
-        new_html += graf_words_count + html_infix;
-        console.log (192, 150, graf_words_count, new_html);
-        chosen_words_count2 += graf_words_count;
-        if (show_graf_counts > 1) new_html += ' (' + chosen_words_count2 + ' total)';
-        console.log (192, 160, chosen_words_count2, new_html);
+        if (is_chosen) {
+          if (verbose) {
+            if (typeof graf_words_count == 'undefined') {
+              new_html += '&para;empty';
+            } else {
+              new_html += '&para' + (graf_index) + ':&nbsp;';
+              graf_index++;
+            }
+          }
+        }
+        console.log (192, 140, new_html);
+        if (typeof graf_words_count != 'undefined') {
+          if (is_chosen) {
+            new_html += graf_words_count + html_infix;
+            console.log (192, 150, graf_words_count, new_html);
+            chosen_words_count2 += graf_words_count;
+            if (verbose) new_html += ' (' + chosen_words_count2 + ' total)';
+          } else {
+            if (verbose) new_html += graf_words_count + uncounted_html_infix;
+          }
+          console.log (192, 160, chosen_words_count2, new_html);
+        }
         new_html += html_suffix;
         console.log (192, 170, new_html);
         $graf.append(new_html);
       }
+      console.log(192, 175, chosen_words_count, chosen_words_count2);
+      if (chosen_words_count2 != chosen_words_count) throw new Error('chosen_words_count=' + chosen_words_count + ', chosen_words_count2=' + chosen_words_count2);
     }
-    console.log(192, 175, chosen_words_count, chosen_words_count2);
-    if (chosen_words_count2 != chosen_words_count) throw new Error();
     const output = html_prefix + total_words_count_name + '">' + settings.total_prefix + chosen_words_count + html_infix + html_suffix;
+    console.log(192, 176, output, append_selector);
     if (append_selector) {
-      $append_elements = jQuery(append_selector);
+      console.log(192, 177, $append_elements);
       for (const append_element of $append_elements) {
         console.log(192, 180, append_element, append_element.className, output);
         jQuery(append_element).append(output);
@@ -1093,10 +1120,9 @@ jQuery(function () {
       console.log(192, 190, append_selector, $append_elements);
     } else if (!prepend_selector) {
       prepend_selector = 'body';
+      $prepend_elements = jQuery(prepend_selector);
     }
     if (prepend_selector) {
-      let $prepend_elements;
-      $prepend_elements = jQuery(prepend_selector);
       $prepend_elements.prepend(output);
       console.log(192, 200, prepend_selector, $prepend_elements);
     }
@@ -1264,7 +1290,7 @@ jQuery(function () {
       //console.log(233, hide_selector, page_level);
       //console.log(243, raw_site_css);
       //console.log(46, site_data.article_hide_selector);
-      //console.log(47, theme_background_selector);
+      console.log(846, 47, page_level, site_data.article_theme_background_selector, theme_background_selector);
       console.log(846, 10, site_data.dark_theme);
       dark_theme(site_data.dark_theme);
       console.log(846, 20, theme_foreground_selector);
