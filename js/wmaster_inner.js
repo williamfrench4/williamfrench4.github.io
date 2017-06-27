@@ -689,8 +689,8 @@ jQuery(function () {
     },
     {
       name: 'Union of Concerned Scientists',
-      origin: 'http://www.ucsusa.org/',
-      alternate_origins: ['http://blog.ucsusa.org/', 'http://allthingsnuclear.org/'],
+      origin: 'http://www.ucsusa.org',
+      alternate_origins: ['http://blog.ucsusa.org', 'http://allthingsnuclear.org'],
       count_words: {append: '.username', subject: '.article-content'},
       css: 'div#header {position: absolute} #logo {-webkit-filter: invert(70%) sepia(100%) hue-rotate(65deg) saturate(7)}',
       theme_foreground_selector: 'h1, h2, h3, h4, h5, h6',
@@ -976,23 +976,26 @@ jQuery(function () {
 
   function count_words(site_data) {
 
-    const words_count_name       = program_name +  '_words_count';
-    const graf_words_count_name  = words_count_name + '_graf';
-    let total_words_count        = 0;
-    const total_words_count_name = words_count_name + '_total';
-    const html_prefix            = '<span class="' + words_count_name + ' ';
-    const html_infix             = '<span class="nbsp">&nbsp;</span>words';
-    const html_suffix            = '</span>';
+    const words_count_name            = program_name +  '_words_count';
+    const graf_words_count_name       = words_count_name + '_graf';
+    let total_words_count             = 0;
+    const total_words_count_name      = words_count_name + '_total';
+    const html_prefix                 = '<span class     ="' + words_count_name + ' ';
+    const html_infix                  = '<span class     ="nbsp">&nbsp;</span>words';
+    const html_suffix                 = '</span>';
     let html_graf_prefix;
-    const settings               = site_data.count_words;
-    const nbsp_size              = settings.nbsp_size;
-    const append_selector        = settings.append ;
+    const settings                    = site_data.count_words;
+    const nbsp_size                   = settings.nbsp_size;
+    const append_selector             = settings.append ;
     let $append_elements;
-    let prepend_selector         = settings.prepend;
-    const raw_subject            = settings.subject;
+    let prepend_selector              = settings.prepend;
+    const raw_subject                 = settings.subject;
     let subject_selectors;
-    const show_graf_counts       = settings.grafs;
-    let graf_index               = 1;
+    const show_graf_counts            = 2; //settings.grafs;
+    let graf_index                    = 1;
+    let grafs_by_selector             = {};
+    let total_words_count_by_selector = [];
+    let all_grafs                     = jQuery('');
  
  
     if (       typeof raw_subject     === 'string') {
@@ -1004,9 +1007,6 @@ jQuery(function () {
     }
     jQuery('.' + words_count_name).remove();
 
-    let grafs_by_selector = {};
-    let total_words_count_by_selector = [];
-    let all_grafs = jQuery('');
     for (const subject_selector of subject_selectors) {
       const $subject_elements      = jQuery(subject_selector);
       console.log(192, 10, subject_selector, $subject_elements);
@@ -1027,62 +1027,70 @@ jQuery(function () {
       console.log(192, 30, contained_grafs, contained_grafs.length);
       for (const contained_graf of contained_grafs) {
         console.log(192, 40, contained_graf, grafs);
-        grafs = grafs.add(jQuery(contained_graf));
-        console.log(192, 45, grafs);
+        grafs = grafs.add(contained_graf);
+        console.log(192, 50, grafs);
         all_grafs = all_grafs.add(contained_graf);
       }
       //grafs = grafs.concat(contained_grafs);
-      console.log(192, 50, grafs);
+      console.log(192, 60, grafs);
       //BUG: set arithmetic: here we would add all the elements of grafs to all_grafs -- if the language had a built-in way to do so. Since it doesn't, we have maintained all_grafs as we went along.
       grafs_by_selector [subject_selector] = grafs;
     }
-    console.log(192, 55, grafs_by_selector);
+    console.log(192, 70, grafs_by_selector);
     for (const graf of all_grafs) {
       let $graf = jQuery(graf);
       let graf_text = $graf.text();
       if (graf_text.length) {
         const graf_words_count = graf_text.split(/\s+/).length;
+        $graf.data(graf_words_count_name, graf_words_count);
         total_words_count += graf_words_count;
         for (const [subject_selector_index, subject_selector] of subject_selectors.entries()) {
-          console.log(192, 57, graf, subject_selector, grafs_by_selector [subject_selector]);
-          window.aa= graf;
-          window.ab=grafs_by_selector [subject_selector];
-          if (all_grafs.has(graf)) {
-            console.log(192, 58);
-          }
+          console.log(192, 80, graf, subject_selector, grafs_by_selector [subject_selector]);
           if (jQuery.inArray(graf, grafs_by_selector [subject_selector]) != -1) {
-            console.log(192, 59);
+            console.log(192, 90);
             total_words_count_by_selector [subject_selector_index] += graf_words_count;
           }
-        }
-        if (show_graf_counts) {
-          let new_html = html_graf_prefix;
-          console.log (192, 60, new_html);
-          if (show_graf_counts > 1) new_html += '&para' + graf_index + ':&nbsp;';
-          console.log (192, 70, new_html);
-          new_html += graf_words_count + html_infix;
-          console.log (192, 80, new_html);
-          if (show_graf_counts > 1) new_html += ' (' + total_words_count + ' total)';
-          console.log (192, 90, new_html);
-          new_html += html_suffix;
-          console.log (192, 100, new_html);
-          $graf.append(new_html);
         }
         graf_index++;
       }
     }
     console.log(192, 110, total_words_count, total_words_count_by_selector);
-    for (total_words_count of total_words_count_by_selector) {
-      if (total_words_count) break;
+    let chosen_subject_selector_index, chosen_subject_selector, chosen_words_count;
+    for ([chosen_subject_selector_index, chosen_subject_selector] of subject_selectors.entries()) {
+      chosen_words_count = total_words_count_by_selector [chosen_subject_selector_index];
+      //if (chosen_words_count) break;
     }
-    const output = html_prefix + total_words_count_name + '">' + settings.total_prefix + total_words_count + html_infix + html_suffix;
+    let chosen_grafs = grafs_by_selector [chosen_subject_selector];
+    let chosen_words_count2 = 0;
+    console.log(192, 120, grafs_by_selector, chosen_grafs);
+    if (show_graf_counts) {
+      for (const [graf_index, graf] of chosen_grafs.toArray().entries()) {
+        let $graf = jQuery(graf);
+        let new_html = html_graf_prefix;
+        console.log (192, 130, new_html);
+        if (show_graf_counts > 1) new_html += '&para' + (graf_index + 1) + ':&nbsp;';
+        console.log (192, 140, new_html);
+        const graf_words_count = $graf.data(graf_words_count_name);
+        new_html += graf_words_count + html_infix;
+        console.log (192, 150, graf_words_count, new_html);
+        chosen_words_count2 += graf_words_count;
+        if (show_graf_counts > 1) new_html += ' (' + chosen_words_count2 + ' total)';
+        console.log (192, 160, chosen_words_count2, new_html);
+        new_html += html_suffix;
+        console.log (192, 170, new_html);
+        $graf.append(new_html);
+      }
+    }
+    console.log(192, 175, chosen_words_count, chosen_words_count2);
+    if (chosen_words_count2 != chosen_words_count) throw new Error();
+    const output = html_prefix + total_words_count_name + '">' + settings.total_prefix + chosen_words_count + html_infix + html_suffix;
     if (append_selector) {
       $append_elements = jQuery(append_selector);
       for (const append_element of $append_elements) {
-        console.log(192, 120, append_element, append_element.className, output);
+        console.log(192, 180, append_element, append_element.className, output);
         jQuery(append_element).append(output);
       }
-      console.log(192, 130, append_selector, $append_elements);
+      console.log(192, 190, append_selector, $append_elements);
     } else if (!prepend_selector) {
       prepend_selector = 'body';
     }
@@ -1090,9 +1098,9 @@ jQuery(function () {
       let $prepend_elements;
       $prepend_elements = jQuery(prepend_selector);
       $prepend_elements.prepend(output);
-      console.log(192, 140, prepend_selector, $prepend_elements);
+      console.log(192, 200, prepend_selector, $prepend_elements);
     }
-    console.log(192, 150, nbsp_size);
+    console.log(192, 220, nbsp_size);
     if (show_graf_counts) raw_site_css += '.' +  graf_words_count_name + ' {color: #333}';
     raw_site_css                       += '.' + total_words_count_name + ' {color: #880} .' + total_words_count_name + '>.nbsp {font-size: ' + nbsp_size + '}';
   }
