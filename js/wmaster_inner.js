@@ -10,7 +10,7 @@
 // ==/UserScript==
 
 /* jshint undef: true, unused: true, esversion: 6 */
-/* globals jQuery, alert, console, document, window, URL */
+/* globals jQuery, alert, console, document, window, URL, setTimeout */
 
 
 //alert(36);
@@ -38,10 +38,10 @@ jQuery(function () {
       name: 'New York Times',
       alternate_origins: ['https://cooking.nytimes.com', 'https://douthat.blogs.nytimes.com', 'https://krugman.blogs.nytimes.com', 'https://kristof.blogs.nytimes.com', 'https://www.nytimes.com/section/magazine'],
       alternate_prefixes: ['file:///root/wayback/nytimes/', 'file:///root/wayback/nytimes_todayspaper/'],
-      count_words: {append: '.byline:last-of-type, .byline-column', prefix: ' ', subject: ['.story-body-text, .g-body', '.story-body', '#story']},
-      article_theme_selector: '.masthead .masthead-menu li, .headline, .kicker, .dateline, .story-quote, .caption, figcaption, input, textarea, .columnGroup', // NYT dark theme
+      count_words: {append: '.byline:last-of-type, .byline-column, ' + selector_for_elements_with_a_class_that_starts_with('Byline-bylineAuthor--'), prefix: ' ', subject: ['.story-body-text, .g-body', '.story-body', '#story'], grafs: 0},
+      article_theme_selector: 'input, textarea, .columnGroup', // NYT dark theme
       article_theme_background_selector: '.bcColumn, .cColumn', // NYT dark theme
-      article_theme_foreground_selector: 'h1, h2, h3, h4, h5, h6, .byline, .dropcap, .g-body, .swiper-text p,' +
+      article_theme_foreground_selector: '.masthead .masthead-menu li, .headline, .kicker, .dateline, .story-quote, .caption, figcaption, h1, h2, h3, h4, h5, h6, .byline, .dropcap, .g-body, .swiper-text p, .story-body-text strong:first-child,' +
         selector_for_elements_with_a_class_that_starts_with('ResponsiveMedia-captionText-- HeaderBasic-bylineTimestamp-- HeaderBasic-summary-- HeaderBasic-label--'),
       article_css: '.App__app {margin-top: 0} .story-body-text {font-family: "Times New Roman"} .caption-text {font-family: sans-serif} .story-header, .image {position: relative}' +
         'input, textarea {background-image: none} .shell {padding-top: 0} .main {border-top: none} .nytg-chart {color: #000; background-color: #fff}' + // NYT dark theme
@@ -291,8 +291,41 @@ jQuery(function () {
     {
       name: 'Slate',
       origin: 'http://www.slate.com',
-      article_hide_selector: '.bottom-banner, .rubricautofeature, .top-comment, .follow-links',
-      article_css: '.about-the-author.fancy {background: none} .about-the-author.fancy .author-bio {border-bottom: none}',
+      article_hide_selector: '.bottom-banner, .rubricautofeature, .top-comment, .follow-links, .social',
+      css: '.user-link, .search-link, .global-nav-handle {background-color: #000; -webkit-filter: brightness(70%) sepia(100%) hue-rotate(55deg) saturate(7)}' +
+        '.logo, .prop-image img {-webkit-filter: hue-rotate(180deg) brightness(60%) sepia(100%) hue-rotate(55deg) saturate(7)}',
+      article_css: '.roll-up {position: absolute} .meta {background: none}', //'.about-the-author.fancy {background: none} .about-the-author.fancy .author-bio {border-bottom: none}',
+      count_words: {append: '.pub-date', subject: '.body .text'},
+      theme_background_selector: '.page, .nav-header',
+    },
+    {
+      name: 'Google Voice',
+      origin: 'https://voice.google.com',
+      dark_theme: 0,
+      customize() {
+        (function monitor (){
+          const titles = jQuery('p[gv-test-id="conversation-title"]');
+          console.log(718, 20, titles, titles.length);
+          if (titles.length) {
+            const title_text = titles [0].textContent;
+            console.log(718, 30, title_text, title_text.indexOf('Rebecca Rivers'));
+            let theme_color, theme_color2;
+            if (title_text.indexOf('Rebecca Rivers') != -1) {
+              theme_color = '#cfc';
+              theme_color2 = '#ebffeb';
+            } else  if (title_text.indexOf('Xavier Rivers') != -1) {
+              theme_color = '#fcc';
+              theme_color2 = '#ffebeb';
+            } else {
+              theme_color = '#ffc';
+              theme_color2 = '#ffffeb';
+            }
+            jQuery('gv-message-entry .md-body-1').css('background', theme_color);
+            jQuery('md-content').css('background', theme_color2);
+          }
+          setTimeout(monitor, 2000);
+        })();
+      }
     },
     {
       name: 'Daily Beast',
@@ -611,11 +644,11 @@ jQuery(function () {
       name: 'Los Angeles Times',
       origin: 'http://www.latimes.com',
       css: '.trb_nh {position: absolute} .trb_nh_l, .trb_nh_sm_o_svg {fill: #0f0} .trb_nh_unh_hr {border-color: #0f0}',
-      article_hide_selector: '.trb_nh_lw, .trb_mh_adB, .trb_sc, .trb_ar_bc, .trb_gptAd.trb_ar_rail_ad, .trb_embed[data-content-type=story], .wf_interstitial_link, [name="support-our-journalism"], [data-content-type="pullquote"], .journo-promo, .promo',
+      article_hide_selector: '.trb_nh_lw, .trb_mh_adB, .trb_sc, .trb_ar_bc, .trb_gptAd.trb_ar_rail_ad, .trb_embed[data-content-type=story], .wf_interstitial_link, [name="support-our-journalism"], [data-content-type="pullquote"], .journo-promo, .promo, .trb_rhsAdSidebar',
       theme_background_selector: '.trb_allContentWrapper',
       theme_foreground_selector: '.trb_nh_un_hw:before',
       article_theme_background_selector: '.trb_article',
-      article_theme_foreground_selector: 'article p, .dropcap, .trb_ar_page[data-content-page="1"]>p:first-child:first-letter',
+      article_theme_foreground_selector: 'article p, article ul, .dropcap, .trb_ar_page[data-content-page="1"]>p:first-child:first-letter, #story>p:first-child:first-letter',
       article_css: '.trb_mh {margin-top: 70px} a:link[   href^="/topic/"] {color: #00e766} a:link:hover[href^="/topic/"] {color: #00f} a:visited[href^="/topic/"] {color: #99d700} a:visited:hover[href^="/topic/"] {color: purple}' ,
       hide_selector: '.met-promo',
       count_words: {append: '.trb_ar_dateline', subject: 'div[itemprop="articleBody"]', nbsp_size: '100%'},
