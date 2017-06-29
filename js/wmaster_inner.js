@@ -5,11 +5,6 @@
 // @description  try to take over the world!
 // @match        *://*/*
 // @author       You
-// d@grant        none
-// d@require      http://code.jquery.com/jquery-3.2.1.min.js
-// d@require      http://code.jquery.com/ui/1.12.1/jquery-ui.min.js
-// @require     http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js
-// @require     http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js
 // @grant       GM_addStyle
 
 // ==/UserScript==
@@ -18,19 +13,15 @@
 /* globals jQuery, alert, console, document, window, URL, setTimeout */
 
 
-/*--- For this to work well, we must also add-in the jQuery-UI CSS.
-    We add the CSS this way so that the embedded, relatively linked images load correctly.
-    (Use //ajax... so that https or http is selected as appropriate to avoid "mixed content".)
-*/
+
+$("head").append ('<link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/le-frog/jquery-ui.min.css" rel="stylesheet" type="text/css">'); // For this to work well, we must also add-in the jQuery-UI CSS. We add the CSS this way so that the embedded, relatively linked images load correctly. (Use //ajax... so that https or http is selected as appropriate to avoid "mixed content".)
 
 /*
-jQuery("head").append ('<link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/le-frog/jquery-ui.min.css" rel="stylesheet" type="text/css">');
-
-//--- Add our custom dialog using jQuery.
-jQuery("body").append ('<div id="gmOverlayDialog"><h1>Sample Dialog added using jQuery-UI</h1></div>');
+//--- Add our custom dialog using $.
+$("body").append ('<div id="gmOverlayDialog"><h1>WMASTER Sample Dialog</h1></div>');
 
 //--- Activate the dialog.
-jQuery("#gmOverlayDialog").dialog ( {
+$("#gmOverlayDialog").dialog ( {
     modal:      false,
     title:      "Draggable, sizeable dialog",
     position:   {my: "top", at: "top", of: document, collision: "none"},
@@ -42,14 +33,14 @@ jQuery("#gmOverlayDialog").dialog ( {
 .dialog ("widget").draggable ("option", "containment", "none");
 
 //-- Fix crazy bug in FF! ...
-jQuery("#gmOverlayDialog").parent ().css ( {
+$("#gmOverlayDialog").parent ().css ( {
     position:   "fixed",
     top:        0,
     left:       "4em",
     width:      "75ex"
 } );
-
 */
+
 //alert(36);
 jQuery(function () {
   'use strict';
@@ -207,7 +198,7 @@ jQuery(function () {
         '.top-navigation, .navigation:before, .navigation-toggle, .navigation__container--first, .signposting, .tabs__tab--selected a, .tabs__tab--selected .tab__link, .tabs__tab a, .tabs__tab .tab__link',
       article_theme_foreground_selector: '.content__dateline, div.explainer, .caption, .quoted',
       article_hide_selector: '.element-video, .contributions__epic, .js-outbrain, .related, .submeta, #onward, #more-in-section, .element-pullquote, .element-rich-link, .meta__twitter, .meta__extras, .meta__email, .selection-sharing, .block-share, .ad-slot, ' +
-        'figure[data-canonical-url="https://interactive.guim.co.uk/embed/2017/05/americas-unequal-future/embed.html"], figure[data-canonical-url="https://interactive.guim.co.uk/embed/2017/02/outside-in-america/embed.html"], #this_land_epic_bottom_environment_iframe',
+        'figure[data-canonical-url="https://interactive.guim.co.uk/embed/2017/05/americas-unequal-future/embed.html"], figure[data-canonical-url="https://interactive.guim.co.uk/embed/2017/02/outside-in-america/embed.html"], #this_land_epic_bottom_environment_iframe, .vav-callout',
       dark_theme: 1,
       homepage_hide_selector: '#most-viewed, .footer__email-container, div.image>div.video, #securedrop, #membership-thrasher, #support-the-guardian, .treats__container',
       // '.fc-container--story-package, .facia-page, .index-page, .voices-and-votes-container__wrapper, .l-side-margins, .fc-container--thrasher, .tone-news--item.fc-item, .du-faux-block-link--hover, .tone-feature--item, .fc-container--story-package .fc-item, .tone-analysis--item.fc-item, .tone-comment--item.fc-item, .tone-editorial--item, .tone-media--item, .tone-review--item',
@@ -1409,12 +1400,36 @@ jQuery(function () {
 
   }
   process_page();
+  console.log(475, 10);
+  const main_dialog_name = program_name + '_dialog';
+  jQuery("body").append ('<div id="' + main_dialog_name + '"><button>Word count</button></div>');
+  const $main_dialog = jQuery('#' + main_dialog_name);
+  $main_dialog.hide();
+
   document.onkeydown=function(event1) {
     var event = event1 || window.event; // for IE to cover IEs window object
     if(event.which == 192) { // grave accent
+      
       //alert('Keyboard shortcut working!');
-      console.log('wmaster: reprocessing page');
-      process_page();
+      //--- Activate the dialog.
+      console.log(475, 20);
+      console.log(475, 30);
+      $main_dialog.dialog( {
+          modal:      false,
+          title:      program_name,
+          //position:   {my: "top", at: "top", of: document, collision: "none"},
+          //width:      "auto",
+          minWidth:   400,
+          minHeight:  200,
+          zIndex:     3666
+      } );
+      console.log(475, 40);
+      $main_dialog.dialog ("widget").draggable ("option", "containment", "none");
+      console.log(475, 50);
+      //-- Fix crazy bug in FF! ...
+      $main_dialog.parent().css({position: "fixed", top: 0, left: "4em", width: "75ex"});
+      //console.log('wmaster: reprocessing page');
+      //process_page();
       return false;
     }
   };
