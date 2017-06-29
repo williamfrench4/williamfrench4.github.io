@@ -5,14 +5,51 @@
 // @description  try to take over the world!
 // @match        *://*/*
 // @author       You
-// @grant        none
-// @require      http://code.jquery.com/jquery-3.2.1.min.js
+// d@grant        none
+// d@require      http://code.jquery.com/jquery-3.2.1.min.js
+// d@require      http://code.jquery.com/ui/1.12.1/jquery-ui.min.js
+// @require     http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js
+// @require     http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js
+// @grant       GM_addStyle
+
 // ==/UserScript==
 
 /* jshint undef: true, unused: true, esversion: 6 */
 /* globals jQuery, alert, console, document, window, URL, setTimeout */
 
 
+/*--- For this to work well, we must also add-in the jQuery-UI CSS.
+    We add the CSS this way so that the embedded, relatively linked images load correctly.
+    (Use //ajax... so that https or http is selected as appropriate to avoid "mixed content".)
+*/
+
+/*
+jQuery("head").append ('<link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/le-frog/jquery-ui.min.css" rel="stylesheet" type="text/css">');
+
+//--- Add our custom dialog using jQuery.
+jQuery("body").append ('<div id="gmOverlayDialog"><h1>Sample Dialog added using jQuery-UI</h1></div>');
+
+//--- Activate the dialog.
+jQuery("#gmOverlayDialog").dialog ( {
+    modal:      false,
+    title:      "Draggable, sizeable dialog",
+    position:   {my: "top", at: "top", of: document, collision: "none"},
+    width:      "auto",
+    minWidth:   400,
+    minHeight:  200,
+    zIndex:     3666
+} )
+.dialog ("widget").draggable ("option", "containment", "none");
+
+//-- Fix crazy bug in FF! ...
+jQuery("#gmOverlayDialog").parent ().css ( {
+    position:   "fixed",
+    top:        0,
+    left:       "4em",
+    width:      "75ex"
+} );
+
+*/
 //alert(36);
 jQuery(function () {
   'use strict';
@@ -1323,7 +1360,7 @@ jQuery(function () {
       //console.log(233, hide_selector, page_level);
       //console.log(243, raw_site_css);
       //console.log(46, site_data.article_hide_selector);
-      console.log(846, 47, page_level, site_data.article_theme_background_selector, theme_background_selector);
+      console.log(846, 5, page_level, site_data.article_theme_background_selector, theme_background_selector);
       console.log(846, 10, site_data.dark_theme);
       dark_theme(site_data.dark_theme);
       console.log(846, 20, theme_foreground_selector);
@@ -1364,6 +1401,7 @@ jQuery(function () {
       console.log(846, 110, cooked_site_css);
       document.body.appendChild(stylesheet);
       window.sss=stylesheet;
+      window.f= jQuery( "textarea" );
 
 
 
@@ -1373,7 +1411,7 @@ jQuery(function () {
   process_page();
   document.onkeydown=function(event1) {
     var event = event1 || window.event; // for IE to cover IEs window object
-    if(event.which == 192) {
+    if(event.which == 192) { // grave accent
       //alert('Keyboard shortcut working!');
       console.log('wmaster: reprocessing page');
       process_page();
@@ -1381,7 +1419,6 @@ jQuery(function () {
     }
   };
   //jQuery('#anti-white-flash-curtain').remove();
-  
   
   jQuery.noConflict();
 });
