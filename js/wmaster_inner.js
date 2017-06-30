@@ -21,19 +21,53 @@ jQuery(function () {
   //console.log ('wmaster running');
   //return;
   const
-    $body                      = jQuery('body'),
-    program_name              = 'wmaster',
-    ui_class_name             = program_name + '_ui',
-    theme_background_color    = '#000',
-    theme_background_rule     = 'background: ' + theme_background_color + '; background-color: ' + theme_background_color + ';',
-    theme_foreground_color    = '#0f0',
-    theme_foreground_rule     = 'color: '      + theme_foreground_color + '; text-shadow: none;';
+    $body                           = jQuery('body'),
+    program_name                    = 'wmaster',
+    theme_background_color          = '#000',
+    theme_background_rule           = 'background: ' + theme_background_color + '; background-color: ' + theme_background_color + ';',
+    theme_foreground_color          = '#0f0',
+    theme_foreground_rule           = 'color: '      + theme_foreground_color + '; text-shadow: none;';
   let
-    theme_selector            = [],
-    theme_background_selector = [],
-    theme_foreground_selector = [],
-    hide_selector             = [],
-    page_level, raw_site_css, site_data;
+    theme_selector                  = [],
+    theme_background_selector       = [],
+    theme_foreground_selector       = [],
+    hide_selector                   = [],
+    main_dialog_is_open             = false,
+    raw_site_css                    = '',
+    cooked_site_css                 = '',
+    page_level, site_data;
+
+  const ui_css_prefix               = program_name   + '_ui';
+  const main_dialog_id              = ui_css_prefix  + '_main';
+  const main_dialog_word_count_id   = main_dialog_id + '_word_count';
+  const main_dialog_close_id        = main_dialog_id + '_close';
+  const main_dialog_cli_id          = main_dialog_id + '_cli';
+  let new_html = '' +
+    //'<div id="' + main_dialog_id + '" style="position: fixed; top: 0; left: 0; z-index: 2147483647; background-color: yellow; display: none">' +
+    '<div id="' + main_dialog_id + '" style="display: none">' +
+      '<button id="'   + main_dialog_word_count_id + '">Word count</button>' +
+      '<button id="'   + main_dialog_close_id      +      '">Close</button>' +
+      '<div id="'      + main_dialog_cli_id        + '" class="terminal"></div>' +
+    '</div>';
+  const main_dialog_selector = '#' + main_dialog_id;
+  cooked_site_css += main_dialog_selector + '{position: fixed; top: 0; left: 0; z-index: 2147483647; background-color: yellow}'; // + main_dialog_selector + ' * {all: unset}';// #wmaster_ui_main_cli .cmd .clipboard {color: transparent}';
+  
+  console.log(495, new_html);
+  $body.append (new_html);
+  const $main_dialog                = jQuery('#' + main_dialog_id);
+  const $main_dialog_word_count     = jQuery('#' + main_dialog_word_count_id);
+  const $main_dialog_close          = jQuery('#' + main_dialog_close_id);
+  const $main_dialog_cli            = jQuery('#' + main_dialog_cli_id);
+  //$main_dialog.hide();
+  $main_dialog_cli.terminal(function(command) {
+    console.log(382, 30, command);
+  }, {greetings: '',
+        //name: 'js_demo',
+        //height: 200,
+        prompt: '> '
+
+  });
+  const $main_dialog_cli_textarea = $main_dialog_cli.find('textarea');
 
   const sites_data = [
     {
@@ -163,10 +197,9 @@ jQuery(function () {
       alternate_homepages: ['https://www.theguardian.com/us', 'https://www.theguardian.com/uk'],
       append_loaded_date: 'footer.l-footer',
       count_words: {append: '.content__dateline, .content__standfirst', subject: '.content__article-body'},
-      article_css: '.js-headline-text {font-weight: normal} p {line-height: 170%} a {border-bottom: none} figure.element-tweet {margin-right: 4rem} .tweet {font-family: sans-serif} img.byline-img__img {background: transparent}' +
-        'a:link   [data-link-name="auto-linked-tag"] {color: #00e766} a:link:hover[data-link-name="auto-linked-tag"] {color: #00f} div.explainer {background-color: #002b45; border: 1px solid ' + theme_foreground_color + '}' + 
-        '.signposting {border-right-width:0} a:visited[data-link-name="auto-linked-tag"] {color: #99d700} a:visited:hover[data-link-name="auto-linked-tag"] {color: purple} .tabs__tab {border-top: 0.0625rem solid #aaa}' +
-        ' .content__article-body {font-family: Adobe Caslon Pro; font-size: 109%}',
+      article_css: '.js-headline-text {font-weight: normal} p {line-height: 170%} a {border-bottom: none} figure.element-tweet {margin-right: 4rem} .tweet {font-family: sans-serif} img.byline-img__img {background: transparent} .content {padding-bottom: 0}' +
+        'a:link   [data-link-name="auto-linked-tag"] {color: #00e766} a:link:hover   [data-link-name="auto-linked-tag"] {color: #00f  } div.explainer {background-color: #002b45; border: 1px solid ' + theme_foreground_color + '} .signposting {border-right-width:0}' +
+        'a:visited[data-link-name="auto-linked-tag"] {color: #99d700} a:visited:hover[data-link-name="auto-linked-tag"] {color: purple} .tabs__tab {border-top: 0.0625rem solid #aaa} .content__article-body {font-family: Adobe Caslon Pro; font-size: 109%}',
       article_theme_selector: '.tonal__standfirst, .tonal__header, .content__standfirst, .content__headline, .byline, .d-top-comment__bubble',
       article_theme_background_selector: '.tonal--tone-live, .tonal--tone-editorial, .tonal--tone-feature, .tonal--tone-comment, .tonal--tone-analysis, .tonal--tone-review, .content__main, .block--content, .navigation, .local-navigation, .navigation-container,' +
         '.top-navigation, .navigation:before, .navigation-toggle, .navigation__container--first, .signposting, .tabs__tab--selected a, .tabs__tab--selected .tab__link, .tabs__tab a, .tabs__tab .tab__link',
@@ -404,7 +437,7 @@ jQuery(function () {
           //console.log(56, elements [0]);
           jQuery(elements [1]).addClass('hide');
         } else {
-          alert('warning: expected 3 elements, found:', elements);
+          console.log(site_data.name + ': warning: expected 3 elements, found:', elements_length);
         }
       },
       ddark_theme: 0,
@@ -1283,9 +1316,7 @@ jQuery(function () {
       if (site_data.customize) site_data.customize();
       console.log(231, hide_selector, location, site_data.name);
       //console.log(48.1, theme_foreground_selector);
-      if (site_data.css                 ) raw_site_css              = site_data.css;
-      else                                     raw_site_css              = '';
-      let cooked_site_css = '';
+      if (site_data.css) raw_site_css += site_data.css;
       if (site_data.std_link_colors) std_link_colors();
       //console.log(44, site_data);
       regularize_links();
@@ -1373,44 +1404,64 @@ jQuery(function () {
     }
 
   }
+  
+  
+  function open_main_dialog() {
+  
+    console.log(475, 10, document.hasFocus());
+    if (!main_dialog_is_open) {
+      console.log(475, 15);
+      $main_dialog.show();
+      console.log(475, 20, document.hasFocus());
+      main_dialog_is_open = true;
+    }
+    console.log(475, 30, document.hasFocus());
+    $main_dialog_cli_textarea.focus();
+    console.log(475, 40, document.hasFocus());
+  }
+  
+  
+  function close_main_dialog() {
+   
+    console.log(475, 43, document.hasFocus());
+    $main_dialog.hide();
+    console.log(475, 45, document.hasFocus());
+    //$main_dialog.blur();
+    console.log(475, 47, document.hasFocus());
+    $body.click(); // BUG: is there a better way to get focus back to where is was when the page was first loaded, so that the arrow keys scroll the page?
+    console.log(475, 48, document.hasFocus());
+
+    // Remove focus from any focused element
+    if (document.activeElement) {
+      document.activeElement.blur();
+      console.log(475, 49, document.hasFocus());
+    }
+    main_dialog_is_open = false;
+  }
+
+
   process_page();
-  console.log(475, 10);
-  const main_dialog_id = program_name + '_main_dialog';
-  const word_count_button_id = program_name + '_word_count_button';
-  const main_dialog_close_button_id = main_dialog_id + 'close_button';
-  //const main_dialog_outer_id = main_dialog_id + '_outer';
-  //const main_dialog_outer_outer_id = main_dialog_outer_id + '_outer';
-  //jQuery("body").append ('<div id="' + main_dialog_outer_id + '" class="' + ui_class_name + '"><div id="' + main_dialog_id + '" class="' + ui_class_name + '"><button>Word count</button></div></div>');
-  //jQuery("body").append ('<div id="' + main_dialog_outer_outer_id + '" class="' + ui_class_name + '"><div id="' + main_dialog_outer_id + '" class="' + ui_class_name + '"><div id="' + main_dialog_id + '" class="' + ui_class_name + '"><button>Word count</button></div></div></div>');
-  let new_html = '<div id="' + main_dialog_id + '" style="position: fixed; top: 0; left: 0; z-index: 2147483647; display: none"><button id="' + word_count_button_id + '">Word count</button><button id="' + main_dialog_close_button_id + '">Close</button></div>';
-  $body.append (new_html);
-  const              $main_dialog = jQuery('#' +              main_dialog_id);
-  const        $word_count_button = jQuery('#' +        word_count_button_id);
-  const $main_dialog_close_button = jQuery('#' + main_dialog_close_button_id);
-  let main_dialog_is_open = false;
 
   document.onkeydown=function(event1) {
     var event = event1 || window.event; // for IE to cover IEs window object
-    if (main_dialog_is_open) {
-      if (event.which == 27) { // escape -- close main dialog
-        $main_dialog.hide();
-        main_dialog_is_open = false;
-      }
-    } else {
-      if (event.which == 192) { // grave accent -- open main dialog
-        console.log(475, 20);
-        $main_dialog.show();
-        main_dialog_is_open = true;
-        console.log(111);
-        console.log(475, 30);
-        console.log(475, 40);
-        console.log(475, 50);
-        //console.log('wmaster: reprocessing page');
-        //process_page();
-        return false;
-      }
+    if (event.which == 192) { // grave accent -- open main dialog
+      open_main_dialog();
+      console.log(475, 50);
+      console.log(475, 55);
+      //console.log('wmaster: reprocessing page');
+      //process_page();
+      return false;
     }
   };
+  $main_dialog_cli.on('keydown', function(event) {
+    console.log(475, 60);
+    if (event.which == 13) {
+      console.log(475, 65);
+    } else if (event.which == 27) {
+      console.log(475, 70);
+      close_main_dialog();
+    }
+  });
   //jQuery('#anti-white-flash-curtain').remove();
   
   jQuery.noConflict();
