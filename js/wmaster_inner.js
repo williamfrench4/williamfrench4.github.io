@@ -14,33 +14,6 @@
 
 
 
-$("head").append ('<link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/le-frog/jquery-ui.min.css" rel="stylesheet" type="text/css">'); // For this to work well, we must also add-in the jQuery-UI CSS. We add the CSS this way so that the embedded, relatively linked images load correctly. (Use //ajax... so that https or http is selected as appropriate to avoid "mixed content".)
-
-/*
-//--- Add our custom dialog using $.
-$("body").append ('<div id="gmOverlayDialog"><h1>WMASTER Sample Dialog</h1></div>');
-
-//--- Activate the dialog.
-$("#gmOverlayDialog").dialog ( {
-    modal:      false,
-    title:      "Draggable, sizeable dialog",
-    position:   {my: "top", at: "top", of: document, collision: "none"},
-    width:      "auto",
-    minWidth:   400,
-    minHeight:  200,
-    zIndex:     3666
-} )
-.dialog ("widget").draggable ("option", "containment", "none");
-
-//-- Fix crazy bug in FF! ...
-$("#gmOverlayDialog").parent ().css ( {
-    position:   "fixed",
-    top:        0,
-    left:       "4em",
-    width:      "75ex"
-} );
-*/
-
 //alert(36);
 jQuery(function () {
   'use strict';
@@ -48,8 +21,9 @@ jQuery(function () {
   //console.log ('wmaster running');
   //return;
   const
-    body                      = jQuery('body'),
+    $body                      = jQuery('body'),
     program_name              = 'wmaster',
+    ui_class_name             = program_name + '_ui',
     theme_background_color    = '#000',
     theme_background_rule     = 'background: ' + theme_background_color + '; background-color: ' + theme_background_color + ';',
     theme_foreground_color    = '#0f0',
@@ -966,7 +940,7 @@ jQuery(function () {
   function dark_theme(aggressiveness_level) { //, target) {
     //body.css({'background-color': '' + theme_background_color + ' !important; color: ' + theme_foreground_color + ' !important'});
     console.log(847, 'dark_theme_' + aggressiveness_level);
-    body.addClass('dark_theme dark_theme_' + aggressiveness_level);
+    $body.addClass('dark_theme dark_theme_' + aggressiveness_level);
     if (!aggressiveness_level) return;
     if (aggressiveness_level > 1) document.styleSheets[0].addRule('*', 'background-color: ' + theme_background_color + ' !important; color: ' + theme_foreground_color + ' !important');
     //raw_site_css += target + '{' + theme_background_rule + theme_foreground_rule + '}';
@@ -1356,7 +1330,7 @@ jQuery(function () {
       dark_theme(site_data.dark_theme);
       console.log(846, 20, theme_foreground_selector);
       if (hide_selector            .length) raw_site_css += hide_selector                       + '{display: none}';
-      if (body.hasClass('dark_theme_1') ||body.hasClass('dark_theme_2')) {
+      if ($body.hasClass('dark_theme_1') || $body.hasClass('dark_theme_2')) {
         if (theme_selector           .length) raw_site_css += theme_selector           .join(',') + '{' + theme_background_rule + theme_foreground_rule + '}';
         if (theme_background_selector.length) raw_site_css += theme_background_selector.join(',') + '{' + theme_background_rule + '}';
         if (theme_foreground_selector.length) raw_site_css += theme_foreground_selector.join(',') + '{' + theme_foreground_rule + '}';
@@ -1401,36 +1375,40 @@ jQuery(function () {
   }
   process_page();
   console.log(475, 10);
-  const main_dialog_name = program_name + '_dialog';
-  jQuery("body").append ('<div id="' + main_dialog_name + '"><button>Word count</button></div>');
-  const $main_dialog = jQuery('#' + main_dialog_name);
-  $main_dialog.hide();
+  const main_dialog_id = program_name + '_main_dialog';
+  const word_count_button_id = program_name + '_word_count_button';
+  const main_dialog_close_button_id = main_dialog_id + 'close_button';
+  //const main_dialog_outer_id = main_dialog_id + '_outer';
+  //const main_dialog_outer_outer_id = main_dialog_outer_id + '_outer';
+  //jQuery("body").append ('<div id="' + main_dialog_outer_id + '" class="' + ui_class_name + '"><div id="' + main_dialog_id + '" class="' + ui_class_name + '"><button>Word count</button></div></div>');
+  //jQuery("body").append ('<div id="' + main_dialog_outer_outer_id + '" class="' + ui_class_name + '"><div id="' + main_dialog_outer_id + '" class="' + ui_class_name + '"><div id="' + main_dialog_id + '" class="' + ui_class_name + '"><button>Word count</button></div></div></div>');
+  let new_html = '<div id="' + main_dialog_id + '" style="position: fixed; top: 0; left: 0; z-index: 2147483647; display: none"><button id="' + word_count_button_id + '">Word count</button><button id="' + main_dialog_close_button_id + '">Close</button></div>';
+  $body.append (new_html);
+  const              $main_dialog = jQuery('#' +              main_dialog_id);
+  const        $word_count_button = jQuery('#' +        word_count_button_id);
+  const $main_dialog_close_button = jQuery('#' + main_dialog_close_button_id);
+  let main_dialog_is_open = false;
 
   document.onkeydown=function(event1) {
     var event = event1 || window.event; // for IE to cover IEs window object
-    if(event.which == 192) { // grave accent
-      
-      //alert('Keyboard shortcut working!');
-      //--- Activate the dialog.
-      console.log(475, 20);
-      console.log(475, 30);
-      $main_dialog.dialog( {
-          modal:      false,
-          title:      program_name,
-          //position:   {my: "top", at: "top", of: document, collision: "none"},
-          //width:      "auto",
-          minWidth:   400,
-          minHeight:  200,
-          zIndex:     3666
-      } );
-      console.log(475, 40);
-      $main_dialog.dialog ("widget").draggable ("option", "containment", "none");
-      console.log(475, 50);
-      //-- Fix crazy bug in FF! ...
-      $main_dialog.parent().css({position: "fixed", top: 0, left: "4em", width: "75ex"});
-      //console.log('wmaster: reprocessing page');
-      //process_page();
-      return false;
+    if (main_dialog_is_open) {
+      if (event.which == 27) { // escape -- close main dialog
+        $main_dialog.hide();
+        main_dialog_is_open = false;
+      }
+    } else {
+      if (event.which == 192) { // grave accent -- open main dialog
+        console.log(475, 20);
+        $main_dialog.show();
+        main_dialog_is_open = true;
+        console.log(111);
+        console.log(475, 30);
+        console.log(475, 40);
+        console.log(475, 50);
+        //console.log('wmaster: reprocessing page');
+        //process_page();
+        return false;
+      }
     }
   };
   //jQuery('#anti-white-flash-curtain').remove();
