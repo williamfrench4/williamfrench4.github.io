@@ -35,7 +35,7 @@ jQuery(function () {
     main_dialog_is_open             = false,
     raw_site_css                    = '',
     cooked_site_css                 = '',
-    page_level, site_data;
+    page_level, site_data, getMatchedCSSRules, wf_getMatchedCSSRules;
 
   const ui_css_prefix               = program_name   + '_ui';
   const main_dialog_id              = ui_css_prefix  + '_main';
@@ -70,6 +70,19 @@ jQuery(function () {
         return position === 'fixed' || position === 'sticky';
       });
       console.log(382, 40, $fixed_or_sticky_elements);
+      for (const element of $fixed_or_sticky_elements) {
+        const matched_rules = wf_getMatchedCSSRules(element);
+        console.log(382, 50, element, matched_rules);
+        if (matched_rules) {
+          for (const rule of matched_rules) {
+            console.log(382, 60, rule);
+            if (rule.style.position == 'fixed' || rule.style.position == 'sticky') {
+              console.log(382, 70, rule);
+              rule.style.position = '';
+            }
+          }
+        }
+      }
       //this.echo(fp.length);
       if (parsed_command_args [0] === 'rm') {
         $fixed_or_sticky_elements.remove();
@@ -984,6 +997,201 @@ jQuery(function () {
   };
 
 
+  function add_getMatchedCSSRules_to_window() {
+
+    // polyfill window.getMatchedCSSRules() in FireFox 6+
+    var
+      ELEMENT_RE = /[\w-]+/g,
+      ID_RE = /#[\w-]+/g,
+      CLASS_RE = /\.[\w-]+/g,
+      ATTR_RE = /\[[^\]]+\]/g,
+      // :not() pseudo-class does not add to specificity, but its content does as if it was outside it
+      PSEUDO_CLASSES_RE = /\:(?!not)[\w-]+(\(.*\))?/g,
+      PSEUDO_ELEMENTS_RE = /\:\:?(after|before|first-letter|first-line|selection)/g;
+
+    // handles extraction of `cssRules` as an `Array` from a stylesheet or something that behaves the same
+    function getSheetRules(stylesheet) {
+      var sheet_media = stylesheet.media && stylesheet.media.mediaText;
+      // if this sheet is disabled skip it
+      if ( stylesheet.disabled ) return [];
+      // if this sheet's media is specified and doesn't match the viewport then skip it
+      if ( sheet_media && sheet_media.length && ! window.matchMedia(sheet_media).matches ) return [];
+      // get the style rules of this sheet
+      //console.log(294, stylesheet);
+      const raw_rules = stylesheet.cssRules;
+      if (typeof raw_rules == 'undefined' || raw_rules === null) return [];
+      return Array.from(stylesheet.cssRules);
+    }
+
+    function _find(string, re) {
+      var matches = string.match(re);
+      return matches ? matches.length : 0;
+    }
+
+    // calculates the specificity of a given `selector`
+    function calculateScore(selector) {
+      var
+        score = [0,0,0],
+        parts = selector.split(' '),
+        part, match;
+      //TODO: clean the ':not' part since the last ELEMENT_RE will pick it up
+      while (part = parts.shift(), typeof part == 'string') {
+        // find all pseudo-elements
+        match = _find(part, PSEUDO_ELEMENTS_RE);
+        score[2] += match;
+        // and remove them
+        // match && (part = part.replace(PSEUDO_ELEMENTS_RE, ''));
+        if (match) part = part.replace(PSEUDO_ELEMENTS_RE, '');
+        // find all pseudo-classes
+        match = _find(part, PSEUDO_CLASSES_RE);
+        score[1] += match;
+        // and remove them
+        //match && (part = part.replace(PSEUDO_CLASSES_RE, ''));
+        if (match) part = part.replace(PSEUDO_CLASSES_RE, '');
+        // find all attributes
+        match = _find(part, ATTR_RE);
+        score[1] += match;
+        // and remove them
+        //match && (part = part.replace(ATTR_RE, ''));
+        if (match) part = part.replace(ATTR_RE, '');
+        // find all IDs
+        match = _find(part, ID_RE);
+        score[0] += match;
+        // and remove them
+        //match && (part = part.replace(ID_RE, ''));
+        if (match) part = part.replace(ID_RE, '');
+        // find all classes
+        match = _find(part, CLASS_RE);
+        score[1] += match;
+        // and remove them
+        //match && (part = part.replace(CLASS_RE, ''));
+        if (match) part = part.replace(CLASS_RE, '');
+        // find all elements
+        score[2] += _find(part, ELEMENT_RE);
+      }
+      return parseInt(score.join(''), 10);
+    }
+
+    // returns the heights possible specificity score an element can get from a give rule's selectorText
+    function getSpecificityScore(element, selector_text) {
+      var 
+        selectors = selector_text.split(','),
+        selector, score, result = 0;
+      while (true) {
+        selector = selectors.shift();
+        if (!selector) break;
+        if (matchesSelector(element, selector)) {
+          score = calculateScore(selector);
+          result = score > result ? score : result;
+        }
+      }
+      return result;
+    }
+
+    function sortBySpecificity(element, rules) {
+      // comparing function that sorts CSSStyleRules according to specificity of their `selectorText`
+      function compareSpecificity (a, b) {
+        return getSpecificityScore(element, b.selectorText) - getSpecificityScore(element, a.selectorText);
+      }
+
+      return rules.sort(compareSpecificity);
+    }
+
+    // Find correct matchesSelector impl
+    function matchesSelector(element, selector) {
+      let result;
+      if      (element.      matchesSelector) result = element.      matchesSelector(selector);
+      else if (element.   mozMatchesSelector) result = element.   mozMatchesSelector(selector);
+      else if (element.webkitMatchesSelector) result = element.webkitMatchesSelector(selector);
+      else if (element.     oMatchesSelector) result = element.     oMatchesSelector(selector);
+      else if (element.    msMatchesSelector) result = element.    msMatchesSelector(selector);
+      else throw new Error('no matcher function found');
+      console.log(380, 10, element, selector, result);
+    }
+
+    //TODO: not supporting 2nd argument for selecting pseudo elements
+    //TODO: not supporting 3rd argument for checking author style sheets only
+    
+    function ajax_data_handler(jqXHR, textStatus) {
+      console.log(380, 44, jqXHR, textStatus);
+    }
+    
+    wf_getMatchedCSSRules = function (element /*, pseudo, author_only*/) {
+      var
+        style_sheets, sheet, //sheet_media,
+        rules, rule,
+        result = [];
+      // get stylesheets and convert to a regular Array
+      style_sheets = Array.from(window.document.styleSheets);
+      console.log(380, 20, element, style_sheets);
+
+      // assuming the browser hands us stylesheets in order of appearance
+      // we iterate them from the beginning to follow proper cascade order
+      while (true) {
+        sheet = style_sheets.shift();
+        console.log(380, 30, sheet);
+        if (!sheet) break;
+        // get the style rules of this sheet
+        rules = getSheetRules(sheet);
+        if (rules.length) {
+          console.log(380, 40, rules);
+        } else {
+          console.log(380, 45, rules);
+          jQuery.ajax(sheet.href, {complete: ajax_data_handler, type: 'GET'});
+        }
+        // loop the rules in order of appearance
+        while (true) {
+          rule = rules.shift();
+          console.log(380, 50, rule);
+          if (!rule) break;
+          // if this is an @import rule
+          const rule_sheet = rule.styleSheet;
+          if (rule_sheet) {
+            console.log(380, 60, rule_sheet);
+            // insert the imported stylesheet's rules at the beginning of this stylesheet's rules
+            rules = getSheetRules(rule_sheet).concat(rules);
+            // and skip this rule
+            continue;
+          }
+          // if there's no stylesheet attribute BUT there IS a media attribute it's a media rule
+          else if (rule.media) {
+          console.log(380, 70, rule.media);
+            // insert the contained rules of this media rule to the beginning of this stylesheet's rules
+            rules = getSheetRules(rule).concat(rules);
+            // and skip it
+            continue;
+          }
+
+          // check if this element matches this rule's selector
+          if (matchesSelector(element, rule.selectorText)) {
+            // push the rule to the results set
+            result.push(rule);
+          }
+        }
+      }
+      // sort according to specificity
+      return sortBySpecificity(element, result);
+    };
+    document.wf_getMatchedCSSRules = wf_getMatchedCSSRules;
+    window.wf_getMatchedCSSRules = wf_getMatchedCSSRules;
+    console.log(380, 160);
+    getMatchedCSSRules = window.getMatchedCSSRules;
+    if (typeof getMatchedCSSRules === 'function') {
+      console.log(380, 170);
+      window.native_getMatchedCSSRules = getMatchedCSSRules;
+      document.native_getMatchedCSSRules = getMatchedCSSRules;
+    } else {
+    console.log(380, 180);
+      getMatchedCSSRules = window.wf_getMatchedCSSRules;
+      window.getMatchedCSSRules = getMatchedCSSRules;
+    }
+    document.getMatchedCSSRules = getMatchedCSSRules;
+    
+  console.log(380, 190);
+  }
+  
+  add_getMatchedCSSRules_to_window();
+
   function dark_theme(aggressiveness_level) { //, target) {
     //body.css({'background-color': '' + theme_background_color + ' !important; color: ' + theme_foreground_color + ' !important'});
     console.log(847, 'dark_theme_' + aggressiveness_level);
@@ -1380,8 +1588,7 @@ jQuery(function () {
         if (theme_background_selector.length) raw_site_css += theme_background_selector.join(',') + '{' + theme_background_rule + '}';
         if (theme_foreground_selector.length) raw_site_css += theme_foreground_selector.join(',') + '{' + theme_foreground_rule + '}';
       }
-      console.log(846, 50, cooked_site_css);
-      console.log(846, 30, raw_site_css);
+      console.log(846, 30, raw_site_css, cooked_site_css);
       const raw_site_css_split = raw_site_css.split('}');
       console.log(846, 60, raw_site_css_split);
       for (const rule of raw_site_css_split) {
@@ -1412,11 +1619,7 @@ jQuery(function () {
       document.body.appendChild(stylesheet);
       window.sss=stylesheet;
       window.f= jQuery( "textarea" );
-
-
-
     }
-
   }
   
   
