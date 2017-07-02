@@ -60,12 +60,26 @@ jQuery(function () {
   const $main_dialog_cli            = jQuery('#' + main_dialog_cli_id);
   //$main_dialog.hide();
   $main_dialog_cli.terminal(function(command) {
-    console.log(382, 30, command);
-  }, {greetings: '',
-        //name: 'js_demo',
-        //height: 200,
-        prompt: '> '
-
+    const parsed_command = jQuery.terminal.parse_command(command);
+    console.log(382, 30, command, parsed_command);
+    const parsed_command_name = parsed_command.name;
+    const parsed_command_args = parsed_command.args;
+    if (parsed_command_name == 'fp') {
+      const $fixed_or_sticky_elements = jQuery('*').filter(function() {
+        const position = jQuery(this).css("position");
+        return position === 'fixed' || position === 'sticky';
+      });
+      console.log(382, 40, $fixed_or_sticky_elements);
+      //this.echo(fp.length);
+      if (parsed_command_args [0] === 'rm') {
+        $fixed_or_sticky_elements.remove();
+      }
+    }
+  }, {
+    greetings: '',
+    //name: 'js_demo',
+    //height: 200,
+    prompt: '> '
   });
   const $main_dialog_cli_textarea = $main_dialog_cli.find('textarea');
 
