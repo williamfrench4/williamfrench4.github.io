@@ -299,7 +299,21 @@ jQuery(function () {
           img.src = img.dataset.original + '&w=1200';
         }
         if (page_level == 2) {
-          for (const element of jQuery('article p, article p>i, article p>em')) {
+          const $elements = jQuery('p span'); // For some strange reason this site occasionally has <span style="color: #000000;"> in the middle of a graf, which is invisible on the unmodified site but hides the text under dark_theme.
+          for (const element of $elements) {
+            const $element = jQuery(element);
+            if ($element.attr('style')) {
+              //window.e = element;
+              //document.e = element;
+              const element_style = element.style;
+              //console.log(511, 40, element, element_style, element_style.color);
+              if (element_style.color !== '') {
+                //console.log(511, 60);
+                element_style.color = ''; //'rgb(255, 0, 0)';
+              }
+            }
+          }
+          for (const element of jQuery('article p, article p>i, article p>em')) { // hide interstitial links
             const
               $element = jQuery(element),
               element_contents = $element.contents();
