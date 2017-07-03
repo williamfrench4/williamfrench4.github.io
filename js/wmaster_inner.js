@@ -10,7 +10,7 @@
 // ==/UserScript==
 
 /* jshint undef: true, unused: true, esversion: 6 */
-/* globals jQuery, alert, console, document, window, URL, setTimeout */
+/* globals jQuery, alert, console, document, window, URL, setTimeout, XMLHttpRequest, TextDecoder */
 
 
 
@@ -64,6 +64,7 @@ jQuery(function () {
     console.log(382, 30, command, parsed_command);
     const parsed_command_name = parsed_command.name;
     const parsed_command_args = parsed_command.args;
+    const parsed_command_args_0 = parsed_command_args [0];
     if (parsed_command_name == 'fp') {
       const $fixed_or_sticky_elements = jQuery('*').filter(function() {
         const position = jQuery(this).css("position");
@@ -87,6 +88,14 @@ jQuery(function () {
       if (parsed_command_args [0] === 'rm') {
         $fixed_or_sticky_elements.remove();
       }
+    } else  if (parsed_command_name == 'wc') {
+      console.log(382, 80, parsed_command_args_0);
+      if (parsed_command_args_0 !== '') {
+        site_data.count_words.grafs = parseInt(parsed_command_args_0);
+      }
+      count_words(site_data);
+    } else {
+      this.echo('Unrecognized command');
     }
   }, {
     greetings: '',
@@ -1009,6 +1018,86 @@ jQuery(function () {
   Date.prototype.format = function (mask, utc) {
     return dateFormat(this, mask, utc);
   };
+  
+  function convUrlToAbs(baseURI, url_text) {
+    const url = new URL(url_text, baseURI);
+    return url.toString();
+  }
+
+
+  function isutf8(bytes) {
+    var i = 0;
+    while (i < bytes.length) {
+      if (bytes[i] == 0x09 || bytes[i] == 0x0A || bytes[i] == 0x0D || (0x20 <= bytes[i] && bytes[i] <= 0x7E)) { // ASCII
+        i += 1;
+        continue;
+      }
+      if ((0xC2 <= bytes[i] && bytes[i] <= 0xDF) && (0x80 <= bytes[i + 1] && bytes[i + 1] <= 0xBF)) { // non-overlong 2-byte
+        i += 2;
+        continue;
+      }
+      if (
+        (bytes[i] == 0xE0 && (0xA0 <= bytes[i + 1] && bytes[i + 1] <= 0xBF) && (0x80 <= bytes[i + 2] && bytes[i + 2] <= 0xBF)) || // excluding overlongs
+        (((0xE1 <= bytes[i] && bytes[i] <= 0xEC) || bytes[i] == 0xEE || bytes[i] == 0xEF) && (0x80 <= bytes[i + 1] && bytes[i + 1] <= 0xBF) && (0x80 <= bytes[i + 2] && bytes[i + 2] <= 0xBF)) || // straight 3-byte
+        (bytes[i] == 0xED && (0x80 <= bytes[i + 1] && bytes[i + 1] <= 0x9F) && (0x80 <= bytes[i + 2] && bytes[i + 2] <= 0xBF)) // excluding surrogates
+      ) {
+        i += 3;
+        continue;
+      }
+      if (
+        (bytes[i] == 0xF0 && (0x90 <= bytes[i + 1] && bytes[i + 1] <= 0xBF) && (0x80 <= bytes[i + 2] && bytes[i + 2] <= 0xBF) && (0x80 <= bytes[i + 3] && bytes[i + 3] <= 0xBF)) || // planes 1-3
+        ((0xF1 <= bytes[i] && bytes[i] <= 0xF3) && (0x80 <= bytes[i + 1] && bytes[i + 1] <= 0xBF) && (0x80 <= bytes[i + 2] && bytes[i + 2] <= 0xBF) && (0x80 <= bytes[i + 3] && bytes[i + 3] <= 0xBF)) || // planes 4-15
+        (bytes[i] == 0xF4 && (0x80 <= bytes[i + 1] && bytes[i + 1] <= 0x8F) && (0x80 <= bytes[i + 2] && bytes[i + 2] <= 0xBF) && (0x80 <= bytes[i + 3] && bytes[i + 3] <= 0xBF)) // plane 16
+      ) {
+        i += 4;
+        continue;
+      }
+      return false;
+    }
+    return true;
+  }
+
+
+  function makeRequest(url) {
+    var result = {};
+    result.url = url;
+    console.log(221, 10, url);
+    return new Promise(function(resolve, reject) {
+      var xhr = new XMLHttpRequest();
+      xhr.responseType = 'arraybuffer';
+      xhr.open('get', url);
+      xhr.onload = function() {
+        if (this.status >= 200 && this.status < 300) {
+          var decoder;
+          if (isutf8(new Uint8Array(xhr.response))) {
+            decoder = new TextDecoder('UTF-8');
+          } else {
+            decoder = new TextDecoder('gbk');
+          }
+          result.cssraw = decoder.decode(xhr.response).replace(/url\((['"]?)(.*?)\1\)/g, function(a, p1,p2) {
+            return 'url(' + convUrlToAbs(url, p2) + ')';
+          });
+          result.status=this.status;
+          result.statusText=this.statusText;
+          resolve(result);
+          console.log(221, 50, url);
+        } else {
+          result.cssraw="";
+          result.status=this.status;
+          result.statusText=this.statusText;
+          resolve(result);
+        }
+      };
+      xhr.onerror = function() {
+        result.cssraw="";
+        result.status=this.status;
+        result.statusText=this.statusText;
+        resolve(result);
+      };
+      xhr.send();
+    });
+  }
+
 
 
   function add_getMatchedCSSRules_to_window() {
@@ -1153,33 +1242,26 @@ jQuery(function () {
           console.log(380, 45, rules);
           jQuery.ajax(sheet.href, {complete: ajax_data_handler, type: 'GET'});
         }
-        // loop the rules in order of appearance
-        while (true) {
+        while (true) {                   // loop the rules in order of appearance
           rule = rules.shift();
           console.log(380, 50, rule);
           if (!rule) break;
           // if this is an @import rule
           const rule_sheet = rule.styleSheet;
+          console.log(380, 55);
           if (rule_sheet) {
             console.log(380, 60, rule_sheet);
-            // insert the imported stylesheet's rules at the beginning of this stylesheet's rules
-            rules = getSheetRules(rule_sheet).concat(rules);
-            // and skip this rule
-            continue;
-          }
-          // if there's no stylesheet attribute BUT there IS a media attribute it's a media rule
-          else if (rule.media) {
+            rules = getSheetRules(rule_sheet).concat(rules);            // insert the imported stylesheet's rules at the beginning of this stylesheet's rules
+            continue;                                                   // and skip this rule
+          } else if (rule.media) {                           // if there's no stylesheet attribute BUT there IS a media attribute it's a media rule
           console.log(380, 70, rule.media);
-            // insert the contained rules of this media rule to the beginning of this stylesheet's rules
-            rules = getSheetRules(rule).concat(rules);
-            // and skip it
-            continue;
+            rules = getSheetRules(rule).concat(rules);            // insert the contained rules of this media rule to the beginning of this stylesheet's rules
+            continue;                                          // and skip it
           }
-
-          // check if this element matches this rule's selector
-          if (matchesSelector(element, rule.selectorText)) {
-            // push the rule to the results set
-            result.push(rule);
+          console.log(380, 75);
+          const rule_selectorText = rule.selectorText;
+          if (rule_selectorText && matchesSelector(element, rule_selectorText)) { // check if this element matches this rule's selector
+            result.push(rule); // push the rule to the results set
           }
         }
       }
@@ -1352,7 +1434,17 @@ jQuery(function () {
       let $graf = jQuery(graf);
       let graf_text = $graf.text();
       if (graf_text.length) {
-        const graf_words_count = graf_text.split(/\s+/).length;
+        const graf_text_split = graf_text.split(/\s+/);
+        console.log(192, 73, graf_text, graf_text_split);
+        let graf_words_count = 0;
+        for (const word of graf_text_split) {
+          console.log(192, 75, word);
+          if (word) {
+            console.log(192, 76);
+            graf_words_count++;
+          }
+        }
+        console.log(192, 78, graf_words_count);
         $graf.data(graf_words_count_name, graf_words_count);
         total_words_count += graf_words_count;
         for (const [subject_selector_index, subject_selector] of subject_selectors.entries()) {
