@@ -44,7 +44,7 @@ jQuery(function () {
   const main_dialog_cli_id          = main_dialog_id + '_cli';
   let new_html = '' +
     //'<div id="' + main_dialog_id + '" style="position: fixed; top: 0; left: 0; z-index: 2147483647; background-color: yellow; display: none">' +
-    '<div id="' + main_dialog_id + '" style="display: none">' +
+    '<div id="' + main_dialog_id + '" style="position: fixed; top: 0; left: 0; z-index: 2147483647; display: none">' +
       '<button id="'   + main_dialog_word_count_id + '">Word count</button>' +
       '<button id="'   + main_dialog_close_id      +      '">Close</button>' +
       '<div id="'      + main_dialog_cli_id        + '" class="terminal"></div>' +
@@ -85,8 +85,8 @@ jQuery(function () {
         }
       }
       //this.echo(fp.length);
-      if (parsed_command_args [0] === 'rm') {
-        $fixed_or_sticky_elements.remove();
+      if (parsed_command_args_0 === 'rm') {
+        $fixed_or_sticky_elements.not($main_dialog).remove();
       }
     } else  if (parsed_command_name == 'wc') {
       console.log(382, 80, parsed_command_args_0);
@@ -108,7 +108,7 @@ jQuery(function () {
   const sites_data = [
     {
       name: 'New York Times',
-      alternate_origins: ['https://cooking.nytimes.com', 'https://douthat.blogs.nytimes.com', 'https://krugman.blogs.nytimes.com', 'https://kristof.blogs.nytimes.com', 'https://www.nytimes.com/section/magazine'],
+      alternate_origins: ['https://cooking.nytimes.com', 'https://douthat.blogs.nytimes.com', 'https://krugman.blogs.nytimes.com', 'https://kristof.blogs.nytimes.com', 'https://well.blogs.nytimes.com', 'https://www.nytimes.com/section/magazine'],
       alternate_prefixes: ['file:///root/wayback/nytimes/', 'file:///root/wayback/nytimes_todayspaper/'],
       count_words: {append: '.byline:last-of-type, .byline-column, ' + selector_for_elements_with_a_class_that_starts_with('Byline-bylineAuthor--'), prefix: ' ', subject: ['.story-body-text, .g-body', '.story-body', '#story'], grafs: 0},
       article_theme_selector: 'input, textarea, .columnGroup', // NYT dark theme
@@ -143,6 +143,7 @@ jQuery(function () {
       unwanted_query_fields: 'action clickSource contentCollection contentPlacement hp module pgtype _r ref region rref smid smtyp src version WT.nav WT.z_jog hF vS utm_campaign utm_content utm_medium utm_source t target mcubz gwh gwt mtrref',
       unwanted_classes: 'theme-pinned-masthead',
       customize() {
+        if (location_href.startsWith('https://www.nytimes.com/newsletters/')) return;
         const
           //js_header_class_signature = 'Masthead-mastheadContainer--',
           js_header_selector = selector_for_elements_with_a_class_that_starts_with('HeaderBasic-bylineTimestamp--');
@@ -635,7 +636,7 @@ jQuery(function () {
         'Hero__dek___ River__dek___ Card__dek___ Byline__by___ RecirculationMostPopular__counter___ RecirculationMostPopular__byLine___ RecirculationMostPopular__title___ Card__timestamp___ ImageCaption__cartoon Video__description___'),
       hide_selector: 'iframe, ' + selector_for_elements_with_a_class_that_starts_with('MainHeader__partial___ Ad__header___'),
       customize() {
-        if (location_href.indexOf('?') != -1) alert(location_href);
+        //if (location_href.indexOf('?') != -1) alert(location_href);
         if (page_level == 2) {
           /*
           //console.log(390, 1, location_href);
