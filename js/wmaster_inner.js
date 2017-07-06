@@ -21,28 +21,32 @@ jQuery(function () {
   //console.log ('wmaster running');
   //return;
   const
-    $body                           = jQuery('body'),
-    program_name                    = 'wmaster',
-    theme_background_color          = '#000',
-    theme_background_rule           = 'background: ' + theme_background_color + '; background-color: ' + theme_background_color + ';',
-    theme_foreground_color          = '#0f0',
-    theme_foreground_rule           = 'color: '      + theme_foreground_color + '; text-shadow: none;';
+    $body                                   = jQuery('body'),
+    program_name                            = 'wmaster',
+    theme_autolink_foreground_color         = '#00e766',
+    theme_autolink_visited_foreground_color = '#99d700',
+    theme_background_color                  = '#000',
+    theme_foreground_color                  = '#0f0',
+    theme_link_foreground_color             = '#00f',
+    theme_link_visited_foreground_color     = 'purple', // #a0a?
+    theme_background_rule                   = 'background: ' + theme_background_color + '; background-color: ' + theme_background_color + ';',
+    theme_foreground_rule                   = 'color: '      + theme_foreground_color + '; text-shadow: none;';
   let
-    theme_selector                  = [],
-    theme_background_selector       = [],
-    theme_foreground_selector       = [],
-    hide_selector                   = [],
-    main_dialog_is_open             = false,
-    raw_site_css                    = '',
-    cooked_site_css                 = '',
+    theme_selector                          = [],
+    theme_background_selector               = [],
+    theme_foreground_selector               = [],
+    hide_selector                           = [],
+    main_dialog_is_open                     = false,
+    raw_site_css                            = '',
+    cooked_site_css                         = '',
     page_level, site_data, getMatchedCSSRules, wf_getMatchedCSSRules;
 
-  const ui_css_prefix               = program_name   + '_ui';
-  const main_dialog_id              = ui_css_prefix  + '_main';
-  const main_dialog_word_count_id   = main_dialog_id + '_word_count';
-  const main_dialog_close_id        = main_dialog_id + '_close';
-  const main_dialog_cli_id          = main_dialog_id + '_cli';
-  let new_html = '' +
+  const ui_css_prefix                       = program_name   + '_ui';
+  const main_dialog_id                      = ui_css_prefix  + '_main';
+  const main_dialog_word_count_id           = main_dialog_id + '_word_count';
+  const main_dialog_close_id                = main_dialog_id + '_close';
+  const main_dialog_cli_id                  = main_dialog_id + '_cli';
+  let new_html                              = '' +
     //'<div id="' + main_dialog_id + '" style="position: fixed; top: 0; left: 0; z-index: 2147483647; background-color: yellow; display: none">' +
     '<div id="' + main_dialog_id + '" style="position: fixed; top: 0; left: 0; z-index: 2147483647; display: none">' +
       '<button id="'   + main_dialog_word_count_id + '">Word count</button>' +
@@ -54,10 +58,10 @@ jQuery(function () {
   
   console.log(495, new_html);
   $body.append (new_html);
-  const $main_dialog                = jQuery('#' + main_dialog_id);
-  const $main_dialog_word_count     = jQuery('#' + main_dialog_word_count_id);
-  const $main_dialog_close          = jQuery('#' + main_dialog_close_id);
-  const $main_dialog_cli            = jQuery('#' + main_dialog_cli_id);
+  const $main_dialog                        = jQuery('#' + main_dialog_id);
+  const $main_dialog_word_count             = jQuery('#' + main_dialog_word_count_id);
+  const $main_dialog_close                  = jQuery('#' + main_dialog_close_id);
+  const $main_dialog_cli                    = jQuery('#' + main_dialog_cli_id);
   //$main_dialog.hide();
   $main_dialog_cli.terminal(function(command) {
     const parsed_command = jQuery.terminal.parse_command(command);
@@ -121,17 +125,18 @@ jQuery(function () {
         'figure.layout-vertical-full-bleed .image img {width: 47%; margin-left: 30px}' +
         'figure.layout-small-horizontal .image img {width: 98%; margin-left: 5px}' +
         'figure.layout-large-horizontal .image img {width: 47%; margin-left: 30px}' +
-        'figure.layout-jumbo-horizontal .image img {width: 87%; margin-left: 30px}' +
+        'figure.layout-jumbo-horizontal, figure.layout-full-bleed-horizontal .image img {width: 87%; margin-left: 30px}' +
         'figure.layout-large-vertical .image img {width: 47%; margin-left: 30px}' +
         'figure.layout-jumbo-vertical .image img {width: 47%; margin-left: 30px}',
-      article_hide_selector: 'nav, #masthead, .newsletter-signup, #whats-next, #site-index, .story-meta-footer-sharetools, .comments-button, [id="18-insider-promo-module"], #obstruction-justice-promo, #how-republican-voted-on-health-bill, #brexit-latest-fallout-tracker, #news-tips-article-promo, .cColumn>.first, ' +
-        '#story-ad-1-wrapper, #story-ad-2-wrapper, #story-ad-3-wrapper, #story-ad-4-wrapper, #opinion-aca-callout, #next-steps-for-health-care-bill, [id="06up-acachart"], #house-vote-republican-health-care-bill, #morning-briefing-weather-module, #nyt-weather,' +
+      article_hide_selector: 'nav, #masthead, .newsletter-signup, #whats-next, #site-index, .story-meta-footer-sharetools, .comments-button, [id="18-insider-promo-module"], #obstruction-justice-promo, #how-republican-voted-on-health-bill, #brexit-latest-fallout-tracker,' +
+        '#story-ad-1-wrapper, #story-ad-2-wrapper, #story-ad-3-wrapper, #story-ad-4-wrapper, #story-ad-5-wrapper, #opinion-aca-callout, #next-steps-for-health-care-bill, [id="06up-acachart"], #house-vote-republican-health-care-bill, #morning-briefing-weather-module,' +
         '#related-combined-coverage, .text-ad, #comey-promo, figure.video, .page-footer, .story-info, .story-print-citation, #fbi-congress-trump-russia-investigations, .vis-survey-box, #oil-prices, #Ask-Real-Estate-Promo, #wannacry-ransomware-map, #app > div > div' +
         '#how-self-driving-cars-work, #ransomware-attack-coverage, #fall-upfront-2017, figure[id*=pullquote], figure[id*=email-promo], figure[id*=DAILY-player], #why-its-so-hard-to-have-an-independent-russia-investigation, #navigation-edge, #europe-terror-attacks, ' +
-        '#document-Robert-Mueller-Special-Counsel-Russia, #julian-assange-timeline, #anthony-weiner-plea-agreement, #assange-fblive-promo, .meter-asset-wrapper, ' +
+        '#document-Robert-Mueller-Special-Counsel-Russia, #julian-assange-timeline, #anthony-weiner-plea-agreement, #assange-fblive-promo, .meter-asset-wrapper, #news-tips-article-promo, .cColumn>.first, #nyt-weather, ' +
         selector_for_elements_with_a_class_that_starts_with('Masthead-mastheadContainer--') + ',' +
         selector_for_elements_with_a_class_that_starts_with('SectionBarShare-shareMenu--') + ',' +
         selector_for_elements_with_a_class_that_starts_with('Recirculation-recirculation--'),
+      extra_sub_element_selectors: 'h3.story-heading',
       homepage_theme_foreground_selector: '.summary', // NYT dark theme
       //homepage_css: 'header {background-color: #aaa}', // NYT dark theme
       homepage_hide_selector: '#masthead-placeholder, .masthead-cap-container, .masthead.theme-in-content, div.editions.tab, #nytint-hp-watching, #site-index .section-header, #markets, .all-sections-button, #mini-navigation, #WelcomeAd_optly',
@@ -235,8 +240,9 @@ jQuery(function () {
       append_loaded_date: 'footer.l-footer',
       count_words: {append: '.content__dateline, .content__standfirst', subject: '.content__article-body'},
       article_css: '.js-headline-text {font-weight: normal} p {line-height: 170%} a {border-bottom: none} figure.element-tweet {margin-right: 4rem} .tweet {font-family: sans-serif} img.byline-img__img {background: transparent} .content {padding-bottom: 0}' +
-        'a:link   [data-link-name="auto-linked-tag"] {color: #00e766} a:link:hover   [data-link-name="auto-linked-tag"] {color: #00f  } div.explainer {background-color: #002b45; border: 1px solid ' + theme_foreground_color + '} .signposting {border-right-width:0}' +
-        'a:visited[data-link-name="auto-linked-tag"] {color: #99d700} a:visited:hover[data-link-name="auto-linked-tag"] {color: purple} .tabs__tab {border-top: 0.0625rem solid #aaa} .content__article-body {font-family: Adobe Caslon Pro; font-size: 109%}',
+        'a:'+'link[data-link-name="auto-linked-tag"] {color:' +         theme_autolink_foreground_color + '} a:'+'link:hover[data-link-name="auto-linked-tag"] {color:' +         theme_link_foreground_color + '}' +
+        'a:visited[data-link-name="auto-linked-tag"] {color:' + theme_autolink_visited_foreground_color + '} a:visited:hover[data-link-name="auto-linked-tag"] {color:' + theme_link_visited_foreground_color + '}' +
+        'div.explainer {background-color: #002b45; border: 1px solid ' + theme_foreground_color + '} .signposting {border-right-width:0} .tabs__tab {border-top: 0.0625rem solid #aaa} .content__article-body {font-family: Adobe Caslon Pro; font-size: 109%}',
       article_theme_selector: '.tonal__standfirst, .tonal__header, .content__standfirst, .content__headline, .byline, .d-top-comment__bubble',
       article_theme_background_selector: '.tonal--tone-live, .tonal--tone-editorial, .tonal--tone-feature, .tonal--tone-comment, .tonal--tone-analysis, .tonal--tone-review, .content__main, .block--content, .navigation, .local-navigation, .navigation-container,' +
         '.top-navigation, .navigation:before, .navigation-toggle, .navigation__container--first, .signposting, .tabs__tab--selected a, .tabs__tab--selected .tab__link, .tabs__tab a, .tabs__tab .tab__link',
@@ -263,13 +269,15 @@ jQuery(function () {
       origin: 'https://www.washingtonpost.com',
       alternate_origins: ['http://washingtonpost.com', 'http://www.washingtonpost.com', 'https://live.washingtonpost.com'],
       alternate_prefixes: ['file:///root/wayback/washingtonpost/'],
-      article_css: '#main-content {background-image: none} #et-nav {position: absolute}.headline {font-family: sans-serif} a, .powerpost-header, .layout_article #top-content {border-bottom: none} p {line-height: 155%} body {overflow-y: visible}' +
-        '.fixed-image {position: static} .g-artboard img {border-bottom: 30px solid white} .g-artboard p {color: black; background-color: transparent} .bg-none {background-color: transparent}', //.pb-f-homepage-story {background-color: #300},
+      article_css: '#main-content {background-image: none} #et-nav {position: absolute}.headline {font-family: sans-serif} a, .powerpost-header, .layout_article #top-content {border-bottom: none} p {line-height: 155%} body {overflow-y: visible}' + //.pb-f-homepage-story {background-color: #300},
+        '.fixed-image {position: static} .g-artboard img {border-bottom: 30px solid white} .g-artboard p {color: black; background-color: transparent} .bg-none {background-color: transparent} .note-button {padding: 0; box-shadow: none}' +
+        'a.note-button:link    {color:' +         theme_autolink_foreground_color + '} a.note-button:link:hover    {color:' +         theme_link_foreground_color + '}' +
+        'a.note-button:visited {color:' + theme_autolink_visited_foreground_color + '} a.note-button:visited:hover {color:' + theme_link_visited_foreground_color + '}',
       article_hide_selector: '#wp-header, #top-furniture, .pb-f-ad-flex-2, .pb-f-ad-flex-3, .pb-f-games-gamesWidget, .pb-f-page-footer-v2, .pb-f-page-recommended-strip, .pb-f-page-editors-picks, disabled.chain-wrapper, .extra, .pb-f-generic-promo-image, .interstitial-link,' +
         '.pg-interstitial-link, .pb-f-posttv-sticky-player, .pb-f-posttv-sticky-player-powa, .xpb-f-article-article-author-bio, .pb-tool.email, .pb-f-page-newsletter-inLine, .pb-f-page-comments, .inline-video, [channel="wp.com"], .pb-f-page-jobs-search,' +
         '.pb-f-homepage-story, .pb-f-sharebars-top-share-bar, .pb-f-page-share-bar, .wp_signin, #wp_Signin, .inline-graphic-linked, .share-individual, .pb-f-page-trump-can-he-do-that-podcast, .bottom-ad--bigbox',
       article_theme_selector: '#article-body, p, .pg-bodyCopy',
-      article_theme_background_selector: '.wp-volt-gal-embed-promo-container, .wp-volt-gal-embed-promo-bottom, #weather-glance, #weather_now, .cwgdropdown, #heat-tracker, #weather-almanac, .pb-f-capital_weather_gang-weather-almanac select, .border-bottom-hairline::after, .span12',
+      article_theme_background_selector: '.wp-volt-gal-embed-promo-container, .wp-volt-gal-embed-promo-bottom, #weather-glance, #weather_now, .cwgdropdown, #heat-tracker, #weather-almanac, .pb-f-capital_weather_gang-weather-almanac select, .border-bottom-hairline::after, .span12, .note-button',
       article_theme_foreground_selector: '.pb-caption, .pg-caption, .pb-bottom-author, .pb-timestamp, .pg-pubDate, .weather-gray, #weather_now .time, .firstgraf::first-letter',
       count_words: {append: '.pg-pubDate, .bottomizer, .pb-sig-line, .pbHeader, .publish-date', subject: '#article-body>article, #pg-content>article, .sections>.container'},
       homepage_css: 'header {position: relative} .pb-f-homepage-story .headline a, .related-links a, #bottom-content a {font-family: sans-serif; font-weight: normal} img.wplogo {-webkit-filter: invert(70%) sepia(100%) hue-rotate(65deg) saturate(7)}',
@@ -378,7 +386,7 @@ jQuery(function () {
       name: 'Slate',
       origin: 'http://www.slate.com',
       article_hide_selector: '.bottom-banner, .rubricautofeature, .top-comment, .follow-links, .social',
-      css: '.user-link, .search-link, .global-nav-handle {background-color: #000; -webkit-filter: brightness(70%) sepia(100%) hue-rotate(55deg) saturate(7)}' +
+      css: '.user-link, .search-link, .global-nav-handle {background-color:' + theme_background_color + '; -webkit-filter: brightness(70%) sepia(100%) hue-rotate(55deg) saturate(7)}' +
         '.logo, .prop-image img {-webkit-filter: hue-rotate(180deg) brightness(60%) sepia(100%) hue-rotate(55deg) saturate(7)}',
       article_css: '.roll-up {position: absolute} .meta {background: none}', //'.about-the-author.fancy {background: none} .about-the-author.fancy .author-bio {border-bottom: none}',
       count_words: {append: '.pub-date', subject: '.body .text'},
@@ -730,7 +738,7 @@ jQuery(function () {
     {
       name: 'Los Angeles Times',
       origin: 'http://www.latimes.com',
-      css: '.trb_nh {position: absolute} .trb_nh_l, .trb_nh_sm_o_svg {fill: #0f0} .trb_nh_unh_hr {border-color: #0f0}',
+      css: '.trb_nh {position: absolute} .trb_nh_l, .trb_nh_sm_o_svg {fill:' + theme_foreground_color + '} .trb_nh_unh_hr {border-color:' + theme_foreground_color + '}',
       article_hide_selector: '.trb_nh_lw, .trb_mh_adB, .trb_sc, .trb_ar_bc, .trb_gptAd.trb_ar_rail_ad, .trb_embed[data-content-type=story], .wf_interstitial_link, [name="support-our-journalism"], [data-content-type="pullquote"], .journo-promo, .promo, .trb_rhsAdSidebar',
       theme_background_selector: '.trb_allContentWrapper',
       theme_foreground_selector: '.trb_nh_un_hw:before',
@@ -839,7 +847,7 @@ jQuery(function () {
   const sites_data_by_prefix = {};
   for (const site_data of sites_data) {
     const unwanted_query_fields = site_data.unwanted_query_fields;
-    let prefixes, remove_fixed_positioning_settings;
+    let prefixes;
     if (site_data.origin) prefixes = [site_data.origin];
     else        prefixes = [];
     if (site_data.alternate_origins ) prefixes = prefixes.concat(site_data.alternate_origins );
@@ -852,26 +860,29 @@ jQuery(function () {
       else sites_data_by_prefix [prefix] = site_data;
     }
     //console.log(74, site_data.append_loaded_date);
-    if      (!site_data                 .hasOwnProperty('append_loaded_date'       )) site_data.append_loaded_date             = 'body';
-    if      (!site_data                 .hasOwnProperty('dark_theme'               )) site_data.dark_theme                     = 1;
-    if      (!site_data                 .hasOwnProperty('std_link_colors'          )) site_data.std_link_colors                = true;
-    if      (!site_data                 .hasOwnProperty('theme_selector'           )) site_data.theme_selector                 = 'body';
-    if      (!site_data                 .hasOwnProperty('theme_background_selector')) site_data.theme_background_selector      = ''; 
-    if      (!site_data                 .hasOwnProperty('theme_foreground_selector')) site_data.theme_foreground_selector      = '';
+    if      (!site_data                         .hasOwnProperty('append_loaded_date'       )) site_data.append_loaded_date             = 'body';
+    if      (!site_data                         .hasOwnProperty('dark_theme'               )) site_data.dark_theme                     = 1;
 
-    if      (!site_data                 .hasOwnProperty('count_words'              )) site_data.count_words                    = {};
+    if      (!site_data                         .hasOwnProperty('std_link_colors'          )) site_data.std_link_colors                = {};
+    else if ( site_data.std_link_colors === false                                           ) site_data.std_link_colors                = {enable: false};
+    if      (!site_data.std_link_colors         .hasOwnProperty('enable'                   )) site_data.std_link_colors.enable         = true;
+
+    if      (!site_data                         .hasOwnProperty('theme_selector'           )) site_data.theme_selector                 = 'body';
+    if      (!site_data                         .hasOwnProperty('theme_background_selector')) site_data.theme_background_selector      = ''; 
+    if      (!site_data                         .hasOwnProperty('theme_foreground_selector')) site_data.theme_foreground_selector      = '';
+
+    if      (!site_data                         .hasOwnProperty('count_words'              )) site_data.count_words                    = {};
     const count_words_settings = site_data.count_words; 
-    if      (!count_words_settings      .hasOwnProperty('append'                   )) count_words_settings.append              = 'body';
-    if      (!count_words_settings      .hasOwnProperty('nbsp_size'                )) count_words_settings.nbsp_size           = '50%';
-    if      (!count_words_settings      .hasOwnProperty('subject'                  )) count_words_settings.subject             = 'body';
-    if      (!count_words_settings      .hasOwnProperty(      'prefix'             )) count_words_settings.      prefix        = '';
-    if      (!count_words_settings      .hasOwnProperty( 'graf_prefix'             )) count_words_settings. graf_prefix        = count_words_settings.prefix;
-    if      (!count_words_settings      .hasOwnProperty('total_prefix'             )) count_words_settings.total_prefix        = count_words_settings.prefix;
+    if      (!count_words_settings              .hasOwnProperty('append'                   )) count_words_settings.append              = 'body';
+    if      (!count_words_settings              .hasOwnProperty('nbsp_size'                )) count_words_settings.nbsp_size           = '50%';
+    if      (!count_words_settings              .hasOwnProperty('subject'                  )) count_words_settings.subject             = 'body';
+    if      (!count_words_settings              .hasOwnProperty(      'prefix'             )) count_words_settings.      prefix        = '';
+    if      (!count_words_settings              .hasOwnProperty( 'graf_prefix'             )) count_words_settings. graf_prefix        = count_words_settings.prefix;
+    if      (!count_words_settings              .hasOwnProperty('total_prefix'             )) count_words_settings.total_prefix        = count_words_settings.prefix;
 
-    if      (!site_data                 .hasOwnProperty('remove_fixed_positioning' )) remove_fixed_positioning_settings        = {};
-    else if ( site_data.remove_fixed_positioning === false                          ) remove_fixed_positioning_settings        = {enable: false};
-    else                                                                              remove_fixed_positioning_settings        = site_data.remove_fixed_positioning;
-    if      (!remove_fixed_positioning_settings  .hasOwnProperty('enable'          )) remove_fixed_positioning_settings.enable = true;
+    if      (!site_data                         .hasOwnProperty('remove_fixed_positioning' )) site_data.remove_fixed_positioning        = {};
+    else if ( site_data.remove_fixed_positioning === false                                  ) site_data.remove_fixed_positioning        = {enable: false};
+    if      (!site_data.remove_fixed_positioning.hasOwnProperty('enable'                   )) site_data.remove_fixed_positioning.enable = true;
 
 
 
@@ -1298,13 +1309,38 @@ jQuery(function () {
     if (!aggressiveness_level) return;
     if (aggressiveness_level > 1) document.styleSheets[0].addRule('*', 'background-color: ' + theme_background_color + ' !important; color: ' + theme_foreground_color + ' !important');
     //raw_site_css += target + '{' + theme_background_rule + theme_foreground_rule + '}';
-    raw_site_css += '.dark_theme {' + theme_background_rule + theme_foreground_rule + '} ::-webkit-scrollbar {height: 2px; width: 2px} ::-webkit-scrollbar-track {background: #000} ::-webkit-scrollbar-thumb {background: #f00} ';
+    raw_site_css += '.dark_theme {' + theme_background_rule + theme_foreground_rule + '} ::-webkit-scrollbar {height: 2px; width: 2px} ::-webkit-scrollbar-track {background:' + theme_background_color + '} ::-webkit-scrollbar-thumb {background: #f00} ';
   }
 
-  function std_link_colors() {
+  function std_link_colors(site_data) {
+    /*
     raw_site_css += ' a {text-decoration: none}' +
-      ' a:link, a:link h1, a:link h2, a:link h3, a:link h4, a:link h5, a:link div, a:link p, a:link span, a:link em {color: #00f}' +
-      ' a:visited, a:visited h1, a:visited h2, a:visited h3, a:visited h4, a:visited h5, a:visited div, a:visited p, a:visited span, a:visited em {color: #a0a}';
+      ' a:link   , a:link    h1, a:link    h2, a:link    h3, a:link    h4, a:link    h5, a:link    div, a:link    p, a:link    span, a:link    em {color:' +         theme_link_foreground_color + '}' +
+      ' a:visited, a:visited h1, a:visited h2, a:visited h3, a:visited h4, a:visited h5, a:visited div, a:visited p, a:visited span, a:visited em {color:' + theme_link_visited_foreground_color + '}';
+    */
+    const
+      settings                         = site_data.std_link_colors,
+      extra_sub_element_selectors      = settings.extra_sub_element_selectors,
+      link_selector                    = 'a:link',
+      visited_selector                 = 'a:visited';
+    let
+      sub_element_tags_str             = 'h1 h2 h3 h4 h5 div p span em',
+      link_and_sub_element_selector    =    link_selector,
+      visited_and_sub_element_selector = visited_selector;
+    if (extra_sub_element_selectors) sub_element_tags_str += ' ' + extra_sub_element_selectors;
+    const sub_element_tags = sub_element_tags_str.split(/\s+/);
+    console.log(387, 30, sub_element_tags_str, sub_element_tags);
+    for (const sub_element_tag of sub_element_tags) {
+      link_and_sub_element_selector    += ',' +    link_selector + ' ' + sub_element_tag;
+      visited_and_sub_element_selector += ',' + visited_selector + ' ' + sub_element_tag;
+      console.log(387, 40, link_and_sub_element_selector);
+    }
+    link_and_sub_element_selector    += '{color:' +         theme_link_foreground_color + '}';
+    visited_and_sub_element_selector += '{color:' + theme_link_visited_foreground_color + '}';
+    const new_css = ' a {text-decoration: none}' + link_and_sub_element_selector + '{color:' + theme_link_foreground_color + '}' + visited_and_sub_element_selector + '{color:' + theme_link_visited_foreground_color + '}';
+    console.log(387, 60, new_css);
+    raw_site_css += new_css;
+    console.log(387, 70, raw_site_css);
   }
 
   function regularize_links() {
@@ -1540,7 +1576,7 @@ jQuery(function () {
   function remove_fixed_positioning(site_data) {
     const settings = site_data.remove_fixed_positioning;
     //console.log('remove_fixed_positioning: called with settings: ' + settings);
-    if (settings) {} // stub
+    if (!settings.enable) return;
     for (const element of jQuery('*')) {
     //jQuery('*').each(function () {
       const $element = jQuery(element);
@@ -1648,8 +1684,8 @@ jQuery(function () {
       console.log(231, hide_selector, location, site_data.name);
       //console.log(48.1, theme_foreground_selector);
       if (site_data.css) raw_site_css += site_data.css;
-      if (site_data.std_link_colors) std_link_colors();
-      //console.log(44, site_data);
+      std_link_colors(site_data);
+      console.log(44, site_data);
       regularize_links();
       const unwanted_classes = site_data.unwanted_classes;
       //console.log(14, site_data);
@@ -1662,7 +1698,7 @@ jQuery(function () {
           jQuery('.' + unwanted_class).removeClass(unwanted_class);
         }
       }
-      if (site_data.remove_fixed_positioning) remove_fixed_positioning(site_data);
+      remove_fixed_positioning(site_data);
       if (site_data.append_loaded_date) append_loaded_date(jQuery(site_data.append_loaded_date));
       console.log(253, theme_foreground_selector);
       if   (site_data.         theme_selector           ) theme_selector           .push(site_data.         theme_selector           );
