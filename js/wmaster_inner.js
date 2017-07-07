@@ -30,7 +30,10 @@ jQuery(function () {
     theme_link_foreground_color             = '#00f',
     theme_link_visited_foreground_color     = 'purple', // #a0a?
     theme_background_rule                   = 'background: ' + theme_background_color + '; background-color: ' + theme_background_color + ';',
-    theme_foreground_rule                   = 'color: '      + theme_foreground_color + '; text-shadow: none;';
+    theme_foreground_rule                   = 'color: '      + theme_foreground_color + '; text-shadow: none;',
+    location = window.location,
+    location_href = location.href,
+    location_origin = location.origin;
   let
     theme_selector                          = [],
     theme_background_selector               = [],
@@ -40,7 +43,7 @@ jQuery(function () {
     raw_site_css                            = '',
     cooked_site_css                         = '',
     page_level, site_data, getMatchedCSSRules, wf_getMatchedCSSRules;
-
+  console.log(101, location_href);
   const ui_css_prefix                       = program_name   + '_ui';
   const main_dialog_id                      = ui_css_prefix  + '_main';
   const main_dialog_word_count_id           = main_dialog_id + '_word_count';
@@ -1591,11 +1594,6 @@ jQuery(function () {
   //main code starts here
 
   //console.log(91);
-  const
-    location = window.location,
-    location_href = location.href,
-    location_origin = location.origin;
-
   function process_page() {
 
     for (const test_site_data of sites_data) {
