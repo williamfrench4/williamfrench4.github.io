@@ -169,23 +169,7 @@ jQuery(function () {
           jQuery('.g-artboard' ).css({'width': '90%', 'margin-left': '30px'});
           document.styleSheets[0].addRule('.g-artboard *, .g-graphic *, .nytg-chart *', 'background-color: transparent !important');
           //cooked_site_css += ' .interactive-graphic * {background-color: #fff !important; color: #000 !important}';
-          /* This block replaced by selector_for_elements_with_a_class_that_starts_with('Masthead-mastheadContainer--')
-          js_header_element = jQuery('#app>:first-child>:first-child') [0];
-          if (js_header_element) {
-            //console.log(44, js_header_element);
-            class_list = js_header_element.classList;
-            jQuery.each(class_list, function (class_index, class_name) {
-              //console.log(46, class_index, class_name);
-              if (class_name.startsWith(js_header_class_signature)) {
-                js_header_class_name = class_name;
-                return false; // break out of class_list loop
-              }
-            });
-            if (js_header_class_name) hide_selector += ', .' + js_header_class_name;
-            else alert('class signature "' + js_header_class_signature + '" not found in list "' + class_list + '"');
-            //console.log(47, hide_selector);
-          }
-          */
+          $body.removeClass('lens-hide-titles');
         } else {
           //Object.freeze(document.location); // doesn't work -- and why would anyone expect it to?
           const logo_element = jQuery('h2.branding') [0];
@@ -273,7 +257,7 @@ jQuery(function () {
       alternate_origins: ['http://washingtonpost.com', 'http://www.washingtonpost.com', 'https://live.washingtonpost.com'],
       alternate_prefixes: ['file:///root/wayback/washingtonpost/'],
       article_css: '#main-content {background-image: none} #et-nav {position: absolute}.headline {font-family: sans-serif} a, .powerpost-header, .layout_article #top-content {border-bottom: none} p {line-height: 155%} body {overflow-y: visible}' + //.pb-f-homepage-story {background-color: #300},
-        '.fixed-image {position: static} .g-artboard img {border-bottom: 30px solid white} .g-artboard p {color: black; background-color: transparent} .bg-none {background-color: transparent} .note-button {padding: 0; box-shadow: none}' +
+        '.fixed-image {position: static} .g-artboard img {border-bottom: 30px solid white} .g-artboard p {color: black; background-color: transparent} .bg-none {background-color: transparent} .note-button {padding: 0; box-shadow: none} .chain-wrapper {background-color: #500}' +
         'a.note-button:link    {color:' +         theme_autolink_foreground_color + '} a.note-button:link:hover    {color:' +         theme_link_foreground_color + '}' +
         'a.note-button:visited {color:' + theme_autolink_visited_foreground_color + '} a.note-button:visited:hover {color:' + theme_link_visited_foreground_color + '}',
       article_hide_selector: '#wp-header, #top-furniture, .pb-f-ad-flex-2, .pb-f-ad-flex-3, .pb-f-games-gamesWidget, .pb-f-page-footer-v2, .pb-f-page-recommended-strip, .pb-f-page-editors-picks, disabled.chain-wrapper, .extra, .pb-f-generic-promo-image, .interstitial-link,' +
