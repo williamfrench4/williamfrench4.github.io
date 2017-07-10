@@ -25,7 +25,7 @@
 /* deslint-disable one-var */
 
 //alert(36)
-jQuery(function () {
+jQuery(() => {
   'use strict'
   //alert(8)
   //console.log ('wmaster running')
@@ -77,15 +77,15 @@ jQuery(function () {
   const $main_dialog_close                  = jQuery('#' + main_dialog_close_id)
   const $main_dialog_cli                    = jQuery('#' + main_dialog_cli_id)
   //$main_dialog.hide()
-  $main_dialog_cli.terminal(function (command) {
+  $main_dialog_cli.terminal((command) => {
     const parsed_command = jQuery.terminal.parse_command(command)
     console.log(382, 30, command, parsed_command)
     const parsed_command_name = parsed_command.name
     const parsed_command_args = parsed_command.args
     const parsed_command_args_0 = parsed_command_args [0]
     if (parsed_command_name === 'fp') {
-      const $fixed_or_sticky_elements = jQuery('*').filter(function () {
-        const position = jQuery(this).css('position')
+      const $fixed_or_sticky_elements = jQuery('*').filter((index, element) => {
+        const position = jQuery(element).css('position')
         return position === 'fixed' || position === 'sticky'
       })
       console.log(382, 40, $fixed_or_sticky_elements)
@@ -888,6 +888,14 @@ jQuery(function () {
   //console.log(36, sites_data_by_prefix)
   //window.sites_data = sites_data
 
+  function in_iframe () {
+    try {
+      return window.self !== window.top
+    } catch (e) {
+      return true
+    }
+  }
+
 
   function direct_text_content (element) {
     // Return the text from this element only, not including any text from child elements
@@ -1236,7 +1244,7 @@ jQuery(function () {
       console.log(380, 44, jqXHR, textStatus)
     }
 
-    wf_getMatchedCSSRules = function (element /*, pseudo, author_only*/) {
+    wf_getMatchedCSSRules = element => {
       var style_sheets
       var sheet //sheet_media
       var rules
@@ -1576,10 +1584,9 @@ jQuery(function () {
 
   function remove_fixed_positioning (site_data) {
     const settings = site_data.remove_fixed_positioning
-    //console.log('remove_fixed_positioning: called with settings: ' + settings)
+    console.log('remove_fixed_positioning: called with settings: ' + settings)
     if (!settings.enable) return
-    for (const element of jQuery('*')) {
-    //jQuery('*').each(function () {
+    for (const element of jQuery('*').not($main_dialog)) {
       const $element = jQuery(element)
       const old_position = $element.css('position')
       if (old_position === 'fixed' || old_position === 'sticky') {
@@ -1797,28 +1804,30 @@ jQuery(function () {
   }
 
 
-  process_page()
+  if (!in_iframe()) {
+    process_page()
 
-  document.onkeydown = function (event1) {
-    var event = event1 || window.event // for IE to cover IEs window object
-    if (event.which === 192) { // grave accent -- open main dialog
-      open_main_dialog()
-      console.log(475, 50)
-      console.log(475, 55)
-      //console.log('wmaster: reprocessing page')
-      //process_page()
-      return false
+    document.onkeydown = event1 => {
+      var event = event1 || window.event // for IE to cover IEs window object
+      if (event.which === 192) { // grave accent -- open main dialog
+        open_main_dialog()
+        console.log(475, 50)
+        console.log(475, 55)
+        //console.log('wmaster: reprocessing page')
+        //process_page()
+        return false
+      }
     }
+    $main_dialog_cli.on('keydown', event => {
+      console.log(475, 60)
+      if (event.which === 13) {
+        console.log(475, 65)
+      } else if (event.which === 27) {
+        console.log(475, 70)
+        close_main_dialog()
+      }
+    })
   }
-  $main_dialog_cli.on('keydown', function (event) {
-    console.log(475, 60)
-    if (event.which === 13) {
-      console.log(475, 65)
-    } else if (event.which === 27) {
-      console.log(475, 70)
-      close_main_dialog()
-    }
-  })
   //jQuery('#anti-white-flash-curtain').remove()
 
   jQuery.noConflict()
