@@ -240,7 +240,7 @@ jQuery(() => {
       article_css: '.js-headline-text {font-weight: normal} p {line-height: 170%} a {border-bottom: none} figure.element-tweet {margin-right: 4rem} .tweet {font-family: sans-serif} img.byline-img__img {background: transparent} .content {padding-bottom: 0}' +
         'a:' + 'link[data-link-name="auto-linked-tag"] {color:' +         theme_autolink_foreground_color + '} a:' + 'link:hover[data-link-name="auto-linked-tag"] {color:' +         theme_link_foreground_color + '}' +
         'a:visited[data-link-name="auto-linked-tag"] {color:' + theme_autolink_visited_foreground_color + '} a:visited:hover[data-link-name="auto-linked-tag"] {color:' + theme_link_visited_foreground_color + '}' +
-        'div.explainer {background-color: #002b45; border: 1px solid ' + theme_foreground_color + '} .signposting {border-right-width:0} .tabs__tab {border-top: 0.0625rem solid #aaa} .content__article-body {font-family: Adobe Caslon Pro; font-size: 109%}',
+        'div.explainer {background-color: #00252f; border: 1px solid ' + theme_foreground_color + '} .signposting {border-right-width:0} .tabs__tab {border-top: 0.0625rem solid #aaa} .content__article-body {font-family: Adobe Caslon Pro; font-size: 109%}',
       article_theme_selector: '.tonal__standfirst, .tonal__header, .content__standfirst, .content__headline, .byline, .d-top-comment__bubble',
       article_theme_background_selector: '.tonal--tone-live, .tonal--tone-editorial, .tonal--tone-feature, .tonal--tone-comment, .tonal--tone-analysis, .tonal--tone-review, .content__main, .block--content, .navigation, .local-navigation, .navigation-container,' +
         '.top-navigation, .navigation:before, .navigation-toggle, .navigation__container--first, .signposting, .tabs__tab--selected a, .tabs__tab--selected .tab__link, .tabs__tab a, .tabs__tab .tab__link',
@@ -825,8 +825,12 @@ jQuery(() => {
       article_theme_background_selector: '.blog_series',
       article_css: '.blog_series {border-width: 0}',
     },
+    {
+      name: 'New York Post',
+      origin: 'http://nypost.com',
+      article_hide_selector: '.floating-share',
+    },
     {name: 'Just Security'          , origin: 'https://www.justsecurity.org'},
-    {name: 'New York Post'          , origin: 'http://nypost.com'                    , article_hide_selector: '.floating-share'},
     {name: 'Stack Overflow'         , origin: 'http://stackoverflow.com'             , dark_theme: 0},
     {name: 'Review of Ophthalmology', origin: 'https://www.reviewofophthalmology.com'},
     {name: 'The Economist'          , origin: 'http://www.economist.com'             , article_hide_selector: '.latest-updates-panel__container'},
