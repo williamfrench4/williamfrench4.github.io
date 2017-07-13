@@ -30,6 +30,7 @@ jQuery(() => {
   //alert(8)
   //console.log ('wmaster running')
   //return
+  const wasd_scrolling                          = true
   const $body                                   = jQuery('body')
   const program_name                            = 'wmaster'
   const theme_autolink_foreground_color         = '#00c080'
@@ -43,24 +44,24 @@ jQuery(() => {
   const location = window.location
   const location_href = location.href
   const location_origin = location.origin
-  let theme_selector                          = []
-  let theme_background_selector               = []
-  let theme_foreground_selector               = []
-  let hide_selector                           = []
-  let main_dialog_is_open                     = false
-  let raw_site_css                            = ''
-  let cooked_site_css                         = ''
+  let theme_selector                            = []
+  let theme_background_selector                 = []
+  let theme_foreground_selector                 = []
+  let hide_selector                             = []
+  let main_dialog_is_open                       = false
+  let raw_site_css                              = ''
+  let cooked_site_css                           = ''
   let page_level
   let site_data
   let getMatchedCSSRules
   let wf_getMatchedCSSRules
   console.log(101, location_href)
-  const ui_css_prefix                       = program_name   + '_ui'
-  const main_dialog_id                      = ui_css_prefix  + '_main'
-  const main_dialog_word_count_id           = main_dialog_id + '_word_count'
-  const main_dialog_close_id                = main_dialog_id + '_close'
-  const main_dialog_cli_id                  = main_dialog_id + '_cli'
-  let new_html                              = '' +
+  const ui_css_prefix                           = program_name   + '_ui'
+  const main_dialog_id                          = ui_css_prefix  + '_main'
+  const main_dialog_word_count_id               = main_dialog_id + '_word_count'
+  const main_dialog_close_id                    = main_dialog_id + '_close'
+  const main_dialog_cli_id                      = main_dialog_id + '_cli'
+  let new_html                                  = '' +
     //'<div id="' + main_dialog_id + '" style="position: fixed; top: 0; left: 0; z-index: 2147483647; background-color: yellow; display: none">' +
     '<div id="' + main_dialog_id + '" style="position: fixed; top: 0; left: 0; z-index: 2147483647; display: none">' +
       '<button id="'   + main_dialog_word_count_id + '">Word count</button>' +
@@ -72,10 +73,10 @@ jQuery(() => {
 
   console.log(495, new_html)
   $body.append(new_html)
-  const $main_dialog                        = jQuery('#' + main_dialog_id)
-  const $main_dialog_word_count             = jQuery('#' + main_dialog_word_count_id)
-  const $main_dialog_close                  = jQuery('#' + main_dialog_close_id)
-  const $main_dialog_cli                    = jQuery('#' + main_dialog_cli_id)
+  const $main_dialog                            = jQuery('#' + main_dialog_id)
+  const $main_dialog_word_count                 = jQuery('#' + main_dialog_word_count_id)
+  const $main_dialog_close                      = jQuery('#' + main_dialog_close_id)
+  const $main_dialog_cli                        = jQuery('#' + main_dialog_cli_id)
   //$main_dialog.hide()
   $main_dialog_cli.terminal((command) => {
     const parsed_command = jQuery.terminal.parse_command(command)
@@ -106,8 +107,17 @@ jQuery(() => {
       if (parsed_command_args_0 === 'rm') {
         $fixed_or_sticky_elements.not($main_dialog).remove()
       }
-    } else  if (parsed_command_name === 'wc') {
+    } else  if (parsed_command_name === 'pp') {
       console.log(382, 80, parsed_command_args_0)
+      process_page()
+    } else  if (parsed_command_name === 'wa') {
+      console.log(382, 85, parsed_command_args_0)
+      if (parsed_command_args_0 !== '') {
+        throw new Error('args not implemented')
+      }
+
+    } else  if (parsed_command_name === 'wc') {
+      console.log(382, 90, parsed_command_args_0)
       if (parsed_command_args_0 !== '') {
         site_data.count_words.grafs = parseInt(parsed_command_args_0)
       }
@@ -269,13 +279,14 @@ jQuery(() => {
       alternate_origins: ['http://washingtonpost.com', 'http://www.washingtonpost.com', 'https://live.washingtonpost.com'],
       alternate_prefixes: ['file:///root/wayback/washingtonpost/'],
       article_css: '#main-content {background-image: none} #et-nav {position: absolute}.headline {font-family: sans-serif} a, .powerpost-header, .layout_article #top-content {border-bottom: none} p {line-height: 155%} body {overflow-y: visible}' + //.pb-f-homepage-story {background-color: #300},
-        '.fixed-image {position: static} .g-artboard img {border-bottom: 30px solid white} .g-artboard p {color: black; background-color: transparent} .bg-none {background-color: transparent} .note-button {padding: 0; box-shadow: none} .chain-wrapper {background-color: #500}' +
+        '.fixed-image {position: static} .g-artboard img {border-bottom: 30px solid white} .g-artboard p {color: black; background-color: transparent} .bg-none {background-color: transparent} .note-button {padding: 0; box-shadow: none}' +
+        '.chain-wrapper {background-color: #500}' +
         'a.note-button:link    {color:' +         theme_autolink_foreground_color + '} a.note-button:link:hover    {color:' +         theme_link_foreground_color + '}' +
         'a.note-button:visited {color:' + theme_autolink_visited_foreground_color + '} a.note-button:visited:hover {color:' + theme_link_visited_foreground_color + '}',
       article_hide_selector: '#wp-header, #top-furniture, .pb-f-ad-flex-2, .pb-f-ad-flex-3, .pb-f-games-gamesWidget, .pb-f-page-footer-v2, .pb-f-page-recommended-strip, .pb-f-page-editors-picks, disabled.chain-wrapper, .extra, .pb-f-generic-promo-image, .interstitial-link,' +
         '.pg-interstitial-link, .pb-f-posttv-sticky-player, .pb-f-posttv-sticky-player-powa, .xpb-f-article-article-author-bio, .pb-tool.email, .pb-f-page-newsletter-inLine, .pb-f-page-comments, .inline-video, [channel="wp.com"], .pb-f-page-jobs-search,' +
         '.pb-f-homepage-story, .pb-f-sharebars-top-share-bar, .pb-f-page-share-bar, .wp_signin, #wp_Signin, .inline-graphic-linked, .share-individual, .pb-f-page-trump-can-he-do-that-podcast, .bottom-ad--bigbox',
-      article_theme_selector: '#article-body, p, .pg-bodyCopy',
+      article_theme_selector: '#article-body, p, blockquote, .pg-bodyCopy',
       article_theme_background_selector: '.wp-volt-gal-embed-promo-container, .wp-volt-gal-embed-promo-bottom, #weather-glance, #weather_now, .cwgdropdown, #heat-tracker, #weather-almanac, .pb-f-capital_weather_gang-weather-almanac select, .border-bottom-hairline::after, .span12, .note-button',
       article_theme_foreground_selector: '.pb-caption, .pg-caption, .pb-bottom-author, .pb-timestamp, .pg-pubDate, .weather-gray, #weather_now .time, .firstgraf::first-letter',
       count_words: {append: '.pg-pubDate, .bottomizer, .pb-sig-line, .pbHeader, .publish-date', subject: '#article-body>article, #pg-content>article, .sections>.container'},
@@ -290,6 +301,7 @@ jQuery(() => {
       theme_selector: 'body, .skin.skin-card, .skin.skin-button, input',
       unwanted_query_fields: 'hpid tid utm_term wpisrc wpmk',
       customize () {
+        console.log(848, 0)
         for (const stylesheet_link of jQuery("link[rel='stylesheet']")) {
           const stylesheet_link_href = stylesheet_link.href
           //console.log(stylesheet_link_href)
@@ -308,10 +320,21 @@ jQuery(() => {
 
           //console.log(stylesheet_link.href)
         }
+        const $imgs = jQuery('img.unprocessed')
+        console.log(848, 100, $imgs)
+        for (const img of $imgs) {
+          console.log(848, 110, img)
+          img.src = img.dataset.hiResSrc
+          //jQuery(img).css({'filter': 'none', 'webkit-filter': 'none'})
+          //jQuery(img).removeClass('unprocessed')
+        }
+        $imgs.removeClass('unprocessed')
+        /*
         for (const img of jQuery('img.lzyld, img.placeholder')) {
           jQuery(img).css({'padding-top': '0'})
           img.src = img.dataset.hiRes || img.dataset.hiResSrc
         }
+        */
         for (const img of jQuery('img.lazy-image')) {
           img.src = img.dataset.original + '&w=1200'
         }
@@ -830,7 +853,11 @@ jQuery(() => {
       origin: 'http://nypost.com',
       article_hide_selector: '.floating-share',
     },
-    {name: 'Just Security'          , origin: 'https://www.justsecurity.org'},
+    {
+      name: 'Just Security',
+      origin: 'https://www.justsecurity.org',
+      article_theme_selector: 'blockquote',
+    },
     {name: 'Stack Overflow'         , origin: 'http://stackoverflow.com'             , dark_theme: 0},
     {name: 'Review of Ophthalmology', origin: 'https://www.reviewofophthalmology.com'},
     {name: 'The Economist'          , origin: 'http://www.economist.com'             , article_hide_selector: '.latest-updates-panel__container'},
@@ -860,25 +887,25 @@ jQuery(() => {
       else sites_data_by_prefix [prefix] = site_data
     }
     //console.log(74, site_data.append_loaded_date)
-    if      (!site_data                         .hasOwnProperty('append_loaded_date'       )) site_data.append_loaded_date             = 'body'
-    if      (!site_data                         .hasOwnProperty('dark_theme'               )) site_data.dark_theme                     = 1
+    if      (!site_data                         .hasOwnProperty('append_loaded_date'       )) site_data.append_loaded_date              = 'body'
+    if      (!site_data                         .hasOwnProperty('dark_theme'               )) site_data.dark_theme                      = 1
 
-    if      (!site_data                         .hasOwnProperty('std_link_colors'          )) site_data.std_link_colors                = {}
-    else if ( site_data.std_link_colors === false                                           ) site_data.std_link_colors                = {enable: false}
-    if      (!site_data.std_link_colors         .hasOwnProperty('enable'                   )) site_data.std_link_colors.enable         = true
+    if      (!site_data                         .hasOwnProperty('std_link_colors'          )) site_data.std_link_colors                 = {}
+    else if ( site_data.std_link_colors === false                                           ) site_data.std_link_colors                 = {enable: false}
+    if      (!site_data.std_link_colors         .hasOwnProperty('enable'                   )) site_data.std_link_colors.enable          = true
 
-    if      (!site_data                         .hasOwnProperty('theme_selector'           )) site_data.theme_selector                 = 'body'
-    if      (!site_data                         .hasOwnProperty('theme_background_selector')) site_data.theme_background_selector      = ''
-    if      (!site_data                         .hasOwnProperty('theme_foreground_selector')) site_data.theme_foreground_selector      = ''
+    if      (!site_data                         .hasOwnProperty('theme_selector'           )) site_data.theme_selector                  = 'body'
+    if      (!site_data                         .hasOwnProperty('theme_background_selector')) site_data.theme_background_selector       = ''
+    if      (!site_data                         .hasOwnProperty('theme_foreground_selector')) site_data.theme_foreground_selector       = ''
 
-    if      (!site_data                         .hasOwnProperty('count_words'              )) site_data.count_words                    = {}
+    if      (!site_data                         .hasOwnProperty('count_words'              )) site_data.count_words                     = {}
     const count_words_settings = site_data.count_words
-    if      (!count_words_settings              .hasOwnProperty('append'                   )) count_words_settings.append              = 'body'
-    if      (!count_words_settings              .hasOwnProperty('nbsp_size'                )) count_words_settings.nbsp_size           = '50%'
-    if      (!count_words_settings              .hasOwnProperty('subject'                  )) count_words_settings.subject             = 'body'
-    if      (!count_words_settings              .hasOwnProperty(      'prefix'             )) count_words_settings.      prefix        = ''
-    if      (!count_words_settings              .hasOwnProperty( 'graf_prefix'             )) count_words_settings. graf_prefix        = count_words_settings.prefix
-    if      (!count_words_settings              .hasOwnProperty('total_prefix'             )) count_words_settings.total_prefix        = count_words_settings.prefix
+    if      (!count_words_settings              .hasOwnProperty('append'                   )) count_words_settings.append               = 'body'
+    if      (!count_words_settings              .hasOwnProperty('nbsp_size'                )) count_words_settings.nbsp_size            = '50%'
+    if      (!count_words_settings              .hasOwnProperty('subject'                  )) count_words_settings.subject              = 'body'
+    if      (!count_words_settings              .hasOwnProperty(      'prefix'             )) count_words_settings.      prefix         = ''
+    if      (!count_words_settings              .hasOwnProperty( 'graf_prefix'             )) count_words_settings. graf_prefix         = count_words_settings.prefix
+    if      (!count_words_settings              .hasOwnProperty('total_prefix'             )) count_words_settings.total_prefix         = count_words_settings.prefix
 
     if      (!site_data                         .hasOwnProperty('remove_fixed_positioning' )) site_data.remove_fixed_positioning        = {}
     else if ( site_data.remove_fixed_positioning === false                                  ) site_data.remove_fixed_positioning        = {enable: false}
@@ -1333,10 +1360,10 @@ jQuery(() => {
       ' a:link   , a:link    h1, a:link    h2, a:link    h3, a:link    h4, a:link    h5, a:link    div, a:link    p, a:link    span, a:link    em {color:' +         theme_link_foreground_color + '}' +
       ' a:visited, a:visited h1, a:visited h2, a:visited h3, a:visited h4, a:visited h5, a:visited div, a:visited p, a:visited span, a:visited em {color:' + theme_link_visited_foreground_color + '}'
     */
-    const settings                         = site_data.std_link_colors
-    const extra_sub_element_selectors      = settings.extra_sub_element_selectors
-    const link_selector                    = 'a:link'
-    const visited_selector                 = 'a:visited'
+    const settings                       = site_data.std_link_colors
+    const extra_sub_element_selectors    = settings.extra_sub_element_selectors
+    const link_selector                  = 'a:link'
+    const visited_selector               = 'a:visited'
     let sub_element_tags_str             = 'h1 h2 h3 h4 h5 div p span em'
     let link_and_sub_element_selector    =    link_selector
     let visited_and_sub_element_selector = visited_selector
@@ -1820,7 +1847,16 @@ jQuery(() => {
         //console.log('wmaster: reprocessing page')
         //process_page()
         return false
+      } else if (event.which === 87) { // 'w'
+        if (wasd_scrolling) {
+          document.body.scrollTop -= window.innerHeight / 3
+        }
+      } else if (event.which === 83) { // 's'
+        if (wasd_scrolling) {
+          document.body.scrollTop += window.innerHeight / 3
+        }
       }
+      //alert(event.which)
     }
     $main_dialog_cli.on('keydown', event => {
       console.log(475, 60)
