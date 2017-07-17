@@ -12,17 +12,7 @@
 /* jshint asi: true, esversion: 6, undef: true, unused: true */
 /* globals jQuery, alert, console, document, window, URL, setTimeout, XMLHttpRequest, TextDecoder */
 
-/* eslint-disable camelcase */
-/* eslint-disable no-multiple-empty-lines */
-/* eslint-disable padded-blocks */
-/* eslint-disable no-multi-spaces */
-/* eslint-disable no-whitespace-before-property */
-/* eslint-disable spaced-comment */
-/* eslint-disable key-spacing */
-/* eslint-disable comma-spacing */
-/* eslint-disable comma-dangle */
-/* eslint-disable space-in-parens */
-/* deslint-disable one-var */
+/* eslint-disable camelcase, no-multiple-empty-lines, padded-blocks, no-multi-spaces, no-whitespace-before-property, spaced-comment, key-spacing, comma-spacing, comma-dangle, space-in-parens */
 
 //alert(36)
 'use strict'
@@ -110,6 +100,14 @@ function selector_for_elements_with_a_class_that_starts_with (targets) {
   return result
 }
 
+/*
+targets = (('nytimes', 'http://www.nytimes.com/'),
+           ('nytimes_todayspaper', 'http://www.nytimes.com/pages/todayspaper/index.html'),
+           ('nytimes_nyregion', 'https://www.nytimes.com/pages/nyregion/index.html'),
+           ('guardian_uk', 'http://www.theguardian.com/uk'),
+           ('washingtonpost', 'http://www.washingtonpost.com/'))
+*/
+
 
 const sites_data = [
   {
@@ -150,6 +148,7 @@ const sites_data = [
     unwanted_query_fields: 'action clickSource contentCollection contentPlacement hp module pgtype _r ref region rref smid smtyp src version WT.nav WT.z_jog hF vS utm_campaign utm_content utm_medium utm_source t target mcubz gwh gwt mtrref',
     unwanted_classes: 'theme-pinned-masthead',
     url_to_data_filename: {year_index: 3, segments_used: 6},
+    wayback: {targets: {nytimes: '/', nytimes_todayspaper: '/pages/todayspaper/index.html', nytimes_nyregion: '/pages/nyregion/index.html'}},
     customize () {
       if (location_href.startsWith('https://www.nytimes.com/newsletters/')) return
       const
@@ -245,6 +244,7 @@ const sites_data = [
     homepage_css: '.tone-live--item {background-color: #5a0b00} .fc-item.tone-letters--item {background-color: #333} .fc-container--story-package {border-top-width: 0} .js-on .fc-show-more--hidden .fc-show-more--hide {display: block}',
     hide_selector: '.adverts, .site-message',
     url_to_data_filename: {year_index: 4, segments_used: 7, wildcards: [3]},
+    wayback: {targets: {guardian_uk: '/uk'}},
     customize () {
       if (page_level === 0) {
         //jQuery('#opinion .button--show-more, #from-the-uk .button--show-more, #around-the-world .button--show-more').click()
@@ -281,6 +281,7 @@ const sites_data = [
     theme_selector: 'body, .skin.skin-card, .skin.skin-button, input',
     unwanted_query_fields: 'hpid tid utm_term wpisrc wpmk',
     url_to_data_filename: {year_index: 5, segments_used: 8, wildcards: [3, 4]},
+    wayback: {targets: {washingtonpost: '/'}},
     customize () {
       console.log(848, 0)
       for (const stylesheet_link of jQuery("link[rel='stylesheet']")) {
@@ -310,12 +311,10 @@ const sites_data = [
         //jQuery(img).removeClass('unprocessed')
       }
       $imgs.removeClass('unprocessed')
-      /*
       for (const img of jQuery('img.lzyld, img.placeholder')) {
         jQuery(img).css({'padding-top': '0'})
         img.src = img.dataset.hiRes || img.dataset.hiResSrc
       }
-      */
       for (const img of jQuery('img.lazy-image')) {
         img.src = img.dataset.original + '&w=1200'
       }
@@ -905,114 +904,135 @@ function in_iframe () {
     return true
   }
 }
+/* eslint-disable */
 
+/*
+ * Date Format 1.2.3
+ * (c) 2007-2009 Steven Levithan <stevenlevithan.com>
+ * MIT license
+ *
+ * Includes enhancements by Scott Trenda <scott.trenda.net>
+ * and Kris Kowal <cixar.com/~kris.kowal/>
+ *
+ * Accepts a date, a mask, or a date and a mask.
+ * Returns a formatted version of the given date.
+ * The date defaults to the current date/time.
+ * The mask defaults to dateFormat.masks.default.
+ */
 
-const dateFormat = (function () {
-  const token = /d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTt])\1?|[LloSZ]|"[^"]*"|'[^']*'/g
-  const timezone = /\b(?:[PMCEA][SDP]T|(?:Pacific|Mountain|Central|Eastern|Atlantic) (?:Standard|Daylight|Prevailing) Time|(?:GMT|UTC)(?:[-+]\d{4})?)\b/g
-  const timezoneClip = /[^-+\dA-Z]/g
-  const pad = function (val, len) {
-    val = String(val)
-    len = len || 2
-    while (val.length < len) val = '0' + val
-    return val
-  }
+var dateFormat = function () {
+	var	token = /d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTt])\1?|[LloSZ]|"[^"]*"|'[^']*'/g,
+		timezone = /\b(?:[PMCEA][SDP]T|(?:Pacific|Mountain|Central|Eastern|Atlantic) (?:Standard|Daylight|Prevailing) Time|(?:GMT|UTC)(?:[-+]\d{4})?)\b/g,
+		timezoneClip = /[^-+\dA-Z]/g,
+		pad = function (val, len) {
+			val = String(val);
+			len = len || 2;
+			while (val.length < len) val = "0" + val;
+			return val;
+		};
 
-  // Regexes and supporting functions are cached through closure
-  return function (date, mask, utc) {
-    const dF = dateFormat
+	// Regexes and supporting functions are cached through closure
+	return function (date, mask, utc) {
+		var dF = dateFormat;
 
-    // You can't provide utc if you skip other args (use the "UTC:" mask prefix)
-    if (arguments.length === 1 && Object.prototype.toString.call(date) === '[object String]' && !/\d/.test(date)) {
-      mask = date
-      date = undefined
-    }
+		// You can't provide utc if you skip other args (use the "UTC:" mask prefix)
+		if (arguments.length == 1 && Object.prototype.toString.call(date) == "[object String]" && !/\d/.test(date)) {
+			mask = date;
+			date = undefined;
+		}
 
-    // Passing date through Date applies Date.parse, if necessary
-    date = date ? new Date(date) : new Date()
-    if (isNaN(date)) throw SyntaxError('invalid date')
+		// Passing date through Date applies Date.parse, if necessary
+		date = date ? new Date(date) : new Date;
+		if (isNaN(date)) throw SyntaxError("invalid date");
 
-    mask = String(dF.masks[mask] || mask || dF.masks['default'])
+		mask = String(dF.masks[mask] || mask || dF.masks["default"]);
 
-    // Allow setting the utc argument via the mask
-    if (mask.slice(0, 4) === 'UTC:') {
-      mask = mask.slice(4)
-      utc = true
-    }
+		// Allow setting the utc argument via the mask
+		if (mask.slice(0, 4) == "UTC:") {
+			mask = mask.slice(4);
+			utc = true;
+		}
 
-    const _ = utc ? 'getUTC' : 'get'
-    const d = date[_ + 'Date']()
-    const D = date[_ + 'Day']()
-    const m = date[_ + 'Month']()
-    const y = date[_ + 'FullYear']()
-    const H = date[_ + 'Hours']()
-    const M = date[_ + 'Minutes']()
-    const s = date[_ + 'Seconds']()
-    const L = date[_ + 'Milliseconds']()
-    const o = utc ? 0 : date.getTimezoneOffset()
-    const flags = {
-      d:    d,
-      dd:   pad(d),
-      ddd:  dF.i18n.dayNames[D],
-      dddd: dF.i18n.dayNames[D + 7],
-      m:    m + 1,
-      mm:   pad(m + 1),
-      mmm:  dF.i18n.monthNames[m],
-      mmmm: dF.i18n.monthNames[m + 12],
-      yy:   String(y).slice(2),
-      yyyy: y,
-      h:    H % 12 || 12,
-      hh:   pad(H % 12 || 12),
-      H:    H,
-      HH:   pad(H),
-      M:    M,
-      MM:   pad(M),
-      s:    s,
-      ss:   pad(s),
-      l:    pad(L, 3),
-      L:    pad(L > 99 ? Math.round(L / 10) : L),
-      t:    H < 12 ? 'a'  : 'p',
-      tt:   H < 12 ? 'am' : 'pm',
-      T:    H < 12 ? 'A'  : 'P',
-      TT:   H < 12 ? 'AM' : 'PM',
-      Z:    utc ? 'UTC' : (String(date).match(timezone) || ['']).pop().replace(timezoneClip, ''),
-      o:    (o > 0 ? '-' : '+') + pad(Math.floor(Math.abs(o) / 60) * 100 + Math.abs(o) % 60, 4),
-      S:    ['th', 'st', 'nd', 'rd'][d % 10 > 3 ? 0 : (d % 100 - d % 10 !== 10) * d % 10]
-    }
-    return mask.replace(token, function ($0) {
-      return $0 in flags ? flags[$0] : $0.slice(1, $0.length - 1)
-    })
-  }
-})()
+		var	_ = utc ? "getUTC" : "get",
+			d = date[_ + "Date"](),
+			D = date[_ + "Day"](),
+			m = date[_ + "Month"](),
+			y = date[_ + "FullYear"](),
+			H = date[_ + "Hours"](),
+			M = date[_ + "Minutes"](),
+			s = date[_ + "Seconds"](),
+			L = date[_ + "Milliseconds"](),
+			o = utc ? 0 : date.getTimezoneOffset(),
+			flags = {
+				d:    d,
+				dd:   pad(d),
+				ddd:  dF.i18n.dayNames[D],
+				dddd: dF.i18n.dayNames[D + 7],
+				m:    m + 1,
+				mm:   pad(m + 1),
+				mmm:  dF.i18n.monthNames[m],
+				mmmm: dF.i18n.monthNames[m + 12],
+				yy:   String(y).slice(2),
+				yyyy: y,
+				h:    H % 12 || 12,
+				hh:   pad(H % 12 || 12),
+				H:    H,
+				HH:   pad(H),
+				M:    M,
+				MM:   pad(M),
+				s:    s,
+				ss:   pad(s),
+				l:    pad(L, 3),
+				L:    pad(L > 99 ? Math.round(L / 10) : L),
+				t:    H < 12 ? "a"  : "p",
+				tt:   H < 12 ? "am" : "pm",
+				T:    H < 12 ? "A"  : "P",
+				TT:   H < 12 ? "AM" : "PM",
+				Z:    utc ? "UTC" : (String(date).match(timezone) || [""]).pop().replace(timezoneClip, ""),
+				o:    (o > 0 ? "-" : "+") + pad(Math.floor(Math.abs(o) / 60) * 100 + Math.abs(o) % 60, 4),
+				S:    ["th", "st", "nd", "rd"][d % 10 > 3 ? 0 : (d % 100 - d % 10 != 10) * d % 10]
+			};
 
-  // Some common format strings
+		return mask.replace(token, function ($0) {
+			return $0 in flags ? flags[$0] : $0.slice(1, $0.length - 1);
+		});
+	};
+}();
+
+// Some common format strings
 dateFormat.masks = {
-  'default':      'ddd mmm dd yyyy HH:MM:ss',
-  shortDate:      'm/d/yy',
-  mediumDate:     'mmm d, yyyy',
-  longDate:       'mmmm d, yyyy',
-  fullDate:       'dddd, mmmm d, yyyy',
-  shortTime:      'h:MM TT',
-  mediumTime:     'h:MM:ss TT',
-  longTime:       'h:MM:ss TT Z',
-  isoDate:        'yyyy-mm-dd',
-  isoTime:        'HH:MM:ss',
-  isoDateTime:    "yyyy-mm-dd'T'HH:MM:ss",
-  isoUtcDateTime: "UTC:yyyy-mm-dd'T'HH:MM:ss'Z'"
-}
+	"default":      "ddd mmm dd yyyy HH:MM:ss",
+	shortDate:      "m/d/yy",
+	mediumDate:     "mmm d, yyyy",
+	longDate:       "mmmm d, yyyy",
+	fullDate:       "dddd, mmmm d, yyyy",
+	shortTime:      "h:MM TT",
+	mediumTime:     "h:MM:ss TT",
+	longTime:       "h:MM:ss TT Z",
+	isoDate:        "yyyy-mm-dd",
+	isoTime:        "HH:MM:ss",
+	isoDateTime:    "yyyy-mm-dd'T'HH:MM:ss",
+	isoUtcDateTime: "UTC:yyyy-mm-dd'T'HH:MM:ss'Z'"
+};
 
-  // Internationalization strings
+// Internationalization strings
 dateFormat.i18n = {
-  dayNames: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-  monthNames: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-}
+	dayNames: [
+		"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat",
+		"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+	],
+	monthNames: [
+		"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+		"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
+	]
+};
 
-  // For convenience...
-  /*
-  Date.prototype.format = function (mask, utc) {
-    return dateFormat(this, mask, utc)
-  }
-  */
+// For convenience...
+Date.prototype.format = function (mask, utc) {
+	return dateFormat(this, mask, utc);
+};
+
+/* eslint-enable */
 
 function convUrlToAbs (baseURI, url_text) {
   const url = new URL(url_text, baseURI)
@@ -1298,14 +1318,16 @@ function regularize_links (my_window = window, my_origin) {
   for (const [anchor_index, anchor] of Array.from(anchors).entries()) {
     if (logging) console.log(394, 20, anchor)
     let old_href = anchor.href
-    if (logging) console.log(394, 30, old_href, old_href.startsWith('/'))
     if (old_href.startsWith('/')) {
+      if (logging) console.log(394, 30, old_href)
       if (my_origin) {
         old_href = my_origin + old_href
+        if (logging) console.log(394, 32, old_href)
       } else {
         old_href = my_window.location.origin + old_href
+        if (logging) console.log(394, 34, old_href)
       }
-      if (logging) console.log(394, 35, my_window.location, old_href)
+      if (logging) console.log(394, 37, my_window.location, old_href)
     }
     if (!old_href) continue
     try {
@@ -1441,6 +1463,7 @@ function href_to_site_data (href) {
 }
 
 if (is_node) {
+  module.exports.dateFormat                                          = dateFormat
   module.exports.sites_data                                          = sites_data
   module.exports.sites_data_by_prefix                                = sites_data_by_prefix
   module.exports.regularize_links                                    = regularize_links
@@ -1892,6 +1915,7 @@ if (is_node) {
         }
         //alert(event.which)
       }
+
       $main_dialog_cli.on('keydown', event => {
         console.log(475, 60)
         if (event.which === 13) {
