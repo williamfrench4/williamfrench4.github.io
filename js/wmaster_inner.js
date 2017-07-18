@@ -12,7 +12,7 @@
 /* jshint asi: true, esversion: 6, undef: true, unused: true */
 /* globals jQuery, alert, console, document, window, URL, setTimeout, XMLHttpRequest, TextDecoder */
 
-/* eslint-disable camelcase, no-multiple-empty-lines, padded-blocks, no-multi-spaces, no-whitespace-before-property, spaced-comment, key-spacing, comma-spacing, comma-dangle, space-in-parens */
+/* eslint-disable camelcase, no-multiple-empty-lines, padded-blocks, no-multi-spaces, no-whitespace-before-property, spaced-comment, key-spacing, comma-spacing, comma-dangle, space-in-parens, standard/computed-property-even-spacing */
 
 //alert(36)
 'use strict'
@@ -118,8 +118,7 @@ const sites_data = [
     count_words: {append: '.byline:last-of-type, .byline-column, ' + selector_for_elements_with_a_class_that_starts_with('Byline-bylineAuthor--'), prefix: ' ', subject: ['.story-body-text, .g-body', '.story-body', '#story'], grafs: 0},
     article_theme_selector: 'input, textarea, .columnGroup', // NYT dark theme
     article_theme_background_selector: '.bcColumn, .cColumn, .App__app', // NYT dark theme
-    article_theme_foreground_selector: '.masthead .masthead-menu li, .headline, .kicker, .dateline, .story-quote, .caption, figcaption, h1, h2, h3, h4, h5, h6, .byline, .dropcap, .g-body, .swiper-text p, .story-body-text, .story-body-text strong:first-child,' +
-      '.CreditedMedia__caption, .Post__byline, .Post__body,' + selector_for_elements_with_a_class_that_starts_with('ResponsiveMedia-captionText-- HeaderBasic-bylineTimestamp-- HeaderBasic-summary-- HeaderBasic-label-- Summary-summary--'),
+    article_theme_foreground_selector: '.masthead .masthead-menu li, .headline, .kicker, .dateline, .story-quote, .caption, figcaption, h1, h2, h3, h4, h5, h6, .byline, .dropcap, .g-body, .swiper-text p, .story-body-text, .story-body-text strong:first-child, .CreditedMedia__caption, .Post__byline, .Post__body,' + selector_for_elements_with_a_class_that_starts_with('ResponsiveMedia-captionText-- HeaderBasic-bylineTimestamp-- HeaderBasic-summary-- HeaderBasic-label-- Summary-summary--'),
     article_css: '.App__app {margin-top: 0} .story-body-text {font-family: "Times New Roman"} .caption-text {font-family: sans-serif} .story-header, .image {position: relative}' +
       'input, textarea {background-image: none} .shell {padding-top: 0} .main {border-top: none} .nytg-chart {color: #000; background-color: #fff}' + // NYT dark theme
       selector_for_elements_with_a_class_that_starts_with('SectionBar-sectionBar--') + '{border-width: 0} ' +
@@ -129,14 +128,8 @@ const sites_data = [
       'figure.layout-jumbo-horizontal, figure.layout-full-bleed-horizontal .image img {width: 87%; margin-left: 30px}' +
       'figure.layout-large-vertical .image img {width: 47%; margin-left: 30px}' +
       'figure.layout-jumbo-vertical .image img {width: 47%; margin-left: 30px}',
-    article_hide_selector: 'nav, #masthead, .newsletter-signup, #whats-next, #site-index, .story-meta-footer-sharetools, .comments-button, [id="18-insider-promo-module"], #obstruction-justice-promo, #how-republican-voted-on-health-bill, #brexit-latest-fallout-tracker,' +
-      '#story-ad-1-wrapper, #story-ad-2-wrapper, #story-ad-3-wrapper, #story-ad-4-wrapper, #story-ad-5-wrapper, #opinion-aca-callout, #next-steps-for-health-care-bill, [id="06up-acachart"], #house-vote-republican-health-care-bill, #morning-briefing-weather-module,' +
-      '#related-combined-coverage, .text-ad, #comey-promo, figure.video, .page-footer, .story-info, .story-print-citation, #fbi-congress-trump-russia-investigations, .vis-survey-box, #oil-prices, #Ask-Real-Estate-Promo, #wannacry-ransomware-map, #app > div > div' +
-      '#how-self-driving-cars-work, #ransomware-attack-coverage, #fall-upfront-2017, figure[id*=pullquote], figure[id*=email-promo], figure[id*=DAILY-player], #why-its-so-hard-to-have-an-independent-russia-investigation, #navigation-edge, #europe-terror-attacks, ' +
-      '#document-Robert-Mueller-Special-Counsel-Russia, #julian-assange-timeline, #anthony-weiner-plea-agreement, #assange-fblive-promo, .meter-asset-wrapper, #news-tips-article-promo, .cColumn>.first, #nyt-weather, .NYTSocialShare__overlayTriggerContainer, .Post__ad,' +
-      selector_for_elements_with_a_class_that_starts_with('Masthead-mastheadContainer--') + ',' +
-      selector_for_elements_with_a_class_that_starts_with('SectionBarShare-shareMenu--') + ',' +
-      selector_for_elements_with_a_class_that_starts_with('Recirculation-recirculation--'),
+    article_hide_selector: 'nav, #masthead, .newsletter-signup, #whats-next, #site-index, .story-meta-footer-sharetools, .comments-button, [id="18-insider-promo-module"], #obstruction-justice-promo, #how-republican-voted-on-health-bill, #brexit-latest-fallout-tracker, #story-ad-1-wrapper, #story-ad-2-wrapper, #story-ad-3-wrapper, #story-ad-4-wrapper, #story-ad-5-wrapper, #opinion-aca-callout, #next-steps-for-health-care-bill, [id="06up-acachart"], #house-vote-republican-health-care-bill, #morning-briefing-weather-module, #related-combined-coverage, .text-ad, #comey-promo, figure.video, .page-footer, .story-info, .story-print-citation, #fbi-congress-trump-russia-investigations, .vis-survey-box, #oil-prices, #Ask-Real-Estate-Promo, #wannacry-ransomware-map, #app > div > div' +
+      '#how-self-driving-cars-work, #ransomware-attack-coverage, #fall-upfront-2017, figure[id*=pullquote], figure[id*=email-promo], figure[id*=DAILY-player], #why-its-so-hard-to-have-an-independent-russia-investigation, #navigation-edge, #europe-terror-attacks, #document-Robert-Mueller-Special-Counsel-Russia, #julian-assange-timeline, #anthony-weiner-plea-agreement, #assange-fblive-promo, .meter-asset-wrapper, #news-tips-article-promo, .cColumn>.first, #nyt-weather, .NYTSocialShare__overlayTriggerContainer, .Post__ad,' + selector_for_elements_with_a_class_that_starts_with('Masthead-mastheadContainer--') + ',' + selector_for_elements_with_a_class_that_starts_with('SectionBarShare-shareMenu--') + ',' + selector_for_elements_with_a_class_that_starts_with('Recirculation-recirculation--'),
     extra_sub_element_selectors: 'h3.story-heading',
     homepage_theme_foreground_selector: '.summary', // NYT dark theme
     //homepage_css: 'header {background-color: #aaa}', // NYT dark theme
@@ -225,17 +218,13 @@ const sites_data = [
     alternate_homepages: ['https://www.theguardian.com/us', 'https://www.theguardian.com/uk'],
     append_loaded_date: 'footer.l-footer',
     count_words: {append: '.content__dateline, .content__standfirst', subject: '.content__article-body'},
-    article_css: '.js-headline-text {font-weight: normal} p {line-height: 170%} a {border-bottom: none} figure.element-tweet {margin-right: 4rem} .tweet {font-family: sans-serif} img.byline-img__img {background: transparent} .content {padding-bottom: 0}' +
+    article_css: '.js-headline-text {font-weight: normal} p {line-height: 170%} a {border-bottom: none} figure.element-tweet {margin-right: 4rem} .tweet {font-family: sans-serif} img.byline-img__img {background: transparent} .content {padding-bottom: 0} div.explainer {background-color: #00252f; border: 1px solid ' + theme_foreground_color + '} .signposting {border-right-width:0} .tabs__tab {border-top: 0.0625rem solid #aaa} .content__article-body {font-family: Adobe Caslon Pro; font-size: 109%}' +
       'a:link[data-link-name="auto-linked-tag"] {color:'    +         theme_autolink_foreground_color +    '} a:link:hover[data-link-name="auto-linked-tag"] {color:' +         theme_link_foreground_color + '}' +
-      'a:visited[data-link-name="auto-linked-tag"] {color:' + theme_autolink_visited_foreground_color + '} a:visited:hover[data-link-name="auto-linked-tag"] {color:' + theme_link_visited_foreground_color + '}' +
-      'div.explainer {background-color: #00252f; border: 1px solid ' + theme_foreground_color + '} .signposting {border-right-width:0} .tabs__tab {border-top: 0.0625rem solid #aaa} .content__article-body {font-family: Adobe Caslon Pro; font-size: 109%}',
+      'a:visited[data-link-name="auto-linked-tag"] {color:' + theme_autolink_visited_foreground_color + '} a:visited:hover[data-link-name="auto-linked-tag"] {color:' + theme_link_visited_foreground_color + '}',
     article_theme_selector: '.tonal__standfirst, .tonal__header, .content__standfirst, .content__headline, .byline, .d-top-comment__bubble',
-    article_theme_background_selector: '.tonal--tone-live, .tonal--tone-editorial, .tonal--tone-feature, .tonal--tone-comment, .tonal--tone-analysis, .tonal--tone-review, .content__main, .block--content, .navigation, .local-navigation, .navigation-container,' +
-      '.top-navigation, .navigation:before, .navigation-toggle, .navigation__container--first, .signposting, .tabs__tab--selected a, .tabs__tab--selected .tab__link, .tabs__tab a, .tabs__tab .tab__link',
+    article_theme_background_selector: '.tonal--tone-live, .tonal--tone-editorial, .tonal--tone-feature, .tonal--tone-comment, .tonal--tone-analysis, .tonal--tone-review, .content__main, .block--content, .navigation, .local-navigation, .navigation-container, .top-navigation, .navigation:before, .navigation-toggle, .navigation__container--first, .signposting, .tabs__tab--selected a, .tabs__tab--selected .tab__link, .tabs__tab a, .tabs__tab .tab__link',
     article_theme_foreground_selector: '.content__dateline, div.explainer, .caption, .quoted',
-    article_hide_selector: '.element-video, .contributions__epic, .js-outbrain, .related, .submeta, #onward, #more-in-section, .element-pullquote, .element-rich-link, .meta__twitter, .meta__extras, .meta__email, .selection-sharing, .block-share, .ad-slot,' +
-      'figure[data-canonical-url="https://interactive.guim.co.uk/embed/2017/05/americas-unequal-future/embed.html"], figure[data-canonical-url="https://interactive.guim.co.uk/embed/2017/02/outside-in-america/embed.html"],' +
-      ' #this_land_epic_bottom_environment_iframe, #this_land_epic_bottom_series_iframe, .vav-callout',
+    article_hide_selector: '.element-video, .contributions__epic, .js-outbrain, .related, .submeta, #onward, #more-in-section, .element-pullquote, .element-rich-link, .meta__twitter, .meta__extras, .meta__email, .selection-sharing, .block-share, .ad-slot, figure[data-canonical-url="https://interactive.guim.co.uk/embed/2017/05/americas-unequal-future/embed.html"], figure[data-canonical-url="https://interactive.guim.co.uk/embed/2017/02/outside-in-america/embed.html"], #this_land_epic_bottom_environment_iframe, #this_land_epic_bottom_series_iframe, .vav-callout',
     dark_theme: 1,
     homepage_hide_selector: '#most-viewed, .footer__email-container, div.image>div.video, #securedrop, #membership-thrasher, #support-the-guardian, .treats__container',
     // '.fc-container--story-package, .facia-page, .index-page, .voices-and-votes-container__wrapper, .l-side-margins, .fc-container--thrasher, .tone-news--item.fc-item, .du-faux-block-link--hover, .tone-feature--item, .fc-container--story-package .fc-item, .tone-analysis--item.fc-item, .tone-comment--item.fc-item, .tone-editorial--item, .tone-media--item, .tone-review--item',
@@ -258,14 +247,10 @@ const sites_data = [
     origin: 'https://www.washingtonpost.com',
     alternate_origins: ['http://washingtonpost.com', 'http://www.washingtonpost.com', 'https://live.washingtonpost.com'],
     alternate_prefixes: ['file:///root/wayback/washingtonpost/'],
-    article_css: '#main-content {background-image: none} #et-nav {position: absolute}.headline {font-family: sans-serif} a, .powerpost-header, .layout_article #top-content {border-bottom: none} p {line-height: 155%} body {overflow-y: visible}' + //.pb-f-homepage-story {background-color: #300},
-      '.fixed-image {position: static} .g-artboard img {border-bottom: 30px solid white} .g-artboard p {color: black; background-color: transparent} .bg-none {background-color: transparent} .note-button {padding: 0; box-shadow: none}' +
-      '.chain-wrapper {background-color: #500}' +
+    article_css: '#main-content {background-image: none} #et-nav {position: absolute}.headline {font-family: sans-serif} a, .powerpost-header, .layout_article #top-content {border-bottom: none} p {line-height: 155%} body {overflow-y: visible} .fixed-image {position: static} .g-artboard img {border-bottom: 30px solid white} .g-artboard p {color: black; background-color: transparent} .bg-none {background-color: transparent} .note-button {padding: 0; box-shadow: none} .chain-wrapper {background-color: #500}' +
       'a.note-button:link    {color:' +         theme_autolink_foreground_color + '} a.note-button:link:hover    {color:' +         theme_link_foreground_color + '}' +
-      'a.note-button:visited {color:' + theme_autolink_visited_foreground_color + '} a.note-button:visited:hover {color:' + theme_link_visited_foreground_color + '}',
-    article_hide_selector: '#wp-header, #top-furniture, .pb-f-ad-flex-2, .pb-f-ad-flex-3, .pb-f-games-gamesWidget, .pb-f-page-footer-v2, .pb-f-page-recommended-strip, .pb-f-page-editors-picks, disabled.chain-wrapper, .extra, .pb-f-generic-promo-image, .interstitial-link,' +
-      '.pg-interstitial-link, .pb-f-posttv-sticky-player, .pb-f-posttv-sticky-player-powa, .xpb-f-article-article-author-bio, .pb-tool.email, .pb-f-page-newsletter-inLine, .pb-f-page-comments, .inline-video, [channel="wp.com"], .pb-f-page-jobs-search,' +
-      '.pb-f-homepage-story, .pb-f-sharebars-top-share-bar, .pb-f-page-share-bar, .wp_signin, #wp_Signin, .inline-graphic-linked, .share-individual, .pb-f-page-trump-can-he-do-that-podcast, .bottom-ad--bigbox',
+      'a.note-button:visited {color:' + theme_autolink_visited_foreground_color + '} a.note-button:visited:hover {color:' + theme_link_visited_foreground_color + '}', //.pb-f-homepage-story {background-color: #300},
+    article_hide_selector: '#wp-header, #top-furniture, .pb-f-ad-flex-2, .pb-f-ad-flex-3, .pb-f-games-gamesWidget, .pb-f-page-footer-v2, .pb-f-page-recommended-strip, .pb-f-page-editors-picks, disabled.chain-wrapper, .extra, .pb-f-generic-promo-image, .interstitial-link, .pg-interstitial-link, .pb-f-posttv-sticky-player, .pb-f-posttv-sticky-player-powa, .xpb-f-article-article-author-bio, .pb-tool.email, .pb-f-page-newsletter-inLine, .pb-f-page-comments, .inline-video, [channel="wp.com"], .pb-f-page-jobs-search, .pb-f-homepage-story, .pb-f-sharebars-top-share-bar, .pb-f-page-share-bar, .wp_signin, #wp_Signin, .inline-graphic-linked, .share-individual, .pb-f-page-trump-can-he-do-that-podcast, .bottom-ad--bigbox',
     article_theme_selector: '#article-body, p, blockquote, .pg-bodyCopy',
     article_theme_background_selector: '.wp-volt-gal-embed-promo-container, .wp-volt-gal-embed-promo-bottom, #weather-glance, #weather_now, .cwgdropdown, #heat-tracker, #weather-almanac, .pb-f-capital_weather_gang-weather-almanac select, .border-bottom-hairline::after, .span12, .note-button',
     article_theme_foreground_selector: '.pb-caption, .pg-caption, .pb-bottom-author, .pb-timestamp, .pg-pubDate, .weather-gray, #weather_now .time, .firstgraf::first-letter',
@@ -386,8 +371,7 @@ const sites_data = [
     name: 'Slate',
     origin: 'http://www.slate.com',
     article_hide_selector: '.bottom-banner, .rubricautofeature, .top-comment, .follow-links, .social',
-    css: '.user-link, .search-link, .global-nav-handle {background-color:' + theme_background_color + '; -webkit-filter: brightness(70%) sepia(100%) hue-rotate(55deg) saturate(7)}' +
-      '.logo, .prop-image img {-webkit-filter: hue-rotate(180deg) brightness(60%) sepia(100%) hue-rotate(55deg) saturate(7)}',
+    css: '.user-link, .search-link, .global-nav-handle {background-color:' + theme_background_color + '; -webkit-filter: brightness(70%) sepia(100%) hue-rotate(55deg) saturate(7)} .logo, .prop-image img {-webkit-filter: hue-rotate(180deg) brightness(60%) sepia(100%) hue-rotate(55deg) saturate(7)}',
     article_css: '.roll-up {position: absolute} .meta {background: none}', //'.about-the-author.fancy {background: none} .about-the-author.fancy .author-bio {border-bottom: none}',
     count_words: {append: '.pub-date', subject: '.body .text'},
     theme_background_selector: '.page, .nav-header',
@@ -432,8 +416,7 @@ const sites_data = [
     name: 'Talking Points Memo',
     origin: 'http://talkingpointsmemo.com',
     count_words: {append: '.FeatureByline', subject: '.Feature'},
-    article_hide_selector: '.FeatureSocial, .FeatureShare, .Daybreaker, .Hive, .Facebook, .FeatureByline__FacebookLike, .FeatureByline__Count, .BottomAdSlot, .Footer__ExtendBackground, ' +
-      '.Feature__Revcontent, .EmbedComments',
+    article_hide_selector: '.FeatureSocial, .FeatureShare, .Daybreaker, .Hive, .Facebook, .FeatureByline__FacebookLike, .FeatureByline__Count, .BottomAdSlot, .Footer__ExtendBackground, .Feature__Revcontent, .EmbedComments',
   },
   {
     name: 'DCommentary',
@@ -587,8 +570,7 @@ const sites_data = [
     article_hide_selector: '.clay-share, .page-header',
     article_theme_foreground_selector: 'h1, p, figcaption, time, .by-authors',
     article_theme_background_selector: '.video-promo-for-articles',
-    article_css: 'blockquote, blockquote p {' + theme_foreground_rule + 'padding: 0 0 0 14px; border-left: 1px solid #3a3} blockquote:before {border-top: none} .mediaplay-image-figcaption {text-align: left} ' +
-      'nav.rubric-wrap svg>path:last-child {fill: white}', // "Intelligencer" in Daily Intelligencer logo
+    article_css: 'blockquote, blockquote p {' + theme_foreground_rule + 'padding: 0 0 0 14px; border-left: 1px solid #3a3} blockquote:before {border-top: none} .mediaplay-image-figcaption {text-align: left} nav.rubric-wrap svg>path:last-child {fill: white}', // "Intelligencer" in Daily Intelligencer logo
     homepage_theme_background_selector: '.newsHeadlinesByPublication section, .dek, .hed',
   },
   {
@@ -629,8 +611,7 @@ const sites_data = [
     css: selector_for_elements_with_a_class_that_starts_with('Logo__logo___') + '{-webkit-filter: invert(70%) sepia(100%) hue-rotate(65deg) saturate(7)}',
     count_words: {append: selector_for_elements_with_a_class_that_starts_with('ArticleHeader__metaInfo___'), subject: '#articleBody'},
     //article_css: '.single-post #articleBody p a, .single-post #articleBody .gallery-caption a, .single-post #articleBody u, .articleBody p a, .articleBody .gallery-caption a, .articleBody u, .author-masthead p a, .author-masthead .gallery-caption a, .author-masthead u {text-shadow: none; background: none}',
-    article_css: 'a {text-shadow: none; background: none} body>header {position: static}' + selector_for_elements_with_a_class_that_starts_with('ArticleHeader__articleHeader___') + '{border-bottom-width: 0}' +
-      selector_for_elements_with_a_class_that_starts_with('PageContainer__pageContent___') + '{padding-top: 0}',
+    article_css: 'a {text-shadow: none; background: none} body>header {position: static}' + selector_for_elements_with_a_class_that_starts_with('ArticleHeader__articleHeader___') + '{border-bottom-width: 0}' + selector_for_elements_with_a_class_that_starts_with('PageContainer__pageContent___') + '{padding-top: 0}',
     //article_hide_selector: '.social-module, .strongbox-promo-wrapper, .social-hover, .footer-content, #recirc-pos-2',
     article_hide_selector: selector_for_elements_with_a_class_that_starts_with('MainHeader__topBarItems___ MainHeader__topBar MainHeader__collapsed___ Layout__social___ RecirculationMostPopular__default___'),
     article_theme_background_selector: 'article>header, .hamburger-dropdowns-navigation__top-level, footer',
@@ -743,7 +724,7 @@ const sites_data = [
     theme_foreground_selector: '.trb_nh_un_hw:before',
     article_theme_background_selector: '.trb_article',
     article_theme_foreground_selector: 'article p, article ul, .dropcap, .trb_ar_page[data-content-page="1"]>p:first-child:first-letter, #story>p:first-child:first-letter',
-    article_css: '.trb_mh {margin-top: 70px} a:link[   href^="/topic/"] {color: #00e766} a:link:hover[href^="/topic/"] {color: #00f} a:visited[href^="/topic/"] {color: #99d700} a:visited:hover[href^="/topic/"] {color: purple}' ,
+    article_css: '.trb_mh {margin-top: 70px} a:link[   href^="/topic/"] {color: ' + theme_autolink_foreground_color + '} a:link:hover[href^="/topic/"] {color: ' + theme_link_foreground_color + '} a:visited[href^="/topic/"] {color: ' + theme_autolink_visited_foreground_color + '} a:visited:hover[href^="/topic/"] {color: purple}',
     hide_selector: '.met-promo',
     count_words: {append: '.trb_ar_dateline', subject: 'div[itemprop="articleBody"]', nbsp_size: '100%'},
     unwanted_query_fields: 'bn',
@@ -1054,7 +1035,8 @@ function isutf8 (bytes) {
     }
     if (
       (bytes[i] === 0xE0 && (0xA0 <= bytes[i + 1] && bytes[i + 1] <= 0xBF) && (0x80 <= bytes[i + 2] && bytes[i + 2] <= 0xBF)) || // excluding overlongs
-      (((0xE1 <= bytes[i] && bytes[i] <= 0xEC) || bytes[i] === 0xEE || bytes[i] === 0xEF) && (0x80 <= bytes[i + 1] && bytes[i + 1] <= 0xBF) && (0x80 <= bytes[i + 2] && bytes[i + 2] <= 0xBF)) || // straight 3-byte
+      (((0xE1 <= bytes[i    ] && bytes[i    ] <= 0xEC) || bytes[i] === 0xEE || bytes[i] === 0xEF) &&
+        (0x80 <= bytes[i + 1] && bytes[i + 1] <= 0xBF) && (0x80 <= bytes[i + 2] && bytes[i + 2] <= 0xBF)) || // straight 3-byte
       (bytes[i] === 0xED && (0x80 <= bytes[i + 1] && bytes[i + 1] <= 0x9F) && (0x80 <= bytes[i + 2] && bytes[i + 2] <= 0xBF)) // excluding surrogates
     ) {
       i += 3
@@ -1062,7 +1044,8 @@ function isutf8 (bytes) {
     }
     if (
       (bytes[i] === 0xF0 && (0x90 <= bytes[i + 1] && bytes[i + 1] <= 0xBF) && (0x80 <= bytes[i + 2] && bytes[i + 2] <= 0xBF) && (0x80 <= bytes[i + 3] && bytes[i + 3] <= 0xBF)) || // planes 1-3
-      ((0xF1 <= bytes[i] && bytes[i] <= 0xF3) && (0x80 <= bytes[i + 1] && bytes[i + 1] <= 0xBF) && (0x80 <= bytes[i + 2] && bytes[i + 2] <= 0xBF) && (0x80 <= bytes[i + 3] && bytes[i + 3] <= 0xBF)) || // planes 4-15
+      ((0xF1 <= bytes[i    ] && bytes[i    ] <= 0xF3) && (0x80 <= bytes[i + 1] && bytes[i + 1] <= 0xBF) &&
+       (0x80 <= bytes[i + 2] && bytes[i + 2] <= 0xBF) && (0x80 <= bytes[i + 3] && bytes[i + 3] <= 0xBF)) || // planes 4-15
       (bytes[i] === 0xF4 && (0x80 <= bytes[i + 1] && bytes[i + 1] <= 0x8F) && (0x80 <= bytes[i + 2] && bytes[i + 2] <= 0xBF) && (0x80 <= bytes[i + 3] && bytes[i + 3] <= 0xBF)) // plane 16
     ) {
       i += 4
