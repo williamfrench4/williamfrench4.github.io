@@ -16,12 +16,16 @@
 
 //alert(36)
 'use strict'
-const logging = false
+const logging = true
 const wasd_scrolling                          = true
-const is_node                                 = (typeof process !== 'undefined' && process.title === 'node')
-if (logging) console.log(55, is_node)
 let $body
-if (!is_node) $body                           = jQuery('body')
+const is_node                                 = -(typeof process !== 'undefined' && (process.title === 'node' || process.title.endsWith('/node')))
+if (logging) console.log(55, is_node)
+if (is_node) {
+  if (logging) console.log(56, process.title)
+} else {
+  $body                                       = jQuery('body')
+}
 const program_name                            = 'wmaster'
 const theme_autolink_foreground_color         = '#00c080'
 const theme_autolink_visited_foreground_color = '#99d700'
