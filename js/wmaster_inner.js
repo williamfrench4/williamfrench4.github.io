@@ -144,7 +144,7 @@ const sites_data = [
     dark_theme: 1, // to turn this off, change the 1 to a 0 and comment out all other lines that are commented "NYT dark theme"
     unwanted_query_fields: 'action clickSource contentCollection contentPlacement hp module pgtype _r ref region rref smid smtyp src version WT.nav WT.z_jog hF vS utm_campaign utm_content utm_medium utm_source t target mcubz gwh gwt mtrref',
     unwanted_classes: 'theme-pinned-masthead',
-    url_to_data_filename: {year_index: 3, segments_used: 6},
+    //url_to_data_filename: {year_index: 3, segments_used: 6},
     wayback: {targets: {nytimes: '/', nytimes_todayspaper: '/pages/todayspaper/index.html', nytimes_nyregion: '/pages/nyregion/index.html'}},
     customize () {
       if (location_href.startsWith('https://www.nytimes.com/newsletters/')) return
@@ -231,12 +231,12 @@ const sites_data = [
     article_hide_selector: '.element-video, .contributions__epic, .js-outbrain, .related, .submeta, #onward, #more-in-section, .element-pullquote, .element-rich-link, .meta__twitter, .meta__extras, .meta__email, .selection-sharing, .block-share, .ad-slot, figure[data-canonical-url="https://interactive.guim.co.uk/embed/2017/05/americas-unequal-future/embed.html"], figure[data-canonical-url="https://interactive.guim.co.uk/embed/2017/02/outside-in-america/embed.html"], #this_land_epic_bottom_environment_iframe, #this_land_epic_bottom_series_iframe, .vav-callout',
     dark_theme: 1,
     homepage_hide_selector: '#most-viewed, .footer__email-container, div.image>div.video, #securedrop, #membership-thrasher, #support-the-guardian, .treats__container',
-    // '.fc-container--story-package, .facia-page, .index-page, .voices-and-votes-container__wrapper, .l-side-margins, .fc-container--thrasher, .tone-news--item.fc-item, .du-faux-block-link--hover, .tone-feature--item, .fc-container--story-package .fc-item, .tone-analysis--item.fc-item, .tone-comment--item.fc-item, .tone-editorial--item, .tone-media--item, .tone-review--item',
+    //`` '.fc-container--story-package, .facia-page, .index-page, .voices-and-votes-container__wrapper, .l-side-margins, .fc-container--thrasher, .tone-news--item.fc-item, .du-faux-block-link--hover, .tone-feature--item, .fc-container--story-package .fc-item, .tone-analysis--item.fc-item, .tone-comment--item.fc-item, .tone-editorial--item, .tone-media--item, .tone-review--item',
     homepage_theme_background_selector: '.fc-container--story-package, .u-faux-block-link--hover, .facia-page, .fc-item__container',
     homepage_theme_selector: '',
     homepage_css: '.tone-live--item {background-color: #5a0b00} .fc-item.tone-letters--item {background-color: #333} .fc-container--story-package {border-top-width: 0} .js-on .fc-show-more--hidden .fc-show-more--hide {display: block}',
     hide_selector: '.adverts, .site-message',
-    url_to_data_filename: {year_index: 4, segments_used: 7, wildcards: [3]},
+    //url_to_data_filename: {year_index: 4, segments_used: 7, wildcards: [3]},
     wayback: {targets: {guardian_uk: '/uk'}},
     customize () {
       if (page_level === 0) {
@@ -269,7 +269,9 @@ const sites_data = [
     theme_foreground_selector: 'h1, h2, h3, h4, h5, h6',
     theme_selector: 'body, .skin.skin-card, .skin.skin-button, input',
     unwanted_query_fields: 'hpid tid utm_term wpisrc wpmk',
-    url_to_data_filename: {year_index: 5, segments_used: 8, wildcards: [3, 4]},
+    // https://www.washingtonpost.com/powerpost/gop-opponents-to-senate-health-care-bill-see-vote-delay-as-an-advantage/2017/07/16/3e5516fa-6a21-11e7-96ab-5f38140b38cc_story.html
+    // https://www.washingtonpost.com/news     /to-your-health                                                         /wp/2017/07/19/a-gunshot-destroyed-her-face-a-rare-surgery-just-gave-her-a-new-one/
+    //url_to_data_filename: {year_index: 5, segments_used: 8, wildcards: [3, 4]},
     wayback: {targets: {washingtonpost: '/'}},
     customize () {
       console.log(848, 0)
@@ -1314,7 +1316,8 @@ function regularize_links (my_window = window, my_origin) {
         old_href = my_window.location.origin + old_href
         if (logging) console.log(394, 34, old_href)
       }
-      if (logging) console.log(394, 37, my_window.location, old_href)
+      if (logging) console.log(394, 37)
+      anchor.href = old_href
     }
     if (!old_href) continue
     try {
