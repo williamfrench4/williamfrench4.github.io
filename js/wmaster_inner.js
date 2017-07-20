@@ -117,12 +117,12 @@ const sites_data = [
   {
     name: 'New York Times',
     origin: 'https://www.nytimes.com',
-    alternate_origins: ['https://cooking.nytimes.com', 'https://douthat.blogs.nytimes.com', 'https://krugman.blogs.nytimes.com', 'https://kristof.blogs.nytimes.com', 'https://well.blogs.nytimes.com', 'https://lens.blogs.nytimes.com', 'https://www.nytimes.com/section/magazine'],
-    alternate_prefixes: ['file:///root/wayback/nytimes/', 'file:///root/wayback/nytimes_todayspaper/'],
+    alternate_origins: 'https://cooking.nytimes.com https://douthat.blogs.nytimes.com https://krugman.blogs.nytimes.com https://kristof.blogs.nytimes.com https://well.blogs.nytimes.com https://lens.blogs.nytimes.com https://www.nytimes.com/section/magazine https://mobile.nytimes.com',
+    alternate_prefixes: 'file:///root/wayback/nytimes/ file:///root/wayback/nytimes_todayspaper/',
     count_words: {append: '.byline:last-of-type, .byline-column, ' + selector_for_elements_with_a_class_that_starts_with('Byline-bylineAuthor--'), prefix: ' ', subject: ['.story-body-text, .g-body', '.story-body', '#story'], grafs: 0},
     article_theme_selector: 'input, textarea, .columnGroup', // NYT dark theme
     article_theme_background_selector: '.bcColumn, .cColumn, .App__app', // NYT dark theme
-    article_theme_foreground_selector: '.masthead .masthead-menu li, .headline, .kicker, .dateline, .story-quote, .caption, figcaption, h1, h2, h3, h4, h5, h6, .byline, .dropcap, .g-body, .swiper-text p, .story-body-text, .story-body-text strong:first-child, .CreditedMedia__caption, .Post__byline, .Post__body,' + selector_for_elements_with_a_class_that_starts_with('ResponsiveMedia-captionText-- HeaderBasic-bylineTimestamp-- HeaderBasic-summary-- HeaderBasic-label-- Summary-summary--'),
+    article_theme_foreground_selector: '.masthead .masthead-menu li, .headline, .kicker, .dateline, .story-quote, .caption, figcaption, h1, h2, h3, h4, h5, h6, .byline, .dropcap, .g-body, .swiper-text p, .story-body-text, .story-body-text strong:first-child, .CreditedMedia__caption, .Post__byline, .Post__body, .full-art,' + selector_for_elements_with_a_class_that_starts_with('ResponsiveMedia-captionText-- HeaderBasic-bylineTimestamp-- HeaderBasic-summary-- HeaderBasic-label-- Summary-summary--'),
     article_css: '.App__app {margin-top: 0} .story-body-text {font-family: "Times New Roman"} .caption-text {font-family: sans-serif} .story-header, .image {position: relative}' +
       'input, textarea {background-image: none} .shell {padding-top: 0} .main {border-top: none} .nytg-chart {color: #000; background-color: #fff}' + // NYT dark theme
       selector_for_elements_with_a_class_that_starts_with('SectionBar-sectionBar--') + '{border-width: 0} ' +
@@ -132,8 +132,10 @@ const sites_data = [
       'figure.layout-jumbo-horizontal, figure.layout-full-bleed-horizontal .image img {width: 87%; margin-left: 30px}' +
       'figure.layout-large-vertical .image img {width: 47%; margin-left: 30px}' +
       'figure.layout-jumbo-vertical .image img {width: 47%; margin-left: 30px}',
-    article_hide_selector: 'nav, #masthead, .newsletter-signup, #whats-next, #site-index, .story-meta-footer-sharetools, .comments-button, [id="18-insider-promo-module"], #obstruction-justice-promo, #how-republican-voted-on-health-bill, #brexit-latest-fallout-tracker, #story-ad-1-wrapper, #story-ad-2-wrapper, #story-ad-3-wrapper, #story-ad-4-wrapper, #story-ad-5-wrapper, #opinion-aca-callout, #next-steps-for-health-care-bill, [id="06up-acachart"], #house-vote-republican-health-care-bill, #morning-briefing-weather-module, #related-combined-coverage, .text-ad, #comey-promo, figure.video, .page-footer, .story-info, .story-print-citation, #fbi-congress-trump-russia-investigations, .vis-survey-box, #oil-prices, #Ask-Real-Estate-Promo, #wannacry-ransomware-map, #app > div > div' +
-      '#how-self-driving-cars-work, #ransomware-attack-coverage, #fall-upfront-2017, figure[id*=pullquote], figure[id*=email-promo], figure[id*=DAILY-player], #why-its-so-hard-to-have-an-independent-russia-investigation, #navigation-edge, #europe-terror-attacks, #document-Robert-Mueller-Special-Counsel-Russia, #julian-assange-timeline, #anthony-weiner-plea-agreement, #assange-fblive-promo, .meter-asset-wrapper, #news-tips-article-promo, .cColumn>.first, #nyt-weather, .NYTSocialShare__overlayTriggerContainer, .Post__ad,' + selector_for_elements_with_a_class_that_starts_with('Masthead-mastheadContainer--') + ',' + selector_for_elements_with_a_class_that_starts_with('SectionBarShare-shareMenu--') + ',' + selector_for_elements_with_a_class_that_starts_with('Recirculation-recirculation--'),
+    article_hide_selector: (
+      'nav, #masthead, .newsletter-signup, #whats-next, #site-index, .story-meta-footer-sharetools, .comments-button, [id="18-insider-promo-module"], #obstruction-justice-promo, #how-republican-voted-on-health-bill, #brexit-latest-fallout-tracker, #story-ad-1-wrapper, #story-ad-2-wrapper, #story-ad-3-wrapper, #story-ad-4-wrapper, #story-ad-5-wrapper, #opinion-aca-callout, #next-steps-for-health-care-bill, [id="06up-acachart"], #house-vote-republican-health-care-bill, #morning-briefing-weather-module, #related-combined-coverage, .text-ad, #comey-promo, figure.video, .page-footer, .story-info, .story-print-citation, #fbi-congress-trump-russia-investigations, .vis-survey-box, #oil-prices, #Ask-Real-Estate-Promo, #wannacry-ransomware-map, #app > div > div' +
+      '#how-self-driving-cars-work, #ransomware-attack-coverage, #fall-upfront-2017, figure[id*=pullquote], figure[id*=email-promo], figure[id*=DAILY-player], #why-its-so-hard-to-have-an-independent-russia-investigation, #navigation-edge, #europe-terror-attacks, #document-Robert-Mueller-Special-Counsel-Russia, #julian-assange-timeline, #anthony-weiner-plea-agreement, #assange-fblive-promo, .meter-asset-wrapper, #news-tips-article-promo, .cColumn>.first, #nyt-weather, .NYTSocialShare__overlayTriggerContainer, .Post__ad,' + selector_for_elements_with_a_class_that_starts_with('Masthead-mastheadContainer--') + ',' + selector_for_elements_with_a_class_that_starts_with('SectionBarShare-shareMenu--') + ',' + selector_for_elements_with_a_class_that_starts_with('Recirculation-recirculation--')
+    ),
     extra_sub_element_selectors: 'h3.story-heading',
     homepage_theme_foreground_selector: '.summary', // NYT dark theme
     //homepage_css: 'header {background-color: #aaa}', // NYT dark theme
@@ -217,9 +219,9 @@ const sites_data = [
   {
     name: 'Manchester Guardian',
     origin: 'https://www.theguardian.com',
-    alternate_origins: ['https://interactive.guim.co.uk/'],
-    alternate_prefixes: ['file:///root/wayback/guardian_uk/'],
-    alternate_homepages: ['https://www.theguardian.com/us', 'https://www.theguardian.com/uk'],
+    alternate_origins: 'https://interactive.guim.co.uk/',
+    alternate_prefixes: 'file:///root/wayback/guardian_uk/',
+    alternate_homepages: 'https://www.theguardian.com/us https://www.theguardian.com/uk',
     append_loaded_date: 'footer.l-footer',
     count_words: {append: '.content__dateline, .content__standfirst', subject: '.content__article-body'},
     article_css: '.js-headline-text {font-weight: normal} p {line-height: 170%} a {border-bottom: none} figure.element-tweet {margin-right: 4rem} .tweet {font-family: sans-serif} img.byline-img__img {background: transparent} .content {padding-bottom: 0} div.explainer {background-color: #00252f; border: 1px solid ' + theme_foreground_color + '} .signposting {border-right-width:0} .tabs__tab {border-top: 0.0625rem solid #aaa} .content__article-body {font-family: Adobe Caslon Pro; font-size: 109%}' +
@@ -249,8 +251,8 @@ const sites_data = [
   {
     name: 'Washington Post',
     origin: 'https://www.washingtonpost.com',
-    alternate_origins: ['http://washingtonpost.com', 'http://www.washingtonpost.com', 'https://live.washingtonpost.com'],
-    alternate_prefixes: ['file:///root/wayback/washingtonpost/'],
+    alternate_origins: 'http://washingtonpost.com http://www.washingtonpost.com https://live.washingtonpost.com',
+    alternate_prefixes: 'file:///root/wayback/washingtonpost/',
     article_css: '#main-content {background-image: none} #et-nav {position: absolute}.headline {font-family: sans-serif} a, .powerpost-header, .layout_article #top-content {border-bottom: none} p {line-height: 155%} body {overflow-y: visible} .fixed-image {position: static} .g-artboard img {border-bottom: 30px solid white} .g-artboard p {color: black; background-color: transparent} .bg-none {background-color: transparent} .note-button {padding: 0; box-shadow: none} .chain-wrapper {background-color: #500}' +
       'a.note-button:link    {color:' +         theme_autolink_foreground_color + '} a.note-button:link:hover    {color:' +         theme_link_foreground_color + '}' +
       'a.note-button:visited {color:' + theme_autolink_visited_foreground_color + '} a.note-button:visited:hover {color:' + theme_link_visited_foreground_color + '}', //.pb-f-homepage-story {background-color: #300},
@@ -414,7 +416,7 @@ const sites_data = [
   {
     name: 'Daily Beast',
     origin: 'https://www.thedailybeast.com',
-    alternate_origins: ['http://www.thedailybeast.com'],
+    alternate_origins: 'http://www.thedailybeast.com',
     count_words: {append: '.ArticleBody__byline', subject: 'article.Body'},
     article_hide_selector: '.share-icons, .InlineNewsletter',
   },
@@ -527,7 +529,7 @@ const sites_data = [
   {
     name: 'Free Code Camp',
     origin: 'https://www.freecodecamp.com',
-    alternate_origins: ['https://medium.freecodecamp.com'],
+    alternate_origins: 'https://medium.freecodecamp.com',
     article_theme_background_selector: '#container, .screenContent, .canvas-renderer, .metabar, .u-backgroundGrayLightest, .u-backgroundWhite',
     article_theme_foreground_selector: '.postMetaInline, .u-textColorDark, .graf--h2, .graf--h3, .graf--h4',
     article_hide_selector: '.js-stickyFooter',
@@ -535,7 +537,7 @@ const sites_data = [
   {
     name: 'Associated Press',
     origin: 'https://apnews.com',
-    alternate_origins: ['https://www.apnews.com'],
+    alternate_origins: 'https://www.apnews.com',
     count_words: {append: '.mobile h6', subject: '.articleBody'},
     article_css: '.articleView {padding-top: 80px} .header {position: absolute}',
     article_hide_selector: '#drawerMenu, .mobileTitle ul, footer, .header.smaller',
@@ -553,7 +555,7 @@ const sites_data = [
   {
     name: 'LEDs Magazine',
     origin: 'http://www.ledsmagazine.com',
-    alternate_homepages: ['http://www.ledsmagazine.com/index.html'],
+    alternate_homepages: 'http://www.ledsmagazine.com/index.html',
     //count_words: {append: '#editorial-article-wrapper-container>:first-child>:first-child>:first-child>:first-child>:first-child', subject: 'article'},
     //article_hide_selector: '.clay-share',
     homepage_theme_background_selector: '#templateOuterLeft, #container',
@@ -697,7 +699,7 @@ const sites_data = [
   {
     name: 'Ars Technica',
     origin: 'https://arstechnica.com',
-    alternate_origins: ['https://arstechnica.co.uk'],
+    alternate_origins: 'https://arstechnica.co.uk',
     hide_selector: '.site-header.is_stuck.scrolled-up',
     article_hide_selector: '.share-links, .pullbox',
     article_css: '.site-wrapper {background-color: transparent}', // if set to black, this hides images in Chrome as of 6/19/2017
@@ -807,7 +809,7 @@ const sites_data = [
   {
     name: 'Union of Concerned Scientists',
     origin: 'http://www.ucsusa.org',
-    alternate_origins: ['http://blog.ucsusa.org', 'http://allthingsnuclear.org'],
+    alternate_origins: 'http://blog.ucsusa.org http://allthingsnuclear.org',
     count_words: {append: '.username', subject: '.article-content'},
     css: 'div#header {position: absolute} #logo {-webkit-filter: invert(70%) sepia(100%) hue-rotate(65deg) saturate(7)}',
     theme_foreground_selector: 'h1, h2, h3, h4, h5, h6',
@@ -833,7 +835,7 @@ const sites_data = [
   {name: 'Rolling Stone'          , origin: 'http://www.rollingstone.com'          , article_css: 'header {position: static}', dark_theme: 0},
   {name: 'Wikipedia'              , origin: 'https://en.wikipedia.org'             , dark_theme: 0},
   {name: 'Spectator'              , origin: 'https://www.spectator.co.uk'          , dark_theme: 0, article_css: '.floatyFloaty {position: static}', article_hide_selector: '.article-promo'},
-  {name: 'Local wayback'          , alternate_prefixes: ['file:///root/wayback/'], append_loaded_date: false, count_words_subject: false},
+  {name: 'Local wayback'          , alternate_prefixes: 'file:///root/wayback/', append_loaded_date: false, count_words_subject: false},
 ]
 const sites_data_by_prefix = {}
 for (const site_data of sites_data) {
@@ -841,16 +843,27 @@ for (const site_data of sites_data) {
   let prefixes
   if (site_data.origin) prefixes = [site_data.origin]
   else        prefixes = []
-  if (site_data.alternate_origins ) prefixes = prefixes.concat(site_data.alternate_origins )
-  if (site_data.alternate_prefixes) prefixes = prefixes.concat(site_data.alternate_prefixes)
-  if (unwanted_query_fields) site_data.unwanted_query_fields_array = unwanted_query_fields.split(/\s+/)
-    //console.log(34, site_data.unwanted_query_fields_array)
-    //console.log(35, prefixes)
+  if (site_data.alternate_origins ) {
+    console.log(746, 50, site_data.alternate_origins)
+    const alternate_origins_split  = site_data.alternate_origins .split(/\s+/)
+    site_data.alternate_origins_split  = alternate_origins_split
+    prefixes = prefixes.concat(alternate_origins_split )
+  }
+  if (site_data.alternate_prefixes) {
+    const alternate_prefixes_split = site_data.alternate_prefixes.split(/\s+/)
+    site_data.alternate_prefixes_split = alternate_prefixes_split
+    prefixes = prefixes.concat(alternate_prefixes_split)
+  }
+  if (unwanted_query_fields) {
+    site_data.unwanted_query_fields_split = unwanted_query_fields.split(/\s+/)
+  }
+  //console.log(34, site_data.unwanted_query_fields_split)
+  //console.log(35, prefixes)
   for (const prefix of prefixes) {
     if (sites_data_by_prefix.hasOwnProperty(prefix)) console.log('warning: URL prefix "' + prefix + '" is a duplicate!')
     else sites_data_by_prefix [prefix] = site_data
   }
-    //console.log(74, site_data.append_loaded_date)
+  //console.log(74, site_data.append_loaded_date)
   if      (!site_data                         .hasOwnProperty('append_loaded_date'       )) site_data.append_loaded_date              = 'body'
   if      (!site_data                         .hasOwnProperty('dark_theme'               )) site_data.dark_theme                      = 1
 
@@ -1341,10 +1354,10 @@ function regularize_links (my_window = window, my_origin) {
     const site_data = sites_data_by_prefix [origin]
     if (logging) console.log(394, 85) //, origin, site_data)
     if (!site_data) continue
-    const unwanted_query_fields_array = site_data.unwanted_query_fields_array
-    if (logging) console.log(394, 87) //, unwanted_query_fields_array)
-    if (!unwanted_query_fields_array) continue
-    //const unwanted_query_fields_array_length = unwanted_query_fields_array.length
+    const unwanted_query_fields_split = site_data.unwanted_query_fields_split
+    if (logging) console.log(394, 87) //, unwanted_query_fields_split)
+    if (!unwanted_query_fields_split) continue
+    //const unwanted_query_fields_split_length = unwanted_query_fields_split.length
     const query_string_index = old_href.indexOf('?')
     if (logging) console.log(394, 89, query_string_index)
     if (query_string_index !== -1) {
@@ -1354,7 +1367,7 @@ function regularize_links (my_window = window, my_origin) {
       //let new_href = old_href.substring(0, query_string_index); // the url without the query string or the '?' that delimits it
       const query_params = url.searchParams
       if (logging) console.log(394, 100, query_params.toString())
-      for (const field of unwanted_query_fields_array) {
+      for (const field of unwanted_query_fields_split) {
         query_params.delete(field)
         if (logging) console.log(394, 110, field, query_params.toString())
       // BUG: would be nice to break if query_params is empty
@@ -1416,7 +1429,7 @@ function href_to_site_data (href) {
     console.log(225, 300)
     if (test_site_data.alternate_prefixes) {
       console.log(225, 310)
-      for (const alternate of test_site_data.alternate_prefixes) {
+      for (const alternate of test_site_data.alternate_prefixes_split) {
         console.log(225, 320, alternate)
         if (href.startsWith(alternate) && href !== alternate) {
           console.log(225, 330)
@@ -1430,7 +1443,7 @@ function href_to_site_data (href) {
     console.log(225, 400)
     if (test_site_data.alternate_origins) {
       console.log(225, 410)
-      for (const alternate of test_site_data.alternate_origins) {
+      for (const alternate of test_site_data.alternate_origins_split) {
         console.log(225, 420, alternate)
 
       //console.log(81, alternate, href_origin, href)
