@@ -62,10 +62,10 @@ const main_dialog_close_id                    = main_dialog_id + '_close'
 const main_dialog_cli_id                      = main_dialog_id + '_cli'
 let new_html                                  = '' +
   //'<div id="' + main_dialog_id + '" style="position: fixed; top: 0; left: 0; z-index: 2147483647; background-color: yellow; display: none">' +
-  '<div id="' + main_dialog_id + '" style="position: fixed; top: 0; left: 0; z-index: 2147483647; display: none">' +
-    '<button id="'   + main_dialog_word_count_id + '">Word count</button>' +
-    '<button id="'   + main_dialog_close_id      +      '">Close</button>' +
-    '<div id="'      + main_dialog_cli_id        + '" class="terminal"></div>' +
+  `<div id="${main_dialog_id}" style="position: fixed; top: 0; left: 0; z-index: 2147483647; display: none">` +
+    `<button id="${main_dialog_word_count_id}">Word count</button>` +
+    `<button id="${main_dialog_close_id}">Close</button>` +
+    `<div id="${main_dialog_cli_id}" class="terminal"></div>` +
   '</div>'
 const main_dialog_selector = '#' + main_dialog_id
 cooked_site_css += main_dialog_selector + '{position: fixed; top: 0; left: 0; z-index: 2147483647; background-color: yellow}' // + main_dialog_selector + ' * {all: unset}';// #wmaster_ui_main_cli .cmd .clipboard {color: transparent}'
@@ -86,10 +86,10 @@ function selector_for_elements_with_a_class_that_starts_with (targets) {
   let target, pseudo_element
   let result = ''
   for (const target_with_possible_pseudo_element of targets_split) {
-    if (target_with_possible_pseudo_element [0] === '.') throw new Error('selector_for_elements_with_a_class_that_starts_with: target "' + target_with_possible_pseudo_element + '" begins with a dot')
+    if (target_with_possible_pseudo_element [0] === '.') throw new Error(`selector_for_elements_with_a_class_that_starts_with: target "${target_with_possible_pseudo_element}" begins with a dot`)
     const colon_index = target_with_possible_pseudo_element.indexOf(':')
     if (colon_index === 0) {
-      throw new Error('selector_for_elements_with_a_class_that_starts_with: target "' + target_with_possible_pseudo_element + '" begins with a colon')
+      throw new Error(`selector_for_elements_with_a_class_that_starts_with: target "${target_with_possible_pseudo_element}" begins with a colon`)
     } else if (colon_index === -1) {
       target         = target_with_possible_pseudo_element
       pseudo_element = ''
@@ -98,7 +98,7 @@ function selector_for_elements_with_a_class_that_starts_with (targets) {
       pseudo_element = target_with_possible_pseudo_element.substr(colon_index)
     }
     if (result) result += ', '
-    result +=  '[class^="' + target + '"]' + pseudo_element + ', [class*=" ' + target + '"]' + pseudo_element
+    result +=  `[class^="${target}"]${pseudo_element}, [class*=" ${target}"]${pseudo_element}` // result +=  '[class^="' + target + '"]' + pseudo_element + ', [class*=" ' + target + '"]' + pseudo_element
     if (logging) console.log(31, target, result)
   }
   return result
@@ -887,10 +887,6 @@ for (const site_data of sites_data) {
   if      (!site_data                         .hasOwnProperty('remove_fixed_positioning' )) site_data.remove_fixed_positioning        = {}
   else if ( site_data.remove_fixed_positioning === false                                  ) site_data.remove_fixed_positioning        = {enable: false}
   if      (!site_data.remove_fixed_positioning.hasOwnProperty('enable'                   )) site_data.remove_fixed_positioning.enable = true
-
-
-
-
     //console.log(76, site_data.append_loaded_date)
 }
   //console.log(36, sites_data_by_prefix)
@@ -1699,7 +1695,7 @@ if (is_node) {
               if (typeof graf_words_count === 'undefined') {
                 new_html += '&para;empty'
               } else {
-                new_html += '&para' + (graf_index) + ':&nbsp;'
+                new_html += `&para;${graf_index}:&nbsp;` // new_html += '&para' + (graf_index) + ':&nbsp;'
                 graf_index++
               }
             }
@@ -1721,7 +1717,7 @@ if (is_node) {
           $graf.append(new_html)
         }
         console.log(192, 175, chosen_words_count, chosen_words_count2)
-        if (chosen_words_count2 !== chosen_words_count) throw new Error('chosen_words_count=' + chosen_words_count + ', chosen_words_count2=' + chosen_words_count2)
+        if (chosen_words_count2 !== chosen_words_count) throw new Error(`chosen_words_count=${chosen_words_count}, chosen_words_count2=${chosen_words_count2}`) // if (chosen_words_count2 !== chosen_words_count) throw new Error('chosen_words_count=' + chosen_words_count + ', chosen_words_count2=' + chosen_words_count2)
       }
       const output = html_prefix + total_words_count_name + '">' + settings.total_prefix + chosen_words_count + html_infix + html_suffix
       console.log(192, 176, output, append_selector)
