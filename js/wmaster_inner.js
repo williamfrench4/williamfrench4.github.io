@@ -1,4 +1,4 @@
-// ==UserScript==
+``// ==UserScript==
 // @name         wmaster
 // @namespace    http://tampermonkey.net/
 // @version      0.1
@@ -18,8 +18,19 @@
 'use strict'
 const logging = true
 const wasd_scrolling                          = true
-let $body
-const is_node                                 = -(typeof process !== 'undefined' && (process.title === 'node' || process.title.endsWith('/node')))
+//let $body
+//const is_node                                 = -(typeof process !== 'undefined' && (process.title === 'node' || process.title.endsWith('/node')))
+if (typeof process ==='undefined') {
+  is_node = false
+} else {
+  if (logging) console.log(54, process.title, process.argv)
+  if (process.title === 'node' || process.title.endsWith('/node')) {
+    is_node = true
+  } else {
+    //throw new Error('title: "' + process.title + '"')
+    is_node = true // process.title is sometimes corrupt with long command lines
+  }
+}
 if (logging) console.log(55, is_node)
 if (is_node) {
   if (logging) console.log(56, process.title)
