@@ -1,4 +1,4 @@
-``// ==UserScript==
+// ==UserScript==
 // @name         wmaster
 // @namespace    http://tampermonkey.net/
 // @version      0.1
@@ -14,30 +14,40 @@
 
 /* eslint-disable camelcase, no-multiple-empty-lines, padded-blocks, no-multi-spaces, no-whitespace-before-property, spaced-comment, key-spacing, comma-spacing, comma-dangle, space-in-parens, standard/computed-property-even-spacing */
 
-//alert(36)
 'use strict'
-const logging = true
+//alert(36)
+console.log('wmaster_inner: running')
 const wasd_scrolling                          = true
-//let $body
+const program_name                            = 'wmaster'
 //const is_node                                 = -(typeof process !== 'undefined' && (process.title === 'node' || process.title.endsWith('/node')))
-if (typeof process ==='undefined') {
-  is_node = false
+let is_node_let
+if (typeof process === 'undefined') {
+  is_node_let = false
 } else {
-  if (logging) console.log(54, process.title, process.argv)
+  //console.log(54, process.title, process.argv)
   if (process.title === 'node' || process.title.endsWith('/node')) {
-    is_node = true
+    is_node_let = true
   } else {
     //throw new Error('title: "' + process.title + '"')
-    is_node = true // process.title is sometimes corrupt with long command lines
+    is_node_let = true // process.title is sometimes corrupt with long command lines
   }
 }
-if (logging) console.log(55, is_node)
+const is_node                                 = is_node_let
+let debug_let
 if (is_node) {
-  if (logging) console.log(56, process.title)
+  debug_let                                   = require('debug')(program_name)
 } else {
-  $body                                       = jQuery('body')
+  debug_let                                   = console.debug.bind(console)
 }
-const program_name                            = 'wmaster'
+const debug                                   = debug_let
+let $body_let
+if (is_node) {
+  debug(56, process.title)
+} else {
+  debug(57)
+  $body_let                                   = jQuery('body')
+}
+const $body                                   = $body_let
 const theme_autolink_foreground_color         = '#00c080'
 const theme_autolink_visited_foreground_color = '#99d700'
 const theme_background_color                  = '#000'
@@ -65,7 +75,7 @@ let page_level
 let site_data
 let getMatchedCSSRules
 let wf_getMatchedCSSRules
-if (logging) console.log(101, location_href)
+debug(101, location_href)
 const ui_css_prefix                           = program_name   + '_ui'
 const main_dialog_id                          = ui_css_prefix  + '_main'
 const main_dialog_word_count_id               = main_dialog_id + '_word_count'
@@ -81,12 +91,13 @@ let new_html                                  = '' +
 const main_dialog_selector = '#' + main_dialog_id
 cooked_site_css += main_dialog_selector + '{position: fixed; top: 0; left: 0; z-index: 2147483647; background-color: yellow}' // + main_dialog_selector + ' * {all: unset}';// #wmaster_ui_main_cli .cmd .clipboard {color: transparent}'
 
-if (logging) console.log(495, new_html)
+debug(495, new_html)
 
 function direct_text_content (element) {
   // Return the text from this element only, not including any text from child elements
   let text = ''
-  for (const child_node of element.childNodes) {
+  let child_node
+  for (child_node of element.childNodes) {
     if (child_node.nodeType === 3) text += child_node.textContent
   }
   return text
@@ -96,7 +107,8 @@ function selector_for_elements_with_a_class_that_starts_with (targets) {
   const targets_split = targets.split(/\s+/)
   let target, pseudo_element
   let result = ''
-  for (const target_with_possible_pseudo_element of targets_split) {
+  let target_with_possible_pseudo_element
+  for (target_with_possible_pseudo_element of targets_split) {
     if (target_with_possible_pseudo_element [0] === '.') throw new Error(`selector_for_elements_with_a_class_that_starts_with: target "${target_with_possible_pseudo_element}" begins with a dot`)
     const colon_index = target_with_possible_pseudo_element.indexOf(':')
     if (colon_index === 0) {
@@ -110,7 +122,7 @@ function selector_for_elements_with_a_class_that_starts_with (targets) {
     }
     if (result) result += ', '
     result +=  `[class^="${target}"]${pseudo_element}, [class*=" ${target}"]${pseudo_element}` // result +=  '[class^="' + target + '"]' + pseudo_element + ', [class*=" ' + target + '"]' + pseudo_element
-    if (logging) console.log(31, target, result)
+    debug(31, target, result)
   }
   return result
 }
@@ -171,7 +183,7 @@ const sites_data = [
         //logo_element
       this.article_theme_foreground_selector += ',' + selector_for_elements_with_a_class_that_starts_with('HeaderBasic-headerBasic--')
       this.count_words.append                += ',' + js_header_selector
-      //console.log(11, this.article_theme_foreground_selector)
+      //debug(11, this.article_theme_foreground_selector)
       if (location_href.indexOf('?') !== -1) alert('location_href: ' + location_href)
       if (page_level === 2) {
         jQuery('figure.video').css({'width': '30%', 'margin-left': '30px'})
@@ -185,45 +197,47 @@ const sites_data = [
         if (logo_element) logo_element.innerHTML = '<img width="573" height="138" src="file:/home/will/public_html/green_york_times.png">'
         else console.log('warning: logo not found')
       }
-      for (const img of jQuery('img.g-freebird-lazy')) {
+      let img
+      for (img of jQuery('img.g-freebird-lazy')) {
         //jQuery(img).css({'padding-top': '0'})
         img.src = img.dataset.src
       }
-      for (const img of jQuery('img[data-superjumbosrc]')) {
+      for (img of jQuery('img[data-superjumbosrc]')) {
         jQuery(img).css({'padding-top': '0'})
         img.src = img.dataset.superjumbosrc
       }
-      console.log(571, 10)
-      for (const img of jQuery('img.media-viewer-candidate')) {
+      debug(571, 10)
+      for (img of jQuery('img.media-viewer-candidate')) {
         const mediaviewer_src = img.dataset.mediaviewerSrc
-        console.log(571, 20, mediaviewer_src)
+        debug(571, 20, mediaviewer_src)
         if (mediaviewer_src) {
-          console.log(571, 30)
+          debug(571, 30)
           img.src = mediaviewer_src
         } else {
           const raw_widths = img.dataset.widths
-          console.log(571, 40, raw_widths)
+          debug(571, 40, raw_widths)
           const parsed_widths = JSON.parse(raw_widths)
           let max_width_found = 0
           let slug = ''
-          console.log(571, 50, parsed_widths)
-          for (const width of parsed_widths) {
+          debug(571, 50, parsed_widths)
+          let width
+          for (width of parsed_widths) {
             const size = width.size
-            console.log(571, 60, width)
+            debug(571, 60, width)
             if (size > max_width_found) {
               max_width_found = size
               slug = width.slug
-              console.log(571, 70)
+              debug(571, 70)
             }
           }
           if (max_width_found) {
             img.src = slug
-            console.log(571, 80, slug)
+            debug(571, 80, slug)
           }
         }
-        console.log(571, 90)
+        debug(571, 90)
       }
-      console.log(571, 100)
+      debug(571, 100)
       //remove_fixed_positioning(site_data)
     },
   },
@@ -287,61 +301,65 @@ const sites_data = [
     //url_to_data_filename: {year_index: 5, segments_used: 8, wildcards: [3, 4]},
     wayback: {targets: {washingtonpost: '/'}},
     customize () {
-      console.log(848, 0)
-      for (const stylesheet_link of jQuery("link[rel='stylesheet']")) {
+      debug(848, 0)
+      let stylesheet_link
+      for (stylesheet_link of jQuery("link[rel='stylesheet']")) {
         const stylesheet_link_href = stylesheet_link.href
-        //console.log(stylesheet_link_href)
+        //debug(stylesheet_link_href)
         /*
         let alt_prefix = 'file://www.washingtonpost.com/'
         if (stylesheet_link_href.startsWith(alt_prefix)) {stylesheet_link.href = site_data.origin + stylesheet_link_href.substring(alt_prefix.length - 1);}
         alt_prefix = 'file:///'
         if (stylesheet_link_href.startsWith(alt_prefix)) {stylesheet_link.href = site_data.origin + stylesheet_link_href.substring(alt_prefix.length - 1);}
         */
-        for (const prefix of ['file://www.washingtonpost.com/', 'file:///']) {
+        let prefix
+        for (prefix of ['file://www.washingtonpost.com/', 'file:///']) {
           if (stylesheet_link_href.startsWith(prefix)) {
             stylesheet_link.href = site_data.origin + stylesheet_link_href.substring(prefix.length - 1)
             break
           }
         }
 
-        //console.log(stylesheet_link.href)
+        //debug(stylesheet_link.href)
       }
       const $imgs = jQuery('img.unprocessed')
-      console.log(848, 100, $imgs)
-      for (const img of $imgs) {
-        console.log(848, 110, img)
+      debug(848, 100, $imgs)
+      let img
+      for (img of $imgs) {
+        debug(848, 110, img)
         img.src = img.dataset.hiResSrc
         //jQuery(img).css({'filter': 'none', 'webkit-filter': 'none'})
         //jQuery(img).removeClass('unprocessed')
       }
       $imgs.removeClass('unprocessed')
-      for (const img of jQuery('img.lzyld, img.placeholder')) {
+      for (img of jQuery('img.lzyld, img.placeholder')) {
         jQuery(img).css({'padding-top': '0'})
         img.src = img.dataset.hiRes || img.dataset.hiResSrc
       }
-      for (const img of jQuery('img.lazy-image')) {
+      for (img of jQuery('img.lazy-image')) {
         img.src = img.dataset.original + '&w=1200'
       }
       if (page_level === 2) {
         const $elements = jQuery('p span') // For some strange reason this site occasionally has <span style="color: #000000;"> in the middle of a graf, which is invisible on the unmodified site but hides the text under dark_theme.
-        for (const element of $elements) {
+        let element
+        for (element of $elements) {
           const $element = jQuery(element)
           if ($element.attr('style')) {
             //window.e = element
             //document.e = element
             const element_style = element.style
-            //console.log(511, 40, element, element_style, element_style.color)
+            //debug(511, 40, element, element_style, element_style.color)
             if (element_style.color !== '') {
-              //console.log(511, 60)
+              //debug(511, 60)
               element_style.color = '' //'rgb(255, 0, 0)'
             }
           }
         }
-        for (const element of jQuery('article p, article p>i, article p>em')) { // hide interstitial links
+        for (element of jQuery('article p, article p>i, article p>em')) { // hide interstitial links
           const $element = jQuery(element)
           const element_contents = $element.contents()
           if (element_contents.length === 3 && element_contents [0].textContent === '[') $element.hide()
-          //console.log(85, jQuery(element).contents() [0], (jQuery(element).contents() [0].textContent === "["))
+          //debug(85, jQuery(element).contents() [0], (jQuery(element).contents() [0].textContent === "["))
         }
         jQuery('div.inline-content:has([data-slug="a-look-at-president-trumps-first-year-in-office-so-far"])').hide()
       }
@@ -355,9 +373,10 @@ const sites_data = [
     customize () {
       const content_body_element = jQuery('#content-body-')
       const content_body_element_children = content_body_element.children()
-      //console.log(41, content_body_element, content_body_element_children)
+      //debug(41, content_body_element, content_body_element_children)
       //window.c = []
-      for (const content_body_element_child of content_body_element_children) {
+      let content_body_element_child
+      for (content_body_element_child of content_body_element_children) {
         const content_body_element_grandchildren = content_body_element_child.children
         if (content_body_element_grandchildren.length === 1) {
           const content_body_element_grandchild = content_body_element_grandchildren [0]
@@ -368,11 +387,11 @@ const sites_data = [
             }
           }
         }
-        //console.log(45, content_body_element_child, direct_text_content(content_body_element_child), content_body_element_grandchildren)
+        //debug(45, content_body_element_child, direct_text_content(content_body_element_child), content_body_element_grandchildren)
         //if (direct_text_content(content_body_element_child) === '' &&
       }
-      //console.log(47, direct_text_content(content_body_element_children [61]))
-      //console.log(49, direct_text_content(content_body_element_children [62]))
+      //debug(47, direct_text_content(content_body_element_children [61]))
+      //debug(49, direct_text_content(content_body_element_children [62]))
     }
   },
   {
@@ -402,10 +421,10 @@ const sites_data = [
     customize () {
       (function monitor () {
         const titles = jQuery('p[gv-test-id="conversation-title"]')
-        console.log(718, 20, titles, titles.length)
+        debug(718, 20, titles, titles.length)
         if (titles.length) {
           const title_text = titles [0].textContent
-          console.log(718, 30, title_text, title_text.indexOf('Rebecca Rivers'))
+          debug(718, 30, title_text, title_text.indexOf('Rebecca Rivers'))
           let theme_color, theme_color2
           if (title_text.indexOf('Rebecca Rivers') !== -1) {
             theme_color = '#cfc'
@@ -430,6 +449,7 @@ const sites_data = [
     alternate_origins: 'http://www.thedailybeast.com',
     count_words: {append: '.ArticleBody__byline', subject: 'article.Body'},
     article_hide_selector: '.share-icons, .InlineNewsletter',
+    article_theme_background_selector: '.ArticleBody, .ArticlePage',
   },
   {
     name: 'Talking Points Memo',
@@ -462,11 +482,12 @@ const sites_data = [
   {
     name: 'Bloomberg',
     origin: 'https://www.bloomberg.com',
-    article_css: '.lede-text-only__highlight {box-shadow: none} .bb-nav[data-theme=view] {background-color: #600} .wmaster_words_count_total {margin-left: 0.4em} .sticky-container {position: absolute}',
+    article_css: '.lede-text-only__highlight {box-shadow: none} .bb-nav[data-theme=view] {background-color: #600} .wmaster_words_count_total {margin-left: 0.4em} .persist-nav, .sticky-container {position: absolute}',
     article_hide_selector: '#adBlockerContainer, .persist-nav, .sticky-social-buttons, .inline-newsletter',
     article_theme_foreground_selector: '.body-copy, blockquote, .lede-media-image__caption, .lede-text-only__byline',
-    article_theme_selector: '.lede-text-only__highlight',
+    //article_theme_selector: '.lede-text-only__highlight',
     count_words: {append: '.article-timestamp', subject: '.body-copy'},
+    article_theme_background_selector: '.lede-text-only__highlight',
   },
   {
     name: 'FiveThirtyEight',
@@ -488,13 +509,13 @@ const sites_data = [
       const elements_length = elements.length
       /*
       const w = jQuery ('.video-poput-wrap')
-      console.log(455, w)
+      debug(455, w)
       w.remove()
       */
-      //console.log(55, elements)
+      //debug(55, elements)
       if (elements_length === 3) {
         jQuery(elements [0]).addClass('hide')
-        //console.log(56, elements [0])
+        //debug(56, elements [0])
         jQuery(elements [1]).addClass('hide')
       } else {
         console.log(site_data.name + ': warning: expected 3 elements, found:', elements_length)
@@ -646,9 +667,10 @@ const sites_data = [
       //if (location_href.indexOf('?') !== -1) alert(location_href)
       if (page_level === 2) {
         /*
-        //console.log(390, 1, location_href)
-        for (const element of jQuery('body>header')) {
-          //console.log(390, 2, element)
+        //debug(390, 1, location_href)
+        let element
+        for (element of jQuery('body>header')) {
+          //debug(390, 2, element)
         }
         */
       } else {
@@ -731,7 +753,8 @@ const sites_data = [
     customize () {
       //body.css('overflow', 'visible')
       jQuery('aside:has([data-content-kicker="Related"])').hide() // This would be in article_hide_selector, but that fails enigmatically as of 2017-05-30
-      for (const img of jQuery('img[data-baseurl]')) img.src = img.dataset.baseurl
+      let img
+      for (img of jQuery('img[data-baseurl]')) img.src = img.dataset.baseurl
     },
   },
   {
@@ -749,33 +772,34 @@ const sites_data = [
     unwanted_query_fields: 'bn',
     customize () {
       const chunks = jQuery('div[itemprop="articleBody"] p')
-      //console.log(41, chunks)
+      //debug(41, chunks)
       //window.c = []
-      for (const chunk of chunks) {
+      let chunk
+      for (chunk of chunks) {
         const children = chunk.children
         const debug = false
         if (children.length === 1) {
-          if (debug) console.log(42)
+          if (debug) debug(42)
           const child = children [0]
-          if (debug) console.log(43, child)
+          if (debug) debug(43, child)
           if (child.tagName === 'STRONG') {
-            if (debug) console.log(44)
+            if (debug) debug(44)
             const child_text = direct_text_content(child)
-            if (debug) console.log(45, child_text)
+            if (debug) debug(45, child_text)
             if (child_text === '') {
-              if (debug) console.log(46)
+              if (debug) debug(46)
               const grandchildren = child.children
-              if (debug) console.log(47, grandchildren)
+              if (debug) debug(47, grandchildren)
               if (grandchildren.length === 1) {
-                if (debug) console.log(48)
+                if (debug) debug(48)
                 const grandchild = grandchildren [0]
-                if (debug) console.log(49, grandchild)
+                if (debug) debug(49, grandchild)
                 if (grandchild.tagName === 'A') {
-                  if (debug) console.log(50)
+                  if (debug) debug(50)
                   const grandchild_text = direct_text_content(grandchild)
-                  if (debug) console.log(51)
+                  if (debug) debug(51)
                   if (grandchild_text [grandchild_text.length - 1] === '»') {
-                    if (debug) console.log(52)
+                    if (debug) debug(52)
                     jQuery(chunk).addClass('wf_interstitial_link')
                   }
                 }
@@ -783,11 +807,11 @@ const sites_data = [
             }
           }
         }
-        //console.log(45, this, direct_text_content(this), this_children)
+        //debug(45, this, direct_text_content(this), this_children)
         //if (direct_text_content(this) === '' &&
       }
-      //console.log(47, direct_text_content(content_body_element_children [61]))
-      //console.log(49, direct_text_content(content_body_element_children [62]))
+      //debug(47, direct_text_content(content_body_element_children [61]))
+      //debug(49, direct_text_content(content_body_element_children [62]))
     }
   },
   {
@@ -849,13 +873,14 @@ const sites_data = [
   {name: 'Local wayback'          , alternate_prefixes: 'file:///root/wayback/', append_loaded_date: false, count_words_subject: false},
 ]
 const sites_data_by_prefix = {}
-for (const site_data of sites_data) {
+//let site_data
+for (site_data of sites_data) {
   const unwanted_query_fields = site_data.unwanted_query_fields
   let prefixes
   if (site_data.origin) prefixes = [site_data.origin]
   else        prefixes = []
   if (site_data.alternate_origins ) {
-    console.log(746, 50, site_data.alternate_origins)
+    debug(746, 50, site_data.alternate_origins)
     const alternate_origins_split  = site_data.alternate_origins .split(/\s+/)
     site_data.alternate_origins_split  = alternate_origins_split
     prefixes = prefixes.concat(alternate_origins_split )
@@ -865,16 +890,22 @@ for (const site_data of sites_data) {
     site_data.alternate_prefixes_split = alternate_prefixes_split
     prefixes = prefixes.concat(alternate_prefixes_split)
   }
+  if (site_data.alternate_homepages) {
+    const alternate_homepages_split = site_data.alternate_homepages.split(/\s+/)
+    site_data.alternate_homepages_split = alternate_homepages_split
+    prefixes = prefixes.concat(alternate_homepages_split)
+  }
   if (unwanted_query_fields) {
     site_data.unwanted_query_fields_split = unwanted_query_fields.split(/\s+/)
   }
-  //console.log(34, site_data.unwanted_query_fields_split)
-  //console.log(35, prefixes)
-  for (const prefix of prefixes) {
+  //debug(34, site_data.unwanted_query_fields_split)
+  //debug(35, prefixes)
+  let prefix
+  for (prefix of prefixes) {
     if (sites_data_by_prefix.hasOwnProperty(prefix)) console.log('warning: URL prefix "' + prefix + '" is a duplicate!')
     else sites_data_by_prefix [prefix] = site_data
   }
-  //console.log(74, site_data.append_loaded_date)
+  //debug(74, site_data.append_loaded_date)
   if      (!site_data                         .hasOwnProperty('append_loaded_date'       )) site_data.append_loaded_date              = 'body'
   if      (!site_data                         .hasOwnProperty('dark_theme'               )) site_data.dark_theme                      = 1
 
@@ -898,9 +929,9 @@ for (const site_data of sites_data) {
   if      (!site_data                         .hasOwnProperty('remove_fixed_positioning' )) site_data.remove_fixed_positioning        = {}
   else if ( site_data.remove_fixed_positioning === false                                  ) site_data.remove_fixed_positioning        = {enable: false}
   if      (!site_data.remove_fixed_positioning.hasOwnProperty('enable'                   )) site_data.remove_fixed_positioning.enable = true
-    //console.log(76, site_data.append_loaded_date)
+    //debug(76, site_data.append_loaded_date)
 }
-  //console.log(36, sites_data_by_prefix)
+  //debug(36, sites_data_by_prefix)
   //window.sites_data = sites_data
 //console.table(sites_data)
 
@@ -1089,7 +1120,7 @@ function makeRequest (url) {
 /* eslint-enable no-unused-vars */
   var result = {}
   result.url = url
-  console.log(221, 10, url)
+  debug(221, 10, url)
   return new Promise(function (resolve, reject) {
     var xhr = new XMLHttpRequest()
     xhr.responseType = 'arraybuffer'
@@ -1108,7 +1139,7 @@ function makeRequest (url) {
         result.status = this.status
         result.statusText = this.statusText
         resolve(result)
-        console.log(221, 50, url)
+        debug(221, 50, url)
       } else {
         result.cssraw = ''
         result.status = this.status
@@ -1148,7 +1179,7 @@ function add_getMatchedCSSRules_to_window () {
       // if this sheet's media is specified and doesn't match the viewport then skip it
     if (sheet_media && sheet_media.length && !window.matchMedia(sheet_media).matches) return []
       // get the style rules of this sheet
-      //console.log(294, stylesheet)
+      //debug(294, stylesheet)
     const raw_rules = stylesheet.cssRules
     if (typeof raw_rules === 'undefined' || raw_rules === null) return []
     return Array.from(stylesheet.cssRules)
@@ -1240,14 +1271,14 @@ function add_getMatchedCSSRules_to_window () {
     else if (element.     oMatchesSelector) result = element.     oMatchesSelector(selector)
     else if (element.    msMatchesSelector) result = element.    msMatchesSelector(selector)
     else throw new Error('no matcher function found')
-    console.log(380, 10, element, selector, result)
+    debug(380, 10, element, selector, result)
   }
 
     //TODO: not supporting 2nd argument for selecting pseudo elements
     //TODO: not supporting 3rd argument for checking author style sheets only
 
   function ajax_data_handler (jqXHR, textStatus) {
-    console.log(380, 44, jqXHR, textStatus)
+    debug(380, 44, jqXHR, textStatus)
   }
 
   wf_getMatchedCSSRules = element => {
@@ -1258,39 +1289,39 @@ function add_getMatchedCSSRules_to_window () {
     var result = []
       // get stylesheets and convert to a regular Array
     style_sheets = Array.from(window.document.styleSheets)
-    console.log(380, 20, element, style_sheets)
+    debug(380, 20, element, style_sheets)
 
       // assuming the browser hands us stylesheets in order of appearance
       // we iterate them from the beginning to follow proper cascade order
     while (true) {
       sheet = style_sheets.shift()
-      console.log(380, 30, sheet)
+      debug(380, 30, sheet)
       if (!sheet) break
         // get the style rules of this sheet
       rules = getSheetRules(sheet)
       if (rules.length) {
-        console.log(380, 40, rules)
+        debug(380, 40, rules)
       } else {
-        console.log(380, 45, rules)
+        debug(380, 45, rules)
         jQuery.ajax(sheet.href, {complete: ajax_data_handler, type: 'GET'})
       }
       while (true) {                   // loop the rules in order of appearance
         rule = rules.shift()
-        console.log(380, 50, rule)
+        debug(380, 50, rule)
         if (!rule) break
           // if this is an @import rule
         const rule_sheet = rule.styleSheet
-        console.log(380, 55)
+        debug(380, 55)
         if (rule_sheet) {
-          console.log(380, 60, rule_sheet)
+          debug(380, 60, rule_sheet)
           rules = getSheetRules(rule_sheet).concat(rules)            // insert the imported stylesheet's rules at the beginning of this stylesheet's rules
           continue                                                   // and skip this rule
         } else if (rule.media) {                           // if there's no stylesheet attribute BUT there IS a media attribute it's a media rule
-          console.log(380, 70, rule.media)
+          debug(380, 70, rule.media)
           rules = getSheetRules(rule).concat(rules)            // insert the contained rules of this media rule to the beginning of this stylesheet's rules
           continue                                          // and skip it
         }
-        console.log(380, 75)
+        debug(380, 75)
         const rule_selectorText = rule.selectorText
         if (rule_selectorText && matchesSelector(element, rule_selectorText)) { // check if this element matches this rule's selector
           result.push(rule) // push the rule to the results set
@@ -1302,161 +1333,170 @@ function add_getMatchedCSSRules_to_window () {
   }
   document.wf_getMatchedCSSRules = wf_getMatchedCSSRules
   window.wf_getMatchedCSSRules = wf_getMatchedCSSRules
-  console.log(380, 160)
+  debug(380, 160)
   getMatchedCSSRules = window.getMatchedCSSRules
   if (typeof getMatchedCSSRules === 'function') {
-    console.log(380, 170)
+    debug(380, 170)
     window.native_getMatchedCSSRules = getMatchedCSSRules
     document.native_getMatchedCSSRules = getMatchedCSSRules
   } else {
-    console.log(380, 180)
+    debug(380, 180)
     getMatchedCSSRules = window.wf_getMatchedCSSRules
     window.getMatchedCSSRules = getMatchedCSSRules
   }
   document.getMatchedCSSRules = getMatchedCSSRules
-  console.log(380, 190)
+  debug(380, 190)
 }
 
 
 function regularize_links (my_window = window, my_origin) {
 
-  const logging = true
   let url
-  if (logging) console.log(394, 10, my_origin)
+  debug(394, 10, my_origin)
   const anchors = my_window.jQuery('a')
-  for (const [anchor_index, anchor] of Array.from(anchors).entries()) {
-    if (logging) console.log(394, 20, anchor)
+  let anchor_index
+  let anchor
+  for ([anchor_index, anchor] of Array.from(anchors).entries()) {
+    debug(394, 20, anchor)
     let old_href = anchor.href
     if (old_href.startsWith('/')) {
-      if (logging) console.log(394, 30, old_href)
+      debug(394, 30, old_href)
       if (my_origin) {
         old_href = my_origin + old_href
-        if (logging) console.log(394, 32, old_href)
+        debug(394, 32, old_href)
       } else {
         old_href = my_window.location.origin + old_href
-        if (logging) console.log(394, 34, old_href)
+        debug(394, 34, old_href)
       }
-      if (logging) console.log(394, 37)
+      debug(394, 37)
       anchor.href = old_href
     }
     if (!old_href) continue
     try {
-      if (logging) console.log(394, 40)
+      debug(394, 40)
       url = new my_window.URL(old_href)
     } catch (error) {
-      if (logging) console.log(394, 50)
+      debug(394, 50)
       if (error instanceof TypeError) {
-        if (logging) console.log(394, 60)
+        debug(394, 60)
         continue
       } else {
-        if (logging) console.log(394, 70)
+        debug(394, 70)
         throw error
       }
     }
     //my_window.jQuery.data(anchor, 'url_object', url)
     //anchor.url_object = url
-    if (logging) console.log(394, 80, anchor_index, url, url.href)
+    debug(394, 80, anchor_index, url, url.href)
     //if (typeof href === 'undefined') return
     const origin = anchor.origin
     const site_data = sites_data_by_prefix [origin]
-    if (logging) console.log(394, 85) //, origin, site_data)
+    debug(394, 85) //, origin, site_data)
     if (!site_data) continue
     const unwanted_query_fields_split = site_data.unwanted_query_fields_split
-    if (logging) console.log(394, 87) //, unwanted_query_fields_split)
+    debug(394, 87) //, unwanted_query_fields_split)
     if (!unwanted_query_fields_split) continue
     //const unwanted_query_fields_split_length = unwanted_query_fields_split.length
     const query_string_index = old_href.indexOf('?')
-    if (logging) console.log(394, 89, query_string_index)
+    debug(394, 89, query_string_index)
     if (query_string_index !== -1) {
-      if (logging) console.log('394, 90')
+      debug('394, 90')
       //let query_string = old_href.substring(query_string_index); // the query string without the '?' that delimits it
       let query_string = url.search
       //let new_href = old_href.substring(0, query_string_index); // the url without the query string or the '?' that delimits it
       const query_params = url.searchParams
-      if (logging) console.log(394, 100, query_params.toString())
-      for (const field of unwanted_query_fields_split) {
+      debug(394, 100, query_params.toString())
+      let field
+      for (field of unwanted_query_fields_split) {
         query_params.delete(field)
-        if (logging) console.log(394, 110, field, query_params.toString())
+        debug(394, 110, field, query_params.toString())
       // BUG: would be nice to break if query_params is empty
       }
-      if (logging) console.log(394, 120, query_params.toString())
+      debug(394, 120, query_params.toString())
       query_string = query_params.toString()
-      if (logging) console.log(394, 130, query_string)
+      debug(394, 130, query_string)
       //if (query_string.length) new_href += '?' + query_string
       //anchor.href = new_href
       url.search = query_string
       anchor.href = url.href
     }
-    if (logging) console.log(394, 140, anchor.href)
+    debug(394, 140, anchor.href)
   }
-  console.log(394, 200, anchors.length)
+  debug(394, 200, anchors.length)
   return anchors
 }
 
 function href_to_site_data (href) {
   const href_origin = new URL(href).origin
-  console.log(225, 10, href)
-  for (const test_site_data of sites_data) {
+  let result
+  debug(225, 10, href)
+  let test_site_data
+  for (test_site_data of sites_data) {
     const test_site_origin = test_site_data.origin
-    console.log(225, 30, test_site_data.name, href_origin, test_site_origin)
+    debug(225, 30, test_site_data.name, href_origin, test_site_origin)
     if (!test_site_origin) continue
+    debug(225, 35)
     if (test_site_origin.endsWith('/')) console.log('wmaster: warning: origin "' + test_site_origin + '" ends in a slash')
+    debug(225, 36)
     if (test_site_origin && href_origin === test_site_origin) {
-      console.log(225, 40)
+      debug(225, 40)
+      result = test_site_data
       if (href === href_origin + '/') {
-        console.log(225, 50)
-        site_data = test_site_data
+        debug(225, 50)
         page_level = 0
-        break
+      } else {
+        debug(225, 60)
+        page_level = 2
       }
+      break
     }
-    //console.log(225, 50, site_data)
-    console.log(225, 100)
+    debug(225, 100, result)
+    let alternate
     if (test_site_data.alternate_homepages) {
-      console.log(225, 110)
-      for (const alternate of test_site_data.alternate_homepages) {
-        console.log(225, 120, href, alternate)
+      debug(225, 110)
+      for (alternate of test_site_data.alternate_homepages_split) {
+        debug(225, 120, href, alternate)
         if (href === alternate) {
-          console.log(225, 130)
-          site_data = test_site_data
+          debug(225, 130)
+          result = test_site_data
           page_level = 0
-        //console.log(92.6)
           break
         }
       }
-      if (site_data) break
+      if (result) break
     }
-    console.log(225, 200, href_origin, test_site_data.origin)
+    debug(225, 200, href_origin, test_site_data.origin)
     if (test_site_data.origin && href_origin === test_site_data.origin) {
-      console.log(225, 210)
-      site_data = test_site_data
+      debug(225, 210)
+      result = test_site_data
       page_level = 2
       break
     }
-    console.log(225, 300)
+    debug(225, 300)
     if (test_site_data.alternate_prefixes) {
-      console.log(225, 310)
-      for (const alternate of test_site_data.alternate_prefixes_split) {
-        console.log(225, 320, alternate)
+      debug(225, 310)
+      for (alternate of test_site_data.alternate_prefixes_split) {
+        debug(225, 320, alternate)
         if (href.startsWith(alternate) && href !== alternate) {
-          console.log(225, 330)
-          site_data = test_site_data
+          debug(225, 330)
+          result = test_site_data
           page_level = 0
           break
         }
       }
-      if (site_data) break
+      debug(225, 340, result)
+      if (result) break
     }
-    console.log(225, 400)
+    debug(225, 400)
     if (test_site_data.alternate_origins) {
-      console.log(225, 410)
-      for (const alternate of test_site_data.alternate_origins_split) {
-        console.log(225, 420, alternate)
+      debug(225, 410)
+      for (alternate of test_site_data.alternate_origins_split) {
+        debug(225, 420, alternate)
 
-      //console.log(81, alternate, href_origin, href)
+      //debug(81, alternate, href_origin, href)
         if (href.startsWith(alternate)) {
-          console.log(225, 430)
-          site_data = test_site_data
+          debug(225, 430)
+          result = test_site_data
           if (href === alternate) {
             page_level = 1
           } else {
@@ -1465,11 +1505,11 @@ function href_to_site_data (href) {
           break
         }
       }
-      if (site_data) break
+      if (result) break
     }
-    console.log(225, 500)
+    debug(225, 500)
   }
-  return site_data
+  return result
 }
 
 if (is_node) {
@@ -1488,27 +1528,30 @@ if (is_node) {
     //const $main_dialog_word_count                 = jQuery('#' + main_dialog_word_count_id)
     //const $main_dialog_close                      = jQuery('#' + main_dialog_close_id)
     const $main_dialog_cli                        = jQuery('#' + main_dialog_cli_id)
+    debug(382, 20, $main_dialog_cli)
     //$main_dialog.hide()
     $main_dialog_cli.terminal((command) => {
       const parsed_command = jQuery.terminal.parse_command(command)
-      console.log(382, 30, command, parsed_command)
+      debug(382, 30, command, parsed_command)
       const parsed_command_name = parsed_command.name
       const parsed_command_args = parsed_command.args
       const parsed_command_args_0 = parsed_command_args [0]
+      let element
       if (parsed_command_name === 'fp') {
         const $fixed_or_sticky_elements = jQuery('*').filter((index, element) => {
           const position = jQuery(element).css('position')
           return position === 'fixed' || position === 'sticky'
         })
-        console.log(382, 40, $fixed_or_sticky_elements)
-        for (const element of $fixed_or_sticky_elements) {
+        debug(382, 40, $fixed_or_sticky_elements)
+        for (element of $fixed_or_sticky_elements) {
           const matched_rules = wf_getMatchedCSSRules(element)
-          console.log(382, 50, element, matched_rules)
+          debug(382, 50, element, matched_rules)
+          let rule
           if (matched_rules) {
-            for (const rule of matched_rules) {
-              console.log(382, 60, rule)
+            for (rule of matched_rules) {
+              debug(382, 60, rule)
               if (rule.style.position === 'fixed' || rule.style.position === 'sticky') {
-                console.log(382, 70, rule)
+                debug(382, 70, rule)
                 rule.style.position = ''
               }
             }
@@ -1519,16 +1562,16 @@ if (is_node) {
           $fixed_or_sticky_elements.not($main_dialog).remove()
         }
       } else  if (parsed_command_name === 'pp') {
-        console.log(382, 80, parsed_command_args_0)
+        debug(382, 80, parsed_command_args_0)
         process_page()
       } else  if (parsed_command_name === 'wa') {
-        console.log(382, 85, parsed_command_args_0)
+        debug(382, 85, parsed_command_args_0)
         if (parsed_command_args_0 !== '') {
           throw new Error('args not implemented')
         }
 
       } else  if (parsed_command_name === 'wc') {
-        console.log(382, 90, parsed_command_args_0)
+        debug(382, 90, parsed_command_args_0)
         if (parsed_command_args_0 !== '') {
           site_data.count_words.grafs = parseInt(parsed_command_args_0)
         }
@@ -1552,7 +1595,7 @@ if (is_node) {
 
     function dark_theme (aggressiveness_level) { //, target) {
       //body.css({'background-color': '' + theme_background_color + ' !important; color: ' + theme_foreground_color + ' !important'})
-      console.log(847, 'dark_theme_' + aggressiveness_level)
+      debug(847, 'dark_theme_' + aggressiveness_level)
       $body.addClass('dark_theme dark_theme_' + aggressiveness_level)
       if (!aggressiveness_level) return
       if (aggressiveness_level > 1) document.styleSheets[0].addRule('*', 'background-color: ' + theme_background_color + ' !important; color: ' + theme_foreground_color + ' !important')
@@ -1575,18 +1618,19 @@ if (is_node) {
       let visited_and_sub_element_selector = visited_selector
       if (extra_sub_element_selectors) sub_element_tags_str += ' ' + extra_sub_element_selectors
       const sub_element_tags = sub_element_tags_str.split(/\s+/)
-      console.log(387, 30, sub_element_tags_str, sub_element_tags)
-      for (const sub_element_tag of sub_element_tags) {
+      debug(387, 30, sub_element_tags_str, sub_element_tags)
+      let sub_element_tag
+      for (sub_element_tag of sub_element_tags) {
         link_and_sub_element_selector    += ',' +    link_selector + ' ' + sub_element_tag
         visited_and_sub_element_selector += ',' + visited_selector + ' ' + sub_element_tag
-        console.log(387, 40, link_and_sub_element_selector)
+        debug(387, 40, link_and_sub_element_selector)
       }
       link_and_sub_element_selector    += '{color:' +         theme_link_foreground_color + '}'
       visited_and_sub_element_selector += '{color:' + theme_link_visited_foreground_color + '}'
       const new_css = ' a {text-decoration: none}' + link_and_sub_element_selector + '{color:' + theme_link_foreground_color + '}' + visited_and_sub_element_selector + '{color:' + theme_link_visited_foreground_color + '}'
-      console.log(387, 60, new_css)
+      debug(387, 60, new_css)
       raw_site_css += new_css
-      console.log(387, 70, raw_site_css)
+      debug(387, 70, raw_site_css)
     }
 
     function count_words (site_data) {
@@ -1626,14 +1670,15 @@ if (is_node) {
         throw new Error('unrecognized subject type: ' + raw_subject)
       }
       jQuery('.' + words_count_name).remove()
-
-      for (const subject_selector of subject_selectors) {
+      let subject_selector
+      for (subject_selector of subject_selectors) {
         const $subject_elements      = jQuery(subject_selector)
-        console.log(192, 10, subject_selector, $subject_elements)
+        debug(192, 10, subject_selector, $subject_elements)
         let grafs = jQuery('')
         total_words_count_by_selector.push(0)
         let graf_containers = []
-        for (const element of $subject_elements) {
+        let element
+        for (element of $subject_elements) {
           if (element.tagName === 'P' || element.tagName === 'LI') {
             grafs = grafs.add(element)
             all_grafs = all_grafs.add(element)
@@ -1641,48 +1686,53 @@ if (is_node) {
             graf_containers.push(element)
           }
         }
-        console.log(192, 20, JSON.stringify(Array.from(grafs)), grafs.size)
+        debug(192, 20, JSON.stringify(Array.from(grafs)), grafs.size)
         const contained_grafs = jQuery(graf_containers).find('p, li')
-        console.log(192, 30, contained_grafs, contained_grafs.length)
-        for (const contained_graf of contained_grafs) {
-          console.log(192, 40, contained_graf, grafs)
+        debug(192, 30, contained_grafs, contained_grafs.length)
+        let contained_graf
+        for (contained_graf of contained_grafs) {
+          debug(192, 40, contained_graf, grafs)
           grafs = grafs.add(contained_graf)
-          console.log(192, 50, grafs)
+          debug(192, 50, grafs)
           all_grafs = all_grafs.add(contained_graf)
         }
         //grafs = grafs.concat(contained_grafs)
-        console.log(192, 60, grafs)
+        debug(192, 60, grafs)
         //BUG: set arithmetic: here we would add all the elements of grafs to all_grafs -- if the language had a built-in way to do so. Since it doesn't, we have maintained all_grafs as we went along.
         grafs_by_selector [subject_selector] = grafs
       }
-      console.log(192, 70, grafs_by_selector)
-      for (const graf of all_grafs) {
+      debug(192, 70, grafs_by_selector)
+      let graf
+      for (graf of all_grafs) {
         let $graf = jQuery(graf)
         let graf_text = $graf.text()
+        let word
         if (graf_text.length) {
           const graf_text_split = graf_text.split(/\s+/)
-          console.log(192, 73, graf_text, graf_text_split)
+          debug(192, 73, graf_text, graf_text_split)
           let graf_words_count = 0
-          for (const word of graf_text_split) {
-            console.log(192, 75, word)
+          for (word of graf_text_split) {
+            debug(192, 75, word)
             if (word) {
-              console.log(192, 76)
+              debug(192, 76)
               graf_words_count++
             }
           }
-          console.log(192, 78, graf_words_count)
+          debug(192, 78, graf_words_count)
           $graf.data(graf_words_count_name, graf_words_count)
           total_words_count += graf_words_count
-          for (const [subject_selector_index, subject_selector] of subject_selectors.entries()) {
-            console.log(192, 80, graf, subject_selector, grafs_by_selector [subject_selector])
+          let subject_selector_index
+          let subject_selector
+          for ([subject_selector_index, subject_selector] of subject_selectors.entries()) {
+            debug(192, 80, graf, subject_selector, grafs_by_selector [subject_selector])
             if (jQuery.inArray(graf, grafs_by_selector [subject_selector]) !== -1) {
-              console.log(192, 90)
+              debug(192, 90)
               total_words_count_by_selector [subject_selector_index] += graf_words_count
             }
           }
         }
       }
-      console.log(192, 110, total_words_count, total_words_count_by_selector)
+      debug(192, 110, total_words_count, total_words_count_by_selector)
       let chosen_subject_selector_index, chosen_subject_selector, chosen_words_count
       for ([chosen_subject_selector_index, chosen_subject_selector] of subject_selectors.entries()) {
         chosen_words_count = total_words_count_by_selector [chosen_subject_selector_index]
@@ -1690,15 +1740,16 @@ if (is_node) {
       }
       let chosen_grafs = grafs_by_selector [chosen_subject_selector]
       let chosen_words_count2 = 0
-      console.log(192, 120, grafs_by_selector, chosen_grafs)
+      debug(192, 120, grafs_by_selector, chosen_grafs)
       if (show_graf_counts) {
         const verbose = show_graf_counts > 1
         html_graf_prefix = html_prefix + graf_words_count_name + '">' + settings.graf_prefix
         let graf_index = 1
-        for (const graf of all_grafs) {
+        let graf
+        for (graf of all_grafs) {
           let $graf = jQuery(graf)
           let new_html = html_graf_prefix
-          console.log(192, 130, new_html)
+          debug(192, 130, new_html)
           const is_chosen = jQuery.inArray(graf, chosen_grafs) !== -1
           const graf_words_count = $graf.data(graf_words_count_name)
           if (is_chosen) {
@@ -1711,43 +1762,44 @@ if (is_node) {
               }
             }
           }
-          console.log(192, 140, new_html)
+          debug(192, 140, new_html)
           if (typeof graf_words_count !== 'undefined') {
             if (is_chosen) {
               new_html += graf_words_count + html_infix
-              console.log(192, 150, graf_words_count, new_html)
+              debug(192, 150, graf_words_count, new_html)
               chosen_words_count2 += graf_words_count
               if (verbose) new_html += ' (' + chosen_words_count2 + ' total)'
             } else {
               if (verbose) new_html += graf_words_count + uncounted_html_infix
             }
-            console.log(192, 160, chosen_words_count2, new_html)
+            debug(192, 160, chosen_words_count2, new_html)
           }
           new_html += html_suffix
-          console.log(192, 170, new_html)
+          debug(192, 170, new_html)
           $graf.append(new_html)
         }
-        console.log(192, 175, chosen_words_count, chosen_words_count2)
+        debug(192, 175, chosen_words_count, chosen_words_count2)
         if (chosen_words_count2 !== chosen_words_count) throw new Error(`chosen_words_count=${chosen_words_count}, chosen_words_count2=${chosen_words_count2}`) // if (chosen_words_count2 !== chosen_words_count) throw new Error('chosen_words_count=' + chosen_words_count + ', chosen_words_count2=' + chosen_words_count2)
       }
       const output = html_prefix + total_words_count_name + '">' + settings.total_prefix + chosen_words_count + html_infix + html_suffix
-      console.log(192, 176, output, append_selector)
+      debug(192, 176, output, append_selector)
+      let append_element
       if (append_selector) {
-        console.log(192, 177, $append_elements)
-        for (const append_element of $append_elements) {
-          console.log(192, 180, append_element, append_element.className, output)
+        debug(192, 177, $append_elements)
+        for (append_element of $append_elements) {
+          debug(192, 180, append_element, append_element.className, output)
           jQuery(append_element).append(output)
         }
-        console.log(192, 190, append_selector, $append_elements)
+        debug(192, 190, append_selector, $append_elements)
       } else if (!prepend_selector) {
         prepend_selector = 'body'
         $prepend_elements = jQuery(prepend_selector)
       }
       if (prepend_selector) {
         $prepend_elements.prepend(output)
-        console.log(192, 200, prepend_selector, $prepend_elements)
+        debug(192, 200, prepend_selector, $prepend_elements)
       }
-      console.log(192, 220, nbsp_size)
+      debug(192, 220, nbsp_size)
       if (show_graf_counts) raw_site_css += '.' +  graf_words_count_name + ' {color: #333}'
       raw_site_css                       += '.' + total_words_count_name + ' {color: #880} .' + total_words_count_name + '>.nbsp {font-size: ' + nbsp_size + '}'
     }
@@ -1761,13 +1813,14 @@ if (is_node) {
 
     function remove_fixed_positioning (site_data) {
       const settings = site_data.remove_fixed_positioning
-      console.log('remove_fixed_positioning: called with settings: ' + settings)
+      debug('remove_fixed_positioning: called with settings: ' + settings)
       if (!settings.enable) return
-      for (const element of jQuery('*').not($main_dialog)) {
+      let element
+      for (element of jQuery('*').not($main_dialog)) {
         const $element = jQuery(element)
         const old_position = $element.css('position')
         if (old_position === 'fixed' || old_position === 'sticky') {
-          //console.log('remove_fixed_positioning:', element)
+          //debug('remove_fixed_positioning:', element)
           $element.css({'position': 'absolute'})
         }
       }
@@ -1775,33 +1828,33 @@ if (is_node) {
 
     //main code starts here
 
-    //console.log(91)
+    //debug(91)
     function process_page () {
 
       const site_data = href_to_site_data(location_href)
+      debug(846, 10, location_href, site_data)
       if (site_data) {
         console.log('wmaster: ' + site_data.name + ' detected')
         if (site_data.customize) site_data.customize()
-        console.log(231, hide_selector, location, site_data.name)
-        //console.log(48.1, theme_foreground_selector)
+        debug(846, 30, hide_selector, location, site_data.name)
+        //debug(48.1, theme_foreground_selector)
         if (site_data.css) raw_site_css += site_data.css
         std_link_colors(site_data)
-        console.log(44, site_data)
+        debug(846, 50, site_data)
         regularize_links()
         const unwanted_classes = site_data.unwanted_classes
-        //console.log(14, site_data)
+        let unwanted_class
         if (unwanted_classes) {
           const unwanted_classes_split = unwanted_classes.split(/\s+/)
-          //jQuery.each(unwanted_classes_split, function(unwanted_class_index, unwanted_class) {
-          for (const unwanted_class of unwanted_classes_split) {
+          for (unwanted_class of unwanted_classes_split) {
             if (!unwanted_class.length) continue
-            //console.log(15, jQuery('.' + unwanted_class))
+            //debug(846, 80, jQuery('.' + unwanted_class))
             jQuery('.' + unwanted_class).removeClass(unwanted_class)
           }
         }
         remove_fixed_positioning(site_data)
         if (site_data.append_loaded_date) append_loaded_date(jQuery(site_data.append_loaded_date))
-        console.log(253, theme_foreground_selector)
+        debug(846, 100, theme_foreground_selector)
         if   (site_data.         theme_selector           ) theme_selector           .push(site_data.         theme_selector           )
         if   (site_data.         theme_background_selector) theme_background_selector.push(site_data.         theme_background_selector)
         if   (site_data.         theme_foreground_selector) theme_foreground_selector.push(site_data.         theme_foreground_selector)
@@ -1821,33 +1874,34 @@ if (is_node) {
           if (site_data. article_css                      ) raw_site_css += ' ' +          site_data. article_css
           count_words(site_data)
         }
-        //console.log(233, hide_selector, page_level)
-        //console.log(243, raw_site_css)
-        //console.log(46, site_data.article_hide_selector)
-        console.log(846, 5, page_level, site_data.article_theme_background_selector, theme_background_selector)
-        console.log(846, 10, site_data.dark_theme)
+        //debug(233, hide_selector, page_level)
+        //debug(243, raw_site_css)
+        //debug(46, site_data.article_hide_selector)
+        debug(846, 120, page_level, site_data.article_theme_background_selector, theme_background_selector)
+        debug(846, 130, site_data.dark_theme)
         dark_theme(site_data.dark_theme)
-        console.log(846, 20, theme_foreground_selector)
+        debug(846, 140, theme_foreground_selector)
         if (hide_selector            .length) raw_site_css += hide_selector                       + '{display: none}'
         if ($body.hasClass('dark_theme_1') || $body.hasClass('dark_theme_2')) {
           if (theme_selector           .length) raw_site_css += theme_selector           .join(',') + '{' + theme_background_rule + theme_foreground_rule + '}'
           if (theme_background_selector.length) raw_site_css += theme_background_selector.join(',') + '{' + theme_background_rule + '}'
           if (theme_foreground_selector.length) raw_site_css += theme_foreground_selector.join(',') + '{' + theme_foreground_rule + '}'
         }
-        console.log(846, 30, raw_site_css, cooked_site_css)
+        debug(846, 150, raw_site_css, cooked_site_css)
         const raw_site_css_split = raw_site_css.split('}')
-        console.log(846, 60, raw_site_css_split)
-        for (const rule of raw_site_css_split) {
-          console.log(846, 70, rule)
+        debug(846, 160, raw_site_css_split)
+        let rule
+        for (rule of raw_site_css_split) {
+          debug(846, 170, rule)
           if (!rule) break
           const rule_split = rule.split('{')
           const declarations = rule_split [1]
           const declarations_split = declarations.split(';')
-          console.log(846, 80, declarations, declarations_split)
+          debug(846, 180, declarations, declarations_split)
           let rule_text = rule_split [0] + ' {'
           let declaration_index = 0
-          for (const declaration of declarations_split) {
-            console.log(846, 90, declaration_index, declaration)
+          for (var declaration of declarations_split) {
+            debug(846, 190, declaration_index, declaration)
             if (declaration) {
               if (declaration_index) rule_text += '; '
               rule_text += jQuery.trim(declaration) + ' !important'
@@ -1855,12 +1909,12 @@ if (is_node) {
             declaration_index++
           }
           rule_text += '}'
-          console.log(846, 100, rule_text)
+          debug(846, 200, rule_text)
           cooked_site_css += ' ' + rule_text
         }
         const stylesheet = document.createElement('style')
         stylesheet.innerHTML = cooked_site_css
-        console.log(846, 110, cooked_site_css)
+        debug(846, 210, cooked_site_css)
         document.body.appendChild(stylesheet)
         window.sss = stylesheet
         window.f = jQuery('textarea')
@@ -1870,33 +1924,33 @@ if (is_node) {
 
     function open_main_dialog () {
 
-      console.log(475, 10, document.hasFocus())
+      debug(475, 10, document.hasFocus())
       if (!main_dialog_is_open) {
-        console.log(475, 15)
+        debug(475, 15)
         $main_dialog.show()
-        console.log(475, 20, document.hasFocus())
+        debug(475, 20, document.hasFocus())
         main_dialog_is_open = true
       }
-      console.log(475, 30, document.hasFocus())
+      debug(475, 30, document.hasFocus())
       $main_dialog_cli_textarea.focus()
-      console.log(475, 40, document.hasFocus())
+      debug(475, 40, document.hasFocus())
     }
 
 
     function close_main_dialog () {
 
-      console.log(475, 43, document.hasFocus())
+      debug(475, 43, document.hasFocus())
       $main_dialog.hide()
-      console.log(475, 45, document.hasFocus())
+      debug(475, 45, document.hasFocus())
       //$main_dialog.blur()
-      console.log(475, 47, document.hasFocus())
+      debug(475, 47, document.hasFocus())
       $body.click() // BUG: is there a better way to get focus back to where is was when the page was first loaded, so that the arrow keys scroll the page?
-      console.log(475, 48, document.hasFocus())
+      debug(475, 48, document.hasFocus())
 
       // Remove focus from any focused element
       if (document.activeElement) {
         document.activeElement.blur()
-        console.log(475, 49, document.hasFocus())
+        debug(475, 49, document.hasFocus())
       }
       main_dialog_is_open = false
     }
@@ -1909,8 +1963,8 @@ if (is_node) {
         var event = event1 || window.event // for IE to cover IEs window object
         if (event.which === 192) { // grave accent -- open main dialog
           open_main_dialog()
-          console.log(475, 50)
-          console.log(475, 55)
+          debug(475, 50)
+          debug(475, 55)
           //console.log('wmaster: reprocessing page')
           //process_page()
           return false
@@ -1927,11 +1981,11 @@ if (is_node) {
       }
 
       $main_dialog_cli.on('keydown', event => {
-        console.log(475, 60)
+        debug(475, 60)
         if (event.which === 13) {
-          console.log(475, 65)
+          debug(475, 65)
         } else if (event.which === 27) {
-          console.log(475, 70)
+          debug(475, 70)
           close_main_dialog()
         }
       })
