@@ -167,7 +167,7 @@ const sites_data = [
     theme_selector: 'body, #masthead, .searchsubmit', // NYT dark theme
     css: '.story.theme-main .story-meta-footer {border-top: none; border-bottom: none}',
     dark_theme: 1, // to turn this off, change the 1 to a 0 and comment out all other lines that are commented "NYT dark theme"
-    unwanted_query_fields: 'action clickSource contentCollection contentPlacement hp module pgtype _r ref region rref smid smtyp src version WT.nav WT.z_jog hF vS utm_campaign utm_content utm_medium utm_source t target mcubz gwh gwt mtrref',
+    unwanted_query_fields: 'action clickSource comments contentCollection contentPlacement hp module pgtype _r ref region rref smid smtyp src version WT.nav WT.z_jog hF vS utm_campaign utm_content utm_medium utm_source t target mcubz gwh gwt mtrref',
     unwanted_classes: 'theme-pinned-masthead',
     //url_to_data_filename: {year_index: 3, segments_used: 6},
     wayback: {targets: {nytimes: '/', nytimes_todayspaper: '/pages/todayspaper/index.html', nytimes_nyregion: '/pages/nyregion/index.html'}},
@@ -1831,7 +1831,7 @@ if (is_node) {
     //debug(91)
     function process_page () {
 
-      const site_data = href_to_site_data(location_href)
+      site_data = href_to_site_data(location_href)
       debug(846, 10, location_href, site_data)
       if (site_data) {
         console.log('wmaster: ' + site_data.name + ' detected')
