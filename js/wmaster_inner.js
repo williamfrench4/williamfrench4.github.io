@@ -140,7 +140,7 @@ const sites_data = [
   {
     name: 'New York Times',
     origin: 'https://www.nytimes.com',
-    alternate_origins: 'https://cooking.nytimes.com https://douthat.blogs.nytimes.com https://krugman.blogs.nytimes.com https://kristof.blogs.nytimes.com https://well.blogs.nytimes.com https://lens.blogs.nytimes.com https://www.nytimes.com/section/magazine https://mobile.nytimes.com',
+    alternate_origins: 'https://cooking.nytimes.com https://douthat.blogs.nytimes.com https://krugman.blogs.nytimes.com https://kristof.blogs.nytimes.com https://well.blogs.nytimes.com https://lens.blogs.nytimes.com https://www.nytimes.com/section/magazine https://mobile.nytimes.com https://dinersjournal.blogs.nytimes.com',
     alternate_prefixes: 'file:///root/wayback/nytimes/ file:///root/wayback/nytimes_todayspaper/',
     count_words: {append: '.byline:last-of-type, .byline-column, ' + selector_for_elements_with_a_class_that_starts_with('Byline-bylineAuthor--'), prefix: ' ', subject: ['.story-body-text, .g-body', '.story-body', '#story'], grafs: 0},
     article_theme_selector: 'input, textarea, .columnGroup', // NYT dark theme
@@ -248,7 +248,7 @@ const sites_data = [
     alternate_prefixes: 'file:///root/wayback/guardian_uk/',
     alternate_homepages: 'https://www.theguardian.com/us https://www.theguardian.com/uk',
     append_loaded_date: 'footer.l-footer',
-    count_words: {append: '.content__dateline, .content__standfirst', subject: '.content__article-body'},
+    count_words: {append: '.content__dateline, .content__standfirst', subject: '.content__article-body, .content__main-column--interactive'},
     article_css: '.js-headline-text {font-weight: normal} p {line-height: 170%} a {border-bottom: none} figure.element-tweet {margin-right: 4rem} .tweet {font-family: sans-serif} img.byline-img__img {background: transparent} .content {padding-bottom: 0} div.explainer {background-color: #00252f; border: 1px solid ' + theme_foreground_color + '} .signposting {border-right-width:0} .tabs__tab {border-top: 0.0625rem solid #aaa} .content__article-body {font-family: Adobe Caslon Pro; font-size: 109%}' +
       'a:link[data-link-name="auto-linked-tag"] {color:'    +         theme_autolink_foreground_color +    '} a:link:hover[data-link-name="auto-linked-tag"] {color:' +         theme_link_foreground_color + '}' +
       'a:visited[data-link-name="auto-linked-tag"] {color:' + theme_autolink_visited_foreground_color + '} a:visited:hover[data-link-name="auto-linked-tag"] {color:' + theme_link_visited_foreground_color + '}',
