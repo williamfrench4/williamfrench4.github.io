@@ -736,7 +736,7 @@ const sites_data = [
     hide_selector: '.site-header.is_stuck.scrolled-up',
     article_hide_selector: '.share-links, .pullbox',
     article_css: '.site-wrapper {background-color: transparent}', // if set to black, this hides images in Chrome as of 6/19/2017
-    count_words: {append: '.byline', subject: '.article-content', grafs: 2},
+    count_words: {append: '.byline', subject: '.article-content'},
   },
   {
     name: 'The Baltimore Sun',
