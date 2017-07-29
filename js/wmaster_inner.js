@@ -75,7 +75,7 @@ let page_level
 let site_data
 let getMatchedCSSRules
 let wf_getMatchedCSSRules
-debug(101, location_href)
+debug(101, 200, location_href)
 const ui_css_prefix                           = program_name   + '_ui'
 const main_dialog_id                          = ui_css_prefix  + '_main'
 const main_dialog_word_count_id               = main_dialog_id + '_word_count'
@@ -88,10 +88,17 @@ let new_html                                  = '' +
     `<button id="${main_dialog_close_id}">Close</button>` +
     `<div id="${main_dialog_cli_id}" class="terminal"></div>` +
   '</div>'
-const main_dialog_selector = '#' + main_dialog_id
+const main_dialog_cli_selector        = '#' + main_dialog_cli_id
+const main_dialog_selector            = '#' + main_dialog_id
+const main_dialog_word_count_selector = '#' + main_dialog_word_count_id
+const main_dialog_close_selector      = '#' + main_dialog_close_id
+let $main_dialog_word_count
+let $main_dialog_close
+let $main_dialog_cli
+let $main_dialog
 cooked_site_css += main_dialog_selector + '{position: fixed; top: 0; left: 0; z-index: 2147483647; background-color: yellow}' // + main_dialog_selector + ' * {all: unset}';// #wmaster_ui_main_cli .cmd .clipboard {color: transparent}'
 
-debug(495, new_html)
+debug(101, 300, $main_dialog_close, new_html)
 
 function direct_text_content (element) {
   // Return the text from this element only, not including any text from child elements
@@ -1524,10 +1531,14 @@ if (is_node) {
     //console.log ('wmaster running')
     //return
     $body.append(new_html)
-    const $main_dialog                            = jQuery('#' + main_dialog_id)
+    //$main_dialog                            = jQuery('#' + main_dialog_id)
     //const $main_dialog_word_count                 = jQuery('#' + main_dialog_word_count_id)
     //const $main_dialog_close                      = jQuery('#' + main_dialog_close_id)
-    const $main_dialog_cli                        = jQuery('#' + main_dialog_cli_id)
+    //$main_dialog_cli                        = jQuery('#' + main_dialog_cli_id)
+    $main_dialog_word_count = jQuery(main_dialog_word_count_selector)
+    $main_dialog_cli = jQuery(main_dialog_cli_selector)
+    $main_dialog = jQuery(main_dialog_selector)
+    $main_dialog_close = jQuery(main_dialog_close_selector)
     debug(382, 20, $main_dialog_cli)
     //$main_dialog.hide()
     $main_dialog_cli.terminal((command) => {
@@ -1983,11 +1994,21 @@ if (is_node) {
       $main_dialog_cli.on('keydown', event => {
         debug(475, 60)
         if (event.which === 13) {
-          debug(475, 65)
-        } else if (event.which === 27) {
           debug(475, 70)
+        } else if (event.which === 27) {
+          debug(475, 80)
           close_main_dialog()
         }
+      })
+
+      $main_dialog_close.on('click', event => {
+        debug(475, 90)
+        close_main_dialog()
+      })
+
+      $main_dialog_word_count.on('click', event => {
+        debug(475, 110)
+        count_words(site_data)
       })
     }
     //jQuery('#anti-white-flash-curtain').remove()
