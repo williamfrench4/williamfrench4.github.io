@@ -101,7 +101,7 @@ cooked_site_css += main_dialog_selector + '{position: fixed; top: 0; left: 0; z-
 debug(101, 300, $main_dialog_close, new_html)
 
 function direct_text_content (element) {
-  // Return the text from this element only, not including any text from child elements
+  // Return the text from this element only, not including any text from child elements. Takes a plain DOM element, not a Jquery collection.
   let text = ''
   let child_node
   for (child_node of element.childNodes) {
@@ -1520,6 +1520,7 @@ function href_to_site_data (href) {
 }
 
 if (is_node) {
+  module.exports.direct_text_content                                 = direct_text_content
   module.exports.dateFormat                                          = dateFormat
   module.exports.sites_data                                          = sites_data
   module.exports.sites_data_by_prefix                                = sites_data_by_prefix
@@ -1535,6 +1536,8 @@ if (is_node) {
     //const $main_dialog_word_count                 = jQuery('#' + main_dialog_word_count_id)
     //const $main_dialog_close                      = jQuery('#' + main_dialog_close_id)
     //$main_dialog_cli                        = jQuery('#' + main_dialog_cli_id)
+    const body                                    = $body [0]
+    const wayback_timestamp_str                   = body.dataset.wf_web_filter_wayback_timestamp
     $main_dialog_word_count = jQuery(main_dialog_word_count_selector)
     $main_dialog_cli = jQuery(main_dialog_cli_selector)
     $main_dialog = jQuery(main_dialog_selector)
@@ -1852,7 +1855,27 @@ if (is_node) {
         if (site_data.css) raw_site_css += site_data.css
         std_link_colors(site_data)
         debug(846, 50, site_data)
-        regularize_links()
+        const anchors = regularize_links()
+        for (const anchor of anchors) {
+          const first_sighting_numeric_str = anchor.dataset.wf_web_filter_first_sighting
+          let first_sighting_str
+          if (first_sighting_numeric_str) {
+            const first_sighting = new Date(0)
+            first_sighting.setSeconds(parseInt(first_sighting_numeric_str) + 3600)
+            first_sighting_str = first_sighting.toString()
+          } else {
+            first_sighting_str = wayback_timestamp_str
+          }
+          let title = 'First seen: ' + first_sighting_str
+          const site_numeric_timestamp = anchor.dataset.wf_web_filter_site_timestamp
+          if (site_numeric_timestamp) {
+            const site_timestamp = new Date(0)
+            site_timestamp.setSeconds(parseInt(site_numeric_timestamp) + 3600) // not sure why it's an hour off
+            const site_timestamp_str = site_timestamp.toString()
+            title = `\nSite stamp: ${site_timestamp_str}\n${title}`
+          }
+          anchor.setAttribute('title', title)
+        }
         const unwanted_classes = site_data.unwanted_classes
         let unwanted_class
         if (unwanted_classes) {
