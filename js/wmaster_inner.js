@@ -161,7 +161,9 @@ const sites_data = [
       'figure.layout-large-horizontal .image img {width: 47%; margin-left: 30px}' +
       'figure.layout-jumbo-horizontal, figure.layout-full-bleed-horizontal .image img {width: 87%; margin-left: 30px}' +
       'figure.layout-large-vertical .image img {width: 47%; margin-left: 30px}' +
-      'figure.layout-jumbo-vertical .image img {width: 47%; margin-left: 30px}',
+      'figure.layout-jumbo-vertical .image img {width: 47%; margin-left: 30px}' +
+      'a.autolink:link    {color:' +         theme_autolink_foreground_color + '}' +
+      'a.autolink:visited {color:' + theme_autolink_visited_foreground_color + '}',
     article_hide_selector: (
       'nav, #masthead, .newsletter-signup, #whats-next, #site-index, .story-meta-footer-sharetools, .comments-button, [id="18-insider-promo-module"], #obstruction-justice-promo, #how-republican-voted-on-health-bill, #brexit-latest-fallout-tracker, #story-ad-1-wrapper, #story-ad-2-wrapper, #story-ad-3-wrapper, #story-ad-4-wrapper, #story-ad-5-wrapper, #opinion-aca-callout, #next-steps-for-health-care-bill, [id="06up-acachart"], #house-vote-republican-health-care-bill, #morning-briefing-weather-module, #related-combined-coverage, .text-ad, #comey-promo, figure.video, .page-footer, .story-info, .story-print-citation, #fbi-congress-trump-russia-investigations, .vis-survey-box, #oil-prices, #Ask-Real-Estate-Promo, #wannacry-ransomware-map, #app > div > div' +
       '#how-self-driving-cars-work, #ransomware-attack-coverage, #fall-upfront-2017, figure[id*=pullquote], figure[id*=email-promo], figure[id*=DAILY-player], #why-its-so-hard-to-have-an-independent-russia-investigation, #navigation-edge, #europe-terror-attacks, #document-Robert-Mueller-Special-Counsel-Russia, #julian-assange-timeline, #anthony-weiner-plea-agreement, #assange-fblive-promo, .meter-asset-wrapper, #news-tips-article-promo, .cColumn>.first, #nyt-weather, .NYTSocialShare__overlayTriggerContainer, .Post__ad,' + selector_for_elements_with_a_class_that_starts_with('Masthead-mastheadContainer--') + ',' + selector_for_elements_with_a_class_that_starts_with('SectionBarShare-shareMenu--') + ',' + selector_for_elements_with_a_class_that_starts_with('Recirculation-recirculation--')
@@ -198,6 +200,12 @@ const sites_data = [
         document.styleSheets[0].addRule('.g-artboard *, .g-graphic *, .nytg-chart *', 'background-color: transparent !important')
         //cooked_site_css += ' .interactive-graphic * {background-color: #fff !important; color: #000 !important}'
         $body.removeClass('lens-hide-titles')
+        for (const anchor of jQuery('a')) {
+          const href = anchor.href
+          if (href.startsWith('http://www.nytimes.com/topic/') || href.startsWith('https://www.nytimes.com/topic/') || href.startsWith('http://www.nytimes.com/topics/') || href.startsWith('https://www.nytimes.com/topics/')) {
+            jQuery(anchor).addClass('autolink')
+          }
+        }
       } else {
         //Object.freeze(document.location); // doesn't work -- and why would anyone expect it to?
         const logo_element = jQuery('h2.branding') [0]
@@ -271,7 +279,7 @@ const sites_data = [
     homepage_css: '.tone-live--item {background-color: #5a0b00} .fc-item.tone-letters--item {background-color: #333} .fc-container--story-package {border-top-width: 0} .js-on .fc-show-more--hidden .fc-show-more--hide {display: block}',
     hide_selector: '.adverts, .site-message',
     //url_to_data_filename: {year_index: 4, segments_used: 7, wildcards: [3]},
-    wayback: {targets: {guardian_uk: '/uk'}},
+    wayback: {targets: {guardian: '/'}},
     customize () {
       if (page_level === 0) {
         //jQuery('#opinion .button--show-more, #from-the-uk .button--show-more, #around-the-world .button--show-more').click()
@@ -1866,15 +1874,17 @@ if (is_node) {
           } else {
             first_sighting_str = wayback_timestamp_str
           }
-          let title = 'First seen: ' + first_sighting_str
-          const site_numeric_timestamp = anchor.dataset.wf_web_filter_site_timestamp
-          if (site_numeric_timestamp) {
-            const site_timestamp = new Date(0)
-            site_timestamp.setSeconds(parseInt(site_numeric_timestamp) + 3600) // not sure why it's an hour off
-            const site_timestamp_str = site_timestamp.toString()
-            title = `\nSite stamp: ${site_timestamp_str}\n${title}`
+          if (first_sighting_str) {
+            let title = 'First seen: ' + first_sighting_str
+            const site_numeric_timestamp = anchor.dataset.wf_web_filter_site_timestamp
+            if (site_numeric_timestamp) {
+              const site_timestamp = new Date(0)
+              site_timestamp.setSeconds(parseInt(site_numeric_timestamp) + 3600) // not sure why it's an hour off
+              const site_timestamp_str = site_timestamp.toString()
+              title = `\nSite stamp: ${site_timestamp_str}\n${title}`
+            }
+            anchor.setAttribute('title', title)
           }
-          anchor.setAttribute('title', title)
         }
         const unwanted_classes = site_data.unwanted_classes
         let unwanted_class
