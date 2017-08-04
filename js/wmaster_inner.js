@@ -49,7 +49,7 @@ if (is_node) {
 }
 const $body                                   = $body_let
 const theme_autolink_foreground_color         = '#00c080'
-const theme_autolink_visited_foreground_color = '#99d700'
+const theme_autolink_visited_foreground_color = '#b9c740'
 const theme_background_color                  = '#000'
 const theme_foreground_color                  = '#0f0'
 const theme_link_foreground_color             = '#00f'
@@ -202,7 +202,7 @@ const sites_data = [
         $body.removeClass('lens-hide-titles')
         for (const anchor of jQuery('a')) {
           const href = anchor.href
-          if (href.startsWith('http://www.nytimes.com/topic/') || href.startsWith('https://www.nytimes.com/topic/') || href.startsWith('http://www.nytimes.com/topics/') || href.startsWith('https://www.nytimes.com/topics/')) {
+          if (href.startsWith('http://www.nytimes.com/topic/') || href.startsWith('https://www.nytimes.com/topic/') || href.startsWith('http://www.nytimes.com/topics/') || href.startsWith('https://www.nytimes.com/topics/') || href.startsWith('http://topics.nytimes.com') || href.startsWith('https://topics.nytimes.com')) {
             jQuery(anchor).addClass('autolink')
           }
         }
