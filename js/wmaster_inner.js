@@ -48,6 +48,7 @@ if (is_node) {
   $body_let                                   = jQuery('body')
 }
 const $body                                   = $body_let
+const theme_offlink_background_color          = '#a00'
 const theme_autolink_foreground_color         = '#00c080'
 const theme_autolink_visited_foreground_color = '#b9c740'
 const theme_background_color                  = '#000'
@@ -152,7 +153,7 @@ const sites_data = [
     count_words: {append: '.byline:last-of-type, .byline-column, ' + selector_for_elements_with_a_class_that_starts_with('Byline-bylineAuthor--'), prefix: ' ', subject: ['.story-body-text, .g-body', '.story-body', '#story'], grafs: 0},
     article_theme_selector: 'input, textarea, .columnGroup', // NYT dark theme
     article_theme_background_selector: '.bcColumn, .cColumn, .App__app', // NYT dark theme
-    article_theme_foreground_selector: '.masthead .masthead-menu li, .headline, .kicker, .dateline, .story-quote, .caption, figcaption, h1, h2, h3, h4, h5, h6, .byline, .dropcap, .g-body, .swiper-text p, .story-body-text, .story-body-text strong:first-child, .CreditedMedia__caption, .Post__byline, .Post__body, .full-art,' + selector_for_elements_with_a_class_that_starts_with('ResponsiveMedia-captionText-- HeaderBasic-bylineTimestamp-- HeaderBasic-summary-- HeaderBasic-label-- Summary-summary--'),
+    article_theme_foreground_selector: '.masthead .masthead-menu li, .headline, .kicker, .dateline, .story-quote, .caption, figcaption, h1, h2, h3, h4, h5, h6, .g-item.g-subhed h2, .byline, .dropcap, .g-body, .swiper-text p, .story-body-text, .story-body-text strong:first-child, .CreditedMedia__caption, .Post__byline, .Post__body, .full-art,' + selector_for_elements_with_a_class_that_starts_with('ResponsiveMedia-captionText-- HeaderBasic-bylineTimestamp-- HeaderBasic-summary-- HeaderBasic-label-- Summary-summary--'),
     article_css: '.App__app {margin-top: 0} .story-body-text {font-family: "Times New Roman"} .caption-text {font-family: sans-serif} .story-header, .image {position: relative}' +
       'input, textarea {background-image: none} .shell {padding-top: 0} .main {border-top: none} .nytg-chart {color: #000; background-color: #fff}' + // NYT dark theme
       selector_for_elements_with_a_class_that_starts_with('SectionBar-sectionBar--') + '{border-width: 0} ' +
@@ -295,7 +296,9 @@ const sites_data = [
     alternate_prefixes: 'file:///root/wayback/washingtonpost/',
     article_css: '#main-content {background-image: none} #et-nav {position: absolute}.headline {font-family: sans-serif} a, .powerpost-header, .layout_article #top-content {border-bottom: none} p {line-height: 155%} body {overflow-y: visible} .fixed-image {position: static} .g-artboard img {border-bottom: 30px solid white} .g-artboard p {color: black; background-color: transparent} .bg-none {background-color: transparent} .note-button {padding: 0; box-shadow: none} .chain-wrapper {background-color: #500}' +
       'a.note-button:link    {color:' +         theme_autolink_foreground_color + '} a.note-button:link:hover    {color:' +         theme_link_foreground_color + '}' +
-      'a.note-button:visited {color:' + theme_autolink_visited_foreground_color + '} a.note-button:visited:hover {color:' + theme_link_visited_foreground_color + '}', //.pb-f-homepage-story {background-color: #300},
+      'a.note-button:visited {color:' + theme_autolink_visited_foreground_color + '} a.note-button:visited:hover {color:' + theme_link_visited_foreground_color + '}' +
+      //'a.wf_offlink {border-top: 1px dotted ' +         theme_offlink_background_color + '}',
+      'a.wf_offlink {background-image: linear-gradient(to right, #f00 15%, rgba(255,255,255,0) 0%); background-position: bottom; background-size: 10px 1px; background-repeat: repeat-x;}',
     article_hide_selector: '#wp-header, #top-furniture, .pb-f-ad-flex-2, .pb-f-ad-flex-3, .pb-f-games-gamesWidget, .pb-f-page-footer-v2, .pb-f-page-recommended-strip, .pb-f-page-editors-picks, disabled.chain-wrapper, .extra, .pb-f-generic-promo-image, .interstitial-link, .pg-interstitial-link, .pb-f-posttv-sticky-player, .pb-f-posttv-sticky-player-powa, .xpb-f-article-article-author-bio, .pb-tool.email, .pb-f-page-newsletter-inLine, .pb-f-page-comments, .inline-video, [channel="wp.com"], .pb-f-page-jobs-search, .pb-f-homepage-story, .pb-f-sharebars-top-share-bar, .pb-f-page-share-bar, .wp_signin, #wp_Signin, .inline-graphic-linked, .share-individual, .pb-f-page-trump-can-he-do-that-podcast, .bottom-ad--bigbox',
     article_theme_selector: '#article-body, p, blockquote, .pg-bodyCopy',
     article_theme_background_selector: '.wp-volt-gal-embed-promo-container, .wp-volt-gal-embed-promo-bottom, #weather-glance, #weather_now, .cwgdropdown, #heat-tracker, #weather-almanac, .pb-f-capital_weather_gang-weather-almanac select, .border-bottom-hairline::after, .span12, .note-button',
@@ -355,9 +358,16 @@ const sites_data = [
         img.src = img.dataset.original + '&w=1200'
       }
       if (page_level === 2) {
+        const $anchors = jQuery('a')
+        for (const anchor of $anchors) {
+          const href = anchor.href
+          if (!href.startsWith('https://www.washingtonpost.com')) {
+            jQuery(anchor).addClass('wf_offlink')
+          }
+        }
         const $elements = jQuery('p span') // For some strange reason this site occasionally has <span style="color: #000000;"> in the middle of a graf, which is invisible on the unmodified site but hides the text under dark_theme.
-        let element
-        for (element of $elements) {
+        //let element
+        for (const element of $elements) {
           const $element = jQuery(element)
           if ($element.attr('style')) {
             //window.e = element
@@ -370,7 +380,7 @@ const sites_data = [
             }
           }
         }
-        for (element of jQuery('article p, article p>i, article p>em')) { // hide interstitial links
+        for (const element of jQuery('article p, article p>i, article p>em')) { // hide interstitial links
           const $element = jQuery(element)
           const element_contents = $element.contents()
           if (element_contents.length === 3 && element_contents [0].textContent === '[') $element.hide()
