@@ -46,9 +46,10 @@ if (is_node) {
 } else {
   debug(57)
   $body_let                                   = jQuery('body')
+  window.$anchors                             = jQuery('a')
 }
 const $body                                   = $body_let
-const theme_offlink_background_color          = '#a00'
+//const theme_offlink_background_color          = '#a00'
 const theme_autolink_foreground_color         = '#00c080'
 const theme_autolink_visited_foreground_color = '#b9c740'
 const theme_background_color                  = '#000'
@@ -358,8 +359,7 @@ const sites_data = [
         img.src = img.dataset.original + '&w=1200'
       }
       if (page_level === 2) {
-        const $anchors = jQuery('a')
-        for (const anchor of $anchors) {
+        for (const anchor of window.$anchors) {
           const href = anchor.href
           if (!href.startsWith('https://www.washingtonpost.com')) {
             jQuery(anchor).addClass('wf_offlink')
@@ -1378,10 +1378,10 @@ function regularize_links (my_window = window, my_origin) {
 
   let url
   debug(394, 10, my_origin)
-  const anchors = my_window.jQuery('a')
+  //const anchors = my_window.jQuery('a')
   let anchor_index
   let anchor
-  for ([anchor_index, anchor] of Array.from(anchors).entries()) {
+  for ([anchor_index, anchor] of Array.from(window.$anchors).entries()) {
     debug(394, 20, anchor)
     let old_href = anchor.href
     if (old_href.startsWith('/')) {
@@ -1447,8 +1447,7 @@ function regularize_links (my_window = window, my_origin) {
     }
     debug(394, 140, anchor.href)
   }
-  debug(394, 200, anchors.length)
-  return anchors
+  debug(394, 200, window.$anchors.length)
 }
 
 function href_to_site_data (href) {
@@ -1873,8 +1872,8 @@ if (is_node) {
         if (site_data.css) raw_site_css += site_data.css
         std_link_colors(site_data)
         debug(846, 50, site_data)
-        const anchors = regularize_links()
-        for (const anchor of anchors) {
+        regularize_links()
+        for (const anchor of window.$anchors) {
           const first_sighting_numeric_str = anchor.dataset.wf_web_filter_first_sighting
           let first_sighting_str
           if (first_sighting_numeric_str) {
