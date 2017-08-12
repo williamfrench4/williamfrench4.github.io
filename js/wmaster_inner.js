@@ -1377,11 +1377,11 @@ function add_getMatchedCSSRules_to_window () {
 function regularize_links (my_window = window, my_origin) {
 
   let url
-  debug(394, 10, my_origin)
+  debug(394, 10, my_window, my_origin)
   //const anchors = my_window.jQuery('a')
   let anchor_index
   let anchor
-  for ([anchor_index, anchor] of Array.from(window.$anchors).entries()) {
+  for ([anchor_index, anchor] of Array.from(my_window.$anchors).entries()) {
     debug(394, 20, anchor)
     let old_href = anchor.href
     if (old_href.startsWith('/')) {
@@ -1447,7 +1447,7 @@ function regularize_links (my_window = window, my_origin) {
     }
     debug(394, 140, anchor.href)
   }
-  debug(394, 200, window.$anchors.length)
+  debug(394, 200, my_window.$anchors.length)
 }
 
 function href_to_site_data (href) {
@@ -1626,12 +1626,14 @@ if (is_node) {
 
     function dark_theme (aggressiveness_level) { //, target) {
       //body.css({'background-color': '' + theme_background_color + ' !important; color: ' + theme_foreground_color + ' !important'})
-      debug(847, 'dark_theme_' + aggressiveness_level)
+      debug(847, 10, 'dark_theme_' + aggressiveness_level)
       $body.addClass('dark_theme dark_theme_' + aggressiveness_level)
       if (!aggressiveness_level) return
       if (aggressiveness_level > 1) document.styleSheets[0].addRule('*', 'background-color: ' + theme_background_color + ' !important; color: ' + theme_foreground_color + ' !important')
       //raw_site_css += target + '{' + theme_background_rule + theme_foreground_rule + '}'
+      debug(847, 100, theme_background_rule, theme_foreground_rule, raw_site_css)
       raw_site_css += '.dark_theme {' + theme_background_rule + theme_foreground_rule + '} ::-webkit-scrollbar {height: 2px; width: 2px} ::-webkit-scrollbar-track {background:' + theme_background_color + '} ::-webkit-scrollbar-thumb {background: #f00} '
+      debug(847, 101, theme_background_rule, theme_foreground_rule, raw_site_css)
     }
 
     function std_link_colors (site_data) {
@@ -1656,8 +1658,8 @@ if (is_node) {
         visited_and_sub_element_selector += ',' + visited_selector + ' ' + sub_element_tag
         debug(387, 40, link_and_sub_element_selector)
       }
-      link_and_sub_element_selector    += '{color:' +         theme_link_foreground_color + '}'
-      visited_and_sub_element_selector += '{color:' + theme_link_visited_foreground_color + '}'
+      //link_and_sub_element_selector    += '{color:' +         theme_link_foreground_color + '}'
+      //visited_and_sub_element_selector += '{color:' + theme_link_visited_foreground_color + '}'
       const new_css = ' a {text-decoration: none}' + link_and_sub_element_selector + '{color:' + theme_link_foreground_color + '}' + visited_and_sub_element_selector + '{color:' + theme_link_visited_foreground_color + '}'
       debug(387, 60, new_css)
       raw_site_css += new_css
@@ -1927,20 +1929,21 @@ if (is_node) {
           if (site_data. article_css                      ) raw_site_css += ' ' +          site_data. article_css
           count_words(site_data)
         }
-        //debug(233, hide_selector, page_level)
-        //debug(243, raw_site_css)
+        debug(846, 110, hide_selector, page_level, raw_site_css)
         //debug(46, site_data.article_hide_selector)
         debug(846, 120, page_level, site_data.article_theme_background_selector, theme_background_selector)
         debug(846, 130, site_data.dark_theme)
         dark_theme(site_data.dark_theme)
         debug(846, 140, theme_foreground_selector)
+        debug(846, 141, theme_foreground_rule)
         if (hide_selector            .length) raw_site_css += hide_selector                       + '{display: none}'
         if ($body.hasClass('dark_theme_1') || $body.hasClass('dark_theme_2')) {
           if (theme_selector           .length) raw_site_css += theme_selector           .join(',') + '{' + theme_background_rule + theme_foreground_rule + '}'
           if (theme_background_selector.length) raw_site_css += theme_background_selector.join(',') + '{' + theme_background_rule + '}'
           if (theme_foreground_selector.length) raw_site_css += theme_foreground_selector.join(',') + '{' + theme_foreground_rule + '}'
         }
-        debug(846, 150, raw_site_css, cooked_site_css)
+        debug(846, 150, raw_site_css)
+        debug(846, 151, cooked_site_css)
         const raw_site_css_split = raw_site_css.split('}')
         debug(846, 160, raw_site_css_split)
         let rule
@@ -1970,6 +1973,7 @@ if (is_node) {
         debug(846, 210, cooked_site_css)
         document.body.appendChild(stylesheet)
         window.sss = stylesheet
+        debug(846, 211, window.sss)
         window.f = jQuery('textarea')
       }
     }
