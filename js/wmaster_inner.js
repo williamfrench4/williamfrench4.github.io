@@ -352,6 +352,7 @@ const sites_data = [
       }
       $imgs.removeClass('unprocessed')
       for (img of jQuery('img.lzyld, img.placeholder')) {
+        debug(848, 120, img)
         jQuery(img).css({'padding-top': '0'})
         img.src = img.dataset.hiRes || img.dataset.hiResSrc
       }
