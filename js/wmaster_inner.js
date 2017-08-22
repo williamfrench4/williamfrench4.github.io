@@ -274,7 +274,7 @@ const sites_data = [
     article_theme_foreground_selector: '.content__dateline, div.explainer, .caption, .quoted',
     article_hide_selector: '.element-video, .contributions__epic, .js-outbrain, .related, .submeta, #onward, #more-in-section, .element-pullquote, .element-rich-link, .meta__twitter, .meta__extras, .meta__email, .selection-sharing, .block-share, .ad-slot, figure[data-canonical-url="https://interactive.guim.co.uk/embed/2017/05/americas-unequal-future/embed.html"], figure[data-canonical-url="https://interactive.guim.co.uk/embed/2017/02/outside-in-america/embed.html"], #this_land_epic_bottom_environment_iframe, #this_land_epic_bottom_series_iframe, .vav-callout',
     dark_theme: 1,
-    homepage_hide_selector: '#most-viewed, .footer__email-container, div.image>div.video, #securedrop, #membership-thrasher, #support-the-guardian, .treats__container',
+    homepage_hide_selector: '#most-viewed, .footer__email-container, div.image>div.video, #securedrop, #membership-thrasher, #support-the-guardian, .treats__container, .dumathoin--paidfor',
     //`` '.fc-container--story-package, .facia-page, .index-page, .voices-and-votes-container__wrapper, .l-side-margins, .fc-container--thrasher, .tone-news--item.fc-item, .du-faux-block-link--hover, .tone-feature--item, .fc-container--story-package .fc-item, .tone-analysis--item.fc-item, .tone-comment--item.fc-item, .tone-editorial--item, .tone-media--item, .tone-review--item',
     homepage_theme_background_selector: '.fc-container--story-package, .u-faux-block-link--hover, .facia-page, .fc-item__container',
     homepage_theme_selector: '',
@@ -1930,7 +1930,7 @@ if (is_node) {
           if (site_data. article_css                      ) raw_site_css += ' ' +          site_data. article_css
           count_words(site_data)
         }
-        debug(846, 110, hide_selector, page_level, raw_site_css)
+        debug(846, 110, page_level, hide_selector, raw_site_css)
         //debug(46, site_data.article_hide_selector)
         debug(846, 120, page_level, site_data.article_theme_background_selector, theme_background_selector)
         debug(846, 130, site_data.dark_theme)
