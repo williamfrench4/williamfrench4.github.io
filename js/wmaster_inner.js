@@ -1869,113 +1869,125 @@ if (is_node) {
       debug(846, 10, location_href, site_data)
       if (site_data) {
         console.log('wmaster: ' + site_data.name + ' detected')
-        if (site_data.customize) site_data.customize()
-        debug(846, 30, hide_selector, location, site_data.name)
+        const fs = window.webkitRequestFileSystem
+        let is_incognito
+        fs(window.TEMPORARY, 100, function (fs) {
+          debug(846, 14)
+          is_incognito = false
+        }, function (err) { // eslint-disable-line handle-callback-err
+          debug(846, 16)
+          is_incognito = true
+        })
+        debug(846, 20, is_incognito)
+        if (!is_incognito) {
+          if (site_data.customize) site_data.customize()
+          debug(846, 30, hide_selector, location, site_data.name)
         //debug(48.1, theme_foreground_selector)
-        if (site_data.css) raw_site_css += site_data.css
-        std_link_colors(site_data)
-        debug(846, 50, site_data)
-        regularize_links()
-        for (const anchor of window.$anchors) {
-          const first_sighting_numeric_str = anchor.dataset.wf_web_filter_first_sighting
-          let first_sighting_str
-          if (first_sighting_numeric_str) {
-            const first_sighting = new Date(0)
-            first_sighting.setSeconds(parseInt(first_sighting_numeric_str) + 3600)
-            first_sighting_str = first_sighting.toString()
-          } else {
-            first_sighting_str = wayback_timestamp_str
-          }
-          if (first_sighting_str) {
-            let title = 'First seen: ' + first_sighting_str
-            const site_numeric_timestamp = anchor.dataset.wf_web_filter_site_timestamp
-            if (site_numeric_timestamp) {
-              const site_timestamp = new Date(0)
-              site_timestamp.setSeconds(parseInt(site_numeric_timestamp) + 3600) // not sure why it's an hour off
-              const site_timestamp_str = site_timestamp.toString()
-              title = `\nSite stamp: ${site_timestamp_str}\n${title}`
+          if (site_data.css) raw_site_css += site_data.css
+          std_link_colors(site_data)
+          debug(846, 50, site_data)
+          regularize_links()
+          for (const anchor of window.$anchors) {
+            const first_sighting_numeric_str = anchor.dataset.wf_web_filter_first_sighting
+            let first_sighting_str
+            if (first_sighting_numeric_str) {
+              const first_sighting = new Date(0)
+              first_sighting.setSeconds(parseInt(first_sighting_numeric_str) + 3600)
+              first_sighting_str = first_sighting.toString()
+            } else {
+              first_sighting_str = wayback_timestamp_str
             }
-            anchor.setAttribute('title', title)
+            if (first_sighting_str) {
+              let title = 'First seen: ' + first_sighting_str
+              const site_numeric_timestamp = anchor.dataset.wf_web_filter_site_timestamp
+              if (site_numeric_timestamp) {
+                const site_timestamp = new Date(0)
+                site_timestamp.setSeconds(parseInt(site_numeric_timestamp) + 3600) // not sure why it's an hour off
+                const site_timestamp_str = site_timestamp.toString()
+                title = `\nSite stamp: ${site_timestamp_str}\n${title}`
+              }
+              anchor.setAttribute('title', title)
+            }
           }
-        }
-        const unwanted_classes = site_data.unwanted_classes
-        let unwanted_class
-        if (unwanted_classes) {
-          const unwanted_classes_split = unwanted_classes.split(/\s+/)
-          for (unwanted_class of unwanted_classes_split) {
-            if (!unwanted_class.length) continue
+          const unwanted_classes = site_data.unwanted_classes
+          let unwanted_class
+          if (unwanted_classes) {
+            const unwanted_classes_split = unwanted_classes.split(/\s+/)
+            for (unwanted_class of unwanted_classes_split) {
+              if (!unwanted_class.length) continue
             //debug(846, 80, jQuery('.' + unwanted_class))
-            jQuery('.' + unwanted_class).removeClass(unwanted_class)
-          }
-        }
-        remove_fixed_positioning(site_data)
-        if (site_data.append_loaded_date) append_loaded_date(jQuery(site_data.append_loaded_date))
-        debug(846, 100, theme_foreground_selector)
-        if   (site_data.         theme_selector           ) theme_selector           .push(site_data.         theme_selector           )
-        if   (site_data.         theme_background_selector) theme_background_selector.push(site_data.         theme_background_selector)
-        if   (site_data.         theme_foreground_selector) theme_foreground_selector.push(site_data.         theme_foreground_selector)
-        if   (site_data.         hide_selector            )             hide_selector.push(site_data.         hide_selector            )
-        if   (site_data.         css                      ) raw_site_css += ' ' +          site_data.         css
-        if (page_level === 0) {
-          if (site_data.homepage_theme_selector           ) theme_selector           .push(site_data.homepage_theme_selector           )
-          if (site_data.homepage_theme_background_selector) theme_background_selector.push(site_data.homepage_theme_background_selector)
-          if (site_data.homepage_theme_foreground_selector) theme_foreground_selector.push(site_data.homepage_theme_foreground_selector)
-          if (site_data.homepage_hide_selector            )             hide_selector.push(site_data.homepage_hide_selector            )
-          if (site_data.homepage_css                      ) raw_site_css += ' ' +          site_data.homepage_css
-        } else if (page_level === 2) {
-          if (site_data. article_theme_selector           ) theme_selector           .push(site_data. article_theme_selector           )
-          if (site_data. article_theme_background_selector) theme_background_selector.push(site_data. article_theme_background_selector)
-          if (site_data. article_theme_foreground_selector) theme_foreground_selector.push(site_data. article_theme_foreground_selector)
-          if (site_data. article_hide_selector            )             hide_selector.push(site_data. article_hide_selector            )
-          if (site_data. article_css                      ) raw_site_css += ' ' +          site_data. article_css
-          count_words(site_data)
-        }
-        debug(846, 110, page_level, hide_selector, raw_site_css)
-        //debug(46, site_data.article_hide_selector)
-        debug(846, 120, page_level, site_data.article_theme_background_selector, theme_background_selector)
-        debug(846, 130, site_data.dark_theme)
-        dark_theme(site_data.dark_theme)
-        debug(846, 140, theme_foreground_selector)
-        debug(846, 141, theme_foreground_rule)
-        if (hide_selector            .length) raw_site_css += hide_selector                       + '{display: none}'
-        if ($body.hasClass('dark_theme_1') || $body.hasClass('dark_theme_2')) {
-          if (theme_selector           .length) raw_site_css += theme_selector           .join(',') + '{' + theme_background_rule + theme_foreground_rule + '}'
-          if (theme_background_selector.length) raw_site_css += theme_background_selector.join(',') + '{' + theme_background_rule + '}'
-          if (theme_foreground_selector.length) raw_site_css += theme_foreground_selector.join(',') + '{' + theme_foreground_rule + '}'
-        }
-        debug(846, 150, raw_site_css)
-        debug(846, 151, cooked_site_css)
-        const raw_site_css_split = raw_site_css.split('}')
-        debug(846, 160, raw_site_css_split)
-        let rule
-        for (rule of raw_site_css_split) {
-          debug(846, 170, rule)
-          if (!rule) break
-          const rule_split = rule.split('{')
-          const declarations = rule_split [1]
-          const declarations_split = declarations.split(';')
-          debug(846, 180, declarations, declarations_split)
-          let rule_text = rule_split [0] + ' {'
-          let declaration_index = 0
-          for (var declaration of declarations_split) {
-            debug(846, 190, declaration_index, declaration)
-            if (declaration) {
-              if (declaration_index) rule_text += '; '
-              rule_text += jQuery.trim(declaration) + ' !important'
+              jQuery('.' + unwanted_class).removeClass(unwanted_class)
             }
-            declaration_index++
           }
-          rule_text += '}'
-          debug(846, 200, rule_text)
-          cooked_site_css += ' ' + rule_text
+          remove_fixed_positioning(site_data)
+          if (site_data.append_loaded_date) append_loaded_date(jQuery(site_data.append_loaded_date))
+          debug(846, 100, theme_foreground_selector)
+          if   (site_data.         theme_selector           ) theme_selector           .push(site_data.         theme_selector           )
+          if   (site_data.         theme_background_selector) theme_background_selector.push(site_data.         theme_background_selector)
+          if   (site_data.         theme_foreground_selector) theme_foreground_selector.push(site_data.         theme_foreground_selector)
+          if   (site_data.         hide_selector            )             hide_selector.push(site_data.         hide_selector            )
+          if   (site_data.         css                      ) raw_site_css += ' ' +          site_data.         css
+          if (page_level === 0) {
+            if (site_data.homepage_theme_selector           ) theme_selector           .push(site_data.homepage_theme_selector           )
+            if (site_data.homepage_theme_background_selector) theme_background_selector.push(site_data.homepage_theme_background_selector)
+            if (site_data.homepage_theme_foreground_selector) theme_foreground_selector.push(site_data.homepage_theme_foreground_selector)
+            if (site_data.homepage_hide_selector            )             hide_selector.push(site_data.homepage_hide_selector            )
+            if (site_data.homepage_css                      ) raw_site_css += ' ' +          site_data.homepage_css
+          } else if (page_level === 2) {
+            if (site_data. article_theme_selector           ) theme_selector           .push(site_data. article_theme_selector           )
+            if (site_data. article_theme_background_selector) theme_background_selector.push(site_data. article_theme_background_selector)
+            if (site_data. article_theme_foreground_selector) theme_foreground_selector.push(site_data. article_theme_foreground_selector)
+            if (site_data. article_hide_selector            )             hide_selector.push(site_data. article_hide_selector            )
+            if (site_data. article_css                      ) raw_site_css += ' ' +          site_data. article_css
+            count_words(site_data)
+          }
+          debug(846, 110, page_level, hide_selector, raw_site_css)
+        //debug(46, site_data.article_hide_selector)
+          debug(846, 120, page_level, site_data.article_theme_background_selector, theme_background_selector)
+          debug(846, 130, site_data.dark_theme)
+          dark_theme(site_data.dark_theme)
+          debug(846, 140, theme_foreground_selector)
+          debug(846, 141, theme_foreground_rule)
+          if (hide_selector            .length) raw_site_css += hide_selector                       + '{display: none}'
+          if ($body.hasClass('dark_theme_1') || $body.hasClass('dark_theme_2')) {
+            if (theme_selector           .length) raw_site_css += theme_selector           .join(',') + '{' + theme_background_rule + theme_foreground_rule + '}'
+            if (theme_background_selector.length) raw_site_css += theme_background_selector.join(',') + '{' + theme_background_rule + '}'
+            if (theme_foreground_selector.length) raw_site_css += theme_foreground_selector.join(',') + '{' + theme_foreground_rule + '}'
+          }
+          debug(846, 150, raw_site_css)
+          debug(846, 151, cooked_site_css)
+          const raw_site_css_split = raw_site_css.split('}')
+          debug(846, 160, raw_site_css_split)
+          let rule
+          for (rule of raw_site_css_split) {
+            debug(846, 170, rule)
+            if (!rule) break
+            const rule_split = rule.split('{')
+            const declarations = rule_split [1]
+            const declarations_split = declarations.split(';')
+            debug(846, 180, declarations, declarations_split)
+            let rule_text = rule_split [0] + ' {'
+            let declaration_index = 0
+            for (var declaration of declarations_split) {
+              debug(846, 190, declaration_index, declaration)
+              if (declaration) {
+                if (declaration_index) rule_text += '; '
+                rule_text += jQuery.trim(declaration) + ' !important'
+              }
+              declaration_index++
+            }
+            rule_text += '}'
+            debug(846, 200, rule_text)
+            cooked_site_css += ' ' + rule_text
+          }
+          const stylesheet = document.createElement('style')
+          stylesheet.innerHTML = cooked_site_css
+          debug(846, 210, cooked_site_css)
+          document.body.appendChild(stylesheet)
+          window.sss = stylesheet
+          debug(846, 211, window.sss)
+          window.f = jQuery('textarea')
         }
-        const stylesheet = document.createElement('style')
-        stylesheet.innerHTML = cooked_site_css
-        debug(846, 210, cooked_site_css)
-        document.body.appendChild(stylesheet)
-        window.sss = stylesheet
-        debug(846, 211, window.sss)
-        window.f = jQuery('textarea')
       }
     }
 
