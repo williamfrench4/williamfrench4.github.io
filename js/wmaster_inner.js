@@ -673,7 +673,7 @@ const sites_data = [
   },
   {
     name: 'The New Yorker',
-    origin: 'http://www.newyorker.com',
+    origin: 'https://www.newyorker.com',
     css: selector_for_elements_with_a_class_that_starts_with('Logo__logo___') + '{-webkit-filter: invert(70%) sepia(100%) hue-rotate(65deg) saturate(7)}',
     count_words: {append: selector_for_elements_with_a_class_that_starts_with('ArticleHeader__metaInfo___'), subject: '#articleBody'},
     //article_css: '.single-post #articleBody p a, .single-post #articleBody .gallery-caption a, .single-post #articleBody u, .articleBody p a, .articleBody .gallery-caption a, .articleBody u, .author-masthead p a, .author-masthead .gallery-caption a, .author-masthead u {text-shadow: none; background: none}',
