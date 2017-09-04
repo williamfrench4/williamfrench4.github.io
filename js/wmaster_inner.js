@@ -673,7 +673,7 @@ const sites_data = [
   },
   {
     name: 'The New Yorker',
-    origin: 'https://www.newyorker.com',
+    origin: 'https+://www.newyorker.com',
     css: selector_for_elements_with_a_class_that_starts_with('Logo__logo___') + '{-webkit-filter: invert(70%) sepia(100%) hue-rotate(65deg) saturate(7)}',
     count_words: {append: selector_for_elements_with_a_class_that_starts_with('ArticleHeader__metaInfo___'), subject: '#articleBody'},
     //article_css: '.single-post #articleBody p a, .single-post #articleBody .gallery-caption a, .single-post #articleBody u, .articleBody p a, .articleBody .gallery-caption a, .articleBody u, .author-masthead p a, .author-masthead .gallery-caption a, .author-masthead u {text-shadow: none; background: none}',
@@ -1869,6 +1869,7 @@ if (is_node) {
       debug(846, 10, location_href, site_data)
       if (site_data) {
         console.log('wmaster: ' + site_data.name + ' detected')
+        /* This could work but it's async; the callbacks don't get called until later. This could be fixed by forcing them to be synchronous, but that would cause a big delay.
         const fs = window.webkitRequestFileSystem
         let is_incognito
         fs(window.TEMPORARY, 100, function (fs) {
@@ -1878,6 +1879,8 @@ if (is_node) {
           debug(846, 16)
           is_incognito = true
         })
+        */
+        const is_incognito = !(document.documentElement.dataset.wBackground == "wBackground") // no delay, but requires the wbackground extension to be active and _not_ allowed in incognito
         debug(846, 20, is_incognito)
         if (!is_incognito) {
           if (site_data.customize) site_data.customize()
