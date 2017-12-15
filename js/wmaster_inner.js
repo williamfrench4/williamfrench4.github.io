@@ -274,7 +274,7 @@ const sites_data = [
     article_theme_foreground_selector: '.content__dateline, div.explainer, .caption, .quoted',
     article_hide_selector: '.element-video, .contributions__epic, .js-outbrain, .related, .submeta, #onward, #more-in-section, .element-pullquote, .element-rich-link, .meta__twitter, .meta__extras, .meta__email, .selection-sharing, .block-share, .ad-slot, figure[data-canonical-url="https://interactive.guim.co.uk/embed/2017/05/americas-unequal-future/embed.html"], figure[data-canonical-url="https://interactive.guim.co.uk/embed/2017/02/outside-in-america/embed.html"], #this_land_epic_bottom_environment_iframe, #this_land_epic_bottom_series_iframe, .vav-callout',
     dark_theme: 1,
-    homepage_hide_selector: '#most-viewed, .footer__email-container, div.image>div.video, #securedrop, #membership-thrasher, #support-the-guardian, .treats__container, .dumathoin--paidfor',
+    homepage_hide_selector: '#most-viewed, .footer__email-container, div.image>div.video, #securedrop, #membership-thrasher, #support-the-guardian, .treats__container, .dumathoin--paidfor, #break-the-chain',
     //`` '.fc-container--story-package, .facia-page, .index-page, .voices-and-votes-container__wrapper, .l-side-margins, .fc-container--thrasher, .tone-news--item.fc-item, .du-faux-block-link--hover, .tone-feature--item, .fc-container--story-package .fc-item, .tone-analysis--item.fc-item, .tone-comment--item.fc-item, .tone-editorial--item, .tone-media--item, .tone-review--item',
     homepage_theme_background_selector: '.fc-container--story-package, .u-faux-block-link--hover, .facia-page, .fc-item__container',
     homepage_theme_selector: '',
