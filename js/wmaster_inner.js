@@ -166,7 +166,8 @@ const sites_data = [
       'figure.layout-jumbo-vertical .image img {width: 47%; margin-left: 30px}' +
       'a.autolink:link    {color:' +         theme_autolink_foreground_color + '}' +
       'a.autolink:visited {color:' + theme_autolink_visited_foreground_color + '}' +
-      '.g-article-wrapper {max-width: none} img {filter: blur(0px); -webkit-filter: blur(0px)}',
+      '.g-article-wrapper {max-width: none} img {filter: blur(0px); -webkit-filter: blur(0px)}' +
+      '.g-freebird-lazy.ll-init {opacity: 1}',
     article_hide_selector: (
       'nav, #masthead, .newsletter-signup, #whats-next, #site-index, .story-meta-footer-sharetools, .comments-button, [id="18-insider-promo-module"], #obstruction-justice-promo, #how-republican-voted-on-health-bill, #brexit-latest-fallout-tracker, #story-ad-1-wrapper, #story-ad-2-wrapper, #story-ad-3-wrapper, #story-ad-4-wrapper, #story-ad-5-wrapper, #opinion-aca-callout, #next-steps-for-health-care-bill, [id="06up-acachart"], #house-vote-republican-health-care-bill, #morning-briefing-weather-module, #related-combined-coverage, .text-ad, #comey-promo, figure.video, .page-footer, .story-info, .story-print-citation, #fbi-congress-trump-russia-investigations, .vis-survey-box, #oil-prices, #Ask-Real-Estate-Promo, #wannacry-ransomware-map, #app > div > div' +
       '#how-self-driving-cars-work, #ransomware-attack-coverage, #fall-upfront-2017, figure[id*=pullquote], figure[id*=email-promo], figure[id*=DAILY-player], #why-its-so-hard-to-have-an-independent-russia-investigation, #navigation-edge, #europe-terror-attacks, #welcome-back-modal, #document-Robert-Mueller-Special-Counsel-Russia, #julian-assange-timeline, #anthony-weiner-plea-agreement, #assange-fblive-promo, .meter-asset-wrapper, #news-tips-article-promo, .cColumn>.first, #nyt-weather, .NYTSocialShare__overlayTriggerContainer, .Post__ad,' + selector_for_elements_with_a_class_that_starts_with('Masthead-mastheadContainer-- SectionBarShare-shareMenu-- Recirculation-recirculation-- Dock-dock--')
@@ -896,6 +897,13 @@ const sites_data = [
     name: 'Just Security',
     origin: 'https://www.justsecurity.org',
     article_theme_selector: 'blockquote',
+  },
+  {
+    name: 'Seattle Times',
+    origin: 'https://www.seattletimes.com',
+    article_hide_selector: '.global-header, .modals, .article-share, #userMessagingInset',
+    article_css: '#container {filter: blur(0px)} body {position: static}',
+    article_theme_foreground_selector: 'h1, h2, h3, h4, h5, h6, .article-deck, .article-dateline, .article-figure-caption',
   },
   {
     name: 'Wikipedia',
