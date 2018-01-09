@@ -392,13 +392,30 @@ const sites_data = [
             }
           }
         }
+        /*
         for (const element of jQuery('article p, article p>i, article p>em')) { // hide interstitial links
           const $element = jQuery(element)
           const element_contents = $element.contents()
           if (element_contents.length === 3 && element_contents [0].textContent === '[') $element.hide()
-          //debug(85, jQuery(element).contents() [0], (jQuery(element).contents() [0].textContent === "["))
+          debug(285, 10, element_contents [0])
         }
-        jQuery('div.inline-content:has([data-slug="a-look-at-president-trumps-first-year-in-office-so-far"])').hide()
+        */
+        for (const element of jQuery('article a')) { // hide interstitial links
+          const $element = jQuery(element)
+          const element_contents = $element.contents()
+          debug(285, 20, element_contents)
+          const element_contents_0 = element_contents [0]
+          debug(285, 21, element_contents_0)
+          if (element_contents_0) {
+            const element_text = element_contents_0.textContent
+            debug(285, 30, element_text)
+            if (element_text [0] === '[' && element_text [element_text.length - 1] === ']') {
+              debug(285, 31)
+              $element.hide()
+            }
+          }
+        }
+        //jQuery('div.inline-content:has([data-slug="a-look-at-president-trumps-first-year-in-office-so-far"])').hide()
       }
       //regularize_links(site_data)
     }
@@ -578,6 +595,13 @@ const sites_data = [
     count_words: {append: 'time', subject: '[itemprop="articleBody"]'},
     article_hide_selector: '.horizontal-share-menu, .twitter-follow-header, .pullquote, .pullad, form[action="http://www.nationalreview.com/content/get-free-nr-e-newsletters"]',
     dark_theme: 2,
+  },
+  {
+    name: 'CNN',
+    origin: 'http://www.cnn.com',
+    article_css: '.nav--plain-header {position: absolute}',
+    article_theme_background_selector: '.pg-rail-tall',
+    article_theme_foreground_selector: '.zn-body__paragraph',
   },
   {
     name: 'The Federalist',
