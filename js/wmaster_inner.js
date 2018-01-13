@@ -506,6 +506,12 @@ const sites_data = [
     article_theme_background_selector: '.ArticleBody, .ArticlePage',
   },
   {
+    name: 'Chicago Tribune',
+    origin: 'http://www.chicagotribune.com',
+    article_theme_background_selector: '.trb_allContentWrapper',
+    article_theme_foreground_selector: 'p, p:first-child:first-letter',
+  },
+  {
     name: 'Talking Points Memo',
     origin: 'http://talkingpointsmemo.com',
     count_words: {append: '.FeatureByline', subject: '.Feature'},
