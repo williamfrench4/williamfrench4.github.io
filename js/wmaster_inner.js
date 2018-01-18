@@ -170,7 +170,7 @@ const sites_data = [
       '.g-freebird-lazy.ll-init {opacity: 1}',
     article_hide_selector: (
       'nav, #masthead, .newsletter-signup, #whats-next, #site-index, .story-meta-footer-sharetools, .comments-button, [id="18-insider-promo-module"], #obstruction-justice-promo, #how-republican-voted-on-health-bill, #brexit-latest-fallout-tracker, #story-ad-1-wrapper, #story-ad-2-wrapper, #story-ad-3-wrapper, #story-ad-4-wrapper, #story-ad-5-wrapper, #opinion-aca-callout, #next-steps-for-health-care-bill, [id="06up-acachart"], #house-vote-republican-health-care-bill, #morning-briefing-weather-module, #related-combined-coverage, .text-ad, #comey-promo, figure.video, .page-footer, .story-info, .story-print-citation, #fbi-congress-trump-russia-investigations, .vis-survey-box, #oil-prices, #Ask-Real-Estate-Promo, #wannacry-ransomware-map, #app > div > div' +
-      '#how-self-driving-cars-work, #ransomware-attack-coverage, #fall-upfront-2017, figure[id*=pullquote], figure[id*=email-promo], figure[id*=DAILY-player], #why-its-so-hard-to-have-an-independent-russia-investigation, #navigation-edge, #europe-terror-attacks, #welcome-back-modal, #document-Robert-Mueller-Special-Counsel-Russia, #julian-assange-timeline, #anthony-weiner-plea-agreement, #assange-fblive-promo, .meter-asset-wrapper, #news-tips-article-promo, .cColumn>.first, #nyt-weather, .NYTSocialShare__overlayTriggerContainer, .Post__ad,' + selector_for_elements_with_a_class_that_starts_with('Masthead-mastheadContainer-- SectionBarShare-shareMenu-- Recirculation-recirculation-- Dock-dock--')
+      '#how-self-driving-cars-work, #ransomware-attack-coverage, #fall-upfront-2017, figure[id*=pullquote], figure[id*=email-promo], figure[id*=DAILY-player], #why-its-so-hard-to-have-an-independent-russia-investigation, #navigation-edge, #europe-terror-attacks, #welcome-back-modal, #document-Robert-Mueller-Special-Counsel-Russia, #julian-assange-timeline, #anthony-weiner-plea-agreement, #assange-fblive-promo, .meter-asset-wrapper, #news-tips-article-promo, .cColumn>.first, #nyt-weather, .NYTSocialShare__overlayTriggerContainer, .Post__ad,' + selector_for_elements_with_a_class_that_starts_with('Masthead-mastheadContainer-- SectionBarShare-shareMenu-- Recirculation-recirculation-- Dock-dock-- SectionBar-sectionBar-- ResponsiveAd-')
     ),
     extra_sub_element_selectors: 'h3.story-heading',
     homepage_theme_foreground_selector: '.summary', // NYT dark theme
@@ -287,8 +287,9 @@ const sites_data = [
     dark_theme: 1,
     homepage_hide_selector: '#most-viewed, .footer__email-container, div.image>div.video, #securedrop, #membership-thrasher, #support-the-guardian, .treats__container, .dumathoin--paidfor, #break-the-chain',
     //`` '.fc-container--story-package, .facia-page, .index-page, .voices-and-votes-container__wrapper, .l-side-margins, .fc-container--thrasher, .tone-news--item.fc-item, .du-faux-block-link--hover, .tone-feature--item, .fc-container--story-package .fc-item, .tone-analysis--item.fc-item, .tone-comment--item.fc-item, .tone-editorial--item, .tone-media--item, .tone-review--item',
-    homepage_theme_background_selector: '.fc-container--story-package, .u-faux-block-link--hover, .facia-page, .fc-item__container',
+    homepage_theme_background_selector: '.fc-container__header__title, .facia-page, .fc-item__container', //'.fc-container--story-package, .u-faux-block-link--hover',
     homepage_theme_selector: '',
+    homepage_theme_foreground_selector: '.fc-item__standfirst, .fc-container__header__title',
     homepage_css: '.tone-live--item {background-color: #5a0b00} .fc-item.tone-letters--item {background-color: #333} .fc-container--story-package {border-top-width: 0} .js-on .fc-show-more--hidden .fc-show-more--hide {display: block}',
     hide_selector: '.adverts, .site-message',
     //url_to_data_filename: {year_index: 4, segments_used: 7, wildcards: [3]},
@@ -297,7 +298,12 @@ const sites_data = [
       if (page_level === 0) {
         //jQuery('#opinion .button--show-more, #from-the-uk .button--show-more, #around-the-world .button--show-more').click()
         //d
-        jQuery('.button--show-more').click()
+        //jQuery('.button--show-more').click()
+        //const facia_page = jQuery('.facia-page')
+        jQuery('#opinion').insertAfter(jQuery('#headlines'))
+        jQuery('#spotlight').insertAfter(jQuery('#headlines'))
+        jQuery('#around-the-world').insertAfter(jQuery('#headlines'))
+        jQuery('#from-the-uk').insertAfter(jQuery('#headlines'))
       }
     },
   },
@@ -397,14 +403,12 @@ const sites_data = [
             }
           }
         }
-        /*
         for (const element of jQuery('article p, article p>i, article p>em')) { // hide interstitial links
           const $element = jQuery(element)
           const element_contents = $element.contents()
-          if (element_contents.length === 3 && element_contents [0].textContent === '[') $element.hide()
+          if (element_contents.length === 3 && element_contents [0].textContent === '[') $element.addClass('wf_interstitial_link')
           debug(285, 10, element_contents [0])
         }
-        */
         for (const element of jQuery('article a')) { // hide interstitial links
           const $element = jQuery(element)
           const element_contents = $element.contents()
@@ -416,7 +420,7 @@ const sites_data = [
             debug(285, 30, element_text)
             if (element_text [0] === '[' && element_text [element_text.length - 1] === ']') {
               debug(285, 31)
-              $element.hide()
+              $element.addClass('wf_interstitial_link')
             }
           }
         }
@@ -457,6 +461,13 @@ const sites_data = [
     name: 'The Intercept',
     origin: 'https://theintercept.com',
     article_theme_foreground_selector: '.PostContent, .PostContent u, h1, h2, h3, h4, h5, h6, .caption',
+  },
+  {
+    name: 'The San Francisco Chronicle',
+    origin: 'https://www.sfgate.com',
+    article_theme_foreground_selector: '.headline, .byline, p, .caption-full, .credit',
+    article_theme_background_selector: '.article-content, #content, .page-content, .content, .core-headline-list', // yes, we need all 4 "content" selectors!
+    article_hide_selector: '.article-share, header, .socialWrapper',
   },
   {
     name: 'USA Today',
