@@ -178,7 +178,7 @@ const sites_data = [
     homepage_hide_selector: '#masthead-placeholder, .masthead-cap-container, .masthead.theme-in-content, div.editions.tab, #nytint-hp-watching, #site-index .section-header, #markets, .all-sections-button, #mini-navigation, #WelcomeAd_optly',
     hide_selector: '.ad',
     theme_selector: 'body, #masthead, .searchsubmit', // NYT dark theme
-    css: '.story.theme-main .story-meta-footer {border-top: none; border-bottom: none}',
+    css: '.story.theme-main .story-meta-footer {border-top: none; border-bottom: none} .wf_video_article_link:link h3, .wf_video_article_link:visited h3 {color: #550}',
     dark_theme: 1, // to turn this off, change the 1 to a 0 and comment out all other lines that are commented "NYT dark theme"
     unwanted_query_fields: 'action clickSource comments contentCollection contentPlacement hp module pgtype _r ref region rref smid smtyp src version WT.nav WT.z_jog hF vS utm_campaign utm_content utm_medium utm_source t target mcubz gwh gwt mtrref',
     unwanted_classes: 'theme-pinned-masthead',
@@ -260,6 +260,13 @@ const sites_data = [
         }
         debug(571, 90)
       }
+      for (const element of jQuery('a')) {
+        debug(571, 94, element.pathname)
+        if (element.pathname.startsWith('/video/')) {
+          debug(571, 96)
+          jQuery(element).addClass('wf_video_article_link')
+        }
+      }
       debug(571, 100)
       //remove_fixed_positioning(site_data)
     },
@@ -328,7 +335,7 @@ const sites_data = [
     //hide_selector:'.pb-f-page-post-most img',
     homepage_theme_foreground_selector: '.label, .blurb, .byline, .author, .caption',
     homepage_hide_selector: '.pb-f-homepage-brandconnect-sidebar, .section-story-photo-1', //, .standard-chain img, .opinions-chain img',
-    css: '.overlineLabel {font-family: "Helvetica Black", sans-serif; font-weight: bold}',
+    css: '.overlineLabel {font-family: "Helvetica Black", sans-serif; font-weight: bold} .wf_video_article_link:link, .wf_video_article_link:visited {color: #990}',
     theme_foreground_selector: 'h1, h2, h3, h4, h5, h6',
     theme_selector: 'body, .skin.skin-card, .skin.skin-button, input',
     unwanted_query_fields: 'hpid tid utm_term wpisrc wpmk',
@@ -380,6 +387,13 @@ const sites_data = [
       descent_imgs.css('opacity', '1')
       for (img of descent_imgs) {
         img.src = img.attributes.getNamedItem('descent-src').value
+      }
+      for (const element of jQuery('a')) {
+        debug(284, 10, element.pathname)
+        if (element.pathname.startsWith('/video/')) {
+          debug(284, 20)
+          jQuery(element).addClass('wf_video_article_link')
+        }
       }
       if (page_level === 2) {
         for (const anchor of window.$anchors) {
@@ -656,6 +670,24 @@ const sites_data = [
     count_words: {append: '.mobile h6', subject: '.articleBody'},
     article_css: '.articleView {padding-top: 80px} .header {position: absolute}',
     article_hide_selector: '#drawerMenu, .mobileTitle ul, footer, .header.smaller',
+  },
+  {
+    name: 'Christian Science Monitor',
+    origin: 'https://www.csmonitor.com',
+    article_theme_foreground_selector: 'p',
+    article_theme_background_selector: '#most-viewed-ump, #story-bottom, foo',
+    //count_words: {append: '.mobile h6', subject: '.articleBody'},
+    //article_css: '.articleView {padding-top: 80px} .header {position: absolute}',
+    article_hide_selector: '.ezn-ddp_responsiveArticle_subscribe_ad_B, .injection, #csm-above-footer-1',
+  },
+  {
+    name: 'US News & World Report',
+    origin: 'https://www.usnews.com',
+    //article_theme_foreground_selector: 'p',
+    //article_theme_background_selector: '#most-viewed-ump, #story-bottom, foo',
+    //count_words: {append: '.mobile h6', subject: '.articleBody'},
+    //article_css: '.articleView {padding-top: 80px} .header {position: absolute}',
+    article_hide_selector: '.hero-sticky-bar-container.fixed',
   },
   {
     name: 'Reuters',
@@ -977,12 +1009,20 @@ const sites_data = [
     article_hide_selector: '#frb-inline, #frb-nag',
     dark_theme: 0,
   },
+  {
+    name: 'Rolling Stone',
+    origin: 'https://www.rollingstone.com',
+    article_theme_background_selector: '.article-main, .card-container',
+    article_theme_foreground_selector: 'p, .article-body-content-main-photo-caption, .content-byline, .content-title',
+    article_hide_selector: '#header, .module-trending-bar, .module-social-sharing',
+    article_css: 'body {padding-top: 0} .card-container {border: none}',
+    //dark_theme: 0
+  },
   {name: 'Stack Overflow'         , origin: 'http://stackoverflow.com'             , dark_theme: 0},
   {name: 'Review of Ophthalmology', origin: 'https://www.reviewofophthalmology.com'},
   {name: 'The Economist'          , origin: 'http://www.economist.com'             , article_hide_selector: '.latest-updates-panel__container'},
   {name: 'The Ringer'             , origin: 'https://theringer.com'                , article_hide_selector: '.js-postShareWidget, .metabar--spacer', unwanted_classes: 'u-fixed metabar'},
   {name: 'Reason'                 , origin: 'http://reason.com'                    , article_css: 'html, body {font-family: Georgia}'},
-  {name: 'Rolling Stone'          , origin: 'http://www.rollingstone.com'          , article_css: 'header {position: static}', dark_theme: 0},
   {name: 'Spectator'              , origin: 'https://www.spectator.co.uk'          , dark_theme: 0, article_css: '.floatyFloaty {position: static}', article_hide_selector: '.article-promo'},
   {name: 'Local wayback'          , alternate_prefixes: 'file:///root/wayback/', append_loaded_date: false, count_words_subject: false},
 ]
