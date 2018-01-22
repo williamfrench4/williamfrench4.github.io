@@ -321,7 +321,7 @@ const sites_data = [
         //jQuery('.button--show-more').click()
         //const facia_page = jQuery('.facia-page')
         jQuery('#opinion').insertAfter(jQuery('#headlines'))
-        jQuery('#spotlight').insertAfter(jQuery('#headlines'))
+        jQuery('#spotlight, #weekend').insertAfter(jQuery('#headlines'))
         jQuery('#around-the-world').insertAfter(jQuery('#headlines'))
         jQuery('#from-the-uk').insertAfter(jQuery('#headlines'))
       }
