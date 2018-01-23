@@ -173,9 +173,11 @@ const sites_data = [
       '#how-self-driving-cars-work, #ransomware-attack-coverage, #fall-upfront-2017, figure[id*=pullquote], figure[id*=email-promo], figure[id*=DAILY-player], #why-its-so-hard-to-have-an-independent-russia-investigation, #navigation-edge, #europe-terror-attacks, #welcome-back-modal, #document-Robert-Mueller-Special-Counsel-Russia, #julian-assange-timeline, #anthony-weiner-plea-agreement, #assange-fblive-promo, .meter-asset-wrapper, #news-tips-article-promo, .cColumn>.first, #nyt-weather, .NYTSocialShare__overlayTriggerContainer, .Post__ad, .wf_interstitial_link,' + selector_for_elements_with_a_class_that_starts_with('Masthead-mastheadContainer-- SectionBarShare-shareMenu-- Recirculation-recirculation-- Dock-dock-- SectionBar-sectionBar-- ResponsiveAd-')
     ),
     extra_sub_element_selectors: 'h3.story-heading',
-    homepage_theme_foreground_selector: '.summary', // NYT dark theme
+    homepage_theme_foreground_selector: '.summary,' + selector_for_elements_with_a_class_that_starts_with('TemplateUtils-packageName-- AssetContent-summary-- AssetMedia-meta__caption--'), // NYT dark theme
+    homepage_theme_background_selector: selector_for_elements_with_a_class_that_starts_with('Asset-story-- TemplateUtils-topLabel--'),
     //homepage_css: 'header {background-color: #aaa}', // NYT dark theme
-    homepage_hide_selector: '#masthead-placeholder, .masthead-cap-container, .masthead.theme-in-content, div.editions.tab, #nytint-hp-watching, #site-index .section-header, #markets, .all-sections-button, #mini-navigation, #WelcomeAd_optly',
+    homepage_css: selector_for_elements_with_a_class_that_starts_with('Logos-desktopLogo--') + '{filter: invert(70%) sepia(100%) hue-rotate(65deg) saturate(7)}',
+    homepage_hide_selector: '#masthead-placeholder, .masthead-cap-container, .masthead.theme-in-content, div.editions.tab, #nytint-hp-watching, #site-index .section-header, #markets, .all-sections-button, #mini-navigation, #WelcomeAd_optly,' + selector_for_elements_with_a_class_that_starts_with('BlockAdvert-topAd--'),
     hide_selector: '.ad',
     theme_selector: 'body, #masthead, .searchsubmit', // NYT dark theme
     css: '.story.theme-main .story-meta-footer {border-top: none; border-bottom: none} .wf_video_article_link:link h3, .wf_video_article_link:visited h3 {color: #550}',
