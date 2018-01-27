@@ -438,7 +438,10 @@ const sites_data = [
         for (const element of jQuery('article p, article p>i, article p>em')) { // hide interstitial links
           const $element = jQuery(element)
           const element_contents = $element.contents()
-          if (element_contents.length === 3 && element_contents [0].textContent === '[') $element.addClass('wf_interstitial_link')
+          if (element_contents.length === 3 && element_contents [0].textContent === '[') {
+            $element.addClass('wf_interstitial_link')
+            $element.parent().parent().parent().append($element)
+          }
           debug(285, 10, element_contents [0])
         }
         for (const element of jQuery('article a')) { // hide interstitial links
@@ -453,6 +456,7 @@ const sites_data = [
             if (element_text [0] === '[' && element_text [element_text.length - 1] === ']') {
               debug(285, 31)
               $element.addClass('wf_interstitial_link')
+              $element.parent().parent().parent().append($element)
             }
           }
         }
