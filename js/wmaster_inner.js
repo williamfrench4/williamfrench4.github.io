@@ -203,7 +203,7 @@ const sites_data = [
       if (page_level === 2) {
         jQuery('figure.video').css({'width': '30%', 'margin-left': '30px'})
         jQuery('.g-artboard' ).css({'width': '90%', 'margin-left': '30px'})
-        document.styleSheets[0].addRule('.g-artboard *, .g-graphic *, .nytg-chart *', 'background-color: transparent !important')
+        //document.styleSheets[0].addRule('.g-artboard *, .g-graphic *, .nytg-chart *', 'background-color: transparent !important')
         //cooked_site_css += ' .interactive-graphic * {background-color: #fff !important; color: #000 !important}'
         $body.removeClass('lens-hide-titles')
         for (const anchor of jQuery('a')) {
