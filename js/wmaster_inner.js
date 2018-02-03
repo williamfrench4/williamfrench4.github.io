@@ -153,7 +153,7 @@ const sites_data = [
     alternate_prefixes: 'file:///root/wayback/nytimes/ file:///root/wayback/nytimes_todayspaper/',
     count_words: {append: '.byline:last-of-type, .byline-column, ' + selector_for_elements_with_a_class_that_starts_with('Byline-bylineAuthor--'), prefix: ' ', subject: ['.story-body-text, .g-body', '.story-body', '#story'], grafs: 0},
     article_theme_selector: 'input, textarea, .columnGroup', // NYT dark theme
-    article_theme_background_selector: '.bcColumn, .cColumn, .App__app, .main, .g-graphic, .g-article-wrapper', // NYT dark theme
+    article_theme_background_selector: '.bcColumn, .cColumn, .App__app, .main, .g-graphic, .wf-unreal-interactive-graphic', // NYT dark theme
     article_theme_foreground_selector: 'p, .masthead .masthead-menu li, .headline, .kicker, .dateline, .story-quote, .caption, figcaption, h1, h2, h3, h4, h5, h6, .g-item.g-subhed h2, .byline, .dropcap, .g-body, .swiper-text p, .story-body-text, .story-body-text strong:first-child, .CreditedMedia__caption, .Post__byline, .Post__body, .full-art,' + selector_for_elements_with_a_class_that_starts_with('ResponsiveMedia-captionText-- HeaderBasic-bylineTimestamp-- HeaderBasic-summary-- HeaderBasic-label-- Summary-summary-- styles-bylineTimestamp--'),
     article_css: '.App__app {margin-top: 0} .story-body-text {font-family: "Times New Roman"} .caption-text {font-family: sans-serif} .story-header, .image {position: relative}' +
       'input, textarea {background-image: none} .shell {padding-top: 0} .main {border-top: none} .nytg-chart {color: #000; background-color: #fff}' + // NYT dark theme
@@ -282,6 +282,15 @@ const sites_data = [
         }
       }
       debug(571, 200)
+      for (const element of jQuery('.g-article-wrapper')) {
+        debug(571, 210, element)
+        const parent = jQuery(element).parent()
+        debug(571, 220, parent)
+        if (parent.hasClass('interactive-graphic')) {
+          debug(571, 230)
+          parent.addClass('wf-unreal-interactive-graphic')
+        }
+      }
       //remove_fixed_positioning(site_data)
     },
   },
@@ -988,7 +997,9 @@ const sites_data = [
   {
     name: 'Washington Examiner',
     origin: 'http://www.washingtonexaminer.com',
-    article_css: '.fixed-top {position: absolute}',
+    article_theme_foreground_selector: 'p',
+    article_hide_selector: '[data-adloader-networktype]',
+    //article_css: '.fixed-top {position: absolute}',
   },
   {
     name: 'Yale Law Journal',
