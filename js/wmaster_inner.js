@@ -856,8 +856,10 @@ const sites_data = [
   {
     name: 'The Week',
     origin: 'http://theweek.com',
-    article_css: '#sub-header {margin-top: 50px}',
-    article_hide_selector: '.managed-ad, .appendedAds',
+    article_css: '.wmaster_words_count span.nbsp {display: inline; font-size: 100%}', // the site has "span {display: block}"! //'#sub-header {margin-top: 50px}',
+    //article_hide_selector: '.managed-ad, .appendedAds',
+    article_theme_background_selector: '#content',
+    article_theme_foreground_selector: '.article-body',
     count_words: {append: '.article-date', subject: '.article-body'},
   },
   {
