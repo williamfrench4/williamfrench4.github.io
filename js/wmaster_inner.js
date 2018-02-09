@@ -569,8 +569,10 @@ const sites_data = [
   {
     name: 'Chicago Tribune',
     origin: 'http://www.chicagotribune.com',
-    article_theme_background_selector: '.trb_allContentWrapper',
+    article_theme_background_selector: '.trb_allContentWrapper, .tr_ar_by, .tr_ar_dateline',
     article_theme_foreground_selector: 'p, p:first-child:first-letter',
+    count_words: {append: '.tr_ar_dateline', subject: '.trb_ar_bd'},
+    article_hide_selector: '.met-rule-660',
   },
   {
     name: 'Talking Points Memo',
