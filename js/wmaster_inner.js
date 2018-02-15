@@ -745,6 +745,7 @@ const sites_data = [
     //article_hide_selector: '.clay-share',
     theme_background_selector: '#templateOuterLeft, #container',
     article_theme_background_selector: '#breadcrumbs div',
+    article_theme_foreground_selector: 'p',
     article_hide_selector: '#pw-article-share-bar',
     article_css: '#container {border: none}'
   },
