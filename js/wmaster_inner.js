@@ -213,13 +213,13 @@ const sites_data = [
           }
         }
       } else {
-        debug(444, 10)
-        
+        //debug(444, 10)
+        /*
         const original = $('html');
         const clone = original.clone();
         original.replaceWith(clone); // kill all event handlers on the page so no parameters get added to the links
-
-        debug(444, 20)
+        */
+        //debug(444, 20)
         //document.outerHTML = document.outerHTML // kill event handlers to stop periodic auto-reload
         //const li = getEventListeners(document)
         /*
@@ -234,7 +234,7 @@ const sites_data = [
           event.stopPropagation();
         }, true);
         */
-        debug(444, 30)
+        //debug(444, 30)
         //Object.freeze(document.location); // doesn't work -- and why would anyone expect it to?
         const logo_element = jQuery('h2.branding') [0]
         if (logo_element) logo_element.innerHTML = '<img width="573" height="138" src="file:/home/will/public_html/green_york_times.png">'
@@ -349,13 +349,13 @@ const sites_data = [
     customize () {
       if (page_level === 0) {
         //jQuery('#opinion .button--show-more, #from-the-uk .button--show-more, #around-the-world .button--show-more').click()
-        //d
         //jQuery('.button--show-more').click()
         //const facia_page = jQuery('.facia-page')
         jQuery('#opinion').insertAfter(jQuery('#headlines'))
         jQuery('#spotlight, #weekend').insertAfter(jQuery('#headlines'))
         jQuery('#around-the-world').insertAfter(jQuery('#headlines'))
         jQuery('#from-the-uk').insertAfter(jQuery('#headlines'))
+        jQuery('#in-pictures').insertBefore(jQuery('#headlines'))
       }
     },
   },
