@@ -173,7 +173,7 @@ const sites_data = [
       '#how-self-driving-cars-work, #ransomware-attack-coverage, #fall-upfront-2017, figure[id*=pullquote], figure[id*=email-promo], figure[id*=DAILY-player], #why-its-so-hard-to-have-an-independent-russia-investigation, #navigation-edge, #europe-terror-attacks, #welcome-back-modal, #document-Robert-Mueller-Special-Counsel-Russia, #julian-assange-timeline, #anthony-weiner-plea-agreement, #assange-fblive-promo, .meter-asset-wrapper, #news-tips-article-promo, .cColumn>.first, #nyt-weather, #newsletter-module, .NYTSocialShare__overlayTriggerContainer, .Post__ad,' + selector_for_elements_with_a_class_that_starts_with('Masthead-mastheadContainer-- SectionBarShare-shareMenu-- Recirculation-recirculation-- Dock-dock-- SectionBar-sectionBar-- ResponsiveAd-')
     ),
     extra_sub_element_selectors: 'h3.story-heading',
-    homepage_theme_foreground_selector: '.summary,' + selector_for_elements_with_a_class_that_starts_with('TemplateUtils-packageName-- AssetContent-summary-- AssetMedia-meta__caption--'), // NYT dark theme
+    homepage_theme_foreground_selector: '.summary, .masthead .masthead-menu li,' + selector_for_elements_with_a_class_that_starts_with('TemplateUtils-packageName-- AssetContent-summary-- AssetMedia-meta__caption--'), // NYT dark theme
     homepage_theme_background_selector: selector_for_elements_with_a_class_that_starts_with('Asset-story-- TemplateUtils-topLabel--'),
     //homepage_css: 'header {background-color: #aaa}', // NYT dark theme
     homepage_css: selector_for_elements_with_a_class_that_starts_with('Logos-desktopLogo--') + '{filter: invert(70%) sepia(100%) hue-rotate(65deg) saturate(7)}',
@@ -804,7 +804,7 @@ const sites_data = [
     origin: 'http://www.vulture.com',
     article_theme_background_selector: '.global-nav',
     article_hide_selector: '.clay-share',
-    article_theme_foreground_selector: 'h1, .clay-paragraph, .mediaplay-image-figcaption, .by-authors, time',
+    article_theme_foreground_selector: 'h1, .clay-paragraph, .mediaplay-image-figcaption, .by-authors, time, .lede-horizontal-teaser',
     article_css: '.logo-wrap {background-color: #333}',
     count_words: {append: '.article-timestamp', subject: '.article-content'},
   },
