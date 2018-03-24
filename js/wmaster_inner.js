@@ -304,7 +304,7 @@ const sites_data = [
         }
       }
       debug(571, 200)
-      for (const element of jQuery('.g-article-wrapper')) {
+      for (const element of jQuery('.g-article-wrapper, .rad-article')) {
         debug(571, 210, element)
         const parent = jQuery(element).parent()
         debug(571, 220, parent)
