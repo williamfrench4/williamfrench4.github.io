@@ -170,7 +170,7 @@ const sites_data = [
       '.g-freebird-lazy.ll-init {opacity: 1} a {text-shadow: none}',
     article_hide_selector: (
       'nav, #masthead, .newsletter-signup, #whats-next, #site-index, .story-meta-footer-sharetools, .comments-button, [id="18-insider-promo-module"], #obstruction-justice-promo, #how-republican-voted-on-health-bill, #brexit-latest-fallout-tracker, #story-ad-1-wrapper, #story-ad-2-wrapper, #story-ad-3-wrapper, #story-ad-4-wrapper, #story-ad-5-wrapper, #opinion-aca-callout, #next-steps-for-health-care-bill, [id="06up-acachart"], #house-vote-republican-health-care-bill, #morning-briefing-weather-module, #related-combined-coverage, .text-ad, #comey-promo, figure.video, .page-footer, .story-info, .story-print-citation, #fbi-congress-trump-russia-investigations, .vis-survey-box, #oil-prices, #Ask-Real-Estate-Promo, #wannacry-ransomware-map, #app > div > div' +
-      '#how-self-driving-cars-work, #ransomware-attack-coverage, #fall-upfront-2017, figure[id*=pullquote], figure[id*=email-promo], figure[id*=DAILY-player], #why-its-so-hard-to-have-an-independent-russia-investigation, #navigation-edge, #europe-terror-attacks, #welcome-back-modal, #document-Robert-Mueller-Special-Counsel-Russia, #julian-assange-timeline, #anthony-weiner-plea-agreement, #assange-fblive-promo, .meter-asset-wrapper, #news-tips-article-promo, .cColumn>.first, #nyt-weather, #newsletter-module, .NYTSocialShare__overlayTriggerContainer, .Post__ad, #app>div>div>div>div>div,' + selector_for_elements_with_a_class_that_starts_with('Masthead-mastheadContainer-- SectionBarShare-shareMenu-- Recirculation-recirculation-- Dock-dock-- SectionBar-sectionBar-- ResponsiveAd- InlineMessage-inline--')
+      '#how-self-driving-cars-work, #ransomware-attack-coverage, #fall-upfront-2017, figure[id*=pullquote], figure[id*=email-promo], figure[id*=DAILY-player], #why-its-so-hard-to-have-an-independent-russia-investigation, #navigation-edge, #europe-terror-attacks, #welcome-back-modal, #document-Robert-Mueller-Special-Counsel-Russia, #julian-assange-timeline, #anthony-weiner-plea-agreement, #assange-fblive-promo, .meter-asset-wrapper, #news-tips-article-promo, .cColumn>.first, #nyt-weather, #newsletter-module, .NYTSocialShare__overlayTriggerContainer, .Post__ad, #app>div>div>div>div>div, .css-15u353c,' + selector_for_elements_with_a_class_that_starts_with('Masthead-mastheadContainer-- SectionBarShare-shareMenu-- Recirculation-recirculation-- Dock-dock-- SectionBar-sectionBar-- ResponsiveAd- InlineMessage-inline--')
     ),
     extra_sub_element_selectors: 'h3.story-heading',
     homepage_theme_foreground_selector: '.summary, .masthead .masthead-menu li,' + selector_for_elements_with_a_class_that_starts_with('TemplateUtils-packageName-- AssetContent-summary-- AssetMedia-meta__caption--'), // NYT dark theme
@@ -313,6 +313,24 @@ const sites_data = [
           parent.addClass('wf-unreal-interactive-graphic')
         }
       }
+      /*
+      const $button = jQuery('button')
+      debug(5713, 250, $button)
+      for (const element of $button) {
+        debug(5713, 260, element)
+        const $parent = jQuery(element).parent()
+        debug(5713, 270, $parent)
+        //$parent [0].addClass('wf_nag')
+      }
+      */
+      const $site_content = jQuery('#site-content')
+      debug(5714, 260, $site_content)
+      const $site_content_parent = $site_content.parent()
+      debug(5714, 270, $site_content_parent)
+      const $site_content_parent_next = $site_content_parent.next()
+      debug(5714, 280, $site_content_parent_next)
+      $site_content_parent_next.remove()
+      //debug(5714, 290, $site_content_parent_next.hasClass('wf_nag'))
       //remove_fixed_positioning(site_data)
     },
   },
