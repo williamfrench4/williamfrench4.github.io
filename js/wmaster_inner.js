@@ -151,7 +151,7 @@ const sites_data = [
     origin: 'https://www.nytimes.com',
     alternate_origins: 'https://cooking.nytimes.com https://douthat.blogs.nytimes.com https://krugman.blogs.nytimes.com https://kristof.blogs.nytimes.com https://well.blogs.nytimes.com https://lens.blogs.nytimes.com https://www.nytimes.com/section/magazine https://mobile.nytimes.com https://dinersjournal.blogs.nytimes.com',
     alternate_prefixes: 'file:///root/wayback/nytimes/ file:///root/wayback/nytimes_todayspaper/',
-    count_words: {append: '.byline:last-of-type, .byline-column, ' + selector_for_elements_with_a_class_that_starts_with('Byline-bylineAuthor--'), prefix: ' ', subject: ['.story-body-text, .g-body', '.story-body', '#story'], grafs: 0},
+    count_words: {append: '.byline:last-of-type, .byline-column, .styles-bylineTimestamp--2J2fe, ' + selector_for_elements_with_a_class_that_starts_with('Byline-bylineAuthor--'), prefix: ' ', subject: ['.story-body-text, .g-body', '.story-body', '#story'], grafs: 0},
     article_theme_selector: 'input, textarea, .columnGroup', // NYT dark theme
     article_theme_background_selector: '.bcColumn, .cColumn, .App__app, .main, .g-graphic, .wf-unreal-interactive-graphic, .guide-content,' + selector_for_elements_with_a_class_that_starts_with('elementStyles-sectionHeader-- elementStyles-recirculation-- Card-story--'), // NYT dark theme
     article_theme_foreground_selector: 'p, .masthead .masthead-menu li, .headline, .kicker, .dateline, .story-quote, .caption, figcaption, h1, h2, h3, h4, h5, h6, .g-item.g-subhed h2, .byline, .dropcap, .g-body, .swiper-text p, .story-body-text, .story-body-text strong:first-child, .CreditedMedia__caption, .Post__byline, .Post__body, .full-art,' + selector_for_elements_with_a_class_that_starts_with('ResponsiveMedia-captionText-- HeaderBasic-bylineTimestamp-- HeaderBasic-summary-- HeaderBasic-label-- Summary-summary-- styles-bylineTimestamp--'),
@@ -170,7 +170,7 @@ const sites_data = [
       '.g-freebird-lazy.ll-init {opacity: 1} a {text-shadow: none}',
     article_hide_selector: (
       'nav, #masthead, .newsletter-signup, #whats-next, #site-index, .story-meta-footer-sharetools, .comments-button, [id="18-insider-promo-module"], #obstruction-justice-promo, #how-republican-voted-on-health-bill, #brexit-latest-fallout-tracker, #story-ad-1-wrapper, #story-ad-2-wrapper, #story-ad-3-wrapper, #story-ad-4-wrapper, #story-ad-5-wrapper, #opinion-aca-callout, #next-steps-for-health-care-bill, [id="06up-acachart"], #house-vote-republican-health-care-bill, #morning-briefing-weather-module, #related-combined-coverage, .text-ad, #comey-promo, figure.video, .page-footer, .story-info, .story-print-citation, #fbi-congress-trump-russia-investigations, .vis-survey-box, #oil-prices, #Ask-Real-Estate-Promo, #wannacry-ransomware-map, #app > div > div' +
-      '#how-self-driving-cars-work, #ransomware-attack-coverage, #fall-upfront-2017, figure[id*=pullquote], figure[id*=email-promo], figure[id*=DAILY-player], #why-its-so-hard-to-have-an-independent-russia-investigation, #navigation-edge, #europe-terror-attacks, #welcome-back-modal, #document-Robert-Mueller-Special-Counsel-Russia, #julian-assange-timeline, #anthony-weiner-plea-agreement, #assange-fblive-promo, .meter-asset-wrapper, #news-tips-article-promo, .cColumn>.first, #nyt-weather, #newsletter-module, .NYTSocialShare__overlayTriggerContainer, .Post__ad, #app>div>div>div>div>div, .css-15u353c,' + selector_for_elements_with_a_class_that_starts_with('Masthead-mastheadContainer-- SectionBarShare-shareMenu-- Recirculation-recirculation-- Dock-dock-- SectionBar-sectionBar-- ResponsiveAd- InlineMessage-inline--')
+      '#how-self-driving-cars-work, #ransomware-attack-coverage, #fall-upfront-2017, figure[id*=pullquote], figure[id*=email-promo], figure[id*=DAILY-player], #why-its-so-hard-to-have-an-independent-russia-investigation, #navigation-edge, #europe-terror-attacks, #welcome-back-modal, #document-Robert-Mueller-Special-Counsel-Russia, #julian-assange-timeline, #anthony-weiner-plea-agreement, #assange-fblive-promo, .meter-asset-wrapper, #news-tips-article-promo, .cColumn>.first, #nyt-weather, #newsletter-module, .NYTSocialShare__overlayTriggerContainer, .Post__ad, #app>div>div>div>div>div, .css-15u353c, .StoryBodyCompanionColumn>aside,' + selector_for_elements_with_a_class_that_starts_with('Masthead-mastheadContainer-- SectionBarShare-shareMenu-- Recirculation-recirculation-- Dock-dock-- SectionBar-sectionBar-- ResponsiveAd- InlineMessage-inline--')
     ),
     extra_sub_element_selectors: 'h3.story-heading',
     homepage_theme_foreground_selector: '.summary, .masthead .masthead-menu li,' + selector_for_elements_with_a_class_that_starts_with('TemplateUtils-packageName-- AssetContent-summary-- AssetMedia-meta__caption--'), // NYT dark theme
@@ -1921,7 +1921,7 @@ if (is_node) {
       let subject_selector
       for (subject_selector of subject_selectors) {
         const $subject_elements      = jQuery(subject_selector)
-        debug(192, 10, subject_selector, $subject_elements)
+        debug('debug_word_count', 10, subject_selector, $subject_elements)
         let grafs = jQuery('')
         total_words_count_by_selector.push(0)
         let graf_containers = []
@@ -1934,22 +1934,22 @@ if (is_node) {
             graf_containers.push(element)
           }
         }
-        debug(192, 20, JSON.stringify(Array.from(grafs)), grafs.size)
+        debug('debug_word_count', 20, JSON.stringify(Array.from(grafs)), grafs.size)
         const contained_grafs = jQuery(graf_containers).find('p, li')
-        debug(192, 30, contained_grafs, contained_grafs.length)
+        debug('debug_word_count', 30, contained_grafs, contained_grafs.length)
         let contained_graf
         for (contained_graf of contained_grafs) {
-          debug(192, 40, contained_graf, grafs)
+          debug('debug_word_count', 40, contained_graf, grafs)
           grafs = grafs.add(contained_graf)
-          debug(192, 50, grafs)
+          debug('debug_word_count', 50, grafs)
           all_grafs = all_grafs.add(contained_graf)
         }
         //grafs = grafs.concat(contained_grafs)
-        debug(192, 60, grafs)
+        debug('debug_word_count', 60, grafs)
         //BUG: set arithmetic: here we would add all the elements of grafs to all_grafs -- if the language had a built-in way to do so. Since it doesn't, we have maintained all_grafs as we went along.
         grafs_by_selector [subject_selector] = grafs
       }
-      debug(192, 70, grafs_by_selector)
+      debug('debug_word_count', 70, grafs_by_selector)
       let graf
       for (graf of all_grafs) {
         let $graf = jQuery(graf)
@@ -1957,30 +1957,30 @@ if (is_node) {
         let word
         if (graf_text.length) {
           const graf_text_split = graf_text.split(/\s+/)
-          debug(192, 73, graf_text, graf_text_split)
+          debug('debug_word_count', 73, graf_text, graf_text_split)
           let graf_words_count = 0
           for (word of graf_text_split) {
-            debug(192, 75, word)
+            debug('debug_word_count', 75, word)
             if (word) {
-              debug(192, 76)
+              debug('debug_word_count', 76)
               graf_words_count++
             }
           }
-          debug(192, 78, graf_words_count)
+          debug('debug_word_count', 78, graf_words_count)
           $graf.data(graf_words_count_name, graf_words_count)
           total_words_count += graf_words_count
           let subject_selector_index
           let subject_selector
           for ([subject_selector_index, subject_selector] of subject_selectors.entries()) {
-            debug(192, 80, graf, subject_selector, grafs_by_selector [subject_selector])
+            debug('debug_word_count', 80, graf, subject_selector, grafs_by_selector [subject_selector])
             if (jQuery.inArray(graf, grafs_by_selector [subject_selector]) !== -1) {
-              debug(192, 90)
+              debug('debug_word_count', 90)
               total_words_count_by_selector [subject_selector_index] += graf_words_count
             }
           }
         }
       }
-      debug(192, 110, total_words_count, total_words_count_by_selector)
+      debug('debug_word_count', 110, total_words_count, total_words_count_by_selector)
       let chosen_subject_selector_index, chosen_subject_selector, chosen_words_count
       for ([chosen_subject_selector_index, chosen_subject_selector] of subject_selectors.entries()) {
         chosen_words_count = total_words_count_by_selector [chosen_subject_selector_index]
@@ -1988,7 +1988,7 @@ if (is_node) {
       }
       let chosen_grafs = grafs_by_selector [chosen_subject_selector]
       let chosen_words_count2 = 0
-      debug(192, 120, grafs_by_selector, chosen_grafs)
+      debug('debug_word_count', 120, grafs_by_selector, chosen_grafs)
       if (show_graf_counts) {
         const verbose = show_graf_counts > 1
         html_graf_prefix = html_prefix + graf_words_count_name + '">' + settings.graf_prefix
@@ -1997,7 +1997,7 @@ if (is_node) {
         for (graf of all_grafs) {
           let $graf = jQuery(graf)
           let new_html = html_graf_prefix
-          debug(192, 130, new_html)
+          debug('debug_word_count', 130, new_html)
           const is_chosen = jQuery.inArray(graf, chosen_grafs) !== -1
           const graf_words_count = $graf.data(graf_words_count_name)
           if (is_chosen) {
@@ -2010,44 +2010,44 @@ if (is_node) {
               }
             }
           }
-          debug(192, 140, new_html)
+          debug('debug_word_count', 140, new_html)
           if (typeof graf_words_count !== 'undefined') {
             if (is_chosen) {
               new_html += graf_words_count + html_infix
-              debug(192, 150, graf_words_count, new_html)
+              debug('debug_word_count', 150, graf_words_count, new_html)
               chosen_words_count2 += graf_words_count
               if (verbose) new_html += ' (' + chosen_words_count2 + ' total)'
             } else {
               if (verbose) new_html += graf_words_count + uncounted_html_infix
             }
-            debug(192, 160, chosen_words_count2, new_html)
+            debug('debug_word_count', 160, chosen_words_count2, new_html)
           }
           new_html += html_suffix
-          debug(192, 170, new_html)
+          debug('debug_word_count', 170, new_html)
           $graf.append(new_html)
         }
-        debug(192, 175, chosen_words_count, chosen_words_count2)
+        debug('debug_word_count', 175, chosen_words_count, chosen_words_count2)
         if (chosen_words_count2 !== chosen_words_count) throw new Error(`chosen_words_count=${chosen_words_count}, chosen_words_count2=${chosen_words_count2}`) // if (chosen_words_count2 !== chosen_words_count) throw new Error('chosen_words_count=' + chosen_words_count + ', chosen_words_count2=' + chosen_words_count2)
       }
       const output = html_prefix + total_words_count_name + '">' + settings.total_prefix + chosen_words_count + html_infix + html_suffix
-      debug(192, 176, output, append_selector)
+      debug('debug_word_count', 176, output, append_selector)
       let append_element
       if (append_selector) {
-        debug(192, 177, $append_elements)
+        debug('debug_word_count', 177, $append_elements)
         for (append_element of $append_elements) {
-          debug(192, 180, append_element, append_element.className, output)
+          debug('debug_word_count', 180, append_element, append_element.className, output)
           jQuery(append_element).append(output)
         }
-        debug(192, 190, append_selector, $append_elements)
+        debug('debug_word_count', 190, append_selector, $append_elements)
       } else if (!prepend_selector) {
         prepend_selector = 'body'
         $prepend_elements = jQuery(prepend_selector)
       }
       if (prepend_selector) {
         $prepend_elements.prepend(output)
-        debug(192, 200, prepend_selector, $prepend_elements)
+        debug('debug_word_count', 200, prepend_selector, $prepend_elements)
       }
-      debug(192, 220, nbsp_size)
+      debug('debug_word_count', 220, nbsp_size)
       if (show_graf_counts) raw_site_css += '.' +  graf_words_count_name + ' {color: #333}'
       raw_site_css                       += '.' + total_words_count_name + ' {color: #880} .' + total_words_count_name + '>.nbsp {font-size: ' + nbsp_size + '}'
     }
