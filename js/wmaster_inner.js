@@ -170,7 +170,7 @@ const sites_data = [
       '.g-freebird-lazy.ll-init {opacity: 1} a {text-shadow: none}',
     article_hide_selector: (
       'nav, #masthead, .newsletter-signup, #whats-next, #site-index, .story-meta-footer-sharetools, .comments-button, [id="18-insider-promo-module"], #obstruction-justice-promo, #how-republican-voted-on-health-bill, #brexit-latest-fallout-tracker, #story-ad-1-wrapper, #story-ad-2-wrapper, #story-ad-3-wrapper, #story-ad-4-wrapper, #story-ad-5-wrapper, #opinion-aca-callout, #next-steps-for-health-care-bill, [id="06up-acachart"], #house-vote-republican-health-care-bill, #morning-briefing-weather-module, #related-combined-coverage, .text-ad, #comey-promo, figure.video, .page-footer, .story-info, .story-print-citation, #fbi-congress-trump-russia-investigations, .vis-survey-box, #oil-prices, #Ask-Real-Estate-Promo, #wannacry-ransomware-map, #app > div > div' +
-      '#how-self-driving-cars-work, #ransomware-attack-coverage, #fall-upfront-2017, figure[id*=pullquote], figure[id*=email-promo], figure[id*=DAILY-player], #why-its-so-hard-to-have-an-independent-russia-investigation, #navigation-edge, #europe-terror-attacks, #welcome-back-modal, #document-Robert-Mueller-Special-Counsel-Russia, #julian-assange-timeline, #anthony-weiner-plea-agreement, #assange-fblive-promo, .meter-asset-wrapper, #news-tips-article-promo, .cColumn>.first, #nyt-weather, #newsletter-module, .NYTSocialShare__overlayTriggerContainer, .Post__ad, #app>div>div>div>div>div, .css-15u353c, .StoryBodyCompanionColumn>aside,' + selector_for_elements_with_a_class_that_starts_with('Masthead-mastheadContainer-- SectionBarShare-shareMenu-- Recirculation-recirculation-- Dock-dock-- SectionBar-sectionBar-- ResponsiveAd- InlineMessage-inline--')
+      '#how-self-driving-cars-work, #ransomware-attack-coverage, #fall-upfront-2017, figure[id*=pullquote], figure[id*=email-promo], figure[id*=DAILY-player], #why-its-so-hard-to-have-an-independent-russia-investigation, #navigation-edge, #europe-terror-attacks, #welcome-back-modal, #document-Robert-Mueller-Special-Counsel-Russia, #julian-assange-timeline, #anthony-weiner-plea-agreement, #assange-fblive-promo, .meter-asset-wrapper, #news-tips-article-promo, .cColumn>.first, #nyt-weather, #newsletter-module, .NYTSocialShare__overlayTriggerContainer, .Post__ad, #app>div>div>div>div>div, .css-15u353c, .wf_interstitial_link, .StoryBodyCompanionColumn>aside,' + selector_for_elements_with_a_class_that_starts_with('Masthead-mastheadContainer-- SectionBarShare-shareMenu-- Recirculation-recirculation-- Dock-dock-- SectionBar-sectionBar-- ResponsiveAd- InlineMessage-inline--')
     ),
     extra_sub_element_selectors: 'h3.story-heading',
     homepage_theme_foreground_selector: '.summary, .masthead .masthead-menu li,' + selector_for_elements_with_a_class_that_starts_with('TemplateUtils-packageName-- AssetContent-summary-- AssetMedia-meta__caption--'), // NYT dark theme
@@ -253,41 +253,41 @@ const sites_data = [
         jQuery(img).css({'padding-top': '0'})
         img.src = img.dataset.superjumbosrc
       }
-      debug(571, 10)
+      debug('debug_nyt', 10)
       for (img of jQuery('img.media-viewer-candidate')) {
         const mediaviewer_src = img.dataset.mediaviewerSrc
-        debug(571, 20, mediaviewer_src)
+        debug('debug_nyt', 20, mediaviewer_src)
         if (mediaviewer_src) {
-          debug(571, 30)
+          debug('debug_nyt', 30)
           img.src = mediaviewer_src
         } else {
           const raw_widths = img.dataset.widths
-          debug(571, 40, raw_widths)
+          debug('debug_nyt', 40, raw_widths)
           const parsed_widths = JSON.parse(raw_widths)
           let max_width_found = 0
           let slug = ''
-          debug(571, 50, parsed_widths)
+          debug('debug_nyt', 50, parsed_widths)
           let width
           for (width of parsed_widths) {
             const size = width.size
-            debug(571, 60, width)
+            debug('debug_nyt', 60, width)
             if (size > max_width_found) {
               max_width_found = size
               slug = width.slug
-              debug(571, 70)
+              debug('debug_nyt', 70)
             }
           }
           if (max_width_found) {
             img.src = slug
-            debug(571, 80, slug)
+            debug('debug_nyt', 80, slug)
           }
         }
-        debug(571, 90)
+        debug('debug_nyt', 90)
       }
       for (const element of jQuery('a')) {
-        debug(571, 94, element.pathname)
+        debug('debug_nyt', 94, element.pathname)
         if (element.pathname.startsWith('/video/')) {
-          debug(571, 96)
+          debug('debug_nyt', 96)
           jQuery(element).addClass('wf_video_article_link')
         }
       }
@@ -295,21 +295,22 @@ const sites_data = [
         const $element = jQuery(element)
         const element_contents = $element.contents()
         document.tgg = $element
-        debug(571, 110, $element)
-        debug(571, 120, element_contents)
-        debug(571, 130, element_contents.text())
-        if (element_contents.text().startsWith('[READ: ')) {
+        debug('debug_nyt', 110, $element)
+        debug('debug_nyt', 120, element_contents)
+        debug('debug_nyt', 130, element_contents.text())
+        if (element_contents.text().startsWith('[ALSO READ: ')) {
+          debug('debug_nyt', 140)
           $element.addClass('wf_interstitial_link')
-          $element.parent().parent().parent().append($element)
+          //$element.parent().parent().append($element) // this is now (4/18) overridden by NYT script, so we have to just hide it
         }
       }
-      debug(571, 200)
+      debug('debug_nyt', 200)
       for (const element of jQuery('.g-article-wrapper, .rad-article')) {
-        debug(571, 210, element)
+        debug('debug_nyt', 210, element)
         const parent = jQuery(element).parent()
-        debug(571, 220, parent)
+        debug('debug_nyt', 220, parent)
         if (parent.hasClass('interactive-graphic')) {
-          debug(571, 230)
+          debug('debug_nyt', 230)
           parent.addClass('wf-unreal-interactive-graphic')
         }
       }
