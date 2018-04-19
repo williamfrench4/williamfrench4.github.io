@@ -170,7 +170,7 @@ const sites_data = [
       '.g-freebird-lazy.ll-init {opacity: 1} a {text-shadow: none}',
     article_hide_selector: (
       'nav, #masthead, .newsletter-signup, #whats-next, #site-index, .story-meta-footer-sharetools, .comments-button, [id="18-insider-promo-module"], #obstruction-justice-promo, #how-republican-voted-on-health-bill, #brexit-latest-fallout-tracker, #story-ad-1-wrapper, #story-ad-2-wrapper, #story-ad-3-wrapper, #story-ad-4-wrapper, #story-ad-5-wrapper, #opinion-aca-callout, #next-steps-for-health-care-bill, [id="06up-acachart"], #house-vote-republican-health-care-bill, #morning-briefing-weather-module, #related-combined-coverage, .text-ad, #comey-promo, figure.video, .page-footer, .story-info, .story-print-citation, #fbi-congress-trump-russia-investigations, .vis-survey-box, #oil-prices, #Ask-Real-Estate-Promo, #wannacry-ransomware-map, #app > div > div' +
-      '#how-self-driving-cars-work, #ransomware-attack-coverage, #fall-upfront-2017, figure[id*=pullquote], figure[id*=email-promo], figure[id*=DAILY-player], #why-its-so-hard-to-have-an-independent-russia-investigation, #navigation-edge, #europe-terror-attacks, #welcome-back-modal, #document-Robert-Mueller-Special-Counsel-Russia, #julian-assange-timeline, #anthony-weiner-plea-agreement, #assange-fblive-promo, .meter-asset-wrapper, #news-tips-article-promo, .cColumn>.first, #nyt-weather, #newsletter-module, .NYTSocialShare__overlayTriggerContainer, .Post__ad, #app>div>div>div>div>div, .css-15u353c, .wf_interstitial_link, .StoryBodyCompanionColumn>aside,' + selector_for_elements_with_a_class_that_starts_with('Masthead-mastheadContainer-- SectionBarShare-shareMenu-- Recirculation-recirculation-- Dock-dock-- SectionBar-sectionBar-- ResponsiveAd- InlineMessage-inline--')
+      '#how-self-driving-cars-work, #ransomware-attack-coverage, #fall-upfront-2017, figure[id*=pullquote], figure[id*=email-promo], figure[id*=DAILY-player], #why-its-so-hard-to-have-an-independent-russia-investigation, #navigation-edge, #europe-terror-attacks, #welcome-back-modal, #document-Robert-Mueller-Special-Counsel-Russia, #julian-assange-timeline, #anthony-weiner-plea-agreement, #assange-fblive-promo, .meter-asset-wrapper, #news-tips-article-promo, .cColumn>.first, #nyt-weather, #newsletter-module, .NYTSocialShare__overlayTriggerContainer, .Post__ad, #app>div>div>div>div>div, .css-15u353c, .wf_interstitial_link, .StoryBodyCompanionColumn>aside, .css-olbnx3,' + selector_for_elements_with_a_class_that_starts_with('Masthead-mastheadContainer-- SectionBarShare-shareMenu-- Recirculation-recirculation-- Dock-dock-- SectionBar-sectionBar-- ResponsiveAd- InlineMessage-inline--')
     ),
     extra_sub_element_selectors: 'h3.story-heading',
     homepage_theme_foreground_selector: '.summary, .masthead .masthead-menu li,' + selector_for_elements_with_a_class_that_starts_with('TemplateUtils-packageName-- AssetContent-summary-- AssetMedia-meta__caption--'), // NYT dark theme
@@ -187,6 +187,7 @@ const sites_data = [
     //url_to_data_filename: {year_index: 3, segments_used: 6},
     wayback: {targets: {nytimes: '/', nytimes_todayspaper: '/pages/todayspaper/index.html', nytimes_nyregion: '/pages/nyregion/index.html'}},
     customize () {
+      debug(443)
       if (location_href.startsWith('https://www.nytimes.com/newsletters/')) return
       const
         //js_header_class_signature = 'Masthead-mastheadContainer--',
@@ -253,6 +254,12 @@ const sites_data = [
         jQuery(img).css({'padding-top': '0'})
         img.src = img.dataset.superjumbosrc
       }
+      for (img of jQuery('img[data-superjumbosrc]')) {
+        jQuery(img).css({'padding-top': '0'})
+        img.src = img.dataset.superjumbosrc
+      }
+      https://static01.nyt.com/images/2018/04/14/business/00robojobs-3/merlin_136336629_e5a2821f-8264-4f87-bae7-d9b31b316b18-superJumbo.jpg?quality=75&amp;auto=webp&amp;disable=upscale
+      https://static01.nyt.com/images/2018/04/14/business/00robojobs-3/merlin_136336629_e5a2821f-8264-4f87-bae7-d9b31b316b18-articleLarge.jpg?quality=75&amp;auto=webp
       debug('debug_nyt', 10)
       for (img of jQuery('img.media-viewer-candidate')) {
         const mediaviewer_src = img.dataset.mediaviewerSrc
@@ -2098,7 +2105,11 @@ if (is_node) {
         const is_incognito = !(document.documentElement.dataset.wBackground == "wBackground") // no delay, but requires the wbackground extension to be active and _not_ allowed in incognito
         debug(846, 20, is_incognito)
         if (!is_incognito) {
-          if (site_data.customize) site_data.customize()
+          debug(846, 21)
+          if (site_data.customize) {
+            debug(846, 22, site_data.customize)
+            //site_data.customize()
+          }
           debug(846, 30, hide_selector, location, site_data.name)
         //debug(48.1, theme_foreground_selector)
           if (site_data.css) raw_site_css += site_data.css
