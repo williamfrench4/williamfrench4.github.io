@@ -1100,7 +1100,7 @@ const sites_data = [
   {
     name: 'Wikipedia',
     origin: 'https://en.wikipedia.org',
-    article_hide_selector: '#frb-inline, #frb-nag',
+    article_hide_selector: '#frb-inline, #frb-nag, .cn-fundraising',
     dark_theme: 0,
   },
   {
