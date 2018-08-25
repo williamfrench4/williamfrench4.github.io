@@ -150,7 +150,14 @@ const sites_data = [
     name: 'New York Times',
     origin: 'https://www.nytimes.com',
     alternate_origins: 'https://cooking.nytimes.com https://douthat.blogs.nytimes.com https://krugman.blogs.nytimes.com https://kristof.blogs.nytimes.com https://well.blogs.nytimes.com https://lens.blogs.nytimes.com https://www.nytimes.com/section/magazine https://mobile.nytimes.com https://dinersjournal.blogs.nytimes.com',
-    alternate_prefixes: 'file:///root/wayback/nytimes/ file:///root/wayback/nytimes_todayspaper/ file:///root/wayback/nytimes_world/ file:///root/wayback/nytimes_us/',
+    alternate_prefixes: 'file:///root/wayback/nytimes/ file:///root/wayback/nytimes_todayspaper/ file:///root/wayback/nytimes_world/ file:///root/wayback/nytimes_us/ file:///root/wayback/nytimes_arts ' +
+    'file:///root/wayback/nytimes_arts_dance file:///root/wayback/nytimes_arts_design file:///root/wayback/nytimes_arts_music file:///root/wayback/nytimes_arts_television file:///root/wayback/nytimes_automobiles file:///root/wayback/nytimes_books ' +
+    'file:///root/wayback/nytimes_business file:///root/wayback/nytimes_corrections file:///root/wayback/nytimes_education file:///root/wayback/nytimes_fashion file:///root/wayback/nytimes_fashion_weddings file:///root/wayback/nytimes_health ' +
+    'file:///root/wayback/nytimes_jobs file:///root/wayback/nytimes_magazine file:///root/wayback/nytimes_movies file:///root/wayback/nytimes_multimedia file:///root/wayback/nytimes_nyregion file:///root/wayback/nytimes_nyregion2 ' +
+    'file:///root/wayback/nytimes_obituaries file:///root/wayback/nytimes_opinion file:///root/wayback/nytimes_opinion_columnists file:///root/wayback/nytimes_opinion_contributors file:///root/wayback/nytimes_opinion_editorials ' +
+    'file:///root/wayback/nytimes_opinion_letters file:///root/wayback/nytimes_opinion_sunday file:///root/wayback/nytimes_politics file:///root/wayback/nytimes_reader-center file:///root/wayback/nytimes_realestate file:///root/wayback/nytimes_science ' +
+    'file:///root/wayback/nytimes_sports file:///root/wayback/nytimes_technology file:///root/wayback/nytimes_theater file:///root/wayback/nytimes_t-magazine file:///root/wayback/nytimes_todayspaper file:///root/wayback/nytimes_travel ' +
+    'file:///root/wayback/nytimes_us file:///root/wayback/nytimes_world',
     count_words: {append: '.byline:last-of-type, .byline-column, .styles-bylineTimestamp--2J2fe, header time, ' + selector_for_elements_with_a_class_that_starts_with('Byline-bylineAuthor--'), prefix: ' ', subject: ['.story-body-text, .g-body', '.story-body', '#story'], grafs: 0},
     article_theme_selector: 'input, textarea, .columnGroup', // NYT dark theme
     article_theme_background_selector: 'body, .bcColumn, .cColumn, .App__app, .main, .g-graphic, .wf-unreal-interactive-graphic, .guide-content,' + selector_for_elements_with_a_class_that_starts_with('elementStyles-sectionHeader-- elementStyles-recirculation-- Card-story--'), // NYT dark theme
