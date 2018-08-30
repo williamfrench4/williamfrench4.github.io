@@ -189,7 +189,7 @@ const sites_data = [
     theme_selector: 'body, #masthead, .searchsubmit', // NYT dark theme
     css: '.story.theme-main .story-meta-footer {border-top: none; border-bottom: none} .wf_video_article_link:link, .wf_video_article_link:visited, .wf_video_article_link:link h3, .wf_video_article_link:visited h3 {color: #550} .icon.video:before {filter: invert(70%) sepia(100%) saturate(7)}',
     dark_theme: 1, // to turn this off, change the 1 to a 0 and comment out all other lines that are commented "NYT dark theme"
-    unwanted_query_fields: 'action clickSource comments contentCollection contentPlacement hp module pgtype _r ref region rref smid smtyp src version WT.nav WT.z_jog hF vS utm_campaign utm_content utm_medium utm_source t target mcubz gwh gwt mtrref',
+    unwanted_query_fields: 'mtrref action clickSource comments contentCollection contentPlacement hp module pgtype _r ref region rref smid smtyp src version WT.nav WT.z_jog hF vS utm_campaign utm_content utm_medium utm_source t target mcubz gwh gwt imp_id',
     unwanted_classes: 'theme-pinned-masthead',
     //url_to_data_filename: {year_index: 3, segments_used: 6},
     wayback: {targets: {nytimes: '/', nytimes_todayspaper: '/pages/todayspaper/index.html', nytimes_nyregion: '/pages/nyregion/index.html'}},
@@ -1608,10 +1608,10 @@ function regularize_links (my_window = window, my_origin) {
 
   let url
   debug(394, 10, my_window, my_origin)
-  //const anchors = my_window.jQuery('a')
+  const $anchors = my_window.jQuery('a')
   let anchor_index
   let anchor
-  for ([anchor_index, anchor] of Array.from(my_window.$anchors).entries()) {
+  for ([anchor_index, anchor] of Array.from($anchors).entries()) {
     debug(394, 20, anchor)
     let old_href = anchor.href
     if (old_href.startsWith('/')) {
@@ -1649,7 +1649,7 @@ function regularize_links (my_window = window, my_origin) {
     debug(394, 85) //, origin, site_data)
     if (!site_data) continue
     const unwanted_query_fields_split = site_data.unwanted_query_fields_split
-    debug(394, 87) //, unwanted_query_fields_split)
+    debug(394, 87, unwanted_query_fields_split)
     if (!unwanted_query_fields_split) continue
     //const unwanted_query_fields_split_length = unwanted_query_fields_split.length
     const query_string_index = old_href.indexOf('?')
@@ -1662,6 +1662,7 @@ function regularize_links (my_window = window, my_origin) {
       const query_params = url.searchParams
       debug(394, 100, query_params.toString())
       let field
+      debug(394, 101, unwanted_query_fields_split)
       for (field of unwanted_query_fields_split) {
         query_params.delete(field)
         debug(394, 110, field, query_params.toString())
