@@ -184,7 +184,7 @@ const sites_data = [
     homepage_theme_background_selector: '.css-180b3ld, .css-1q9wuj9' + selector_for_elements_with_a_class_that_starts_with('Asset-story-- TemplateUtils-topLabel--'),
     //homepage_css: 'header {background-color: #aaa}', // NYT dark theme
     homepage_css: selector_for_elements_with_a_class_that_starts_with('Logos-desktopLogo--') + '{filter: invert(70%) sepia(100%) hue-rotate(65deg) saturate(7)}',
-    homepage_hide_selector: '.css-1q9wuj9, #masthead-placeholder, .masthead-cap-container, .masthead.theme-in-content, div.editions.tab, #nytint-hp-watching, #site-index .section-header, #markets, .all-sections-button, #mini-navigation, #WelcomeAd_optly,' + selector_for_elements_with_a_class_that_starts_with('BlockAdvert-topAd--'),
+    homepage_hide_selector: '.css-djiuqn, .css-1q9wuj9, #masthead-placeholder, .masthead-cap-container, .masthead.theme-in-content, div.editions.tab, #nytint-hp-watching, #site-index .section-header, #markets, .all-sections-button, #mini-navigation, #WelcomeAd_optly,' + selector_for_elements_with_a_class_that_starts_with('BlockAdvert-topAd--'),
     hide_selector: '.ad',
     theme_selector: 'body, #masthead, .searchsubmit', // NYT dark theme
     css: '.story.theme-main .story-meta-footer {border-top: none; border-bottom: none} .wf_video_article_link:link, .wf_video_article_link:visited, .wf_video_article_link:link h3, .wf_video_article_link:visited h3 {color: #550} .icon.video:before {filter: invert(70%) sepia(100%) saturate(7)}',
