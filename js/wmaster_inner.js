@@ -1614,6 +1614,7 @@ function regularize_links (my_window = window, my_origin) {
   for ([anchor_index, anchor] of Array.from($anchors).entries()) {
     debug(394, 20, anchor)
     let old_href = anchor.href
+    debug(394, 23, old_href)
     if (old_href.startsWith('/')) {
       debug(394, 30, old_href)
       if (my_origin) {
