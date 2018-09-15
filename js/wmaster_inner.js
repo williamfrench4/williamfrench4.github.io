@@ -819,7 +819,7 @@ const sites_data = [
     name: 'New York Magazine',
     origin: 'http://nymag.com',
     count_words: {append: '.article-timestamp', subject: '.article-content'},
-    article_hide_selector: '.clay-share, .page-header',
+    article_hide_selector: '.clay-share, .page-header, .modal',
     article_theme_foreground_selector: 'h1, p, figcaption, time, .by-authors',
     article_theme_background_selector: '.video-promo-for-articles',
     article_css: 'blockquote, blockquote p {' + theme_foreground_rule + 'padding: 0 0 0 14px; border-left: 1px solid #3a3} blockquote:before {border-top: none} .mediaplay-image-figcaption {text-align: left} nav.rubric-wrap svg>path:last-child {fill: white}', // "Intelligencer" in Daily Intelligencer logo
