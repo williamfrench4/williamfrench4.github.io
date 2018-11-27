@@ -869,7 +869,7 @@ const sites_data = [
     article_hide_selector: selector_for_elements_with_a_class_that_starts_with('MainHeader__topBarItems___ MainHeader__topBar MainHeader__collapsed___ Layout__social___ RecirculationMostPopular__default___'),
     article_theme_background_selector: 'article>header, .hamburger-dropdowns-navigation__top-level, footer',
     //article_theme_foreground_selector: 'article>header .title, article>header time.blog-post-date, .articleBody p, .caption, .author-masthead, .hero-image-caption',
-    article_theme_foreground_selector: '.caption, blockquote, p:first-child:first-letter,' + selector_for_elements_with_a_class_that_starts_with('ArticleBody__articleBody___ ImageCaption__caption___ ArticleContributors__bio___ ArticleHeader__dek___'),
+    article_theme_foreground_selector: 'p, h1, .caption, blockquote, p:first-child:first-letter,' + selector_for_elements_with_a_class_that_starts_with('ArticleBody__articleBody___ ImageCaption__caption___ ArticleContributors__bio___ ArticleHeader__dek___'),
     homepage_hide_selector: '.fixed-topnav, iframe, #strongbox-promo',
     homepage_theme_background_selector: '#main, .logo-container,' + selector_for_elements_with_a_class_that_starts_with('MainHeader__mainHeader___ MainHeader__mainHeader___:after MainHeader__topBar___:after'),
     homepage_theme_foreground_selector: selector_for_elements_with_a_class_that_starts_with('Hero__dek___ River__dek___ Card__dek___ Byline__by___ RecirculationMostPopular__counter___ RecirculationMostPopular__byLine___ RecirculationMostPopular__title___ Card__timestamp___ ImageCaption__cartoon Video__description___'),
