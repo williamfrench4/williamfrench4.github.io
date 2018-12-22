@@ -1,4 +1,4 @@
-// ==UserScript==
+//debug// ==UserScript==
 // @name         wmaster
 // @namespace    http://tampermonkey.net/
 // @version      0.1
@@ -131,7 +131,7 @@ function selector_for_elements_with_a_class_that_starts_with (targets) {
     }
     if (result) result += ', '
     result +=  `[class^="${target}"]${pseudo_element}, [class*=" ${target}"]${pseudo_element}` // result +=  '[class^="' + target + '"]' + pseudo_element + ', [class*=" ' + target + '"]' + pseudo_element
-    debug(31, target, result)
+    //debug(31, target, result)
   }
   return result
 }
@@ -1135,7 +1135,7 @@ for (site_data of sites_data) {
   if (site_data.origin) prefixes = [site_data.origin]
   else        prefixes = []
   if (site_data.alternate_origins ) {
-    debug(746, 50, site_data.alternate_origins)
+    //debug(746, 50, site_data.alternate_origins)
     const alternate_origins_split  = site_data.alternate_origins .split(/\s+/)
     site_data.alternate_origins_split  = alternate_origins_split
     prefixes = prefixes.concat(alternate_origins_split )
@@ -1685,35 +1685,35 @@ function regularize_links (my_window = window, my_origin) {
 function href_to_site_data (href) {
   const href_origin = new URL(href).origin
   let result
-  debug(225, 10, href)
+  //debug(225, 10, href)
   let test_site_data
   for (test_site_data of sites_data) {
     const test_site_origin = test_site_data.origin
-    debug(225, 30, test_site_data.name, href_origin, test_site_origin)
+    //debug(225, 30, test_site_data.name, href_origin, test_site_origin)
     if (!test_site_origin) continue
-    debug(225, 35)
+    //debug(225, 35)
     if (test_site_origin.endsWith('/')) console.log('wmaster: warning: origin "' + test_site_origin + '" ends in a slash')
-    debug(225, 36)
+    //debug(225, 36)
     if (test_site_origin && href_origin === test_site_origin) {
-      debug(225, 40)
+      //debug(225, 40)
       result = test_site_data
       if (href === href_origin + '/') {
-        debug(225, 50)
+        //debug(225, 50)
         page_level = 0
       } else {
-        debug(225, 60)
+        //debug(225, 60)
         page_level = 2
       }
       break
     }
-    debug(225, 100, result)
+    //debug(225, 100, result)
     let alternate
     if (test_site_data.alternate_homepages) {
-      debug(225, 110)
+      //debug(225, 110)
       for (alternate of test_site_data.alternate_homepages_split) {
-        debug(225, 120, href, alternate)
+        //debug(225, 120, href, alternate)
         if (href === alternate) {
-          debug(225, 130)
+          //debug(225, 130)
           result = test_site_data
           page_level = 0
           break
@@ -1721,37 +1721,37 @@ function href_to_site_data (href) {
       }
       if (result) break
     }
-    debug(225, 200, href_origin, test_site_data.origin)
+    //debug(225, 200, href_origin, test_site_data.origin)
     if (test_site_data.origin && href_origin === test_site_data.origin) {
-      debug(225, 210)
+      //debug(225, 210)
       result = test_site_data
       page_level = 2
       break
     }
-    debug(225, 300)
+    //debug(225, 300)
     if (test_site_data.alternate_prefixes) {
-      debug(225, 310)
+      //debug(225, 310)
       for (alternate of test_site_data.alternate_prefixes_split) {
-        debug(225, 320, alternate)
+        //debug(225, 320, alternate)
         if (href.startsWith(alternate) && href !== alternate) {
-          debug(225, 330)
+          //debug(225, 330)
           result = test_site_data
           page_level = 0
           break
         }
       }
-      debug(225, 340, result)
+      //debug(225, 340, result)
       if (result) break
     }
-    debug(225, 400)
+    //debug(225, 400)
     if (test_site_data.alternate_origins) {
-      debug(225, 410)
+      //debug(225, 410)
       for (alternate of test_site_data.alternate_origins_split) {
-        debug(225, 420, alternate)
+        //debug(225, 420, alternate)
 
-      //debug(81, alternate, href_origin, href)
+      ////debug(81, alternate, href_origin, href)
         if (href.startsWith(alternate)) {
-          debug(225, 430)
+          //debug(225, 430)
           result = test_site_data
           if (href === alternate) {
             page_level = 1
@@ -1763,7 +1763,7 @@ function href_to_site_data (href) {
       }
       if (result) break
     }
-    debug(225, 500)
+    //debug(225, 500)
   }
   return result
 }
