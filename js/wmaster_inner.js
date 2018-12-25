@@ -614,6 +614,12 @@ const sites_data = [
     }
   },
   {
+    name: 'gamedevacademy.org',
+    origin: 'https://gamedevacademy.org',
+    dark_theme: false,
+    article_hide_selector: '#zva-modal-area',
+  },
+  {
     name: 'Daily Beast',
     origin: 'https://www.thedailybeast.com',
     alternate_origins: 'http://www.thedailybeast.com',
