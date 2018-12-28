@@ -768,7 +768,7 @@ const sites_data = [
     alternate_origins: 'https://www.apnews.com',
     count_words: {append: '.mobile h6', subject: '.articleBody'},
     article_css: '.articleView {padding-top: 80px} .header {position: absolute}',
-    article_hide_selector: '#drawerMenu, .mobileTitle ul, footer, .header.smaller',
+    article_hide_selector: '#drawerMenu, .mobileTitle ul, footer, .Header',
   },
   {
     name: 'Christian Science Monitor',
