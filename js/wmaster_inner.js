@@ -756,11 +756,12 @@ const sites_data = [
   },
   {
     name: 'Free Code Camp',
-    origin: 'https://www.freecodecamp.com',
+    origin: 'https://medium.freecodecamp.org',
     alternate_origins: 'https://medium.freecodecamp.com',
     article_theme_background_selector: '#container, .screenContent, .canvas-renderer, .metabar, .u-backgroundGrayLightest, .u-backgroundWhite',
-    article_theme_foreground_selector: '.postMetaInline, .u-textColorDark, .graf--h2, .graf--h3, .graf--h4',
+    article_theme_foreground_selector: '.postMetaInline, .u-textColorDark, .graf, .ggraf--h2, .ggraf--h3, .ggraf--h4',
     article_hide_selector: '.js-stickyFooter',
+    article_css: 'div.u-fixed {position: static}',
   },
   {
     name: 'Associated Press',
@@ -973,7 +974,7 @@ const sites_data = [
     origin: 'https://arstechnica.com',
     alternate_origins: 'https://arstechnica.co.uk',
     hide_selector: '.site-header.is_stuck.scrolled-up',
-    article_hide_selector: '.share-links, .pullbox',
+    article_hide_selector: '.ars-sub-app, .share-links, .pullbox',
     article_css: '.site-wrapper {background-color: transparent}', // if set to black, this hides images in Chrome as of 6/19/2017
     count_words: {append: '.byline', subject: '.article-content'},
   },
