@@ -614,6 +614,12 @@ const sites_data = [
     }
   },
   {
+    name: 'developers.google.com',
+    origin: 'https://developers.google.com',
+    dark_theme: false,
+    article_css: 'header, nav {position: static}',
+  },
+  {
     name: 'gamedevacademy.org',
     origin: 'https://gamedevacademy.org',
     dark_theme: false,
