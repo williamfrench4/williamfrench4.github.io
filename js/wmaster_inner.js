@@ -758,7 +758,7 @@ const sites_data = [
     article_css: '.u-fixed, .metabar--affixed {position: static}',
     article_theme_background_selector: '#container, .screenContent, .canvas-renderer, .metabar, .u-backgroundGrayLightest, .u-backgroundWhite',
     article_theme_foreground_selector: '.postMetaInline, .u-textColorDark, .graf--h2, .graf--h3, .graf--h4',
-    article_hide_selector: '.postActions',
+    article_hide_selector: 'iframe, .overlay, .surface-scrollOverlay, .postActions',
   },
   {
     name: 'Free Code Camp',
@@ -768,6 +768,18 @@ const sites_data = [
     article_theme_foreground_selector: '.postMetaInline, .u-textColorDark, .graf, .ggraf--h2, .ggraf--h3, .ggraf--h4',
     article_hide_selector: '.js-stickyFooter',
     article_css: 'div.u-fixed {position: static}',
+  },
+  {
+    name: 'Phaser Forum',
+    origin: 'https://phaser.discourse.group',
+    dark_theme: 0,
+    article_css: 'html {font-family: Arial}',
+  },
+  {
+    name: 'John Resig',
+    origin: 'https://johnresig.com',
+    dark_theme: 0,
+    article_css: 'html, body {font-family: Arial}',
   },
   {
     name: 'Associated Press',
