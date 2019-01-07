@@ -770,6 +770,20 @@ const sites_data = [
     article_css: 'div.u-fixed {position: static}',
   },
   {
+    name: 'Phaser',
+    origin: 'https://phaser.io',
+    dark_theme: 0,
+    article_hide_selector: '#codefund',
+  },
+  {
+    name: 'Phaser 3 Docs',
+    origin: 'https://phaser.io',
+    alternate_homepages: 'https://photonstorm.github.io/phaser3-docs/',
+    article_css: '.navbar-fixed-top, .navbar-fixed-bottom {position: absolute}',
+    dark_theme: 0,
+    article_hide_selector: '#codefund',
+  },
+  {
     name: 'Phaser Forum',
     origin: 'https://phaser.discourse.group',
     dark_theme: 0,
