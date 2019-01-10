@@ -1008,6 +1008,7 @@ const sites_data = [
   {
     name: 'Weather Underground',
     origin: 'https://www.wunderground.com',
+    article_hide_selector: '#kampyleInviteContainer',    
     dark_theme: 0,
   },
   {
