@@ -755,10 +755,19 @@ const sites_data = [
   {
     name: 'Medium',
     origin: 'https://medium.com',
-    article_css: '.u-fixed, .metabar--affixed {position: static}',
+    article_css: 'html {overflow: scroll} .u-fixed, .metabar--affixed {position: static}',
     article_theme_background_selector: '#container, .screenContent, .canvas-renderer, .metabar, .u-backgroundGrayLightest, .u-backgroundWhite',
     article_theme_foreground_selector: '.postMetaInline, .u-textColorDark, .graf--h2, .graf--h3, .graf--h4',
     article_hide_selector: 'iframe, .overlay, .surface-scrollOverlay, .postActions',
+  },
+  {
+    name: 'Codeburst',
+    origin: 'https://codeburst.io',
+    dark_theme: 0,
+    article_css: 'html {overflow: scroll} .u-fixed, .metabar--affixed {position: static}',
+    //article_theme_background_selector: '#container, .screenContent, .canvas-renderer, .metabar, .u-backgroundGrayLightest, .u-backgroundWhite',
+    //article_theme_foreground_selector: '.postMetaInline, .u-textColorDark, .graf--h2, .graf--h3, .graf--h4',
+    article_hide_selector: '.overlay',
   },
   {
     name: 'Hackernoon',
@@ -1008,7 +1017,7 @@ const sites_data = [
   {
     name: 'Weather Underground',
     origin: 'https://www.wunderground.com',
-    article_hide_selector: '#kampyleInviteContainer',    
+    article_hide_selector: '#kampyleInviteContainer',
     dark_theme: 0,
   },
   {
