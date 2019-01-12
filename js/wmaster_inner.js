@@ -773,7 +773,7 @@ const sites_data = [
     name: 'Hackernoon',
     origin: 'https://hackernoon.com',
     dark_theme: 0,
-    article_css: 'html {overflow: scroll} .u-fixed, .metabar--affixed {position: static}',
+    article_css: '.u-overflowHidden {overflow: scroll} .u-fixed, .metabar--affixed {position: static}',
     //article_theme_background_selector: '#container, .screenContent, .canvas-renderer, .metabar, .u-backgroundGrayLightest, .u-backgroundWhite',
     //article_theme_foreground_selector: '.postMetaInline, .u-textColorDark, .graf--h2, .graf--h3, .graf--h4',
     article_hide_selector: '.overlay',
