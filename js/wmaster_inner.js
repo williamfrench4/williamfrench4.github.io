@@ -779,6 +779,12 @@ const sites_data = [
     article_hide_selector: '.overlay',
   },
   {
+    name: 'Session Stack',
+    origin: 'https://blog.sessionstack.com',
+    dark_theme: 0,
+    article_css: 'div.u-fixed, .metabar--affixed {position: static}',
+  },
+  {
     name: 'Free Code Camp',
     origin: 'https://medium.freecodecamp.org',
     alternate_origins: 'https://medium.freecodecamp.com',
