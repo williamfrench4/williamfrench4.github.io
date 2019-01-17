@@ -779,6 +779,42 @@ const sites_data = [
     article_hide_selector: '.overlay',
   },
   {
+    name: 'Stack Overflow',
+    origin: 'https://stackoverflow.com',
+    dark_theme: 0,
+    article_css: '.top-bar._fixed, .ps-fixed {position: static}',
+  },
+  {
+    name: 'Sitepoint',
+    origin: 'https://www.sitepoint.com',
+    dark_theme: 0,
+    article_css: '.sp🚧 .l-p-fix {position: static}',
+  },
+  {
+    name: 'Videooblocks',
+    origin: 'https://engineering.videoblocks.com',
+    dark_theme: 0,
+    article_css: 'div.u-fixed, .metabar--affixed {position: static}',
+  },
+  {
+    name: 'MDN',
+    origin: 'https://developer.mozilla.org',
+    dark_theme: 0,
+    article_css: '.contribution-banner {position: static}',
+  },
+  {
+    name: 'Open Digerati',
+    origin: 'https://blog.opendigerati.com',
+    dark_theme: 0,
+    article_css: 'div.u-fixed, .metabar--affixed {position: static}',
+  },
+  {
+    name: 'Cloudboost',
+    origin: 'https://blog.cloudboost.io',
+    dark_theme: 0,
+    article_css: 'div.u-fixed, .metabar--affixed {position: static}',
+  },
+  {
     name: 'Session Stack',
     origin: 'https://blog.sessionstack.com',
     dark_theme: 0,
