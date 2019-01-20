@@ -755,6 +755,7 @@ const sites_data = [
   {
     name: 'Medium',
     origin: 'https://medium.com',
+    dark_theme: 0,
     article_css: 'html, .u-overflowHidden {overflow: auto} .u-fixed, .metabar--affixed {position: static}',
     article_theme_background_selector: '#container, .screenContent, .canvas-renderer, .metabar, .u-backgroundGrayLightest, .u-backgroundWhite',
     article_theme_foreground_selector: '.postMetaInline, .u-textColorDark, .graf--h2, .graf--h3, .graf--h4',
