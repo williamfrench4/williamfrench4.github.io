@@ -783,6 +783,12 @@ const sites_data = [
     article_css: '.top-bar._fixed, .ps-fixed {position: static}',
   },
   {
+    name: 'Changelog',
+    origin: 'https://changelog.com',
+    dark_theme: 0,
+    article_css: 'header {position: static}',
+  },
+  {
     name: 'Sitepoint',
     origin: 'https://www.sitepoint.com',
     dark_theme: 0,
