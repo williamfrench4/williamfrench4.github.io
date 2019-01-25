@@ -753,6 +753,12 @@ const sites_data = [
     //article_hide_selector: 'mfp-bg mfp-ready',
   },
   {
+    name: 'Rising Stack',
+    origin: 'https://blog.risingstack.com',
+    dark_theme: 0,
+    article_css: '.site-header, .cc-window {position: static}',
+  },
+  {
     name: 'Medium',
     origin: 'https://medium.com',
     dark_theme: 0,
@@ -764,7 +770,7 @@ const sites_data = [
   {
     name: 'Codeburst',
     origin: 'https://codeburst.io',
-    alternate_origins: 'https://itnext.io https://blog.usejournal.com/ https://blog.uncommon.is https://ferdychristant.com/',
+    alternate_origins: 'https://itnext.io https://blog.usejournal.com/ https://blog.uncommon.is https://ferdychristant.com/ https://uxplanet.org',
     dark_theme: 0,
     article_css: 'html, .u-overflowHidden {overflow: auto} .u-fixed, .metabar--affixed {position: static}',
     article_hide_selector: '.overlay',
@@ -795,7 +801,7 @@ const sites_data = [
     article_css: '.sp🚧 .l-p-fix {position: static}',
   },
   {
-    name: 'Videooblocks',
+    name: 'Videoblocks',
     origin: 'https://engineering.videoblocks.com',
     dark_theme: 0,
     article_css: 'div.u-fixed, .metabar--affixed {position: static}',
@@ -1078,7 +1084,7 @@ const sites_data = [
   },
   {
     name: 'The Baltimore Sun',
-    origin: 'http://www.baltimoresun.com',
+    origin: 'https://www.baltimoresun.com',
     css: '.trb_nh {position: absolute} .trb_nh_lw {border-bottom-width: 0}',
     hide_selector: '.trb_bnn, .met-promo',
     article_hide_selector: '#reg-overlay, .trb_nls_c, .trb_mh_adB, .trb_gptAd, .trb_ar_sponsoredmod, [data-content-type="tweetembed"]', //, aside:has([data-content-kicker="Related"])',
