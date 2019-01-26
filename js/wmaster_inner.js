@@ -407,7 +407,7 @@ const sites_data = [
     article_theme_selector: '#article-body, p, blockquote, .pg-bodyCopy',
     article_theme_background_selector: '.wp-volt-gal-embed-promo-container, .wp-volt-gal-embed-promo-bottom, #weather-glance, #weather_now, .cwgdropdown, #heat-tracker, #weather-almanac, .pb-f-capital_weather_gang-weather-almanac select, .border-bottom-hairline::after, .span12, .note-button, #pb-root',
     article_theme_foreground_selector: '.pb-caption, .pg-caption, .pb-bottom-author, .pb-timestamp, .pg-pubDate, .weather-gray, #weather_now .time, .firstgraf::first-letter',
-    count_words: {append: '.pg-pubDate, .bottomizer, .pb-sig-line, .pbHeader, .publish-date', subject: '#article-body>article, #pg-content>article, .sections>.container, #section-home'},
+    count_words: {append: '.author-wrapper', subject: '#article-body>article, #pg-content>article, .sections>.container, #section-home'},
     homepage_css: 'header {position: relative} .pb-f-homepage-story .headline a, .related-links a, #bottom-content a {font-family: sans-serif; font-weight: normal} img.wplogo {-webkit-filter: invert(70%) sepia(100%) hue-rotate(65deg) saturate(7)}',
     homepage_theme_background_selector: '#pb-root, .homepage-footer-button, .pb-f-page-todays-paper-rr .large, .pb-f-homepage-chat-schedule .chat-schedule-button a',
     homepage_theme_selector: '.pb-f-homepage-card .panel',
