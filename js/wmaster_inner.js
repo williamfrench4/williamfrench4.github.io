@@ -772,7 +772,7 @@ const sites_data = [
   {
     name: 'Codeburst',
     origin: 'https://codeburst.io',
-    alternate_origins: 'https://itnext.io https://blog.usejournal.com/ https://blog.uncommon.is https://ferdychristant.com/ https://uxplanet.org',
+    alternate_origins: 'https://itnext.io https://blog.usejournal.com/ https://blog.uncommon.is https://ferdychristant.com/ https://uxplanet.org https://medium.learningbyshipping.com',
     dark_theme: 0,
     article_css: 'html, .u-overflowHidden {overflow: auto} .u-fixed, .metabar--affixed {position: static}',
     article_hide_selector: '.overlay',
