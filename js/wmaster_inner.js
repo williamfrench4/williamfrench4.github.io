@@ -77,7 +77,7 @@ let page_level
 let site_data
 let getMatchedCSSRules
 let wf_getMatchedCSSRules
-debug(101, 200, location_href)
+//debug(101, 200, location_href)
 const ui_css_prefix                           = program_name   + '_ui'
 const main_dialog_id                          = ui_css_prefix  + '_main'
 const main_dialog_word_count_id               = main_dialog_id + '_word_count'
@@ -100,7 +100,7 @@ let $main_dialog_cli
 let $main_dialog
 cooked_site_css += main_dialog_selector + '{position: fixed; top: 0; left: 0; z-index: 2147483647; background-color: yellow}' // + main_dialog_selector + ' * {all: unset}';// #wmaster_ui_main_cli .cmd .clipboard {color: transparent}'
 
-debug(101, 300, $main_dialog_close, new_html)
+//debug(101, 300, $main_dialog_close, new_html)
 
 function direct_text_content (element) {
   // Return the text from this element only, not including any text from child elements. Takes a plain DOM element, not a Jquery collection.
@@ -1639,14 +1639,14 @@ function add_getMatchedCSSRules_to_window () {
     else if (element.     oMatchesSelector) result = element.     oMatchesSelector(selector)
     else if (element.    msMatchesSelector) result = element.    msMatchesSelector(selector)
     else throw new Error('no matcher function found')
-    debug(380, 10, element, selector, result)
+    //debug(380, 10, element, selector, result)
   }
 
     //TODO: not supporting 2nd argument for selecting pseudo elements
     //TODO: not supporting 3rd argument for checking author style sheets only
 
   function ajax_data_handler (jqXHR, textStatus) {
-    debug(380, 44, jqXHR, textStatus)
+    //debug(380, 44, jqXHR, textStatus)
   }
 
   wf_getMatchedCSSRules = element => {
@@ -1657,39 +1657,39 @@ function add_getMatchedCSSRules_to_window () {
     var result = []
       // get stylesheets and convert to a regular Array
     style_sheets = Array.from(window.document.styleSheets)
-    debug(380, 20, element, style_sheets)
+    //debug(380, 20, element, style_sheets)
 
       // assuming the browser hands us stylesheets in order of appearance
       // we iterate them from the beginning to follow proper cascade order
     while (true) {
       sheet = style_sheets.shift()
-      debug(380, 30, sheet)
+      //debug(380, 30, sheet)
       if (!sheet) break
         // get the style rules of this sheet
       rules = getSheetRules(sheet)
       if (rules.length) {
-        debug(380, 40, rules)
+        //debug(380, 40, rules)
       } else {
-        debug(380, 45, rules)
+        //debug(380, 45, rules)
         jQuery.ajax(sheet.href, {complete: ajax_data_handler, type: 'GET'})
       }
       while (true) {                   // loop the rules in order of appearance
         rule = rules.shift()
-        debug(380, 50, rule)
+        //debug(380, 50, rule)
         if (!rule) break
           // if this is an @import rule
         const rule_sheet = rule.styleSheet
-        debug(380, 55)
+        //debug(380, 55)
         if (rule_sheet) {
-          debug(380, 60, rule_sheet)
+          //debug(380, 60, rule_sheet)
           rules = getSheetRules(rule_sheet).concat(rules)            // insert the imported stylesheet's rules at the beginning of this stylesheet's rules
           continue                                                   // and skip this rule
         } else if (rule.media) {                           // if there's no stylesheet attribute BUT there IS a media attribute it's a media rule
-          debug(380, 70, rule.media)
+          //debug(380, 70, rule.media)
           rules = getSheetRules(rule).concat(rules)            // insert the contained rules of this media rule to the beginning of this stylesheet's rules
           continue                                          // and skip it
         }
-        debug(380, 75)
+        //debug(380, 75)
         const rule_selectorText = rule.selectorText
         if (rule_selectorText && matchesSelector(element, rule_selectorText)) { // check if this element matches this rule's selector
           result.push(rule) // push the rule to the results set
@@ -1701,98 +1701,98 @@ function add_getMatchedCSSRules_to_window () {
   }
   document.wf_getMatchedCSSRules = wf_getMatchedCSSRules
   window.wf_getMatchedCSSRules = wf_getMatchedCSSRules
-  debug(380, 160)
+  //debug(380, 160)
   getMatchedCSSRules = window.getMatchedCSSRules
   if (typeof getMatchedCSSRules === 'function') {
-    debug(380, 170)
+    //debug(380, 170)
     window.native_getMatchedCSSRules = getMatchedCSSRules
     document.native_getMatchedCSSRules = getMatchedCSSRules
   } else {
-    debug(380, 180)
+    //debug(380, 180)
     getMatchedCSSRules = window.wf_getMatchedCSSRules
     window.getMatchedCSSRules = getMatchedCSSRules
   }
   document.getMatchedCSSRules = getMatchedCSSRules
-  debug(380, 190)
+  //debug(380, 190)
 }
 
 
 function regularize_links (my_window = window, my_origin) {
 
   let url
-  debug(394, 10, my_window, my_origin)
+  //debug(394, 10, my_window, my_origin)
   const $anchors = my_window.jQuery('a')
   let anchor_index
   let anchor
   for ([anchor_index, anchor] of Array.from($anchors).entries()) {
-    debug(394, 20, anchor)
+    //debug(394, 20, anchor)
     let old_href = anchor.href
-    debug(394, 23, old_href)
+    //debug(394, 23, old_href)
     if (old_href.startsWith('/')) {
-      debug(394, 30, old_href)
+      //debug(394, 30, old_href)
       if (my_origin) {
         old_href = my_origin + old_href
-        debug(394, 32, old_href)
+        //debug(394, 32, old_href)
       } else {
         old_href = my_window.location.origin + old_href
-        debug(394, 34, old_href)
+        //debug(394, 34, old_href)
       }
-      debug(394, 37)
+      //debug(394, 37)
       anchor.href = old_href
     }
     if (!old_href) continue
     try {
-      debug(394, 40)
+      //debug(394, 40)
       url = new my_window.URL(old_href)
     } catch (error) {
-      debug(394, 50)
+      //debug(394, 50)
       if (error instanceof TypeError) {
-        debug(394, 60)
+        //debug(394, 60)
         continue
       } else {
-        debug(394, 70)
+        //debug(394, 70)
         throw error
       }
     }
     //my_window.jQuery.data(anchor, 'url_object', url)
     //anchor.url_object = url
-    debug(394, 80, anchor_index, url, url.href)
+    //debug(394, 80, anchor_index, url, url.href)
     //if (typeof href === 'undefined') return
     const origin = anchor.origin
     const site_data = sites_data_by_prefix [origin]
-    debug(394, 85) //, origin, site_data)
+    //debug(394, 85) //, origin, site_data)
     if (!site_data) continue
     const unwanted_query_fields_split = site_data.unwanted_query_fields_split
-    debug(394, 87, unwanted_query_fields_split)
+    //debug(394, 87, unwanted_query_fields_split)
     if (!unwanted_query_fields_split) continue
     //const unwanted_query_fields_split_length = unwanted_query_fields_split.length
     const query_string_index = old_href.indexOf('?')
-    debug(394, 89, query_string_index)
+    //debug(394, 89, query_string_index)
     if (query_string_index !== -1) {
-      debug('394, 90')
+      //debug('394, 90')
       //let query_string = old_href.substring(query_string_index); // the query string without the '?' that delimits it
       let query_string = url.search
       //let new_href = old_href.substring(0, query_string_index); // the url without the query string or the '?' that delimits it
       const query_params = url.searchParams
-      debug(394, 100, query_params.toString())
+      //debug(394, 100, query_params.toString())
       let field
-      debug(394, 101, unwanted_query_fields_split)
+      //debug(394, 101, unwanted_query_fields_split)
       for (field of unwanted_query_fields_split) {
         query_params.delete(field)
-        debug(394, 110, field, query_params.toString())
+        //debug(394, 110, field, query_params.toString())
       // BUG: would be nice to break if query_params is empty
       }
-      debug(394, 120, query_params.toString())
+      //debug(394, 120, query_params.toString())
       query_string = query_params.toString()
-      debug(394, 130, query_string)
+      //debug(394, 130, query_string)
       //if (query_string.length) new_href += '?' + query_string
       //anchor.href = new_href
       url.search = query_string
       anchor.href = url.href
     }
-    debug(394, 140, anchor.href)
+    //debug(394, 140, anchor.href)
   }
-  debug(394, 200, my_window.$anchors.length)
+  //debug(394, 200, my_window.$anchors.length)
 }
 
 function href_to_site_data (href) {
@@ -1904,11 +1904,11 @@ if (is_node) {
     $main_dialog_cli = jQuery(main_dialog_cli_selector)
     $main_dialog = jQuery(main_dialog_selector)
     $main_dialog_close = jQuery(main_dialog_close_selector)
-    debug(382, 20, $main_dialog_cli)
+    //debug(382, 20, $main_dialog_cli)
     //$main_dialog.hide()
     $main_dialog_cli.terminal((command) => {
       const parsed_command = jQuery.terminal.parse_command(command)
-      debug(382, 30, command, parsed_command)
+      //debug(382, 30, command, parsed_command)
       const parsed_command_name = parsed_command.name
       const parsed_command_args = parsed_command.args
       const parsed_command_args_0 = parsed_command_args [0]
@@ -1918,16 +1918,16 @@ if (is_node) {
           const position = jQuery(element).css('position')
           return position === 'fixed' || position === 'sticky'
         })
-        debug(382, 40, $fixed_or_sticky_elements)
+        //debug(382, 40, $fixed_or_sticky_elements)
         for (element of $fixed_or_sticky_elements) {
           const matched_rules = wf_getMatchedCSSRules(element)
-          debug(382, 50, element, matched_rules)
+          //debug(382, 50, element, matched_rules)
           let rule
           if (matched_rules) {
             for (rule of matched_rules) {
-              debug(382, 60, rule)
+              //debug(382, 60, rule)
               if (rule.style.position === 'fixed' || rule.style.position === 'sticky') {
-                debug(382, 70, rule)
+                //debug(382, 70, rule)
                 rule.style.position = ''
               }
             }
@@ -1938,16 +1938,16 @@ if (is_node) {
           $fixed_or_sticky_elements.not($main_dialog).remove()
         }
       } else  if (parsed_command_name === 'pp') {
-        debug(382, 80, parsed_command_args_0)
+        //debug(382, 80, parsed_command_args_0)
         process_page()
       } else  if (parsed_command_name === 'wa') {
-        debug(382, 85, parsed_command_args_0)
+        //debug(382, 85, parsed_command_args_0)
         if (parsed_command_args_0 !== '') {
           throw new Error('args not implemented')
         }
 
       } else  if (parsed_command_name === 'wc') {
-        debug(382, 90, parsed_command_args_0)
+        //debug(382, 90, parsed_command_args_0)
         if (parsed_command_args_0 !== '') {
           site_data.count_words.grafs = parseInt(parsed_command_args_0)
         }
@@ -1971,14 +1971,14 @@ if (is_node) {
 
     function dark_theme (aggressiveness_level) { //, target) {
       //body.css({'background-color': '' + theme_background_color + ' !important; color: ' + theme_foreground_color + ' !important'})
-      debug(847, 10, 'dark_theme_' + aggressiveness_level)
+      //debug(847, 10, 'dark_theme_' + aggressiveness_level)
       $body.addClass('dark_theme dark_theme_' + aggressiveness_level)
       if (!aggressiveness_level) return
       if (aggressiveness_level > 1) document.styleSheets[0].addRule('*', 'background-color: ' + theme_background_color + ' !important; color: ' + theme_foreground_color + ' !important')
       //raw_site_css += target + '{' + theme_background_rule + theme_foreground_rule + '}'
-      debug(847, 100, theme_background_rule, theme_foreground_rule, raw_site_css)
+      //debug(847, 100, theme_background_rule, theme_foreground_rule, raw_site_css)
       raw_site_css += '.dark_theme {' + theme_background_rule + theme_foreground_rule + '} ::-webkit-scrollbar {height: 2px; width: 2px} ::-webkit-scrollbar-track {background:' + theme_background_color + '} ::-webkit-scrollbar-thumb {background: #f00} '
-      debug(847, 101, theme_background_rule, theme_foreground_rule, raw_site_css)
+      //debug(847, 101, theme_background_rule, theme_foreground_rule, raw_site_css)
     }
 
     function std_link_colors (site_data) {
