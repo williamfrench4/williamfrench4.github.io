@@ -649,6 +649,12 @@ const sites_data = [
     article_hide_selector: '.FeatureSocial, .FeatureShare, .Daybreaker, .Hive, .Facebook, .FeatureByline__FacebookLike, .FeatureByline__Count, .BottomAdSlot, .Footer__ExtendBackground, .Feature__Revcontent, .EmbedComments',
   },
   {
+    name: 'Stackify',
+    origin: 'https://stackify.com',
+    dark_theme: 0,
+    article_css: '.x-navbar, .theiaStickySidebar {position: static}',
+  },
+  {
     name: 'DCommentary',
     origin: 'Dhttps://www.commentarymagazine.com',
     //article_css: '.super {background: none} h1>span, h1 {background-color: transparent}',
