@@ -17,6 +17,8 @@
 'use strict'
 //alert(36)
 console.log('wmaster_inner: running')
+window.jQuery = jQuery
+console.log('wmaster_inner: ', window.jQuery)
 const wasd_scrolling                          = true
 const program_name                            = 'wmaster'
 //const is_node                                 = -(typeof process !== 'undefined' && (process.title === 'node' || process.title.endsWith('/node')))
@@ -197,14 +199,25 @@ const sites_data = [
     customize () {
       debug(443)
       if (location_href.startsWith('https://www.nytimes.com/newsletters/')) return
-      const
-        //js_header_class_signature = 'Masthead-mastheadContainer--',
-        js_header_selector = selector_for_elements_with_a_class_that_starts_with('HeaderBasic-bylineTimestamp--')
-      //let
-        //class_list,
-        //js_header_class_name = false,
-        //js_header_element,
-        //logo_element
+      if (1) {
+        li_divs = jQuery('div[data-testid="lazyimage-container"]')
+        for (const li_div of li_divs) {
+          const $li_div = jQuery(li_div)
+          $li_div.css('height', 'auto')
+          const figure = li_div.parentElement.parentElement.parentElement
+          if (figure.tagName != 'FIGURE') {
+            debug(444, figure)
+            continue
+          }
+          const $figure = jQuery(figure)
+          $figure.css('width', 'auto')
+          const img = $('<img>')
+          const image_url = figure.getAttribute('itemid')
+          img.attr('src', image_url)
+          img.appendTo(li_div)
+        }
+      }
+      const js_header_selector = selector_for_elements_with_a_class_that_starts_with('HeaderBasic-bylineTimestamp--')
       this.article_theme_foreground_selector += ',' + selector_for_elements_with_a_class_that_starts_with('HeaderBasic-headerBasic--')
       this.count_words.append                += ',' + js_header_selector
       //debug(11, this.article_theme_foreground_selector)
