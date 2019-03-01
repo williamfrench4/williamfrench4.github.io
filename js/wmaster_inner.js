@@ -17,8 +17,8 @@
 'use strict'
 //alert(36)
 console.log('wmaster_inner: running')
-window.jQuery = jQuery
-console.log('wmaster_inner: ', window.jQuery)
+//window.jQuery = jQuery
+//console.log('wmaster_inner: ', window.jQuery)
 const wasd_scrolling                          = true
 const program_name                            = 'wmaster'
 //const is_node                                 = -(typeof process !== 'undefined' && (process.title === 'node' || process.title.endsWith('/node')))
@@ -164,7 +164,7 @@ const sites_data = [
     article_theme_selector: 'input, textarea, .columnGroup', // NYT dark theme
     article_theme_background_selector: 'body, .bcColumn, .cColumn, .App__app, .main, .g-graphic, .wf-unreal-interactive-graphic, .guide-content, .rad-article,' + selector_for_elements_with_a_class_that_starts_with('elementStyles-sectionHeader-- elementStyles-recirculation-- Card-story--'), // NYT dark theme
     article_theme_foreground_selector: 'p, .masthead .masthead-menu li, .headline, .kicker, .dateline, .story-quote, .caption, figcaption, h1, h2, h3, h4, h5, h6, .g-item.g-subhed h2, .byline, .dropcap, .g-body, .swiper-text p, .story-body-text, .story-body-text strong:first-child, .CreditedMedia__caption, .Post__byline, .Post__body, .full-art, .rad-story-body p.paragraph strong:first-child ,' + selector_for_elements_with_a_class_that_starts_with('ResponsiveMedia-captionText-- HeaderBasic-bylineTimestamp-- HeaderBasic-summary-- HeaderBasic-label-- Summary-summary-- styles-bylineTimestamp--'),
-    article_css: '.App__app {margin-top: 0} .story-body-text {font-family: "Times New Roman"} .caption-text {font-family: sans-serif} .story-header, .image {position: relative}' +
+    article_css: '.App__app {margin-top: 0} .story-body-text {font-family: "Times New Roman"} .caption-text {font-family: sans-serif} .story-header, .image {position: relative} ' +
       'input, textarea {background-image: none} .shell {padding-top: 0} .main {border-top: none} .nytg-chart {color: #000; background-color: #fff}' + // NYT dark theme
       selector_for_elements_with_a_class_that_starts_with('SectionBar-sectionBar--') + '{border-width: 0} ' +
       'figure.layout-vertical-full-bleed .image img {width: 47%; margin-left: 30px}' +
@@ -186,8 +186,8 @@ const sites_data = [
     homepage_theme_foreground_selector: '.summary, .masthead .masthead-menu li,' + selector_for_elements_with_a_class_that_starts_with('TemplateUtils-packageName-- AssetContent-summary-- AssetMedia-meta__caption--'), // NYT dark theme
     homepage_theme_background_selector: '.css-180b3ld, .css-1q9wuj9' + selector_for_elements_with_a_class_that_starts_with('Asset-story-- TemplateUtils-topLabel--'),
     //homepage_css: 'header {background-color: #aaa}', // NYT dark theme
-    homepage_css: selector_for_elements_with_a_class_that_starts_with('Logos-desktopLogo--') + '{filter: invert(70%) sepia(100%) hue-rotate(65deg) saturate(7)}',
-    homepage_hide_selector: '.css-djiuqn, .css-1q9wuj9, #masthead-placeholder, .masthead-cap-container, .masthead.theme-in-content, div.editions.tab, #nytint-hp-watching, #site-index .section-header, #markets, .all-sections-button, #mini-navigation, #WelcomeAd_optly,' + selector_for_elements_with_a_class_that_starts_with('BlockAdvert-topAd--'),
+    homepage_css: 'figure img {width: 100%} div[data-testid="masthead-desktop-logo"] {filter: invert(70%) sepia(100%) hue-rotate(65deg) saturate(7)} div:has("#top-wrapper")',
+    homepage_hide_selector: '.css-djiuqn, .css-1q9wuj9, #masthead-placeholder, .masthead-cap-container, .masthead.theme-in-content, div.editions.tab, #nytint-hp-watching, #site-index .section-header, #markets, .all-sections-button, #mini-navigation, #WelcomeAd_optly, .css-rpp6l6, .css-wu78io,' + selector_for_elements_with_a_class_that_starts_with('BlockAdvert-topAd--'),
     hide_selector: '.ad',
     theme_selector: 'body, #masthead, .searchsubmit', // NYT dark theme
     css: '.story.theme-main .story-meta-footer {border-top: none; border-bottom: none} .wf_video_article_link:link, .wf_video_article_link:visited, .wf_video_article_link:link h3, .wf_video_article_link:visited h3 {color: #550} .icon.video:before {filter: invert(70%) sepia(100%) saturate(7)}',
@@ -209,12 +209,15 @@ const sites_data = [
             debug(444, figure)
             continue
           }
-          const $figure = jQuery(figure)
-          $figure.css('width', 'auto')
-          const img = $('<img>')
+          //const $figure = jQuery(figure)
+          //$figure.css('width', 'auto')
+          const figure_parent = figure.parentElement
+          const img = jQuery('<img>')
           const image_url = figure.getAttribute('itemid')
           img.attr('src', image_url)
-          img.appendTo(li_div)
+          img.css('margin-left', 'calc((100% - 600px) / 2)')
+          figure.remove()
+          img.appendTo(figure_parent)
         }
       }
       const js_header_selector = selector_for_elements_with_a_class_that_starts_with('HeaderBasic-bylineTimestamp--')
