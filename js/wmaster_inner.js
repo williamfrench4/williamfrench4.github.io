@@ -216,7 +216,7 @@ const sites_data = [
           const image_url = figure.getAttribute('itemid')
           img.attr('src', image_url)
           img.css('margin-left', 'calc((100% - 600px) / 2)')
-          figure.remove()
+          //figure.remove()
           img.appendTo(figure_parent)
         }
       }
