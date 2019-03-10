@@ -35,11 +35,12 @@ if (typeof process === 'undefined') {
   }
 }
 const is_node                                 = is_node_let
+console.log(51, is_node)
 let debug_let
 if (is_node) {
   debug_let                                   = require('debug')(program_name)
 } else {
-  debug_let                                   = console.debug.bind(console)
+  debug_let                                   = console.log.bind(console)
 }
 const debug                                   = debug_let
 let $body_let
