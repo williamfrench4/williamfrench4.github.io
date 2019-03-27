@@ -26,12 +26,16 @@ let is_node_let
 if (typeof process === 'undefined') {
   is_node_let = false
 } else {
-  //console.log(54, process.title, process.argv)
-  if (process.title === 'node' || process.title.endsWith('/node')) {
-    is_node_let = true
+  if (process.hasOwnProperty('title')) {
+    //console.log(54, process.title, process.argv)
+    if (process.title === 'node' || process.title.endsWith('/node')) {
+      is_node_let = true
+    } else {
+      //throw new Error('title: "' + process.title + '"')
+      is_node_let = true // process.title is sometimes corrupt with long command lines
+    }
   } else {
-    //throw new Error('title: "' + process.title + '"')
-    is_node_let = true // process.title is sometimes corrupt with long command lines
+    is_node_let = false
   }
 }
 const is_node                                 = is_node_let
@@ -688,9 +692,9 @@ const sites_data = [
   },
   {
     name: 'Politico',
-    origin: 'http://www.politico.com',
+    origin: 'https://www.politico.com',
     article_css: '.super {background: none} h1>span, h1 {background-color: transparent}',
-    article_hide_selector: '.story-interrupt, .story-tools, .story-related, .story-share',
+    article_hide_selector: '.cookie-modal, .story-interrupt, .story-tools, .story-related, .story-share',
     count_words: {append: '.timestamp', subject: '.story-text'},
   },
   {
@@ -954,10 +958,10 @@ const sites_data = [
     name: 'New York Magazine',
     origin: 'http://nymag.com',
     count_words: {append: '.article-timestamp', subject: '.article-content'},
-    article_hide_selector: '.clay-share, .page-header, .modal',
-    article_theme_foreground_selector: 'h1, p, figcaption, time, .by-authors',
-    article_theme_background_selector: '.video-promo-for-articles',
-    article_css: 'blockquote, blockquote p {' + theme_foreground_rule + 'padding: 0 0 0 14px; border-left: 1px solid #3a3} blockquote:before {border-top: none} .mediaplay-image-figcaption {text-align: left} nav.rubric-wrap svg>path:last-child {fill: white}', // "Intelligencer" in Daily Intelligencer logo
+    article_hide_selector: 'nav, .clay-share, .page-header, .modal',
+    article_theme_foreground_selector: 'h1, p, figcaption, time, .by-authors, .credit',
+    article_theme_background_selector: '.video-promo-for-articles, .lede-wrapper, .lede-image-data',
+    article_css: 'blockquote, blockquote p {' + theme_foreground_rule + 'padding: 0 0 0 14px; border-left: 1px solid #3a3} blockquote:before {border-top: none} .mediaplay-image-figcaption {text-align: left} nav.rubric-wrap svg>path:last-child {fill: white} .article .primary-area:before {background: #000}', // "Intelligencer" in Daily Intelligencer logo
     homepage_theme_background_selector: '.newsHeadlinesByPublication section, .dek, .hed',
   },
   {
