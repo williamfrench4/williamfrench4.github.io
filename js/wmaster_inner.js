@@ -157,14 +157,14 @@ const sites_data = [
     name: 'New York Times',
     origin: 'https://www.nytimes.com',
     alternate_origins: 'https://cooking.nytimes.com https://douthat.blogs.nytimes.com https://krugman.blogs.nytimes.com https://kristof.blogs.nytimes.com https://well.blogs.nytimes.com https://lens.blogs.nytimes.com https://www.nytimes.com/section/magazine https://mobile.nytimes.com https://dinersjournal.blogs.nytimes.com',
-    alternate_prefixes: 'file:///root/wayback/nytimes/ file:///root/wayback/nytimes_todayspaper/ file:///root/wayback/nytimes_world/ file:///root/wayback/nytimes_us/ file:///root/wayback/nytimes_arts ' +
-    'file:///root/wayback/nytimes_arts_dance file:///root/wayback/nytimes_arts_design file:///root/wayback/nytimes_arts_music file:///root/wayback/nytimes_arts_television file:///root/wayback/nytimes_automobiles file:///root/wayback/nytimes_books ' +
-    'file:///root/wayback/nytimes_business file:///root/wayback/nytimes_corrections file:///root/wayback/nytimes_education file:///root/wayback/nytimes_fashion file:///root/wayback/nytimes_fashion_weddings file:///root/wayback/nytimes_health ' +
-    'file:///root/wayback/nytimes_jobs file:///root/wayback/nytimes_magazine file:///root/wayback/nytimes_movies file:///root/wayback/nytimes_multimedia file:///root/wayback/nytimes_nyregion file:///root/wayback/nytimes_nyregion2 ' +
-    'file:///root/wayback/nytimes_obituaries file:///root/wayback/nytimes_opinion file:///root/wayback/nytimes_opinion_columnists file:///root/wayback/nytimes_opinion_contributors file:///root/wayback/nytimes_opinion_editorials ' +
-    'file:///root/wayback/nytimes_opinion_letters file:///root/wayback/nytimes_opinion_sunday file:///root/wayback/nytimes_politics file:///root/wayback/nytimes_reader-center file:///root/wayback/nytimes_realestate file:///root/wayback/nytimes_science ' +
-    'file:///root/wayback/nytimes_sports file:///root/wayback/nytimes_technology file:///root/wayback/nytimes_theater file:///root/wayback/nytimes_t-magazine file:///root/wayback/nytimes_todayspaper file:///root/wayback/nytimes_travel ' +
-    'file:///root/wayback/nytimes_us file:///root/wayback/nytimes_world',
+    alternate_prefixes: 'file:///d/wayback/nytimes/ file:///d/wayback/nytimes_todayspaper/ file:///d/wayback/nytimes_world/ file:///d/wayback/nytimes_us/ file:///d/wayback/nytimes_arts ' +
+    'file:///d/wayback/nytimes_arts_dance file:///d/wayback/nytimes_arts_design file:///d/wayback/nytimes_arts_music file:///d/wayback/nytimes_arts_television file:///d/wayback/nytimes_automobiles file:///d/wayback/nytimes_books ' +
+    'file:///d/wayback/nytimes_business file:///d/wayback/nytimes_corrections file:///d/wayback/nytimes_education file:///d/wayback/nytimes_fashion file:///d/wayback/nytimes_fashion_weddings file:///d/wayback/nytimes_health ' +
+    'file:///d/wayback/nytimes_jobs file:///d/wayback/nytimes_magazine file:///d/wayback/nytimes_movies file:///d/wayback/nytimes_multimedia file:///d/wayback/nytimes_nyregion file:///d/wayback/nytimes_nyregion2 ' +
+    'file:///d/wayback/nytimes_obituaries file:///d/wayback/nytimes_opinion file:///d/wayback/nytimes_opinion_columnists file:///d/wayback/nytimes_opinion_contributors file:///d/wayback/nytimes_opinion_editorials ' +
+    'file:///d/wayback/nytimes_opinion_letters file:///d/wayback/nytimes_opinion_sunday file:///d/wayback/nytimes_politics file:///d/wayback/nytimes_reader-center file:///d/wayback/nytimes_realestate file:///d/wayback/nytimes_science ' +
+    'file:///d/wayback/nytimes_sports file:///d/wayback/nytimes_technology file:///d/wayback/nytimes_theater file:///d/wayback/nytimes_t-magazine file:///d/wayback/nytimes_todayspaper file:///d/wayback/nytimes_travel ' +
+    'file:///d/wayback/nytimes_us file:///d/wayback/nytimes_world',
     count_words: {append: '.byline:last-of-type, .byline-column, .styles-bylineTimestamp--2J2fe, header time, ' + selector_for_elements_with_a_class_that_starts_with('Byline-bylineAuthor--'), prefix: ' ', subject: ['.story-body-text, .g-body', '.story-body', '#story'], grafs: 0},
     article_theme_selector: 'input, textarea, .columnGroup', // NYT dark theme
     article_theme_background_selector: 'body, .bcColumn, .cColumn, .App__app, .main, .g-graphic, .wf-unreal-interactive-graphic, .guide-content, .rad-article,' + selector_for_elements_with_a_class_that_starts_with('elementStyles-sectionHeader-- elementStyles-recirculation-- Card-story--'), // NYT dark theme
@@ -375,7 +375,7 @@ const sites_data = [
     name: 'Manchester Guardian',
     origin: 'https://www.theguardian.com',
     alternate_origins: 'https://interactive.guim.co.uk/',
-    alternate_prefixes: 'file:///root/wayback/guardian_uk/',
+    alternate_prefixes: 'file:///d/wayback/guardian_uk/',
     alternate_homepages: 'https://www.theguardian.com/us https://www.theguardian.com/uk',
     append_loaded_date: 'footer.l-footer',
     count_words: {append: '.content__dateline, .content__standfirst', subject: '.content__article-body, .content__main-column--interactive'},
@@ -418,7 +418,7 @@ const sites_data = [
     name: 'Washington Post',
     origin: 'https://www.washingtonpost.com',
     alternate_origins: 'http://washingtonpost.com http://www.washingtonpost.com https://live.washingtonpost.com',
-    alternate_prefixes: 'file:///root/wayback/washingtonpost/',
+    alternate_prefixes: 'file:///d/wayback/washingtonpost/',
     article_css: '#main-content {background-image: none} #et-nav {position: absolute}.headline {font-family: sans-serif} a, .powerpost-header, .layout_article #top-content {border-bottom: none} p {line-height: 155%} body {overflow-y: visible} .fixed-image {position: static} .g-artboard img {border-bottom: 30px solid white} .g-artboard p {color: black; background-color: transparent} .bg-none {background-color: transparent} .note-button {padding: 0; box-shadow: none} .chain-wrapper {background-color: #500}' +
       'a.note-button:link    {color:' +         theme_autolink_foreground_color + '} a.note-button:link:hover    {color:' +         theme_link_foreground_color + '}' +
       'a.note-button:visited {color:' + theme_autolink_visited_foreground_color + '} a.note-button:visited:hover {color:' + theme_link_visited_foreground_color + '}' +
@@ -1265,7 +1265,7 @@ const sites_data = [
   {name: 'The Ringer'             , origin: 'https://theringer.com'                , article_hide_selector: '.js-postShareWidget, .metabar--spacer', unwanted_classes: 'u-fixed metabar'},
   {name: 'Reason'                 , origin: 'http://reason.com'                    , article_css: 'html, body {font-family: Georgia}'},
   {name: 'Spectator'              , origin: 'https://www.spectator.co.uk'          , dark_theme: 0, article_css: '.floatyFloaty {position: static}', article_hide_selector: '.article-promo'},
-  {name: 'Local wayback'          , alternate_prefixes: 'file:///root/wayback/', append_loaded_date: false, count_words_subject: false},
+  {name: 'Local wayback'          , alternate_prefixes: 'file:////wayback/', append_loaded_date: false, count_words_subject: false},
 ]
 const sites_data_by_prefix = {}
 //let site_data
