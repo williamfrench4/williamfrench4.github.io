@@ -948,7 +948,7 @@ const sites_data = [
     origin: 'http://time.com',
     count_words: {append: '#editorial-article-wrapper-container>:first-child>:first-child>:first-child>:first-child>:first-child', subject: 'article'},
     article_hide_selector: '.ssv3__nav',
-    article_theme_background_selector: 'h1, h2, h3, blockquote, .article-viewport',
+    article_theme_background_selector: 'h1, h2, h3, blockquote, .article-viewport, .container-full-width',
     article_theme_foreground_selector: '.xxx_oneoff_special_story_v3_headline',
     article_theme_selector: 'p',
     //article_hide_selector: '.clay-share',
