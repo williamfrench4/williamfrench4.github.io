@@ -156,7 +156,7 @@ const sites_data = [
   {
     name: 'New York Times',
     origin: 'https://www.nytimes.com',
-    alternate_origins: 'https://cooking.nytimes.com https://douthat.blogs.nytimes.com https://krugman.blogs.nytimes.com https://kristof.blogs.nytimes.com https://well.blogs.nytimes.com https://lens.blogs.nytimes.com https://www.nytimes.com/section/magazine https://mobile.nytimes.com https://dinersjournal.blogs.nytimes.com',
+    alternate_origins: 'https://static.nytimes.com https://cooking.nytimes.com https://douthat.blogs.nytimes.com https://krugman.blogs.nytimes.com https://kristof.blogs.nytimes.com https://well.blogs.nytimes.com https://lens.blogs.nytimes.com https://www.nytimes.com/section/magazine https://mobile.nytimes.com https://dinersjournal.blogs.nytimes.com',
     alternate_prefixes: 'file:///d/wayback/nytimes/ file:///d/wayback/nytimes_todayspaper/ file:///d/wayback/nytimes_world/ file:///d/wayback/nytimes_us/ file:///d/wayback/nytimes_arts ' +
     'file:///d/wayback/nytimes_arts_dance file:///d/wayback/nytimes_arts_design file:///d/wayback/nytimes_arts_music file:///d/wayback/nytimes_arts_television file:///d/wayback/nytimes_automobiles file:///d/wayback/nytimes_books ' +
     'file:///d/wayback/nytimes_business file:///d/wayback/nytimes_corrections file:///d/wayback/nytimes_education file:///d/wayback/nytimes_fashion file:///d/wayback/nytimes_fashion_weddings file:///d/wayback/nytimes_health ' +
