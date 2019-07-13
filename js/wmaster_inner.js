@@ -465,7 +465,7 @@ const sites_data = [
 
         //debug(stylesheet_link.href)
       }
-      const $imgs = jQuery('img.unprocessed')
+      let $imgs = jQuery('img.unprocessed')
       debug(848, 100, $imgs)
       let img
       for (img of $imgs) {
@@ -475,10 +475,12 @@ const sites_data = [
         //jQuery(img).removeClass('unprocessed')
       }
       $imgs.removeClass('unprocessed')
-      for (img of jQuery('img.lzyld, img.placeholder')) {
-        debug(848, 120, img)
+      $imgs = jQuery('img')
+      debug(848, 120, $imgs)
+      for (img of $imgs) {
+        debug(848, 121, img)
         jQuery(img).css({'padding-top': '0'})
-        img.src = img.dataset.hiRes || img.dataset.hiResSrc
+        img.src = img.dataset.hiResSrc
       }
       for (img of jQuery('img.lazy-image')) {
         img.src = img.dataset.original + '&w=1200'
