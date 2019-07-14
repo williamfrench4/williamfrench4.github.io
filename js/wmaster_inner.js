@@ -475,7 +475,7 @@ const sites_data = [
         //jQuery(img).removeClass('unprocessed')
       }
       $imgs.removeClass('unprocessed')
-      $imgs = jQuery('img')
+      $imgs = jQuery('img.placeholder')
       debug(848, 120, $imgs)
       for (img of $imgs) {
         debug(848, 121, img)
