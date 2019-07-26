@@ -765,8 +765,9 @@ const sites_data = [
   },
   {
     name: 'CNN',
-    origin: 'http://www.cnn.com',
+    origin: 'https://www.cnn.com',
     article_css: '.nav--plain-header {position: absolute}',
+    article_hide_selector: 'theoplayer-container, .sibling, .optanon-alert-box-wrapper',
     article_theme_background_selector: '.pg-rail-tall',
     article_theme_foreground_selector: '.zn-body__paragraph',
   },
