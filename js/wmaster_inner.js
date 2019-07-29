@@ -210,10 +210,12 @@ const sites_data = [
           const $li_div = jQuery(li_div)
           $li_div.css('height', 'auto')
           const figure = li_div.parentElement.parentElement.parentElement
+          /*
           if (figure.tagName != 'FIGURE') {
             debug(444, figure)
             continue
           }
+          */
           //const $figure = jQuery(figure)
           //$figure.css('width', 'auto')
           const figure_parent = figure.parentElement
