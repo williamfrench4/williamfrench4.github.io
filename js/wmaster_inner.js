@@ -1218,6 +1218,7 @@ const sites_data = [
     name: 'Wired',
     origin: 'https://www.wired.com',
     article_css: '.header {position: absolute} .nav--design.nav--is-active {background-color: #344} .article-body-component a {border-bottom-width: 0; box-shadow: none}',
+    article_hide_selector: '.paywall-container-component',
     article_theme_background_selector: '.article-main-component, .header, .logo-bar--design',
     article_theme_foreground_selector: '.article-body-component, .title, .brow-component, .content-header-component .meta-list li, .lede, .caption-component__credit, .article-body-component h3',
   },
