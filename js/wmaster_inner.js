@@ -997,8 +997,9 @@ const sites_data = [
   {
     name: 'The Verge',
     origin: 'https://www.theverge.com',
-    article_hide_selector: '.c-entry-content>[class^=c-float-]>aside>q, #newsletter-signup-short-form, .tab-bar-fixed',
-    article_theme_background_selector: '.l-main-content',
+    homepage_hide_selector: '.adblock-whitelist-messaging__wrapper',
+    article_hide_selector: '.adblock-whitelist-messaging__article-wrapper, .c-entry-content>[class^=c-float-]>aside>q, #newsletter-signup-short-form, .tab-bar-fixed',
+    article_theme_background_selector: '.l-root, .l-main-content',
     article_theme_foreground_selector: '.c-page-title, .c-byline, .e-image__meta, .p-dek' //, .p-rock-head',
   },
   {
