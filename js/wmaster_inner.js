@@ -1113,7 +1113,7 @@ const sites_data = [
     origin: 'https://arstechnica.com',
     alternate_origins: 'https://arstechnica.co.uk',
     hide_selector: '.site-header.is_stuck.scrolled-up',
-    article_hide_selector: '.ars-sub-app, .share-links, .pullbox',
+    article_hide_selector: '.ars-sub-app, .share-links, .pullbox, #article-footer-wrap',
     article_css: '.site-wrapper {background-color: transparent}', // if set to black, this hides images in Chrome as of 6/19/2017
     count_words: {append: '.byline', subject: '.article-content'},
   },
