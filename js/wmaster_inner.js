@@ -1243,6 +1243,7 @@ const sites_data = [
     name: 'Just Security',
     origin: 'https://www.justsecurity.org',
     article_theme_selector: 'blockquote',
+    article_theme_foreground_selector: '.article__content p',
   },
   {
     name: 'Seattle Times',
