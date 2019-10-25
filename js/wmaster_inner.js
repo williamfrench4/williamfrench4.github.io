@@ -989,10 +989,12 @@ const sites_data = [
     name: 'Vox',
     origin: 'https://www.vox.com',
     article_hide_selector: '.main-social, .c-article-feedback, .c-tab-bar, .c-rock-newsletter',
+    hide_selector: '.adblock-whitelist-messaging__article-wrapper',
     article_theme_background_selector: 'header .l-wrapper {max-width: none} .l-main-content, .c-global-header:before, .c-global-header__logo, .c-rock-list__title-wrapper:before, .c-compact-river__entry, .c-footer',
+    theme_background_selector: '.l-root',
     article_theme_foreground_selector: '.c-page-title, .c-byline, .p-dek, .p-rock-head',
     count_words: {append: '.c-byline', subject: '.c-entry-content'},
-    css: '.c-global-header__logo path {fill: ' + theme_foreground_color + '} .c-compact-river__entry, .c-footer {border-top-width: 0}',
+    css: '.l-root {background-color: #000} .c-global-header__logo path {fill: ' + theme_foreground_color + '} .c-compact-river__entry, .c-footer {border-top-width: 0}',
   },
   {
     name: 'The Verge',
