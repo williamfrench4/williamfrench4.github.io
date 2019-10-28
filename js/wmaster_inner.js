@@ -787,6 +787,12 @@ const sites_data = [
     //article_hide_selector: 'mfp-bg mfp-ready',
   },
   {
+    name: 'The Street',
+    origin: 'https://www.thestreet.com',
+    article_hide_selector: '#indexCarousel, .market-indices__date-time',
+    dark_theme: 0,
+  },
+  {
     name: 'Rising Stack',
     origin: 'https://blog.risingstack.com',
     dark_theme: 0,
