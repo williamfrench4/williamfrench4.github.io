@@ -789,7 +789,7 @@ const sites_data = [
   {
     name: 'The Street',
     origin: 'https://www.thestreet.com',
-    article_hide_selector: '#indexCarousel, .market-indices__date-time',
+    article_hide_selector: '#indexCarousel, .market-indices__date-time, .video-container',
     dark_theme: 0,
   },
   {
