@@ -926,7 +926,7 @@ const sites_data = [
   {
     name: 'US News & World Report',
     origin: 'https://www.usnews.com',
-    //article_theme_foreground_selector: 'p',
+    //article_theme_foreground_selector: https://www.marketwatch.com/'p',
     //article_theme_background_selector: '#most-viewed-ump, #story-bottom, foo',
     //count_words: {append: '.mobile h6', subject: '.articleBody'},
     //article_css: '.articleView {padding-top: 80px} .header {position: absolute}',
@@ -964,6 +964,13 @@ const sites_data = [
     article_theme_selector: 'p',
     //article_hide_selector: '.clay-share',
     //article_theme_foreground_selector: 'p:first-letter',
+  },
+  {
+    name: 'Marketwatch',
+    origin: 'https://www.marketwatch.com',
+    homepage_hide_selector: '.fixed',
+    css: 'a:link {color: #00f} a:visited {color: #808}',
+    dark_theme: 0,
   },
   {
     name: 'New York Magazine',
