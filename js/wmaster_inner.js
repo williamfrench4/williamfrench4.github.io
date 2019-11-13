@@ -1013,6 +1013,7 @@ const sites_data = [
     name: 'The Verge',
     origin: 'https://www.theverge.com',
     homepage_hide_selector: '.adblock-whitelist-messaging__wrapper',
+    article_css: 'body {font-family: sans-serif} .c-comments__recommended {background-color: #003}',
     article_hide_selector: '.adblock-whitelist-messaging__article-wrapper, .c-entry-content>[class^=c-float-]>aside>q, #newsletter-signup-short-form, .tab-bar-fixed',
     article_theme_background_selector: '.l-root, .l-main-content',
     article_theme_foreground_selector: '.c-page-title, .c-byline, .e-image__meta, .p-dek' //, .p-rock-head',
