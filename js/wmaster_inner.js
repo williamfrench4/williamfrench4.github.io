@@ -966,6 +966,12 @@ const sites_data = [
     //article_theme_foreground_selector: 'p:first-letter',
   },
   {
+    name: 'Investopedia',
+    origin: 'https://www.investopedia.com',
+    css: 'a:link {color: #00f} a:visited {color: #808}',
+    dark_theme: 0,
+  },
+  {
     name: 'Marketwatch',
     origin: 'https://www.marketwatch.com',
     homepage_hide_selector: '.fixed',
