@@ -972,6 +972,13 @@ const sites_data = [
     dark_theme: 0,
   },
   {
+    name: 'Investing.com',
+    origin: 'https://www.investing.com',
+    hide_selector: '#abPopup, .breakingNews',
+    css: 'body {overflow: auto}',
+    dark_theme: 0,
+  },
+  {
     name: 'Marketwatch',
     origin: 'https://www.marketwatch.com',
     homepage_hide_selector: '.fixed',
