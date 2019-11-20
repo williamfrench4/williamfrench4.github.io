@@ -980,6 +980,7 @@ const sites_data = [
     css: 'header {position: static} .WSJTheme--padding-bottom--2SLicJJy, .style--hat-1vqyrZZ3j7vMCXYKbvaqKa, .style--hat--1vqyrZZ3 {display: none}',
     article_hide_selector: '.mega-nav, .articleTypeLogo, #full-header, #article_tools, .carousel-container',
     homepage_css: 'h1 {filter: invert(70%) sepia(100%) hue-rotate(65deg) saturate(7)}',
+    homepage_theme_foreground_selector: '.WSJTheme--summary--12br5Svc',
   },
   {
     name: 'Investopedia',
