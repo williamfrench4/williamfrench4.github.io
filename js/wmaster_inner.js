@@ -943,6 +943,12 @@ const sites_data = [
     //unwanted_classes: 'mod-sticky-article article-sticky',
   },
   {
+    name: 'MSN',
+    origin: 'https://www.msn.com',
+    dark_theme: 0,
+    hide_selector: '#header-search form',
+  },
+  {
     name: 'LEDs Magazine',
     origin: 'http://www.ledsmagazine.com',
     alternate_homepages: 'http://www.ledsmagazine.com/index.html',
@@ -966,16 +972,39 @@ const sites_data = [
     //article_theme_foreground_selector: 'p:first-letter',
   },
   {
+    name: 'Wall Street Journal',
+    origin: 'https://www.wsj.com',
+    alternate_origins: 'https://blogs.wsj.com',
+    article_theme_selector: '.media-object, figcaption',
+    theme_background_selector: 'header',
+    css: 'header {position: static} .WSJTheme--padding-bottom--2SLicJJy, .style--hat-1vqyrZZ3j7vMCXYKbvaqKa, .style--hat--1vqyrZZ3 {display: none}',
+    article_hide_selector: '.mega-nav, .articleTypeLogo, #full-header, #article_tools, .carousel-container',
+    homepage_css: 'h1 {filter: invert(70%) sepia(100%) hue-rotate(65deg) saturate(7)}',
+  },
+  {
     name: 'Investopedia',
     origin: 'https://www.investopedia.com',
     css: 'a:link {color: #00f} a:visited {color: #808}',
     dark_theme: 0,
   },
   {
-    name: 'Investing.com',
+    name: 'Investing',
     origin: 'https://www.investing.com',
     hide_selector: '#abPopup, .breakingNews',
     css: 'body {overflow: auto}',
+    dark_theme: 0,
+  },
+  {
+    name: 'Seeking Alpha',
+    origin: 'https://seekingalpha.com',
+    hide_selector: '.modal',
+    css: 'body {overflow: auto}',
+    dark_theme: 0,
+  },
+  {
+    name: 'NZBIndex',
+    origin: 'https://www.nzbindex.com',
+    hide_selector: '#i',
     dark_theme: 0,
   },
   {
