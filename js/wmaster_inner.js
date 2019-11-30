@@ -1275,6 +1275,12 @@ const sites_data = [
     count_words: {append: '.author', subject: '#article_wrapper'}
   },
   {
+    name: 'Motley Fool',
+    origin: 'https://www.fool.com',
+    article_css: '.content-container {margin-top: 0; padding-top: 0}',
+    article_hide_selector: '.fool-tophat-container, header.navigation, .article-page-end',
+  },
+  {
     name: 'Wired',
     origin: 'https://www.wired.com',
     article_css: '.header {position: absolute} .nav--design.nav--is-active {background-color: #344} .article-body-component a {border-bottom-width: 0; box-shadow: none}',
