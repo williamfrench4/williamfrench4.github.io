@@ -1003,12 +1003,6 @@ const sites_data = [
     dark_theme: 0,
   },
   {
-    name: 'NZBIndex',
-    origin: 'https://www.nzbindex.com',
-    hide_selector: '#i',
-    dark_theme: 0,
-  },
-  {
     name: 'Marketwatch',
     origin: 'https://www.marketwatch.com',
     homepage_hide_selector: '.fixed',
@@ -1165,6 +1159,12 @@ const sites_data = [
     name: 'Weather Underground',
     origin: 'https://www.wunderground.com',
     article_hide_selector: '#kampyleInviteContainer',
+    dark_theme: 0,
+  },
+  {
+    name: 'NZBIndex',
+    origin: 'https://www.nzbindex.com',
+    article_hide_selector: '#ir',
     dark_theme: 0,
   },
   {
