@@ -766,6 +766,13 @@ const sites_data = [
     dark_theme: 2,
   },
   {
+    name: 'Zacks',
+    origin: 'https://www.zacks.com',
+    article_hide_selector: '.disclosure-fixed-slab, .darchive_collapse, .dcommentary_reports_content, .dcommentary_zacks_news',
+    article_theme_foreground_selector: 'h1, p',
+    article_css: 'body {font-family: sans-serif} .dcommentary_body {overflow: visible}',
+  },
+  {
     name: 'CNN',
     origin: 'https://www.cnn.com',
     article_css: '.nav--plain-header {position: absolute}',
@@ -1001,7 +1008,7 @@ const sites_data = [
     name: 'Seeking Alpha',
     origin: 'https://seekingalpha.com',
     hide_selector: '.modal',
-    css: 'body {overflow: auto}',
+    css: 'body {overflow: auto} #a-cont, #a-cont a {color: black; text-shadow: none}',
     dark_theme: 0,
   },
   {
