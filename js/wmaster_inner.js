@@ -998,6 +998,13 @@ const sites_data = [
     dark_theme: 0,
   },
   {
+    name: 'benzinga',
+    origin: 'https://www.benzinga.com',
+    dark_theme: 0,
+    hide_selector: '#closure',
+    article_hide_selector: '.pane-panels-mini, .ui-tooltip'
+  },
+  {
     name: 'Investing',
     origin: 'https://www.investing.com',
     hide_selector: '#abPopup, .breakingNews',
