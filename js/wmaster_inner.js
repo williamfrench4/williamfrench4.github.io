@@ -998,11 +998,18 @@ const sites_data = [
     dark_theme: 0,
   },
   {
-    name: 'benzinga',
+    name: 'Benzinga',
     origin: 'https://www.benzinga.com',
     dark_theme: 0,
     hide_selector: '#closure',
     article_hide_selector: '.pane-panels-mini, .ui-tooltip'
+  },
+  {
+    name: 'The Hill',
+    origin: 'https://thehill.com',
+    dark_theme: 0,
+    article_hide_selector: 'iframe, .player-container',
+    article_css: '.floating-block-active {position: static}',
   },
   {
     name: 'Investing',
