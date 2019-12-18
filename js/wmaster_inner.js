@@ -796,7 +796,8 @@ const sites_data = [
   {
     name: 'The Street',
     origin: 'https://www.thestreet.com',
-    article_hide_selector: '#indexCarousel, .market-indices__date-time, .video-container',
+    css: '.m-fixedbottom-ad--slot {display: none}',
+    article_hide_selector: '#indexCarousel, .market-indices__date-time, .video-container, .MuiPaper-root',
     dark_theme: 0,
   },
   {
