@@ -753,6 +753,7 @@ const sites_data = [
     article_hide_selector: '.module-related.video, .js-inject-promo, .social-kit-top, .article-tools, .callout, .pullquote, .c-nudge__container',
     theme_background_selector: '#site',
     article_theme_background_selector: '.article-body blockquote',
+    article_theme_foreground_selector: '.article-body',
     homepage_theme_background_selector: '.c-hp, .c-hp-lead__content, .c-hp-news, .c-hp-filmstrip, .c-hp-offlead, .c-hp-featured, .c-writers__container, .c-latest, .c-popular__container, .c-sections, input',
     homepage_hide_selector: '.c-writers__item--magazine',
     article_css: 'figure.lead-img .img {outline: none} .article-cover-extra {padding-bottom: 0; border-bottom: none}',
