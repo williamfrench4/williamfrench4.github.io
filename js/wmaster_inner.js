@@ -167,7 +167,7 @@ const sites_data = [
     'file:///d/wayback/nytimes_us file:///d/wayback/nytimes_world',
     count_words: {append: '.byline:last-of-type, .byline-column, .styles-bylineTimestamp--2J2fe, header time, ' + selector_for_elements_with_a_class_that_starts_with('Byline-bylineAuthor--'), prefix: ' ', subject: ['.story-body-text, .g-body', '.story-body', '#story'], grafs: 0},
     article_theme_selector: 'input, textarea, .columnGroup', // NYT dark theme
-    article_theme_background_selector: 'body, .bcColumn, .cColumn, .App__app, .main, .g-graphic, .wf-unreal-interactive-graphic, .guide-content, .rad-article, .rad-story-body,' + selector_for_elements_with_a_class_that_starts_with('elementStyles-sectionHeader-- elementStyles-recirculation-- Card-story--'), // NYT dark theme
+    article_theme_background_selector: 'body, .bcColumn, .cColumn, .App__app, .main, .g-graphic, .wf-unreal-interactive-graphic, .guide-content, .rad-article, .rad-story-body, .g-story,' + selector_for_elements_with_a_class_that_starts_with('elementStyles-sectionHeader-- elementStyles-recirculation-- Card-story--'), // NYT dark theme
     article_theme_foreground_selector: 'p, .masthead .masthead-menu li, .headline, .kicker, .dateline, .story-quote, .caption, figcaption, h1, h2, h3, h4, h5, h6, .g-item.g-subhed h2, .byline, .dropcap, .g-body, .swiper-text p, .story-body-text, .story-body-text strong:first-child, .CreditedMedia__caption, .Post__byline, .Post__body, .full-art, .rad-story-body p.paragraph strong:first-child ,' + selector_for_elements_with_a_class_that_starts_with('ResponsiveMedia-captionText-- HeaderBasic-bylineTimestamp-- HeaderBasic-summary-- HeaderBasic-label-- Summary-summary-- styles-bylineTimestamp--'),
     article_css: '.App__app {margin-top: 0} .story-body-text {font-family: "Times New Roman"} .caption-text {font-family: sans-serif} .story-header, .image {position: relative} ' +
       'input, textarea {background-image: none} .shell {padding-top: 0} .main {border-top: none} .nytg-chart {color: #000; background-color: #fff}' + // NYT dark theme
@@ -992,6 +992,7 @@ const sites_data = [
     article_hide_selector: '.mega-nav, .articleTypeLogo, #full-header, #slimline-header, #share_tools, #share-target, .style--header-34vuYLYT-W0F3y22D9Vjuk, #article_tools, .carousel-container, .type-InsetNewsletterSignup, .wsj-modern-ad-container',
     homepage_css: 'h1 {filter: invert(70%) sepia(100%) hue-rotate(65deg) saturate(7)}',
     homepage_theme_foreground_selector: '.WSJTheme--summary--12br5Svc',
+    unwanted_query_fields: 'mod',
   },
   {
     name: 'Investopedia',
@@ -1845,12 +1846,12 @@ function add_getMatchedCSSRules_to_window () {
 function regularize_links (my_window = window, my_origin) {
 
   let url
-  //debug(394, 10, my_window, my_origin)
+  debug(394, 10, my_window, my_origin)
   const $anchors = my_window.jQuery('a')
   let anchor_index
   let anchor
   for ([anchor_index, anchor] of Array.from($anchors).entries()) {
-    //debug(394, 20, anchor)
+    debug(394, 20, anchor)
     let old_href = anchor.href
     //debug(394, 23, old_href)
     if (old_href.startsWith('/')) {
@@ -1881,7 +1882,7 @@ function regularize_links (my_window = window, my_origin) {
     }
     //my_window.jQuery.data(anchor, 'url_object', url)
     //anchor.url_object = url
-    //debug(394, 80, anchor_index, url, url.href)
+    debug(394, 80, anchor_index, url, url.href)
     //if (typeof href === 'undefined') return
     const origin = anchor.origin
     const site_data = sites_data_by_prefix [origin]
