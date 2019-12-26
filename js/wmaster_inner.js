@@ -971,12 +971,13 @@ const sites_data = [
   },
   {
     name: 'Time Magazine',
-    origin: 'http://time.com',
+    origin: 'https://time.com',
     count_words: {append: '#editorial-article-wrapper-container>:first-child>:first-child>:first-child>:first-child>:first-child', subject: 'article'},
     article_hide_selector: '.ssv3__nav',
     article_theme_background_selector: 'h1, h2, h3, blockquote, .article-viewport, .container-full-width',
     article_theme_foreground_selector: '.xxx_oneoff_special_story_v3_headline',
     article_theme_selector: 'p',
+    article_css: 'nav {position: static}',
     //article_hide_selector: '.clay-share',
     //article_theme_foreground_selector: 'p:first-letter',
   },
@@ -1025,8 +1026,13 @@ const sites_data = [
   {
     name: 'Seeking Alpha',
     origin: 'https://seekingalpha.com',
-    hide_selector: '.modal',
-    css: 'body {overflow: auto} #a-cont, #a-cont a {color: black; text-shadow: none}',
+    article_hide_selector: '.popover',
+    hide_selector: '.modal, .popover',
+    unwanted_query_fields: 'source',
+    css: (
+      'body {overflow: auto}' +
+      'a:link    {color:' + '#00f' + '}' +
+      'a:visited {color:' + 'purple' + '}'),
     dark_theme: 0,
   },
   {
