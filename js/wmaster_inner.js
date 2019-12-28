@@ -770,6 +770,13 @@ const sites_data = [
     dark_theme: 2,
   },
   {
+    name: 'The Economist',
+    origin: 'https://www.economist.com',
+    article_theme_foreground_selector: 'h1, h2, p, span',
+    article_hide_selector: '.tead-container, .newsletter-form, cite',
+    hide_selector: '#bottom-page',
+  },
+  {
     name: 'Zacks',
     origin: 'https://www.zacks.com',
     article_hide_selector: '.disclosure-fixed-slab, .darchive_collapse, .dcommentary_reports_content, .dcommentary_zacks_news',
@@ -1029,13 +1036,10 @@ const sites_data = [
   {
     name: 'Seeking Alpha',
     origin: 'https://seekingalpha.com',
-    article_hide_selector: '.popover, #sa-hd',
+    article_hide_selector: '.popover',
     hide_selector: '.modal, .popover',
     unwanted_query_fields: 'source',
-    css: (
-      'body {overflow: auto}' +
-      'a:link    {color:' + '#00f' + '}' +
-      'a:visited {color:' + 'purple' + '}'),
+    css: 'body {overflow: auto} a:link    {color: #00f} a:visited {color: purple} #sa-hd {position: absolute}',
     article_css: 'header {position: static}',
     dark_theme: 0,
   },
@@ -1091,6 +1095,14 @@ const sites_data = [
     article_hide_selector: '.adblock-whitelist-messaging__article-wrapper, .c-entry-content>[class^=c-float-]>aside>q, #newsletter-signup-short-form, .tab-bar-fixed',
     article_theme_background_selector: '.l-root, .l-main-content',
     article_theme_foreground_selector: '.c-page-title, .c-byline, .e-image__meta, .p-dek' //, .p-rock-head',
+  },
+  {
+    name: 'Technology Review',
+    origin: 'https://www.technologyreview.com',
+    dark_theme: 0,
+    hide_selector: '.optanon-alert-box-wrapper, .stickystrap',
+    article_hide_selector: '.navbar, .meter, .signup-wrapper, .subRail, .sliderAd, .paywallWrapper, .l-pullquote--3col',
+    article_css: 'body {overflow: scroll}'
   },
   {
     name: 'The New Yorker',
@@ -1371,7 +1383,6 @@ const sites_data = [
   },
   {name: 'Stack Overflow'         , origin: 'http://stackoverflow.com'             , dark_theme: 0},
   {name: 'Review of Ophthalmology', origin: 'https://www.reviewofophthalmology.com'},
-  {name: 'The Economist'          , origin: 'http://www.economist.com'             , article_hide_selector: '.latest-updates-panel__container'},
   {name: 'The Ringer'             , origin: 'https://theringer.com'                , article_hide_selector: '.js-postShareWidget, .metabar--spacer', unwanted_classes: 'u-fixed metabar'},
   {name: 'Reason'                 , origin: 'http://reason.com'                    , article_css: 'html, body {font-family: Georgia}'},
   {name: 'Spectator'              , origin: 'https://www.spectator.co.uk'          , dark_theme: 0, article_css: '.floatyFloaty {position: static}', article_hide_selector: '.article-promo'},
