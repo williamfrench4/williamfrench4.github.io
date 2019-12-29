@@ -167,7 +167,7 @@ const sites_data = [
     'file:///d/wayback/nytimes_us file:///d/wayback/nytimes_world',
     count_words: {append: '.byline:last-of-type, .byline-column, .styles-bylineTimestamp--2J2fe, header time, ' + selector_for_elements_with_a_class_that_starts_with('Byline-bylineAuthor--'), prefix: ' ', subject: ['.story-body-text, .g-body', '.story-body', '#story'], grafs: 0},
     article_theme_selector: 'input, textarea, .columnGroup', // NYT dark theme
-    article_theme_background_selector: 'body, .bcColumn, .cColumn, .App__app, .main, .g-graphic, .wf-unreal-interactive-graphic, .guide-content, .rad-article, .rad-story-body, .g-story,' + selector_for_elements_with_a_class_that_starts_with('elementStyles-sectionHeader-- elementStyles-recirculation-- Card-story--'), // NYT dark theme
+    article_theme_background_selector: 'body, #articleBody, #articleBody:after, .bcColumn, .cColumn, .App__app, .main, .g-graphic, .wf-unreal-interactive-graphic, .guide-content, .rad-article, .rad-story-body, .g-story,' + selector_for_elements_with_a_class_that_starts_with('elementStyles-sectionHeader-- elementStyles-recirculation-- Card-story--'), // NYT dark theme
     article_theme_foreground_selector: 'p, .masthead .masthead-menu li, .headline, .kicker, .dateline, .story-quote, .caption, figcaption, h1, h2, h3, h4, h5, h6, .g-item.g-subhed h2, .byline, .dropcap, .g-body, .swiper-text p, .story-body-text, .story-body-text strong:first-child, .CreditedMedia__caption, .Post__byline, .Post__body, .full-art, .rad-story-body p.paragraph strong:first-child ,' + selector_for_elements_with_a_class_that_starts_with('ResponsiveMedia-captionText-- HeaderBasic-bylineTimestamp-- HeaderBasic-summary-- HeaderBasic-label-- Summary-summary-- styles-bylineTimestamp--'),
     article_css: '.App__app {margin-top: 0} .story-body-text {font-family: "Times New Roman"} .caption-text {font-family: sans-serif} .story-header, .image {position: relative} ' +
       'input, textarea {background-image: none} .shell {padding-top: 0} .main {border-top: none} .nytg-chart {color: #000; background-color: #fff}' + // NYT dark theme
@@ -1029,6 +1029,12 @@ const sites_data = [
   {
     name: 'Investing',
     origin: 'https://www.investing.com',
+    hide_selector: '#abd-banner',
+    dark_theme: 0,
+  },
+  {
+    name: 'Naked Capitalism',
+    origin: 'https://www.nakedcapitalism.com',
     hide_selector: '#abPopup, .breakingNews',
     css: 'body {overflow: auto}',
     dark_theme: 0,
@@ -1189,10 +1195,13 @@ const sites_data = [
 },
 {
   name: 'Salon',
-  origin: 'http://www.salon.com',
-  article_theme_background_selector: '.mainContent .mainInner',
-  article_theme_foreground_selector: 'h1, h2, .byline',
-  count_words: {append: '.byline', subject: '.articleContent'},
+  origin: 'https://www.salon.com',
+  darticle_theme_background_selector: '.mainContent .mainInner',
+  article_theme_foreground_selector: '.page-article p',
+  hide_selector: '#nav-right, #search-form',
+  article_hide_selector: '#social_total, #up-next, .right-rail, #topic_section, .explore_section, #newsletter-form, footer',
+  article_css: '.page-article p, a {font-family: sans-serif}',
+  count_words: {append: '.writer-container', subject: 'article'},
 },
   {
     name: 'Tampa Bay Times',
