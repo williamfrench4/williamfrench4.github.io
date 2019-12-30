@@ -183,8 +183,8 @@ const sites_data = [
       '.g-article-wrapper {max-width: none} img {filter: blur(0px); -webkit-filter: blur(0px)}' +
       '.g-freebird-lazy.ll-init {opacity: 1} a {text-shadow: none}',
     article_hide_selector: (
-      'nav, #masthead, .newsletter-signup, #whats-next, #site-index, .story-meta-footer-sharetools, .comments-button, [id="18-insider-promo-module"], #obstruction-justice-promo, #how-republican-voted-on-health-bill, #brexit-latest-fallout-tracker, #story-ad-1-wrapper, #story-ad-2-wrapper, #story-ad-3-wrapper, #story-ad-4-wrapper, #story-ad-5-wrapper, #opinion-aca-callout, #next-steps-for-health-care-bill, [id="06up-acachart"], #house-vote-republican-health-care-bill, #morning-briefing-weather-module, #related-combined-coverage, .text-ad, #comey-promo, figure.video, .page-footer, .story-info, .story-print-citation, #fbi-congress-trump-russia-investigations, .vis-survey-box, #oil-prices, #Ask-Real-Estate-Promo, #wannacry-ransomware-map, #app > div > div' +
-      '#how-self-driving-cars-work, #ransomware-attack-coverage, #fall-upfront-2017, figure[id*=pullquote], figure[id*=email-promo], figure[id*=DAILY-player], #why-its-so-hard-to-have-an-independent-russia-investigation, #navigation-edge, #europe-terror-attacks, #welcome-back-modal, #document-Robert-Mueller-Special-Counsel-Russia, #julian-assange-timeline, #anthony-weiner-plea-agreement, #assange-fblive-promo, .meter-asset-wrapper, #news-tips-article-promo, .cColumn>.first, #nyt-weather, #newsletter-module, .NYTSocialShare__overlayTriggerContainer, .Post__ad, #app>div>div>div>div>div, .css-15u353c, .wf_interstitial_link, .StoryBodyCompanionColumn>aside, .shown, aside, .css-13lpfd6, .css-1597c7c, .css-hn080, .css-qremme, .css-1bymuyk, #top-wrapper,' +
+      'nav, #masthead, .newsletter-signup, #whats-next, #site-index, .story-meta-footer-sharetools, .comments-button, [id="18-insider-promo-module"], #story-ad-1-wrapper, #story-ad-2-wrapper, #story-ad-3-wrapper, #story-ad-4-wrapper, #story-ad-5-wrapper, [id="06up-acachart"], .text-ad, figure.video, .page-footer, .story-info, .story-print-citation, .vis-survey-box, #app > div > div' +
+      'figure[id*=pullquote], figure[id*=email-promo], figure[id*=DAILY-player], #navigation-edge, .meter-asset-wrapper, .cColumn>.first, #nyt-weather, #newsletter-module, .NYTSocialShare__overlayTriggerContainer, .Post__ad, #app>div>div>div>div>div, .css-15u353c, .wf_interstitial_link, .StoryBodyCompanionColumn>aside, .shown, aside, .css-13lpfd6, .css-1597c7c, .css-hn080, .css-qremme, .css-1bymuyk, #top-wrapper, .css-4xjgmj, div[data-testid="inline-message"],' +
       selector_for_elements_with_a_class_that_starts_with('Masthead-mastheadContainer-- SectionBarShare-shareMenu-- Recirculation-recirculation-- Dock-dock-- SectionBar-sectionBar-- ResponsiveAd- InlineMessage-inline-- styles-shareMenu--')
     ),
     extra_sub_element_selectors: 'h3.story-heading',
@@ -969,13 +969,13 @@ const sites_data = [
   },
   {
     name: 'LEDs Magazine',
-    origin: 'http://www.ledsmagazine.com',
+    origin: 'https://www.ledsmagazine.com',
     alternate_homepages: 'http://www.ledsmagazine.com/index.html',
     //count_words: {append: '#editorial-article-wrapper-container>:first-child>:first-child>:first-child>:first-child>:first-child', subject: 'article'},
     //article_hide_selector: '.clay-share',
-    theme_background_selector: '#templateOuterLeft, #container',
+    theme_background_selector: '.page, .page-wrapper, .node, .node-list, .breadcrumb',
     article_theme_background_selector: '#breadcrumbs div',
-    article_theme_foreground_selector: 'p',
+    article_theme_foreground_selector: 'p, .page-wrapper__title, .page-dates__content-published',
     article_hide_selector: '#pw-article-share-bar',
     article_css: '#container {border: none}'
   },
@@ -1035,7 +1035,7 @@ const sites_data = [
   {
     name: 'Naked Capitalism',
     origin: 'https://www.nakedcapitalism.com',
-    hide_selector: '#abPopup, .breakingNews',
+    hide_selector: '#abPopup, .breakingNews, #abd-banner',
     css: 'body {overflow: auto}',
     dark_theme: 0,
   },
@@ -1053,6 +1053,7 @@ const sites_data = [
     name: 'Marketwatch',
     origin: 'https://www.marketwatch.com',
     hide_selector: '.container--trending',
+    unwanted_query_fields: 'mod',
     css: 'a:link {color: #00f} a:visited {color: #808}',
     dark_theme: 0,
   },
@@ -1257,12 +1258,12 @@ const sites_data = [
     name: 'Los Angeles Times',
     origin: 'https://www.latimes.com',
     css: 'body {overflow: visible} .Page-header-wrapper {position: static} .trb_nh {position: absolute} .trb_nh_l, .trb_nh_sm_o_svg {fill:' + theme_foreground_color + '} .trb_nh_unh_hr {border-color:' + theme_foreground_color + '}',
-    article_hide_selector: '.trb_nh_lw, .trb_mh_adB, .trb_sc, .trb_ar_bc, .trb_gptAd.trb_ar_rail_ad, .trb_embed[data-content-type=story], .wf_interstitial_link, [name="support-our-journalism"], [data-content-type="pullquote"], .journo-promo, .promo, .trb_rhsAdSidebar, .pb-f-list-nav-ticker',
+    article_hide_selector: '.ActionBar, .trb_nh_lw, .trb_mh_adB, .trb_sc, .trb_ar_bc, .trb_gptAd.trb_ar_rail_ad, .trb_embed[data-content-type=story], .wf_interstitial_link, [name="support-our-journalism"], [data-content-type="pullquote"], .journo-promo, .promo, .trb_rhsAdSidebar, .pb-f-list-nav-ticker',
     theme_background_selector: '.trb_allContentWrapper, .card',
     theme_foreground_selector: '.trb_nh_un_hw:before',
-    article_theme_background_selector: '.trb_article',
+    article_theme_background_selector: '.trb_article, .Page-header, .ArticlePage .Page-ad-margins',
     article_theme_foreground_selector: '.h7, .h7 a, h1, h1 a, h2, h2 a, h3, h3 a, h4, h4 a, h5, h5 a, h6, h6 a, article p, article ul, .caption-text', //, .dropcap, .trb_ar_page[data-content-page="1"]>p:first-child:first-letter, #story>p:first-child:first-letter',
-    article_css: '.trb_mh {margin-top: 70px} a:link[   href^="/topic/"] {color: ' + theme_autolink_foreground_color + '} a:link:hover[href^="/topic/"] {color: ' + theme_link_foreground_color + '} a:visited[href^="/topic/"] {color: ' + theme_autolink_visited_foreground_color + '} a:visited:hover[href^="/topic/"] {color: purple}',
+    article_css: '.PageLogo-image {filter: invert(70%) sepia(100%) hue-rotate(65deg) saturate(7)} .trb_mh {margin-top: 70px} a:link[   href^="/topic/"] {color: ' + theme_autolink_foreground_color + '} a:link:hover[href^="/topic/"] {color: ' + theme_link_foreground_color + '} a:visited[href^="/topic/"] {color: ' + theme_autolink_visited_foreground_color + '} a:visited:hover[href^="/topic/"] {color: purple}',
     hide_selector: '.met-promo',
     count_words: {append: '.trb_ar_dateline', subject: 'div[itemprop="articleBody"]', nbsp_size: '100%'},
     unwanted_query_fields: 'bn',
