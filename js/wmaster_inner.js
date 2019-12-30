@@ -1883,32 +1883,32 @@ function regularize_links (my_window = window, my_origin) {
   let anchor_index
   let anchor
   for ([anchor_index, anchor] of Array.from($anchors).entries()) {
-    debug(394, 20, anchor)
+    debug(394, 20, anchor, anchor.href)
     let old_href = anchor.href
-    //debug(394, 23, old_href)
+    debug(394, 23, old_href)
     if (old_href.startsWith('/')) {
-      //debug(394, 30, old_href)
+      debug(394, 30, old_href)
       if (my_origin) {
         old_href = my_origin + old_href
-        //debug(394, 32, old_href)
+        debug(394, 32, old_href)
       } else {
         old_href = my_window.location.origin + old_href
-        //debug(394, 34, old_href)
+        debug(394, 34, old_href)
       }
-      //debug(394, 37)
+      debug(394, 37)
       anchor.href = old_href
     }
     if (!old_href) continue
     try {
-      //debug(394, 40)
+      debug(394, 40)
       url = new my_window.URL(old_href)
     } catch (error) {
-      //debug(394, 50)
+      debug(394, 50)
       if (error instanceof TypeError) {
-        //debug(394, 60)
+        debug(394, 60)
         continue
       } else {
-        //debug(394, 70)
+        debug(394, 70)
         throw error
       }
     }
@@ -1918,39 +1918,43 @@ function regularize_links (my_window = window, my_origin) {
     //if (typeof href === 'undefined') return
     const origin = anchor.origin
     const site_data = sites_data_by_prefix [origin]
-    //debug(394, 85) //, origin, site_data)
+    debug(394, 85) //, origin, site_data)
     if (!site_data) continue
     const unwanted_query_fields_split = site_data.unwanted_query_fields_split
-    //debug(394, 87, unwanted_query_fields_split)
+    debug(394, 87, unwanted_query_fields_split)
     if (!unwanted_query_fields_split) continue
     //const unwanted_query_fields_split_length = unwanted_query_fields_split.length
     const query_string_index = old_href.indexOf('?')
-    //debug(394, 89, query_string_index)
+    debug(394, 89, query_string_index)
     if (query_string_index !== -1) {
-      //debug('394, 90')
+      debug('394, 90')
       //let query_string = old_href.substring(query_string_index); // the query string without the '?' that delimits it
       let query_string = url.search
       //let new_href = old_href.substring(0, query_string_index); // the url without the query string or the '?' that delimits it
       const query_params = url.searchParams
-      //debug(394, 100, query_params.toString())
+      debug(394, 100, query_params.toString())
       let field
-      //debug(394, 101, unwanted_query_fields_split)
+      debug(394, 101, unwanted_query_fields_split)
       for (field of unwanted_query_fields_split) {
         query_params.delete(field)
-        //debug(394, 110, field, query_params.toString())
+        debug(394, 110, field, query_params.toString())
       // BUG: would be nice to break if query_params is empty
       }
-      //debug(394, 120, query_params.toString())
+      debug(394, 120, query_params.toString())
       query_string = query_params.toString()
-      //debug(394, 130, query_string)
+      debug(394, 130, query_string)
       //if (query_string.length) new_href += '?' + query_string
       //anchor.href = new_href
       url.search = query_string
+      debug(394, 131, url.href)
+      debug(394, 132, url)
       anchor.href = url.href
+      debug(394, 133, anchor.href)
+      debug(394, 134, anchor)
     }
-    //debug(394, 140, anchor.href)
+    debug(394, 140, anchor.href)
   }
-  //debug(394, 200, my_window.$anchors.length)
+  debug(394, 200, my_window.$anchors.length)
 }
 
 function href_to_site_data (href) {
