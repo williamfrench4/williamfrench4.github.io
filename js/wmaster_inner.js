@@ -606,10 +606,10 @@ const sites_data = [
   },
   {
     name: 'Slate',
-    origin: 'http://www.slate.com',
-    article_hide_selector: '.bottom-banner, .rubricautofeature, .top-comment, .follow-links, .social',
+    origin: 'https://www.slate.com',
+    article_hide_selector: '.ad, .pull-quote, .bottom-banner, .rubricautofeature, .top-comment, .follow-links, .social',
     css: '.user-link, .search-link, .global-nav-handle {background-color:' + theme_background_color + '; -webkit-filter: brightness(70%) sepia(100%) hue-rotate(55deg) saturate(7)} .logo, .prop-image img {-webkit-filter: hue-rotate(180deg) brightness(60%) sepia(100%) hue-rotate(55deg) saturate(7)}',
-    article_css: '.roll-up {position: absolute} .meta {background: none}', //'.about-the-author.fancy {background: none} .about-the-author.fancy .author-bio {border-bottom: none}',
+    article_css: 'body {overflow: scroll} .roll-up {position: absolute} .meta {background: none}', //'.about-the-author.fancy {background: none} .about-the-author.fancy .author-bio {border-bottom: none}',
     count_words: {append: '.pub-date', subject: '.body .text'},
     theme_background_selector: '.page, .nav-header',
   },
@@ -945,7 +945,6 @@ const sites_data = [
   {
     name: 'US News & World Report',
     origin: 'https://www.usnews.com',
-    //article_theme_foreground_selector: https://www.marketwatch.com/'p',
     //article_theme_background_selector: '#most-viewed-ump, #story-bottom, foo',
     //count_words: {append: '.mobile h6', subject: '.articleBody'},
     //article_css: '.articleView {padding-top: 80px} .header {position: absolute}',
@@ -1052,7 +1051,7 @@ const sites_data = [
   {
     name: 'Marketwatch',
     origin: 'https://www.marketwatch.com',
-    hide_selector: '.container--trending',
+    hide_selector: '.container--trending, .quote-tip',
     unwanted_query_fields: 'mod',
     css: 'a:link {color: #00f} a:visited {color: #808}',
     dark_theme: 0,
@@ -1882,8 +1881,12 @@ function regularize_links (my_window = window, my_origin) {
   const $anchors = my_window.jQuery('a')
   let anchor_index
   let anchor
-  for ([anchor_index, anchor] of Array.from($anchors).entries()) {
-    debug(394, 20, anchor, anchor.href)
+  let anchors_array = Array.from($anchors)
+  //debug(394, 16, anchors_array)
+  let anchors_array_entries = anchors_array.entries()
+  //debug(394, 18, anchors_array_entries)
+  for ([anchor_index, anchor] of anchors_array_entries) {
+    debug(394, 20, anchor_index, anchor, anchor.href)
     let old_href = anchor.href
     debug(394, 23, old_href)
     if (old_href.startsWith('/')) {
