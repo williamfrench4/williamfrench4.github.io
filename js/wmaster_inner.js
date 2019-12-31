@@ -184,7 +184,7 @@ const sites_data = [
       '.g-freebird-lazy.ll-init {opacity: 1} a {text-shadow: none}',
     article_hide_selector: (
       'nav, #masthead, .newsletter-signup, #whats-next, #site-index, .story-meta-footer-sharetools, .comments-button, [id="18-insider-promo-module"], #story-ad-1-wrapper, #story-ad-2-wrapper, #story-ad-3-wrapper, #story-ad-4-wrapper, #story-ad-5-wrapper, [id="06up-acachart"], .text-ad, figure.video, .page-footer, .story-info, .story-print-citation, .vis-survey-box, #app > div > div' +
-      'figure[id*=pullquote], figure[id*=email-promo], figure[id*=DAILY-player], #navigation-edge, .meter-asset-wrapper, .cColumn>.first, #nyt-weather, #newsletter-module, .NYTSocialShare__overlayTriggerContainer, .Post__ad, #app>div>div>div>div>div, .css-15u353c, .wf_interstitial_link, .StoryBodyCompanionColumn>aside, .shown, aside, .css-13lpfd6, .css-1597c7c, .css-hn080, .css-qremme, .css-1bymuyk, #top-wrapper, .css-4xjgmj, div[data-testid="inline-message"],' +
+      'figure[id*=pullquote], figure[id*=email-promo], figure[id*=DAILY-player], #navigation-edge, .meter-asset-wrapper, .cColumn>.first, #nyt-weather, #newsletter-module, .NYTSocialShare__overlayTriggerContainer, .Post__ad, #app>div>div>div>div>div, .css-15u353c, .wf_interstitial_link, .StoryBodyCompanionColumn>aside, .shown, aside, .css-13lpfd6, .css-1597c7c, .css-hn080, .css-qremme, .css-1bymuyk, #top-wrapper, .css-4xjgmj, div[data-testid="inline-message"], div[data-testid="recirculation"],' +
       selector_for_elements_with_a_class_that_starts_with('Masthead-mastheadContainer-- SectionBarShare-shareMenu-- Recirculation-recirculation-- Dock-dock-- SectionBar-sectionBar-- ResponsiveAd- InlineMessage-inline-- styles-shareMenu--')
     ),
     extra_sub_element_selectors: 'h3.story-heading',
@@ -426,7 +426,7 @@ const sites_data = [
       'a.note-button:visited {color:' + theme_autolink_visited_foreground_color + '} a.note-button:visited:hover {color:' + theme_link_visited_foreground_color + '}' +
       //'a.wf_offlink {border-top: 1px dotted ' +         theme_offlink_background_color + '}',
       'a.wf_offlink {background-image: linear-gradient(to right, #f00 15%, rgba(255,255,255,0) 0%); background-position: bottom; background-size: 10px 1px; background-repeat: repeat-x;}',
-    article_hide_selector: '#wp-header, #top-furniture, .pb-f-ad-flex-2, .pb-f-ad-flex-3, .pb-f-games-gamesWidget, .pb-f-page-footer-v2, .pb-f-page-recommended-strip, .pb-f-page-editors-picks, disabled.chain-wrapper, .extra, .pb-f-generic-promo-image, .pb-f-posttv-sticky-player, .pb-f-posttv-sticky-player-powa, .xpb-f-article-article-author-bio, .pb-tool.email, .pb-f-page-newsletter-inLine, .pb-f-page-comments, .inline-video, [channel="wp.com"], .pb-f-page-jobs-search, .pb-f-homepage-story, .pb-f-sharebars-top-share-bar, .pb-f-page-share-bar, .wp_signin, #wp_Signin, .inline-graphic-linked, .share-individual, .pb-f-page-trump-can-he-do-that-podcast, .bottom-ad--bigbox, [data-block-type="subscription"], .utility-bar, .side-nav__scroll-container, #leaderboard-wrapper, .interstitial, div[data-qa="article-body-ad"]',
+    article_hide_selector: '.hide-for-print, #wp-header, #top-furniture, .pb-f-ad-flex-2, .pb-f-ad-flex-3, .pb-f-games-gamesWidget, .pb-f-page-footer-v2, .pb-f-page-recommended-strip, .pb-f-page-editors-picks, disabled.chain-wrapper, .extra, .pb-f-generic-promo-image, .pb-f-posttv-sticky-player, .pb-f-posttv-sticky-player-powa, .xpb-f-article-article-author-bio, .pb-tool.email, .pb-f-page-newsletter-inLine, .pb-f-page-comments, .inline-video, [channel="wp.com"], .pb-f-page-jobs-search, .pb-f-homepage-story, .pb-f-sharebars-top-share-bar, .pb-f-page-share-bar, .wp_signin, #wp_Signin, .inline-graphic-linked, .share-individual, .pb-f-page-trump-can-he-do-that-podcast, .bottom-ad--bigbox, [data-block-type="subscription"], .utility-bar, .side-nav__scroll-container, #leaderboard-wrapper, .interstitial, div[data-qa="article-body-ad"]',
     article_theme_selector: '#article-body, p, blockquote, .pg-bodyCopy',
     article_theme_background_selector: '.wp-volt-gal-embed-promo-container, .wp-volt-gal-embed-promo-bottom, #weather-glance, #weather_now, .cwgdropdown, #heat-tracker, #weather-almanac, .pb-f-capital_weather_gang-weather-almanac select, .border-bottom-hairline::after, .span12, .note-button, #pb-root',
     article_theme_foreground_selector: '.black, .gray-dark, .pb-caption, .pg-caption, .pb-bottom-author, .pb-timestamp, .pg-pubDate, .weather-gray, #weather_now .time, .firstgraf::first-letter',
@@ -606,12 +606,20 @@ const sites_data = [
   },
   {
     name: 'Slate',
-    origin: 'https://www.slate.com',
+    origin: 'https://slate.com',
     article_hide_selector: '.ad, .pull-quote, .bottom-banner, .rubricautofeature, .top-comment, .follow-links, .social',
+    article_theme_foreground_selector: '.slate-paragraph--drop-cap::first-letter',
     css: '.user-link, .search-link, .global-nav-handle {background-color:' + theme_background_color + '; -webkit-filter: brightness(70%) sepia(100%) hue-rotate(55deg) saturate(7)} .logo, .prop-image img {-webkit-filter: hue-rotate(180deg) brightness(60%) sepia(100%) hue-rotate(55deg) saturate(7)}',
-    article_css: 'body {overflow: scroll} .roll-up {position: absolute} .meta {background: none}', //'.about-the-author.fancy {background: none} .about-the-author.fancy .author-bio {border-bottom: none}',
+    article_css: 'body {overflow: scroll} .lazy-container img {opacity: 1} .roll-up {position: absolute} .meta {background: none}', //'.about-the-author.fancy {background: none} .about-the-author.fancy .author-bio {border-bottom: none}',
     count_words: {append: '.pub-date', subject: '.body .text'},
     theme_background_selector: '.page, .nav-header',
+    customize () {
+      debug(700, 0)
+      for (img of jQuery('.lazy-container img')) {
+        img.src = img.dataset.normal
+        debug(700, 10, img.src, img.dataset.normal)
+      }
+    },
   },
   {
     name: 'Google Voice',
