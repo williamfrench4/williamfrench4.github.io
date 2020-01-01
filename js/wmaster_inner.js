@@ -426,7 +426,7 @@ const sites_data = [
       'a.note-button:visited {color:' + theme_autolink_visited_foreground_color + '} a.note-button:visited:hover {color:' + theme_link_visited_foreground_color + '}' +
       //'a.wf_offlink {border-top: 1px dotted ' +         theme_offlink_background_color + '}',
       'a.wf_offlink {background-image: linear-gradient(to right, #f00 15%, rgba(255,255,255,0) 0%); background-position: bottom; background-size: 10px 1px; background-repeat: repeat-x;}',
-    article_hide_selector: '.hide-for-print, #wp-header, #top-furniture, .pb-f-ad-flex-2, .pb-f-ad-flex-3, .pb-f-games-gamesWidget, .pb-f-page-footer-v2, .pb-f-page-recommended-strip, .pb-f-page-editors-picks, disabled.chain-wrapper, .extra, .pb-f-generic-promo-image, .pb-f-posttv-sticky-player, .pb-f-posttv-sticky-player-powa, .xpb-f-article-article-author-bio, .pb-tool.email, .pb-f-page-newsletter-inLine, .pb-f-page-comments, .inline-video, [channel="wp.com"], .pb-f-page-jobs-search, .pb-f-homepage-story, .pb-f-sharebars-top-share-bar, .pb-f-page-share-bar, .wp_signin, #wp_Signin, .inline-graphic-linked, .share-individual, .pb-f-page-trump-can-he-do-that-podcast, .bottom-ad--bigbox, [data-block-type="subscription"], .utility-bar, .side-nav__scroll-container, #leaderboard-wrapper, .interstitial, div[data-qa="article-body-ad"]',
+    article_hide_selector: '#wp-header, #top-furniture, .pb-f-ad-flex-2, .pb-f-ad-flex-3, .pb-f-games-gamesWidget, .pb-f-page-footer-v2, .pb-f-page-recommended-strip, .pb-f-page-editors-picks, disabled.chain-wrapper, .extra, .pb-f-generic-promo-image, .pb-f-posttv-sticky-player, .pb-f-posttv-sticky-player-powa, .xpb-f-article-article-author-bio, .pb-tool.email, .pb-f-page-newsletter-inLine, .pb-f-page-comments, .inline-video, [channel="wp.com"], .pb-f-page-jobs-search, .pb-f-homepage-story, .pb-f-sharebars-top-share-bar, .pb-f-page-share-bar, .wp_signin, #wp_Signin, .inline-graphic-linked, .share-individual, .pb-f-page-trump-can-he-do-that-podcast, .bottom-ad--bigbox, [data-block-type="subscription"], .utility-bar, .side-nav__scroll-container, #leaderboard-wrapper, .interstitial, div[data-qa="article-body-ad"]',
     article_theme_selector: '#article-body, p, blockquote, .pg-bodyCopy',
     article_theme_background_selector: '.wp-volt-gal-embed-promo-container, .wp-volt-gal-embed-promo-bottom, #weather-glance, #weather_now, .cwgdropdown, #heat-tracker, #weather-almanac, .pb-f-capital_weather_gang-weather-almanac select, .border-bottom-hairline::after, .span12, .note-button, #pb-root',
     article_theme_foreground_selector: '.black, .gray-dark, .pb-caption, .pg-caption, .pb-bottom-author, .pb-timestamp, .pg-pubDate, .weather-gray, #weather_now .time, .firstgraf::first-letter',
@@ -614,6 +614,7 @@ const sites_data = [
     count_words: {append: '.pub-date', subject: '.body .text'},
     theme_background_selector: '.page, .nav-header',
     customize () {
+      jQuery('body').focus()
       debug(700, 0)
       for (img of jQuery('.lazy-container img')) {
         img.src = img.dataset.normal
@@ -800,6 +801,11 @@ const sites_data = [
     article_theme_foreground_selector: '.zn-body__paragraph',
   },
   {
+    name: 'forbes',
+    origin: 'https://www.forbes.com',
+    dark_theme: 0,
+  },
+  {
     name: 'The Federalist',
     origin: 'http://thefederalist.com',
     customize () {
@@ -832,7 +838,7 @@ const sites_data = [
     article_css: 'html, .u-overflowHidden {overflow: auto} .u-fixed, .metabar--affixed {position: static}',
     article_theme_background_selector: '#container, .screenContent, .canvas-renderer, .metabar, .u-backgroundGrayLightest, .u-backgroundWhite',
     article_theme_foreground_selector: '.postMetaInline, .u-textColorDark, .graf--h2, .graf--h3, .graf--h4',
-    article_hide_selector: 'body>iframe, .overlay, .surface-scrollOverlay, .postActions, div.ar',
+    article_hide_selector: 'body>iframe, .overlay, .surface-scrollOverlay, .postActions, div.ar, div[aria-modal="true"]',
   },
   {
     name: 'Codeburst',
