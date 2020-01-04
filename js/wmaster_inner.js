@@ -1210,7 +1210,7 @@ const sites_data = [
 {
   name: 'Salon',
   origin: 'https://www.salon.com',
-  darticle_theme_background_selector: '.mainContent .mainInner',
+  article_theme_background_selector: '.mainContent .mainInner, blockquote',
   article_theme_foreground_selector: '.page-article p',
   hide_selector: '#nav-right, #search-form',
   article_hide_selector: '#social_total, #up-next, .right-rail, #topic_section, .explore_section, #newsletter-form, footer',
