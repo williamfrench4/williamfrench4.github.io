@@ -798,7 +798,7 @@ const sites_data = [
     article_css: '.nav--plain-header {position: absolute}',
     article_hide_selector: 'theoplayer-container, .sibling, .optanon-alert-box-wrapper',
     article_theme_background_selector: '.pg-rail-tall',
-    article_theme_foreground_selector: '.zn-body__paragraph',
+    article_theme_foreground_selector: 'h1, .zn-body__paragraph',
   },
   {
     name: 'forbes',
