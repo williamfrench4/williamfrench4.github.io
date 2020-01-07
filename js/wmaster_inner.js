@@ -143,6 +143,30 @@ function selector_for_elements_with_a_class_that_starts_with (targets) {
   return result
 }
 
+function selector_for_elements_with_id_that_starts_with (targets) {
+  const targets_split = targets.split(/\s+/)
+  let target, pseudo_element
+  let result = ''
+  let target_with_possible_pseudo_element
+  for (target_with_possible_pseudo_element of targets_split) {
+    if (target_with_possible_pseudo_element [0] === '.') throw new Error(`selector_for_elements_with_id_that_starts_with: target "${target_with_possible_pseudo_element}" begins with a dot`)
+    const colon_index = target_with_possible_pseudo_element.indexOf(':')
+    if (colon_index === 0) {
+      throw new Error(`selector_for_elements_with_id_that_starts_with: target "${target_with_possible_pseudo_element}" begins with a colon`)
+    } else if (colon_index === -1) {
+      target         = target_with_possible_pseudo_element
+      pseudo_element = ''
+    } else {
+      target         = target_with_possible_pseudo_element.substr(0, colon_index)
+      pseudo_element = target_with_possible_pseudo_element.substr(colon_index)
+    }
+    if (result) result += ', '
+    result +=  `[id^="${target}"]${pseudo_element}, [id*=" ${target}"]${pseudo_element}` // result +=  '[class^="' + target + '"]' + pseudo_element + ', [class*=" ' + target + '"]' + pseudo_element
+    //debug(31, target, result)
+  }
+  return result
+}
+
 /*
 targets = (('nytimes', 'http://www.nytimes.com/'),
            ('nytimes_todayspaper', 'http://www.nytimes.com/pages/todayspaper/index.html'),
@@ -1009,7 +1033,7 @@ const sites_data = [
     origin: 'https://www.wsj.com',
     alternate_origins: 'https://blogs.wsj.com',
     article_theme_background_selector: '.bigTop__rel',
-    article_theme_selector: 'html, p, .media-object, figcaption',
+    article_theme_selector: 'html, .article-content>p, .paywall>p, .media-object, figcaption',
     article_theme_foreground_selector: 'h1, h2, tspan, .bigTop__caption',
     theme_background_selector: 'header, .zonedModule',
     css: 'header {position: static} .WSJTheme--padding-bottom--2SLicJJy, .style--hat-1vqyrZZ3j7vMCXYKbvaqKa, .style--hat--1vqyrZZ3 {display: none}',
@@ -1056,9 +1080,9 @@ const sites_data = [
     name: 'Seeking Alpha',
     origin: 'https://seekingalpha.com',
     article_hide_selector: '.popover',
-    hide_selector: '.modal, .popover',
+    hide_selector: '.modal, .popover, [id^="ads_"], [id^="google_ads_"], #right-rail, .tp-modal',
     unwanted_query_fields: 'source',
-    css: 'body {overflow: auto} a:link    {color: #00f} a:visited {color: purple} #sa-hd {position: absolute}',
+    css: 'body, pody.tp-modal-open {overflow: auto} a:link    {color: #00f} a:visited {color: purple} #sa-hd {position: absolute}',
     article_css: 'header {position: static}',
     dark_theme: 0,
   },
