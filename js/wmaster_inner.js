@@ -805,7 +805,7 @@ const sites_data = [
   {
     name: 'The Economist',
     origin: 'https://www.economist.com',
-    article_theme_foreground_selector: 'h1, h2, p, span',
+    theme_foreground_selector: 'h1, h2, h3, p, span, .teaser__description, .ds-section-headline, .related-story__title',
     article_hide_selector: '.tead-container, .newsletter-form, cite',
     hide_selector: '#bottom-page',
   },
