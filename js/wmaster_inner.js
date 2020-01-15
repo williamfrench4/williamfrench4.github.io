@@ -1082,7 +1082,7 @@ const sites_data = [
     article_hide_selector: '.popover',
     hide_selector: '.modal, .popover, [id^="ads_"], [id^="google_ads_"], #right-rail, .tp-modal',
     unwanted_query_fields: 'source',
-    css: 'body, pody.tp-modal-open {overflow: auto} a:link    {color: #00f} a:visited {color: purple} #sa-hd {position: absolute}',
+    css: 'body, pody.tp-modal-open {overflow: auto} a:link    {color: #00f} a:visited {color: purple} #sa-hd {position: absolute} #content_section.overview section .info, .content_section.overview section .info {font-family: sans-serif}',
     article_css: 'header {position: static}',
     dark_theme: 0,
   },
