@@ -1077,6 +1077,18 @@ const sites_data = [
     dark_theme: 0,
   },
   {
+    name: 'Robinhood',
+    origin: 'https://robinhood.com',
+    css: 'body {overflow: auto}',
+    dark_theme: 0,
+  },
+  {
+    name: 'Tradingview',
+    origin: 'https://www.tradingview.com',
+    hide_selector: '#overlap-manager-root',
+    dark_theme: 0,
+  },
+  {
     name: 'Seeking Alpha',
     origin: 'https://seekingalpha.com',
     article_hide_selector: '.popover',
