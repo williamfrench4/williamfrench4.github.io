@@ -740,12 +740,19 @@ const sites_data = [
   {
     name: 'Bloomberg',
     origin: 'https://www.bloomberg.com',
-    article_css: '.lede-text-only__highlight {box-shadow: none} .bb-nav[data-theme=view] {background-color: #600} .wmaster_words_count_total {margin-left: 0.4em} .persist-nav, .sticky-container {position: absolute}',
+    article_css: '.lazy-img__image {filter: unset}.lede-text-only__highlight {box-shadow: none} .bb-nav[data-theme=view] {background-color: #600} .wmaster_words_count_total {margin-left: 0.4em} .persist-nav, .sticky-container {position: absolute}',
     article_hide_selector: '#adBlockerContainer, #paywall-banner, .persist-nav, .sticky-social-buttons, .inline-newsletter, .video-player, .video-js',
     article_theme_foreground_selector: '.body-copy, .body-copy-v2, .blockquote, .lede-media-image__caption, .lede-text-only__byline',
     //article_theme_selector: '.lede-text-only__highlight',
     count_words: {append: '.article-timestamp', subject: '.body-copy'},
     article_theme_background_selector: '.lede-text-only__highlight',
+    customize () {
+      for (img of jQuery('.lazy-img>img')) {
+        //jQuery(img).css({'padding-top': '0'})
+        img.src = img.dataset.nativeSrc
+        //img.removeClass('lazy-img__image')
+      }
+    },
   },
   {
     name: 'FiveThirtyEight',
@@ -1092,7 +1099,7 @@ const sites_data = [
     name: 'Seeking Alpha',
     origin: 'https://seekingalpha.com',
     article_hide_selector: '.popover',
-    hide_selector: '.modal, .popover, [id^="ads_"], [id^="google_ads_"], #right-rail, .tp-modal',
+    hide_selector: '.popover, [id^="ads_"], [id^="google_ads_"], #right-rail, .tp-modal',
     unwanted_query_fields: 'source',
     css: 'body, pody.tp-modal-open {overflow: auto} a:link    {color: #00f} a:visited {color: purple} #sa-hd {position: absolute} #content_section.overview section .info, .content_section.overview section .info {font-family: sans-serif}',
     article_css: 'header {position: static}',
