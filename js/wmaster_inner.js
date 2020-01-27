@@ -1091,7 +1091,7 @@ const sites_data = [
   },
   {
     name: 'Tradingview',
-    origin: 'https://www.tradingview.com',
+    origin: 'dhttps://www.tradingview.com',
     hide_selector: '#overlap-manager-root',
     dark_theme: 0,
   },
