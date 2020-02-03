@@ -1073,7 +1073,8 @@ const sites_data = [
   {
     name: 'Investing',
     origin: 'https://www.investing.com',
-    hide_selector: '#abd-banner',
+    hide_selector: '#abd-banner, #abPopup, .breakingNews, .js-discussion-side-panel',
+    css: 'body {overflow: auto}',
     dark_theme: 0,
   },
   {
