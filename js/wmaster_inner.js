@@ -1091,6 +1091,28 @@ const sites_data = [
     dark_theme: 0,
   },
   {
+    name: 'South China Morning Post',
+    origin: 'https://www.scmp.com',
+    css: 'a:link    {color:' +         theme_link_foreground_color + '} a:link:hover    {color:' +         theme_link_foreground_color + '}' +
+      'a:visited {color:' + theme_link_visited_foreground_color + '} a:visited:hover {color:' + theme_link_visited_foreground_color + '}',
+    dark_theme: 0,
+    customize () {
+      debug(34, 10)
+      anchors = jQuery('a')
+      for (anchor of anchors) {
+        anchor.classList = []
+        //anchor.dataset = []
+        let dataset = anchor.dataset;
+        debug(34, 20, dataset)
+        for (var key in dataset) {
+          let munged_name = "data-" + key.split(/(?=[A-Z])/).join("-").toLowerCase()
+          debug(34, 30, munged_name)
+          anchor.removeAttribute(munged_name)
+        }
+      }
+    }
+  },
+  {
     name: 'Tradingview',
     origin: 'dhttps://www.tradingview.com',
     hide_selector: '#overlap-manager-root',
