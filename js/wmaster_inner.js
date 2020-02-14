@@ -1096,7 +1096,7 @@ const sites_data = [
     css: 'a:link    {color:' +         theme_link_foreground_color + '} a:link:hover    {color:' +         theme_link_foreground_color + '}' +
       'a:visited {color:' + theme_link_visited_foreground_color + '} a:visited:hover {color:' + theme_link_visited_foreground_color + '}',
     dark_theme: 0,
-    customize () {
+    d_customize () {
       debug(34, 10)
       anchors = jQuery('a')
       for (anchor of anchors) {
@@ -1110,7 +1110,7 @@ const sites_data = [
           anchor.removeAttribute(munged_name)
         }
       }
-    }
+    },
   },
   {
     name: 'Tradingview',
