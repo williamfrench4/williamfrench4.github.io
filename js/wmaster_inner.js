@@ -716,6 +716,11 @@ const sites_data = [
     article_css: '.x-navbar, .theiaStickySidebar {position: static}',
   },
   {
+    name: 'CNBC',
+    origin: 'https://www.cnbc.com',
+    dark_theme: 0,
+  },
+  {
     name: 'DCommentary',
     origin: 'Dhttps://www.commentarymagazine.com',
     //article_css: '.super {background: none} h1>span, h1 {background-color: transparent}',
