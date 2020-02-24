@@ -721,6 +721,13 @@ const sites_data = [
     dark_theme: 0,
   },
   {
+    name: 'Business Insider',
+    origin: 'https://www.businessinsider.com',
+    dark_theme: 0,
+    hide_selector: '.tp-modal, .tp-backdrop',
+    css: 'body.tp-modal-open {overflow: auto}',
+  },
+  {
     name: 'DCommentary',
     origin: 'Dhttps://www.commentarymagazine.com',
     //article_css: '.super {background: none} h1>span, h1 {background-color: transparent}',
