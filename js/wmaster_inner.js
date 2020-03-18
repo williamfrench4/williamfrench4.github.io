@@ -752,8 +752,8 @@ const sites_data = [
   {
     name: 'Bloomberg',
     origin: 'https://www.bloomberg.com',
-    article_css: '.lazy-img__image {filter: unset}.lede-text-only__highlight {box-shadow: none} .bb-nav[data-theme=view] {background-color: #600} .wmaster_words_count_total {margin-left: 0.4em} .persist-nav, .sticky-container {position: absolute}',
-    article_hide_selector: '#adBlockerContainer, #paywall-banner, .persist-nav, .sticky-social-buttons, .inline-newsletter, .video-player, .video-js',
+    article_css: 'body {overflow: scroll} .lazy-img__image {filter: unset}.lede-text-only__highlight {box-shadow: none} .bb-nav[data-theme=view] {background-color: #600} .wmaster_words_count_total {margin-left: 0.4em} .persist-nav, .sticky-container {position: absolute}',
+    article_hide_selector: '#adBlockerContainer, #paywall-banner, #graphics-paywall-overlay, .persist-nav, .sticky-social-buttons, .inline-newsletter, .video-player, .video-js',
     article_theme_foreground_selector: '.body-copy, .body-copy-v2, .blockquote, .lede-media-image__caption, .lede-text-only__byline',
     //article_theme_selector: '.lede-text-only__highlight',
     count_words: {append: '.article-timestamp', subject: '.body-copy'},
