@@ -756,7 +756,7 @@ const sites_data = [
     article_hide_selector: '#adBlockerContainer, #paywall-banner, #graphics-paywall-overlay, .persist-nav, .sticky-social-buttons, .inline-newsletter, .video-player, .video-js',
     article_theme_foreground_selector: '.body-copy, .body-copy-v2, .blockquote, .lede-media-image__caption, .lede-text-only__byline',
     //article_theme_selector: '.lede-text-only__highlight',
-    count_words: {append: '.article-timestamp', subject: '.body-copy'},
+    count_words: {append: '.lede-wrap', subject: '.body-copy'},
     article_theme_background_selector: '.lede-text-only__highlight',
     customize () {
       for (img of jQuery('.lazy-img>img')) {
