@@ -1292,9 +1292,10 @@ const sites_data = [
   origin: 'https://www.salon.com',
   article_theme_background_selector: '.mainContent .mainInner, blockquote',
   article_theme_foreground_selector: '.page-article p',
-  hide_selector: '#nav-right, #search-form',
+  hide_selector: '#adblockModal, #nav-right, #search-form',
+  css: 'body {overflow: scroll}',
   article_hide_selector: '#social_total, #up-next, .right-rail, #topic_section, .explore_section, #newsletter-form, footer',
-  article_css: '.page-article p, a {font-family: sans-serif}',
+  article_css: '#nav-wrapper {position: static} .page-article p, a {font-family: sans-serif}',
   count_words: {append: '.writer-container', subject: 'article'},
 },
   {
