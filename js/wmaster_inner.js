@@ -1277,7 +1277,7 @@ const sites_data = [
     name: 'The Boston Globe',
     origin: 'https://www.bostonglobe.com',
     article_theme_foreground_selector: '.article-header__headline',
-    article_hide_selector: '.meter-paywall--visible, .meter-progress-bar',
+    article_hide_selector: '#right, .meter-paywall--visible, .meter-progress-bar',
     article_css: 'body {overflow: visible; position: static}',
   },
 {
