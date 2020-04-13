@@ -1057,7 +1057,7 @@ const sites_data = [
     theme_background_selector: 'header, .zonedModule',
     css: 'header {position: static} .WSJTheme--padding-bottom--2SLicJJy, .style--hat-1vqyrZZ3j7vMCXYKbvaqKa, .style--hat--1vqyrZZ3 {display: none}',
     article_css: '.nav-is-sticky {padding-top: 0}',
-    article_hide_selector: '.mega-nav, .articleTypeLogo, #full-header, #slimline-header, #share_tools, #share-target, .style--header-34vuYLYT-W0F3y22D9Vjuk, #article_tools, .carousel-container, .type-InsetNewsletterSignup, .wsj-modern-ad-container',
+    article_hide_selector: '.mega-nav, .articleTypeLogo, #full-header, #slimline-header, #share_tools, #share-target, #webui-ribbon, .style--header-34vuYLYT-W0F3y22D9Vjuk, #article_tools, .carousel-container, .type-InsetNewsletterSignup, .wsj-modern-ad-container',
     homepage_css: 'h1 {filter: invert(70%) sepia(100%) hue-rotate(65deg) saturate(7)}',
     homepage_theme_foreground_selector: '.WSJTheme--summary--12br5Svc',
     unwanted_query_fields: 'mod',
