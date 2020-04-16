@@ -1201,7 +1201,7 @@ const sites_data = [
     name: 'Technology Review',
     origin: 'https://www.technologyreview.com',
     dark_theme: 0,
-    hide_selector: '.optanon-alert-box-wrapper, .stickystrap',
+    hide_selector: '.overlayFooter__wrapper--3DhFn, .optanon-alert-box-wrapper, .stickystrap',
     article_hide_selector: '.navbar, .meter, .signup-wrapper, .subRail, .sliderAd, .paywallWrapper, .l-pullquote--3col',
     article_css: 'body {overflow: scroll}'
   },
