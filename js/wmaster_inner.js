@@ -450,7 +450,7 @@ const sites_data = [
       'a.note-button:visited {color:' + theme_autolink_visited_foreground_color + '} a.note-button:visited:hover {color:' + theme_link_visited_foreground_color + '}' +
       //'a.wf_offlink {border-top: 1px dotted ' +         theme_offlink_background_color + '}',
       'a.wf_offlink {background-image: linear-gradient(to right, #f00 15%, rgba(255,255,255,0) 0%); background-position: bottom; background-size: 10px 1px; background-repeat: repeat-x;}',
-    article_hide_selector: '#link-box, .health-disclaimer-container, .pb-f-capital_weather_gang-weather-right-rail-features, .pb-f-page-twitter-timeline, #wp-header, #top-furniture, .pb-f-ad-flex-2, .pb-f-ad-flex-3, .pb-f-games-gamesWidget, .pb-f-page-footer-v2, .pb-f-page-recommended-strip, .pb-f-page-editors-picks, disabled.chain-wrapper, .extra, .pb-f-generic-promo-image, .pb-f-posttv-sticky-player, .pb-f-posttv-sticky-player-powa, .xpb-f-article-article-author-bio, .pb-tool.email, .pb-f-page-newsletter-inLine, .pb-f-page-comments, .inline-video, [channel="wp.com"], .pb-f-page-jobs-search, .pb-f-homepage-story, .pb-f-sharebars-top-share-bar, .pb-f-page-share-bar, .wp_signin, #wp_Signin, .inline-graphic-linked, .share-individual, .pb-f-page-trump-can-he-do-that-podcast, .bottom-ad--bigbox, [data-block-type="subscription"], .utility-bar, .side-nav__scroll-container, #leaderboard-wrapper, .interstitial, div[data-qa="article-body-ad"]',
+    article_hide_selector: '.ent-ad-container, #link-box, .health-disclaimer-container, .pb-f-capital_weather_gang-weather-right-rail-features, .pb-f-page-twitter-timeline, #wp-header, #top-furniture, .pb-f-ad-flex-2, .pb-f-ad-flex-3, .pb-f-games-gamesWidget, .pb-f-page-footer-v2, .pb-f-page-recommended-strip, .pb-f-page-editors-picks, disabled.chain-wrapper, .extra, .pb-f-generic-promo-image, .pb-f-posttv-sticky-player, .pb-f-posttv-sticky-player-powa, .xpb-f-article-article-author-bio, .pb-tool.email, .pb-f-page-newsletter-inLine, .pb-f-page-comments, .inline-video, [channel="wp.com"], .pb-f-page-jobs-search, .pb-f-homepage-story, .pb-f-sharebars-top-share-bar, .pb-f-page-share-bar, .wp_signin, #wp_Signin, .inline-graphic-linked, .share-individual, .pb-f-page-trump-can-he-do-that-podcast, .bottom-ad--bigbox, [data-block-type="subscription"], .utility-bar, .side-nav__scroll-container, #leaderboard-wrapper, .interstitial, div[data-qa="article-body-ad"]',
     article_theme_selector: '.btn-white, #article-body, p, blockquote, .pg-bodyCopy',
     article_theme_background_selector: '.wp-volt-gal-embed-promo-container, .wp-volt-gal-embed-promo-bottom, #weather-glance, #weather_now, .cwgdropdown, #heat-tracker, #weather-almanac, .pb-f-capital_weather_gang-weather-almanac select, .border-bottom-hairline::after, .span12, .note-button, #pb-root',
     article_theme_foreground_selector: '.black, .gray-dark, .pb-caption, .pg-caption, .pb-bottom-author, .pb-timestamp, .pg-pubDate, .weather-gray, #weather_now .time, .firstgraf::first-letter',
@@ -754,7 +754,7 @@ const sites_data = [
     name: 'Bloomberg',
     origin: 'https://www.bloomberg.com',
     article_css: 'body {overflow: scroll} .lazy-img__image {filter: unset}.lede-text-only__highlight {box-shadow: none} .bb-nav[data-theme=view] {background-color: #600} .wmaster_words_count_total {margin-left: 0.4em} .persist-nav, .sticky-container {position: absolute}',
-    article_hide_selector: '#adBlockerContainer, #paywall-banner, #graphics-paywall-overlay, .persist-nav, .sticky-social-buttons, .inline-newsletter, .video-player, .video-js',
+    article_hide_selector: '.tp-modal, #adBlockerContainer, #paywall-banner, #graphics-paywall-overlay, .persist-nav, .sticky-social-buttons, .inline-newsletter, .video-player, .video-js',
     article_theme_foreground_selector: 'h2, h3, .body-copy, .body-copy-v2, .blockquote, .lede-media-image__caption, .lede-text-only__byline',
     //article_theme_selector: '.lede-text-only__highlight',
     count_words: {append: '.lede-wrap', subject: '.body-copy'},
@@ -848,6 +848,8 @@ const sites_data = [
     name: 'forbes',
     origin: 'https://www.forbes.com',
     dark_theme: 0,
+    article_hide_selector: '.fbs-auth__container',
+    article_css: 'body {overflow: scroll}'
   },
   {
     name: 'The Federalist',
