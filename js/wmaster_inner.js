@@ -719,6 +719,7 @@ const sites_data = [
     name: 'CNBC',
     origin: 'https://www.cnbc.com',
     hide_selector: '.fEy1Z2XT',
+    article_css: 'body {overflow: scroll}',
     dark_theme: 0,
   },
   {
