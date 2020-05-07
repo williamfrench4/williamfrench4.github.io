@@ -1062,7 +1062,7 @@ const sites_data = [
     css: 'header {position: static} .WSJTheme--padding-bottom--2SLicJJy, .style--hat-1vqyrZZ3j7vMCXYKbvaqKa, .style--hat--1vqyrZZ3 {display: none}',
     article_css: '.nav-is-sticky {padding-top: 0}',
     article_hide_selector: '.style--header-wrapper-3KS0vHEBLQWIH5Ne-XG256, #webui-ribbon, .mega-nav, .articleTypeLogo, #full-header, #slimline-header, #share_tools, #share-target, .style--header-34vuYLYT-W0F3y22D9Vjuk, #article_tools, .carousel-container, .type-InsetNewsletterSignup, .wsj-modern-ad-container',
-    homepage_hide_selector: '.WSJTheme--ribbon--2rnxjr5y',
+    homepage_hide_selector: '.WSJTheme--ribbon--2rnxjr5y,' + selector_for_elements_with_a_class_that_starts_with('WSJTheme--adWrapper--'),
     homepage_css: 'h1 {filter: invert(70%) sepia(100%) hue-rotate(65deg) saturate(7)}',
     homepage_theme_foreground_selector: '.WSJTheme--summary--lmOXEsbN, .WSJTheme--summary--12br5Svc',
     unwanted_query_fields: 'mod',
