@@ -756,7 +756,7 @@ const sites_data = [
     origin: 'https://www.bloomberg.com',
     article_css: 'body {overflow: scroll} .lazy-img__image {filter: unset}.lede-text-only__highlight {box-shadow: none} .bb-nav[data-theme=view] {background-color: #600} .wmaster_words_count_total {margin-left: 0.4em} .persist-nav, .sticky-container {position: absolute}',
     article_hide_selector: '.tp-modal, #adBlockerContainer, #paywall-banner, #graphics-paywall-overlay, .persist-nav, .sticky-social-buttons, .inline-newsletter, .video-player, .video-js',
-    article_theme_foreground_selector: 'h2, h3, .body-copy, .body-copy-v2, .blockquote, .lede-media-image__caption, .lede-text-only__byline',
+    article_theme_foreground_selector: '.abstract-v2__item, h2, h3, .body-copy, .body-copy-v2, .blockquote, .lede-media-image__caption, .lede-text-only__byline',
     //article_theme_selector: '.lede-text-only__highlight',
     count_words: {append: '.lede-wrap', subject: '.body-copy'},
     article_theme_background_selector: '.lede-text-only__highlight',
