@@ -509,7 +509,8 @@ const sites_data = [
         img.src = img.dataset.hiResSrc
       }
       for (img of jQuery('figure img')) {
-        img.src = img.src.substr(0, img.src.length - '&w=150'.length) + '&w=1200'
+        img.src = img.src.substr(0, img.src.length - '&w=32'.length) + '&w=600'
+        jQuery(img).css({'filter': 'none', 'webkit-filter': 'none'})
       }
       for (img of jQuery('img.lazyld')) {
         img.src = img.dataset.hiResSrc
