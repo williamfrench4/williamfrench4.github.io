@@ -755,12 +755,12 @@ const sites_data = [
   {
     name: 'Bloomberg',
     origin: 'https://www.bloomberg.com',
-    article_css: 'body {overflow: scroll} .lazy-img__image {filter: unset}.lede-text-only__highlight {box-shadow: none} .bb-nav[data-theme=view] {background-color: #600} .wmaster_words_count_total {margin-left: 0.4em} .persist-nav, .sticky-container {position: absolute}',
-    article_hide_selector: '.tp-modal, #adBlockerContainer, #paywall-banner, #graphics-paywall-overlay, .persist-nav, .sticky-social-buttons, .inline-newsletter, .video-player, .video-js',
+    article_css: 'body {overflow: scroll} .lazy-img__image {filter: unset}.lede-text-only__highlight {box-shadow: none} .bb-nav[data-theme=view] {background-color: #600} .wmaster_words_count_total {margin-left: 0.4em} .persist-nav, .sticky-container {position: absolute} .transporter-container {z-index: 600} #graphics-paywall-overlay {z-index: 600}',
+    article_hide_selector: '#graphics-paywall-overlay, .storythread-tout, .tp-modal, .tp-backdrop, .tp-active, #paywall-banner, #adBlockerContainer, #graphics-paywall-overlay, .persist-nav, .sticky-social-buttons, .inline-newsletter, .video-player, .video-js',
     article_theme_foreground_selector: '.abstract-v2__item, h2, h3, .body-copy, .body-copy-v2, .blockquote, .lede-media-image__caption, .lede-text-only__byline',
     //article_theme_selector: '.lede-text-only__highlight',
     count_words: {append: '.lede-wrap', subject: '.body-copy'},
-    article_theme_background_selector: '.lede-text-only__highlight',
+    article_theme_background_selector: '.transporter-container, .lede-text-only__highlight',
     customize () {
       for (img of jQuery('.lazy-img>img')) {
         //jQuery(img).css({'padding-top': '0'})
@@ -2211,6 +2211,9 @@ if (is_node) {
         }
       } else  if (parsed_command_name === 'pp') {
         //debug(382, 80, parsed_command_args_0)
+        process_page()
+      } else  if (parsed_command_name === 'nl') {
+        //debug(382, 82, parsed_command_args_0)
         process_page()
       } else  if (parsed_command_name === 'wa') {
         //debug(382, 85, parsed_command_args_0)
