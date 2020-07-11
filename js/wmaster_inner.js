@@ -1340,7 +1340,7 @@ const sites_data = [
     origin: 'https://www.baltimoresun.com',
     css: '.trb_nh {position: absolute} .trb_nh_lw {border-bottom-width: 0} header {position: static}',
     hide_selector: '.trb_bnn, .met-promo',
-    article_hide_selector: '#reg-overlay, .trb_nls_c, .trb_mh_adB, .trb_gptAd, .slider, .trb_ar_sponsoredmod, [data-content-type="tweetembed"]', //, aside:has([data-content-kicker="Related"])',
+    article_hide_selector: '.col-desktop-6, #reg-overlay, .trb_nls_c, .trb_mh_adB, .trb_gptAd, .slider, .trb_ar_sponsoredmod, [data-content-type="tweetembed"]', //, aside:has([data-content-kicker="Related"])',
     article_theme_background_selector: '.crd',
     theme_background_selector: '.trb_nh_uw, .trb_nh_lw, .trb_allContentWrapper',
     article_theme_foreground_selector: 'h1, p, .caption-text, .trb_ar_page>ol, .trb_ar_page>p, .trb_ar_page>ul, .trb_ar_page[data-content-page="1"]>p:first-child:first-letter',
