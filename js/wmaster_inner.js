@@ -755,7 +755,7 @@ const sites_data = [
   {
     name: 'Bloomberg',
     origin: 'https://www.bloomberg.com',
-    article_css: 'body[data-paywall-overlay-status="show"], body.tp-modal-open {overflow: scroll} .lazy-img__image {filter: unset}.lede-text-only__highlight {box-shadow: none} .bb-nav[data-theme=view] {background-color: #600} .wmaster_words_count_total {margin-left: 0.4em} .persist-nav, .sticky-container {position: absolute} .transporter-container {z-index: 600} #graphics-paywall-overlay {z-index: 600}',
+    article_css: 'body[data-paywall-overlay-status="show"], body.tp-modal-open {overflow: scroll} .lazy-img__image {filter: unset}.lede-text-only__highlight {box-shadow: none} .bb-nav[data-theme=view] {background-color: #600} .wmaster_words_count_total {margin-left: 0.4em} .persist-nav, .sticky-container {position: absolute} .transporter-container {z-index: 600} #graphics-paywall-overlay {z-index: 600} .hub-zone--hidden {display: block; visibility: visible',
     article_hide_selector: '#graphics-paywall-overlay, .storythread-tout, .tp-modal, .tp-backdrop, .tp-active, #paywall-banner, #adBlockerContainer, #graphics-paywall-overlay, .persist-nav, .sticky-social-buttons, .inline-newsletter, .video-player, .video-js',
     article_theme_foreground_selector: '.abstract-v2__item, h2, h3, .body-copy, .body-copy-v2, .blockquote, .lede-media-image__caption, .lede-text-only__byline',
     //article_theme_selector: '.lede-text-only__highlight',
