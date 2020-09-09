@@ -814,7 +814,7 @@ const sites_data = [
     article_theme_foreground_selector: '.article-body',
     homepage_theme_background_selector: '.c-hp, .c-hp-lead__content, .c-hp-news, .c-hp-filmstrip, .c-hp-offlead, .c-hp-featured, .c-writers__container, .c-latest, .c-popular__container, .c-sections, input',
     homepage_hide_selector: '.c-writers__item--magazine',
-    article_css: 'body.with-gate {overflow: scroll} figure.lead-img .img {outline: none} .article-cover-extra {padding-bottom: 0; border-bottom: none}',
+    article_css: 'body.with-gate {overflow: scroll; position: static} figure.lead-img .img {outline: none} .article-cover-extra {padding-bottom: 0; border-bottom: none}',
   },
   {
     name: 'National Review',
