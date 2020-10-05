@@ -816,7 +816,7 @@ const sites_data = [
     homepage_hide_selector: '.c-writers__item--magazine',
     article_css: 'body.with-gate {overflow: scroll; position: static} figure.lead-img .img {outline: none} .article-cover-extra {padding-bottom: 0; border-bottom: none}',
 
-    dark_theme: 0,
+    //dark_theme: 0,
   },
   {
     name: 'National Review',
