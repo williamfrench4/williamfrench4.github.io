@@ -509,7 +509,7 @@ const sites_data = [
         img.src = img.dataset.hiResSrc
       }
       for (img of jQuery('figure img')) {
-        img.src = img.src.substr(0, img.src.length - '&w=32'.length) + '&w=600'
+        img.src = img.src.substr(0, img.src.length - '&w=32'.length) + '&w=1800'
         jQuery(img).css({'filter': 'none', 'webkit-filter': 'none'})
       }
       for (img of jQuery('img.lazyld')) {
@@ -1334,7 +1334,7 @@ const sites_data = [
     alternate_origins: 'https://arstechnica.co.uk',
     hide_selector: '.site-header.is_stuck.scrolled-up',
     article_hide_selector: '.ars-sub-app, .share-links, .pullbox, #article-footer-wrap, #action_button_container, .superscroll-pager',
-    article_css: '.site-wrapper {background-color: transparent}', // if set to black, this hides images in Chrome as of 6/19/2017
+    article_css: 'figure {background: white} .site-wrapper {background-color: transparent}', // if set to black, this hides images in Chrome as of 6/19/2017
     count_words: {append: '.byline', subject: '.article-content'},
   },
   {
