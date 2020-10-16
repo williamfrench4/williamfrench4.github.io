@@ -1116,7 +1116,7 @@ const sites_data = [
     homepage_hide_selector: '.accordion',
     css: '.header-menu-container {position: static} a:link    {color:' +         theme_link_foreground_color + '} a:link:hover    {color:' +         theme_link_foreground_color + '}' +
       'a:visited {color:' + theme_link_visited_foreground_color + '} a:visited:hover {color:' + theme_link_visited_foreground_color + '}',
-    article_hide_selector: '.blockquote, .content--newsletter',
+    article_hide_selector: '.full-page-takeover, iframe, .blockquote, .content--newsletter',
     dark_theme: 0,
     d_customize () {
       debug(34, 10)
