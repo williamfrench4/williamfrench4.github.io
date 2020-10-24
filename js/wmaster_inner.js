@@ -1451,6 +1451,12 @@ const sites_data = [
     article_theme_foreground_selector: '.article-body-component, .title, .brow-component, .content-header-component .meta-list li, .lede, .caption-component__credit, .article-body-component h3',
   },
   {
+    name: 'Arxiv',
+    origin: 'https://arxiv.org',
+    dark_theme: 0,
+    hide_selector: '#pendo-base',
+  },
+  {
     name: 'Webull',
     origin: 'https://www.webull.com',
     article_css: '#common_head {position: absolute}',
