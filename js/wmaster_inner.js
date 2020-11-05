@@ -521,11 +521,13 @@ const sites_data = [
         img.src = img.attributes.getNamedItem('descent-src').value
       }
       for (const element of jQuery('a')) {
+        if (element.hasOwnProperty('pathname')) {
         debug(284, 10, element.pathname)
         if (element.pathname.startsWith('/video/')) {
           debug(284, 20)
           jQuery(element).addClass('wf_video_article_link')
         }
+      }
       }
       for (const element of jQuery('video')) {
         debug(284, 50)
@@ -2004,14 +2006,16 @@ function regularize_links (my_window = window, my_origin) {
     debug(394, 20, anchor_index, anchor, anchor.href)
     let old_href = anchor.href
     debug(394, 23, old_href)
-    if (old_href.startsWith('/')) {
-      debug(394, 30, old_href)
-      if (my_origin) {
-        old_href = my_origin + old_href
-        debug(394, 32, old_href)
-      } else {
-        old_href = my_window.location.origin + old_href
-        debug(394, 34, old_href)
+    if (old_href.hasOwnProperty('startsWith')) {
+      if (old_href.startsWith('/')) {
+        debug(394, 30, old_href)
+        if (my_origin) {
+          old_href = my_origin + old_href
+          debug(394, 32, old_href)
+        } else {
+          old_href = my_window.location.origin + old_href
+          debug(394, 34, old_href)
+        }
       }
       debug(394, 37)
       anchor.href = old_href
