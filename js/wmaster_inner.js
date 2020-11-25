@@ -207,17 +207,14 @@ const sites_data = [
       '.g-article-wrapper {max-width: none} img {filter: blur(0px); -webkit-filter: blur(0px)}' +
       '.g-freebird-lazy.ll-init {opacity: 1} a {text-shadow: none}',
     article_hide_selector: (
-      '.live-blog-above-main-content, .css-1bd8bfl, #gateway-content, #top-wrapper,  #bottom-wrapper, .css-1q1hscp, .css-13pd83m, .NYTAppHideMasthead, div[data-testid="inline-message"], div[data-testid="recirculation"],' + selector_for_elements_with_id_that_starts_with('story-ad-')), //, .css-1aor85t, .ent-ad-container, .ent-raw-container, nav, #masthead, .newsletter-signup, #whats-next, #site-index, .story-meta-footer-sharetools, .comments-button, [id="06up-acachart"], .text-ad, figure.video, .page-footer, .story-info, .story-print-citation, .vis-survey-box, #app > div > div,' +
-      //'#navigation-edge, .meter-asset-wrapper, .cColumn>.first, #nyt-weather, #newsletter-module, .NYTSocialShare__overlayTriggerContainer, .Post__ad, #app>div>div>div>div>div, .css-15u353c, .wf_interstitial_link, .StoryBodyCompanionColumn>aside,' +
-      //selector_for_elements_with_a_class_that_starts_with('Masthead-mastheadContainer-- SectionBarShare-shareMenu-- Recirculation-recirculation-- Dock-dock-- SectionBar-sectionBar-- ResponsiveAd- InlineMessage-inline-- styles-shareMenu--')
-    //),
+      '.live-blog-above-main-content, .css-1bd8bfl, #gateway-content, #top-wrapper,  #bottom-wrapper, .css-1q1hscp, .css-13pd83m, .NYTAppHideMasthead, div[data-testid="inline-message"], div[data-testid="recirculation"],' + selector_for_elements_with_id_that_starts_with('story-ad-')),
     extra_sub_element_selectors: 'h3.story-heading',
     homepage_theme_foreground_selector: '.summary, .masthead .masthead-menu li,' + selector_for_elements_with_a_class_that_starts_with('TemplateUtils-packageName-- AssetContent-summary-- AssetMedia-meta__caption--'), // NYT dark theme
     homepage_theme_background_selector: '.css-180b3ld, .css-1q9wuj9' + selector_for_elements_with_a_class_that_starts_with('Asset-story-- TemplateUtils-topLabel--'),
     //homepage_css: 'header {background-color: #aaa}', // NYT dark theme
     homepage_css: 'figure img {width: 100%} div[data-testid="masthead-desktop-logo"] {filter: invert(70%) sepia(100%) hue-rotate(65deg) saturate(7)} div:has("#top-wrapper")',
     homepage_hide_selector: '.css-1g8bx4t, .css-1xaqcky, .css-djiuqn, .css-1q9wuj9, #masthead-placeholder, .masthead-cap-container, .masthead.theme-in-content, div.editions.tab, #nytint-hp-watching, #site-index .section-header, #markets, .all-sections-button, #mini-navigation, #WelcomeAd_optly, .css-rpp6l6, .css-wu78io, video,' + selector_for_elements_with_a_class_that_starts_with('BlockAdvert-topAd--'),
-    hide_selector: '.ad',
+    hide_selector: '.ad, div[data-testid="masthead-mini-nav"]',
     theme_selector: 'body, #masthead, .searchsubmit', // NYT dark theme
     css: '.story.theme-main .story-meta-footer {border-top: none; border-bottom: none} .wf_video_article_link:link, .wf_video_article_link:visited, .wf_video_article_link:link h3, .wf_video_article_link:visited h3 {color: #550} .icon.video:before {filter: invert(70%) sepia(100%) saturate(7)}',
     dark_theme: 1, // to turn this off, change the 1 to a 0 and comment out all other lines that are commented "NYT dark theme"
