@@ -218,7 +218,7 @@ const sites_data = [
     theme_selector: 'body, #masthead, .searchsubmit', // NYT dark theme
     css: '.story.theme-main .story-meta-footer {border-top: none; border-bottom: none} .wf_video_article_link:link, .wf_video_article_link:visited, .wf_video_article_link:link h3, .wf_video_article_link:visited h3 {color: #550} .icon.video:before {filter: invert(70%) sepia(100%) saturate(7)}',
     dark_theme: 1, // to turn this off, change the 1 to a 0 and comment out all other lines that are commented "NYT dark theme"
-    unwanted_query_fields: 'section surface fellback req_id imp_id algo mtrref action clickSource comments contentCollection contentPlacement hp module pgtype _r ref region rref smid smtyp src version WT.nav WT.z_jog hF vS utm_campaign utm_content utm_medium utm_source t target mcubz gwh gwt imp_id',
+    unwanted_query_fields: 'section surface fellback req_id imp_id algo mtrref action clickSource comments contentCollection contentPlacement hp module pgtype _r ref region rref smid smtyp src version WT.nav WT.z_jog hF vS utm_campaign utm_content utm_medium utm_source t target mcubz gwh gwt imp_id variant',
     unwanted_classes: 'theme-pinned-masthead',
     //url_to_data_filename: {year_index: 3, segments_used: 6},
     wayback: {targets: {nytimes: '/', nytimes_todayspaper: '/pages/todayspaper/index.html', nytimes_nyregion: '/pages/nyregion/index.html'}},
