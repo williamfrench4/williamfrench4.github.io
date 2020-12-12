@@ -343,6 +343,40 @@ const sites_data = [
         }
         debug('debug_nyt', 90)
       }
+
+      debug('debug_nytb', 1010)
+      for (img of jQuery('img.g-freebird-lazy')) {
+        const raw_widths = img.dataset.widths
+        debug('debug_nytb', 1040, raw_widths)
+        const parsed_widths = JSON.parse(raw_widths)
+        const pattern = img.dataset.patternRetina
+        const target = '{{size}}'
+        const target_length = target.length
+        const size_index = pattern.indexOf(target)
+        const pattern_prefix = pattern.substr(0, size_index)
+        const pattern_suffix = pattern.substr(size_index + target_length)
+        debug('debug_nytb', 1041, pattern)
+        debug('debug_nytb', 1042, pattern_prefix)
+        debug('debug_nytb', 1043, pattern_suffix)
+        let max_width_found = 0
+        //let slug = ''
+        debug('debug_nytb', 1050, parsed_widths)
+        let width
+        for (width of parsed_widths) {
+          //const size = int(width)
+          //debug('debug_nytb', 1060, width)
+          if (width > max_width_found) {
+            max_width_found = width
+            debug('debug_nytb', 1070, width)
+          }
+        }
+        if (max_width_found) {
+          img.src = pattern_prefix + max_width_found + pattern_suffix
+          debug('debug_nytb', 1080, img.src)
+        }
+        debug('debug_nytb', 1090)
+      }
+
       for (const element of jQuery('a')) {
         debug('debug_nyt', 94, element.pathname)
         if (element.pathname.startsWith('/video/')) {
