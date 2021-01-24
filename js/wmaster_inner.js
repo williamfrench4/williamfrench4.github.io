@@ -1207,7 +1207,7 @@ const sites_data = [
     origin: 'https://www.thecut.com',
     count_words: {append: '.article-timestamp', subject: '.article-content'},
     article_hide_selector: '.related-stories',
-    article_theme_foreground_selector: 'h1, .clay-paragraph, .mediaplay-image-figcaption',
+    article_theme_foreground_selector: 'h1, .clay-paragraph, .clay-paragraph_drop-cap, .mediaplay-image-figcaption',
   },
   {
     name: 'Vulture',
