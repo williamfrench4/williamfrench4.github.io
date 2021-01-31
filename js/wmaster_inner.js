@@ -666,7 +666,7 @@ const sites_data = [
   {
     name: 'Slate',
     origin: 'https://slate.com',
-    article_hide_selector: '.ad, .pull-quote, .bottom-banner, .rubricautofeature, .top-comment, .follow-links, .social',
+    article_hide_selector: '.slate-paywall, .ad, .pull-quote, .bottom-banner, .rubricautofeature, .top-comment, .follow-links, .social',
     article_theme_foreground_selector: '.slate-paragraph--drop-cap::first-letter',
     css: '.user-link, .search-link, .global-nav-handle {background-color:' + theme_background_color + '; -webkit-filter: brightness(70%) sepia(100%) hue-rotate(55deg) saturate(7)} .logo, .prop-image img {-webkit-filter: hue-rotate(180deg) brightness(60%) sepia(100%) hue-rotate(55deg) saturate(7)}',
     article_css: 'body {overflow: scroll} .lazy-container img {opacity: 1} .roll-up {position: absolute} .meta {background: none}', //'.about-the-author.fancy {background: none} .about-the-author.fancy .author-bio {border-bottom: none}',
