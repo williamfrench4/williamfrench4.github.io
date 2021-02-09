@@ -456,7 +456,7 @@ const sites_data = [
     homepage_theme_selector: '',
     homepage_theme_foreground_selector: '.fc-item__standfirst, .fc-container__header__title',
     homepage_css: '.tone-live--item {background-color: #5a0b00} .fc-item.tone-letters--item {background-color: #333} .fc-container--story-package {border-top-width: 0} .js-on .fc-show-more--hidden .fc-show-more--hide {display: block}',
-    hide_selector: '.adverts, .site-message',
+    hide_selector: '.adverts, .site-message, .site-message--banner',
     //url_to_data_filename: {year_index: 4, segments_used: 7, wildcards: [3]},
     wayback: {targets: {guardian: '/'}},
     customize () {
