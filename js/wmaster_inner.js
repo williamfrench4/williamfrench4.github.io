@@ -842,7 +842,7 @@ const sites_data = [
     origin: 'https://www.theatlantic.com',
     count_words: {append: '.article-cover-extra', subject: '.article-body'},
     //count_words_grafs: true,
-    article_hide_selector: '#paywall, .fancy-box-overlay, c-non-metered-nudge, .module-related.video, .js-inject-promo, .social-kit-top, .article-tools, .callout, .pullquote, .c-nudge__container,' + selector_for_elements_with_a_class_that_starts_with('NonMeteredNudge_root__ adform-adbox- GptAd_'),
+    article_hide_selector: '#paywall, gpt-ad, .ad-boxinjector-wrapper, .fancy-box-wrap, c-non-metered-nudge, .module-related.video, .js-inject-promo, .social-kit-top, .article-tools, .callout, .pullquote, .c-nudge__container,' + selector_for_elements_with_a_class_that_starts_with('NonMeteredNudge_root__ adform-adbox- GptAd_'),
     theme_background_selector: '#site',
     article_theme_background_selector: '.article-body blockquote',
     article_theme_foreground_selector: '.article-body',
