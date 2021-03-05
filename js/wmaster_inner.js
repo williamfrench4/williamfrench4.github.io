@@ -1293,6 +1293,12 @@ const sites_data = [
     count_words: {append: '.byline', subject: '.article-body'},
   },
   {
+    name: 'IMDB',
+    origin: 'https://www.imdb.com',
+    dark_theme: 0,
+    article_hide_selector: '.nas-slot, .dipc-page-background>.ipc-page-content-container',
+  },
+  {
     name: 'Defense One',
     origin: 'http://www.defenseone.com',
     article_css: 'body, .d1-article-subhead {font-family: Georgia} .d1-sticky-nav-stick {position: absolute}',
