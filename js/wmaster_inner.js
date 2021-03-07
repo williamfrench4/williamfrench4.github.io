@@ -783,7 +783,7 @@ const sites_data = [
     name: 'Politico',
     origin: 'https://www.politico.com',
     article_css: '.super {background: none} h1>span, h1 {background-color: transparent}',
-    article_hide_selector: '.cookie-modal, .story-interrupt, .story-tools, .story-related, .story-share',
+    article_hide_selector: '.ad, .cookie-modal, .story-interrupt, .story-tools, .story-related, .story-share',
     count_words: {append: '.timestamp', subject: '.story-text'},
   },
   {
@@ -842,7 +842,7 @@ const sites_data = [
     origin: 'https://www.theatlantic.com',
     count_words: {append: '.article-cover-extra', subject: '.article-body'},
     //count_words_grafs: true,
-    article_hide_selector: '#paywall, gpt-ad, .ad-boxinjector-wrapper, .fancy-box-wrap, c-non-metered-nudge, .module-related.video, .js-inject-promo, .social-kit-top, .article-tools, .callout, .pullquote, .c-nudge__container,' + selector_for_elements_with_a_class_that_starts_with('NonMeteredNudge_root__ adform-adbox- GptAd_'),
+    article_hide_selector: 'nav, #paywall, gpt-ad, .ad-boxinjector-wrapper, .fancy-box-wrap, c-non-metered-nudge, .module-related.video, .js-inject-promo, .social-kit-top, .article-tools, .callout, .pullquote, .c-nudge__container,' + selector_for_elements_with_a_class_that_starts_with('NonMeteredNudge_root__ adform-adbox- GptAd_'),
     theme_background_selector: '#site',
     article_theme_background_selector: '.article-body blockquote',
     article_theme_foreground_selector: '.article-body',
