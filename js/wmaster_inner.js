@@ -849,7 +849,7 @@ const sites_data = [
     article_theme_foreground_selector: '.article-body',
     homepage_theme_background_selector: '.c-hp, .c-hp-lead__content, .c-hp-news, .c-hp-filmstrip, .c-hp-offlead, .c-hp-featured, .c-writers__container, .c-latest, .c-popular__container, .c-sections, input',
     homepage_hide_selector: '.c-writers__item--magazine',
-    article_css: '.fancybox-lock, .fancybox-lock body, body {overflow: scroll; position: static} figure.lead-img .img {outline: none} .article-cover-extra {padding-bottom: 0; border-bottom: none}',
+    article_css: 'html {scroll-padding-top: 0} .fancybox-lock, .fancybox-lock body, body {overflow: scroll; position: static} figure.lead-img .img {outline: none} .article-cover-extra {padding-bottom: 0; border-bottom: none}',
 
     //dark_theme: 0,
   },
