@@ -206,7 +206,7 @@ const sites_data = [
       'a.autolink:visited {color:' + theme_autolink_visited_foreground_color + '}' +
       '.g-article-wrapper {max-width: none} img {filter: blur(0px); -webkit-filter: blur(0px)}' +
       '.g-freebird-lazy.ll-init {opacity: 1} a {text-shadow: none}',
-    article_hide_selector: ('#c-col-editors-picks, .live-blog-above-main-content, .css-1bd8bfl, #gateway-content, #top-wrapper,  #bottom-wrapper, .css-1q1hscp, .css-13pd83m, .NYTAppHideMasthead, div[data-testid="inline-message"], div[data-testid="recirculation"],' + selector_for_elements_with_id_that_starts_with('ad-') + selector_for_elements_with_id_that_starts_with('story-ad-')),
+    article_hide_selector: ('.expanded-dock, #c-col-editors-picks, .live-blog-above-main-content, .css-1bd8bfl, #gateway-content, #top-wrapper,  #bottom-wrapper, .css-1q1hscp, .css-13pd83m, .NYTAppHideMasthead, div[data-testid="inline-message"], div[data-testid="recirculation"],' + selector_for_elements_with_id_that_starts_with('ad-') + selector_for_elements_with_id_that_starts_with('story-ad-')),
     extra_sub_element_selectors: 'h3.story-heading',
     homepage_theme_foreground_selector: '.summary, .masthead .masthead-menu li,' + selector_for_elements_with_a_class_that_starts_with('TemplateUtils-packageName-- AssetContent-summary-- AssetMedia-meta__caption--'), // NYT dark theme
     homepage_theme_background_selector: '.css-180b3ld, .css-1q9wuj9' + selector_for_elements_with_a_class_that_starts_with('Asset-story-- TemplateUtils-topLabel--'),
