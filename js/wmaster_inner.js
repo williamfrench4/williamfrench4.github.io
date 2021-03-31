@@ -1195,6 +1195,7 @@ const sites_data = [
   {
     name: 'New York Magazine',
     origin: 'https://nymag.com',
+    alternate_origins: 'https://www.grubstreet.com',
     count_words: {append: '.article-timestamp', subject: '.article-content'},
     article_hide_selector: 'nav, .clay-share, .page-header, .modal',
     article_theme_foreground_selector: '.manual-article .manual-article-link, h1, p, figcaption, time, .by-authors, .credit',
