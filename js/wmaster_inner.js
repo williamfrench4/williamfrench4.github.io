@@ -1187,7 +1187,7 @@ const sites_data = [
   {
     name: 'Marketwatch',
     origin: 'https://www.marketwatch.com',
-    hide_selector: '.container--trending, .quote-tip',
+    hide_selector: '#cx-candybar, .element--ad, .container--trending, .quote-tip',
     unwanted_query_fields: 'mod',
     css: 'a:link {color: #00f} a:visited {color: #808}',
     dark_theme: 0,
