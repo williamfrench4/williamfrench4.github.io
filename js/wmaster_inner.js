@@ -193,7 +193,7 @@ const sites_data = [
     article_theme_selector: 'input, textarea, .columnGroup', // NYT dark theme
     article_theme_background_selector: '.css-f2fzwx, body, #articleBody, #articleBody:after, .bcColumn, .cColumn, .App__app, .main, .g-section, .g-graphic, .wf-unreal-interactive-graphic, .guide-content, .rad-article, .rad-story-body, .g-story, .css-f2fzwx' + selector_for_elements_with_a_class_that_starts_with('elementStyles-sectionHeader-- elementStyles-recirculation-- Card-story--'), // NYT dark theme
     article_theme_foreground_selector: 'p, .masthead .masthead-menu li, .headline, .kicker, .dateline, .story-quote, .caption, figcaption, h1, h2, h3, h4, h5, h6, .g-item.g-subhed h2, .byline, .dropcap, .g-body, .swiper-text p, .story-body-text, .story-body-text strong:first-child, .CreditedMedia__caption, .Post__byline, .Post__body, .full-art, .rad-story-body p.paragraph strong:first-child ,' + selector_for_elements_with_a_class_that_starts_with('ResponsiveMedia-captionText-- HeaderBasic-bylineTimestamp-- HeaderBasic-summary-- HeaderBasic-label-- Summary-summary-- styles-bylineTimestamp--'),
-    article_css: '.css-mcm29f {position: static} #gateway-content {display: none} .App__app {margin-top: 0} .story-body-text {font-family: "Times New Roman"} .caption-text {font-family: sans-serif} .story-header, .image {position: relative} ' +
+    article_css: 'main, .css-mcm29f {position: static} #gateway-content {display: none} .App__app {margin-top: 0} .story-body-text {font-family: "Times New Roman"} .caption-text {font-family: sans-serif} .story-header, .image {position: relative} ' +
       'input, textarea {background-image: none} .shell {padding-top: 0} .main {border-top: none} .nytg-chart {color: #000; background-color: #fff}' + // NYT dark theme
       selector_for_elements_with_a_class_that_starts_with('SectionBar-sectionBar--') + '{border-width: 0} ' +
       'figure.layout-vertical-full-bleed .image img {width: 47%; margin-left: 30px}' +
@@ -206,7 +206,7 @@ const sites_data = [
       'a.autolink:visited {color:' + theme_autolink_visited_foreground_color + '}' +
       '.g-article-wrapper {max-width: none} img {filter: blur(0px); -webkit-filter: blur(0px)}' +
       '.g-freebird-lazy.ll-init {opacity: 1} a {text-shadow: none}',
-    article_hide_selector: ('.expanded-dock, #c-col-editors-picks, .live-blog-above-main-content, .css-1bd8bfl, #gateway-content, #top-wrapper,  #bottom-wrapper, .css-1q1hscp, .css-13pd83m, .NYTAppHideMasthead, div[data-testid="inline-message"], div[data-testid="recirculation"],' + selector_for_elements_with_id_that_starts_with('ad-') + selector_for_elements_with_id_that_starts_with('story-ad-')),
+    article_hide_selector: ('figure.sizeLarge, .expanded-dock, #c-col-editors-picks, .live-blog-above-main-content, .css-1bd8bfl, #gateway-content, #top-wrapper,  #bottom-wrapper, .css-1q1hscp, .css-13pd83m, .NYTAppHideMasthead, div[data-testid="inline-message"], div[data-testid="recirculation"],' + selector_for_elements_with_id_that_starts_with('ad-') + selector_for_elements_with_id_that_starts_with('story-ad-')),
     extra_sub_element_selectors: 'h3.story-heading',
     homepage_theme_foreground_selector: '.summary, .masthead .masthead-menu li,' + selector_for_elements_with_a_class_that_starts_with('TemplateUtils-packageName-- AssetContent-summary-- AssetMedia-meta__caption--'), // NYT dark theme
     homepage_theme_background_selector: '.css-180b3ld, .css-1q9wuj9' + selector_for_elements_with_a_class_that_starts_with('Asset-story-- TemplateUtils-topLabel--'),
