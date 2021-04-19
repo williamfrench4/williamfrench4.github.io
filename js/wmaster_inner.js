@@ -213,7 +213,7 @@ const sites_data = [
     //homepage_css: 'header {background-color: #aaa}', // NYT dark theme
     homepage_css: 'figure img {width: 100%} div[data-testid="masthead-desktop-logo"] {filter: invert(70%) sepia(100%) hue-rotate(65deg) saturate(7)} div:has("#top-wrapper")',
     homepage_hide_selector: '.css-1g8bx4t, .css-1xaqcky, .css-djiuqn, .css-1q9wuj9, #masthead-placeholder, .masthead-cap-container, .masthead.theme-in-content, div.editions.tab, #nytint-hp-watching, #site-index .section-header, #markets, .all-sections-button, #mini-navigation, #WelcomeAd_optly, .css-rpp6l6, .css-wu78io, video,' + selector_for_elements_with_a_class_that_starts_with('BlockAdvert-topAd--'),
-    hide_selector: '.ad, div[data-testid="masthead-mini-nav"]',
+    hide_selector: '.css-1ichrj1, .css-uvu2in, .ad, div[data-testid="masthead-mini-nav"]',
     theme_selector: 'body, #masthead, .searchsubmit', // NYT dark theme
     css: '.story.theme-main .story-meta-footer {border-top: none; border-bottom: none} .wf_video_article_link:link, .wf_video_article_link:visited, .wf_video_article_link:link h3, .wf_video_article_link:visited h3 {color: #550} .icon.video:before {filter: invert(70%) sepia(100%) saturate(7)}',
     dark_theme: 1, // to turn this off, change the 1 to a 0 and comment out all other lines that are commented "NYT dark theme"
@@ -265,29 +265,6 @@ const sites_data = [
           }
         }
       } else {
-        //debug(444, 10)
-        /*
-        const original = $('html');
-        const clone = original.clone();
-        original.replaceWith(clone); // kill all event handlers on the page so no parameters get added to the links
-        */
-        //debug(444, 20)
-        //document.outerHTML = document.outerHTML // kill event handlers to stop periodic auto-reload
-        //const li = getEventListeners(document)
-        /*
-        for(var eventType in getEventListeners(document)) {
-          getEventListeners(document)[eventType].forEach(function(o) {
-            o.remove()
-          })
-        }
-        */
-        /*
-        window.addEventListener('click', function (event) {
-          event.stopPropagation();
-        }, true);
-        */
-        //debug(444, 30)
-        //Object.freeze(document.location); // doesn't work -- and why would anyone expect it to?
         const logo_element = jQuery('h2.branding') [0]
         if (logo_element) logo_element.innerHTML = '<img width="573" height="138" src="file:/home/will/public_html/green_york_times.png">'
         else console.log('warning: logo not found')
@@ -1528,7 +1505,7 @@ const sites_data = [
   {
     name: 'Seattle Times',
     origin: 'https://www.seattletimes.com',
-    article_hide_selector: '.global-header, .modals, .article-share, #userMessagingInset',
+    article_hide_selector: '.ad-container, .global-header, .modals, .article-share, #userMessagingInset',
     article_css: '#container {filter: blur(0px)} body {position: static}',
     article_theme_foreground_selector: 'h1, h2, h3, h4, h5, h6, .article-deck, .article-dateline, .article-figure-caption',
   },
@@ -2046,7 +2023,13 @@ function regularize_links (my_window = window, my_origin) {
     debug(394, 20, anchor_index, anchor, anchor.href)
     let old_href = anchor.href
     debug(394, 23, old_href)
-    if (old_href.hasOwnProperty('startsWith')) {
+    if (1 || old_href.hasOwnProperty('startsWith')) {
+      debug(394, 24)
+      if (old_href.startsWith('file://')) {
+        old_href = old_href.substr(7)
+        debug(394, 25, old_href)
+      }
+      debug(394, 26)
       if (old_href.startsWith('/')) {
         debug(394, 30, old_href)
         if (my_origin) {
