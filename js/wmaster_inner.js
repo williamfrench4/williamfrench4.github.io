@@ -1,4 +1,4 @@
-//debug// ==UserScript==
+494//debug// ==UserScript==
 // @name         wmaster
 // @namespace    http://tampermonkey.net/
 // @version      0.1
@@ -2102,7 +2102,67 @@ function regularize_links (my_window = window, my_origin) {
   debug(394, 200, my_window.$anchors.length)
 }
 
+
+function nyt_o (my_window = window, my_origin) {
+
+  let url
+  my_origin = 'https://www.nytimes.com'
+  debug(494, 10, my_window, my_origin)
+  const $anchors = my_window.jQuery('a')
+  let anchor_index
+  let anchor
+  let anchors_array = Array.from($anchors)
+  //debug(494, 16, anchors_array)
+  let anchors_array_entries = anchors_array.entries()
+  //debug(494, 18, anchors_array_entries)
+  for ([anchor_index, anchor] of anchors_array_entries) {
+    debug(494, 20, anchor_index, anchor, anchor.href)
+    let old_href = anchor.href
+    debug(494, 23, old_href)
+    if (1 || old_href.hasOwnProperty('startsWith')) {
+      debug(494, 24)
+      if (old_href.startsWith('file://')) {
+        old_href = old_href.substr(7)
+        debug(494, 25, old_href)
+      }
+      debug(494, 26)
+      let target = '/d/wayback/nytimes_opinion/null'
+      if (old_href.startsWith(target)) {
+        old_href = old_href.substr(target.length)
+        debug(494, 30, old_href)
+        if (my_origin) {
+          old_href = my_origin + old_href
+          debug(494, 32, old_href)
+        } else {
+          old_href = my_window.location.origin + old_href
+          debug(494, 34, old_href)
+        }
+      }
+      debug(494, 37)
+      anchor.href = old_href
+    }
+    if (!old_href) continue
+    try {
+      debug(494, 40)
+      url = new my_window.URL(old_href)
+    } catch (error) {
+      debug(494, 50)
+      if (error instanceof TypeError) {
+        debug(494, 60)
+        continue
+      } else {
+        debug(494, 70)
+        throw error
+      }
+    }
+    debug(494, 140, anchor.href)
+  }
+  debug(394, 200, my_window.$anchors.length)
+}
+
+
 function href_to_site_data (href) {
+
   const href_origin = new URL(href).origin
   let result
   //debug(225, 10, href)
@@ -2250,6 +2310,9 @@ if (is_node) {
       } else  if (parsed_command_name === 'rl') {
         //debug(382, 82, parsed_command_args_0)
         regularize_links()
+      } else  if (parsed_command_name === 'nyt_o') {
+        //debug(382, 82, parsed_command_args_0)
+        nyt_o()
       } else  if (parsed_command_name === 'wa') {
         //debug(382, 85, parsed_command_args_0)
         if (parsed_command_args_0 !== '') {
