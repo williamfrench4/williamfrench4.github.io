@@ -2310,7 +2310,7 @@ if (is_node) {
       } else  if (parsed_command_name === 'rl') {
         //debug(382, 82, parsed_command_args_0)
         regularize_links()
-      } else  if (parsed_command_name === 'nyt_o') {
+      } else  if (parsed_command_name === 'nyto') {
         //debug(382, 82, parsed_command_args_0)
         nyt_o()
       } else  if (parsed_command_name === 'wa') {
