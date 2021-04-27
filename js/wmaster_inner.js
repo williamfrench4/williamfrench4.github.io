@@ -1182,6 +1182,11 @@ const sites_data = [
     homepage_theme_background_selector: '.newsHeadlinesByPublication section, .dek, .hed',
   },
   {
+    name: 'Times Union',
+    origin: 'https://www.timesunion.com/',
+    css: 'a:link {color: #00f} a:visited {color: #808}',
+  },
+  {
     name: 'The Cut',
     origin: 'https://www.thecut.com',
     count_words: {append: '.article-timestamp', subject: '.article-content'},
