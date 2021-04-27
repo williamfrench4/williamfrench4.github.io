@@ -1187,6 +1187,11 @@ const sites_data = [
     css: 'a:link {color: #00f} a:visited {color: #808}',
   },
   {
+    name: 'Wordpress',
+    origin: 'https://curiousbynature.wordpress.com/',
+    article_hide_selector: 'iframe',
+  },
+  {
     name: 'The Cut',
     origin: 'https://www.thecut.com',
     count_words: {append: '.article-timestamp', subject: '.article-content'},
