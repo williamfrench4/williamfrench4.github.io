@@ -423,7 +423,7 @@ const sites_data = [
       '#sign-in-gate ~ * {display: block} .content__article-body p {line-height: 160%}'),
     article_theme_background_selector: 'section, .css-wz7t6r, .facia-page, .fc-item--pillar-news, .fc-item--pillar-arts, .fc-item--pillar-lifestyle, .headline-list__item, .tabs__tab a, .content__main, .content__article-body:before, details, .d-comment:target', //'.tonal--tone-live, .tonal--tone-editorial, .tonal--tone-feature, .tonal--tone-comment, .tonal--tone-analysis, .tonal--tone-review, .block--content, .navigation, .local-navigation, .navigation-container, .top-navigation, .navigation:before, .navigation-toggle, .navigation__container--first, .signposting, .tabs__tab--selected a, .tabs__tab--selected .tab__link, .tabs__tab a, .tabs__tab .tab__link',
     article_theme_foreground_selector: '.css-zjgnrw > div, .css-xmt4aq, .css-1h6ikvu, .css-ig5cd, h1, .fc-item__content, .content, .fc-item__standfirst, ul > li, .d-comment__body blockquote', //'.content__dateline, div.explainer, .quoted',
-    article_hide_selector: 'style, .site-message--banner, .ad-slot, .ad-slot__label, .ad-slot iframe, #slot-body-end, #bottom-banner, #sign-in-gate, iframe.css-ta2q8u-fullWidthStyles, iframe.interactive-atom-fence, .reveal-caption-icon, .element-video, .contributions__epic, .js-outbrain, .related, .submeta, #onward, #more-in-section, .element-pullquote, .element-rich-link, .meta__twitter, .meta__extras, .meta__email, .selection-sharing, .block-share, .ad-slot, #dfp-ad--inline1, #this_land_epic_bottom_environment_iframe, #this_land_epic_bottom_series_iframe, .vav-callout' + selector_for_elements_with_id_that_starts_with('google_ads_iframe_'),
+    article_hide_selector: 'style, #sign-in-gate ~ style, .site-message--banner, .ad-slot, .ad-slot__label, .ad-slot iframe, #slot-body-end, #bottom-banner, #sign-in-gate, iframe.css-ta2q8u-fullWidthStyles, iframe.interactive-atom-fence, .reveal-caption-icon, .element-video, .contributions__epic, .js-outbrain, .related, .submeta, #onward, #more-in-section, .element-pullquote, .element-rich-link, .meta__twitter, .meta__extras, .meta__email, .selection-sharing, .block-share, .ad-slot, #dfp-ad--inline1, #this_land_epic_bottom_environment_iframe, #this_land_epic_bottom_series_iframe, .vav-callout' + selector_for_elements_with_id_that_starts_with('google_ads_iframe_'),
     css: '.inline-the-guardian-logo__svg>path {fill: #0f0}',
     dark_theme: 1,
     homepage_hide_selector: '#most-viewed, .footer__email-container, div.image>div.video, #securedrop, #membership-thrasher, #support-the-guardian, .treats__container, .dumathoin--paidfor, #break-the-chain',
@@ -633,6 +633,11 @@ const sites_data = [
     article_theme_foreground_selector: '.headline, .byline, p, .caption-full, .credit',
     article_theme_background_selector: '.article-content, #content, .page-content, .content, .core-headline-list', // yes, we need all 4 "content" selectors!
     article_hide_selector: '.article-share, header, .socialWrapper',
+  },
+  {
+    name: 'OnTheGoMap',
+    origin: 'https://www.onthegomap.com',
+    article_hide_selector: 'ins iframe',
   },
   {
     name: 'USA Today',
