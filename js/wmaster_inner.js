@@ -61,8 +61,8 @@ const theme_autolink_foreground_color         = '#00c080'
 const theme_autolink_visited_foreground_color = '#b9c740'
 const theme_background_color                  = '#000'
 const theme_foreground_color                  = '#0f0'
-const theme_link_foreground_color             = '#00f'
-const theme_link_visited_foreground_color     = 'purple' // #a0a
+const theme_link_foreground_color             = '#79f'
+const theme_link_visited_foreground_color     = '#e2e'
 const theme_background_rule                   = 'background: ' + theme_background_color + '; background-color: ' + theme_background_color + ';'
 const theme_foreground_rule                   = 'color: '      + theme_foreground_color + '; text-shadow: none;'
 let location
