@@ -1011,7 +1011,7 @@ const sites_data = [
     alternate_origins: 'https://www.apnews.com',
     count_words: {append: '.mobile h6', subject: '.articleBody'},
     article_css: '.articleView {padding-top: 80px} .header {position: absolute}',
-    article_hide_selector: '#drawerMenu, .mobileTitle ul, footer, .Header',
+    article_hide_selector: '#onetrust-banner-sdk, cnx, #drawerMenu, .mobileTitle ul, footer, .Header, .persistent-ad, ' + selector_for_elements_with_a_class_that_starts_with('Component-dfp-') + selector_for_elements_with_a_class_that_starts_with('Component-placeholderWrapper-') + selector_for_elements_with_id_that_starts_with('google_ads_iframe_'),
   },
   {
     name: 'Christian Science Monitor',
