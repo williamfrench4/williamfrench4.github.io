@@ -898,6 +898,12 @@ const sites_data = [
     article_css: '.site-header, .cc-window {position: static}',
   },
   {
+    name: 'Mother Jones',
+    origin: 'https://www.motherjones.com',
+    dark_theme: 0,
+    article_hide_selector: '#navbar, #mj-adblock-widget-2',
+  },
+  {
     name: 'Medium',
     origin: 'https://medium.com',
     dark_theme: 0,
