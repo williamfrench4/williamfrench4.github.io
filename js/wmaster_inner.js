@@ -1336,6 +1336,12 @@ const sites_data = [
   article_css: '#nvh.stick, .sticky {position: static}',
 },
 {
+  name: 'GMail',
+  origin: 'https://mail.google.com',
+  dark_theme: 0,
+  hide_selector: '.YX',
+},
+{
   name: 'Salon',
   origin: 'https://www.salon.com',
   article_theme_background_selector: '.mainContent .mainInner, blockquote',
