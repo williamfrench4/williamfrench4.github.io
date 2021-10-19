@@ -211,7 +211,7 @@ const sites_data = [
     homepage_theme_foreground_selector: '.summary, .masthead .masthead-menu li,' + selector_for_elements_with_a_class_that_starts_with('TemplateUtils-packageName-- AssetContent-summary-- AssetMedia-meta__caption--'), // NYT dark theme
     homepage_theme_background_selector: '.css-180b3ld, .css-1q9wuj9' + selector_for_elements_with_a_class_that_starts_with('Asset-story-- TemplateUtils-topLabel--'),
     //homepage_css: 'header {background-color: #aaa}', // NYT dark theme
-    homepage_css: 'div {display: block} #wmaster_ui_main, #wmaster_ui_main_cli {display: block} .css-1hs4eoy, .css-11kuxu4, .css-i3v2ch {max-width: 30%; max-height: 30%; padding: 0 0 20% 0} div[data-testid="masthead-desktop-logo"] {filter: invert(70%) sepia(100%) hue-rotate(65deg) saturate(7)} div:has("#top-wrapper")',
+    homepage_css: '.css-1bvxxoj {display: block} .css-1hs4eoy, .css-11kuxu4, .css-i3v2ch {max-width: 30%; max-height: 30%; padding: 0 0 20% 0} div[data-testid="masthead-desktop-logo"] {filter: invert(70%) sepia(100%) hue-rotate(65deg) saturate(7)} div:has("#top-wrapper")',
     homepage_hide_selector: '.css-1g8bx4t, .css-1xaqcky, .css-djiuqn, .css-1q9wuj9, .css-1vap5ws, #masthead-placeholder, .masthead-cap-container, .masthead.theme-in-content, div.editions.tab, #nytint-hp-watching, #site-index .section-header, #markets, .all-sections-button, #mini-navigation, #WelcomeAd_optly, .css-rpp6l6, .css-wu78io, video,' + selector_for_elements_with_a_class_that_starts_with('BlockAdvert-topAd--'),
     hide_selector: '.bubble--3wfZ3, .css-1ichrj1, .css-uvu2in, .ad, div[data-testid="masthead-mini-nav"]',
     theme_selector: 'body, #masthead, .searchsubmit', // NYT dark theme
