@@ -473,7 +473,7 @@ const sites_data = [
     css: '.overlineLabel {font-family: "Helvetica Black", sans-serif; font-weight: bold} .wf_video_article_link:link, .wf_video_article_link:visited {color: #990}',
     theme_foreground_selector: 'h1, h2, h3, h4, h5, h6, .gray-darkest',
     theme_selector: 'body, .skin.skin-card, .skin.skin-button, input',
-    unwanted_query_fields: 'hpid tid utm_term wpisrc wpmk',
+    unwanted_query_fields: 'hpid tid itid utm_term wpisrc wpmk',
     // https://www.washingtonpost.com/powerpost/gop-opponents-to-senate-health-care-bill-see-vote-delay-as-an-advantage/2017/07/16/3e5516fa-6a21-11e7-96ab-5f38140b38cc_story.html
     // https://www.washingtonpost.com/news     /to-your-health                                                         /wp/2017/07/19/a-gunshot-destroyed-her-face-a-rare-surgery-just-gave-her-a-new-one/
     //url_to_data_filename: {year_index: 5, segments_used: 8, wildcards: [3, 4]},
