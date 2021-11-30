@@ -319,7 +319,7 @@ const sites_data = [
         }
         debug('debug_nyt', 90)
       }
-
+/*
       debug('debug_nytb', 1010)
       for (img of jQuery('img.g-freebird-lazy')) {
         const raw_widths = img.dataset.widths
@@ -352,7 +352,7 @@ const sites_data = [
         }
         debug('debug_nytb', 1090)
       }
-
+*/
       for (const element of jQuery('a')) {
         debug('debug_nyt', 94, element.pathname)
         if (element.pathname.startsWith('/video/')) {
@@ -453,7 +453,7 @@ const sites_data = [
     origin: 'https://www.washingtonpost.com',
     alternate_origins: 'http://washingtonpost.com http://www.washingtonpost.com https://live.washingtonpost.com',
     alternate_prefixes: 'file:///d/wayback/washingtonpost/',
-    article_css: 'dwp-ad {visibility: hidden} .powa-wrapper {filter: none} section>div>div {min-height: 0} body {overflow: scroll} .w-100 {filter: none} .article-body>div {padding: 0} #main-content {background-image: none} #et-nav {position: absolute}.headline {font-family: sans-serif} a, .powerpost-header, .layout_article #top-content {border-bottom: none} p {line-height: 155%} body {overflow-y: visible} .fixed-image {position: static} .g-artboard img {border-bottom: 30px solid white} .g-artboard p {color: black; background-color: transparent} .bg-none {background-color: transparent} .note-button {padding: 0; box-shadow: none} .chain-wrapper {background-color: #500} .pg-visual, .photo-section-img {opacity: 1}' +
+    article_css: '.live-grid {display: block} dwp-ad {visibility: hidden} .powa-wrapper {filter: none} section>div>div {min-height: 0} body {overflow: scroll} .w-100 {filter: none} .article-body>div {padding: 0} #main-content {background-image: none} #et-nav {position: absolute}.headline {font-family: sans-serif} a, .powerpost-header, .layout_article #top-content {border-bottom: none} p {line-height: 155%} body {overflow-y: visible} .fixed-image {position: static} .g-artboard img {border-bottom: 30px solid white} .g-artboard p {color: black; background-color: transparent} .bg-none {background-color: transparent} .note-button {padding: 0; box-shadow: none} .chain-wrapper {background-color: #500} .pg-visual, .photo-section-img {opacity: 1}' +
       'a.note-button:link    {color:' +         theme_autolink_foreground_color + '} a.note-button:link:hover    {color:' +         theme_link_foreground_color + '}' +
       'a.note-button:visited {color:' + theme_autolink_visited_foreground_color + '} a.note-button:visited:hover {color:' + theme_link_visited_foreground_color + '}' +
       //'a.wf_offlink {border-top: 1px dotted ' +         theme_offlink_background_color + '}',
