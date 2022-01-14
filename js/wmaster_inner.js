@@ -422,7 +422,7 @@ const sites_data = [
     article_css: ( //'.article-body-commercial-selector > * {display: block} .article-body-commercial-selector p:nth-of-type(-n + 3) {display: none} ' +
       '#sign-in-gate ~ * {display: block} .content__article-body p {line-height: 160%}'),
     article_theme_background_selector: 'article, section, .css-wz7t6r, .facia-page, .fc-item--pillar-news, .fc-item--pillar-arts, .fc-item--pillar-lifestyle, .headline-list__item, .tabs__tab a, .content__main, .content__article-body:before, details, .d-comment:target', //'.tonal--tone-live, .tonal--tone-editorial, .tonal--tone-feature, .tonal--tone-comment, .tonal--tone-analysis, .tonal--tone-review, .block--content, .navigation, .local-navigation, .navigation-container, .top-navigation, .navigation:before, .navigation-toggle, .navigation__container--first, .signposting, .tabs__tab--selected a, .tabs__tab--selected .tab__link, .tabs__tab a, .tabs__tab .tab__link',
-    article_theme_foreground_selector: '.css-zjgnrw > div, .css-xmt4aq, .css-1h6ikvu, .css-ig5cd, h1, .fc-item__content, .content, .fc-item__standfirst, ul > li, .d-comment__body blockquote', //'.content__dateline, div.explainer, .quoted',
+    article_theme_foreground_selector: '.dcr-oo100f, .css-zjgnrw > div, .css-xmt4aq, .css-1h6ikvu, .css-ig5cd, h1, .fc-item__content, .content, .fc-item__standfirst, ul > li, .d-comment__body blockquote', //'.content__dateline, div.explainer, .quoted',
     article_hide_selector: 'style, #sign-in-gate ~ style, .site-message--banner, .ad-slot, .ad-slot__label, .ad-slot iframe, #slot-body-end, #bottom-banner, #sign-in-gate, iframe.css-ta2q8u-fullWidthStyles, iframe.interactive-atom-fence, .reveal-caption-icon, .element-video, .contributions__epic, .js-outbrain, .related, .submeta, #onward, #more-in-section, .element-pullquote, .element-rich-link, .meta__twitter, .meta__extras, .meta__email, .selection-sharing, .block-share, .ad-slot, #dfp-ad--inline1, #this_land_epic_bottom_environment_iframe, #this_land_epic_bottom_series_iframe, .vav-callout' + selector_for_elements_with_id_that_starts_with('google_ads_iframe_'),
     css: '.inline-the-guardian-logo__svg>path {fill: #0f0}',
     dark_theme: 1,
@@ -471,7 +471,7 @@ const sites_data = [
     homepage_theme_foreground_selector: '.label, .blurb, .byline, .author, .caption',
     homepage_hide_selector: '.flex, .pb-f-homepage-brandconnect-sidebar, .section-story-photo-1, #main-navigation-right', //, .standard-chain img, .opinions-chain img',
     css: '.overlineLabel {font-family: "Helvetica Black", sans-serif; font-weight: bold} .wf_video_article_link:link, .wf_video_article_link:visited {color: #990}',
-    theme_foreground_selector: 'h1, h2, h3, h4, h5, h6, .gray-darkest',
+    theme_foreground_selector: 'h1, h2, h3, h4, h5, h6, .gray-dark, .gray-darkest',
     theme_selector: 'body, .skin.skin-card, .skin.skin-button, input',
     unwanted_query_fields: 'hpid tid itid utm_term wpisrc wpmk',
     // https://www.washingtonpost.com/powerpost/gop-opponents-to-senate-health-care-bill-see-vote-delay-as-an-advantage/2017/07/16/3e5516fa-6a21-11e7-96ab-5f38140b38cc_story.html
