@@ -628,6 +628,12 @@ const sites_data = [
     article_theme_foreground_selector: '.PostContent, .PostContent u, h1, h2, h3, h4, h5, h6, .caption',
   },
   {
+    name: 'Weather Underground',
+    origin: 'https://www.wunderground.com/',
+    dark_theme: 0,
+    article_hide_selector: 'iframe, ad-wx-ws',
+  },
+  {
     name: 'The San Francisco Chronicle',
     origin: 'https://www.sfgate.com',
     article_theme_foreground_selector: '.headline, .byline, p, .caption-full, .credit',
