@@ -469,7 +469,7 @@ const sites_data = [
     homepage_theme_selector: '.pb-f-homepage-card .panel',
     //hide_selector:'.pb-f-page-post-most img',
     homepage_theme_foreground_selector: '.label, .blurb, .byline, .author, .caption',
-    homepage_hide_selector: '.flex, .pb-f-homepage-brandconnect-sidebar, .section-story-photo-1, #main-navigation-right', //, .standard-chain img, .opinions-chain img',
+    homepage_hide_selector: '.flex-feature, .flex, .pb-f-homepage-brandconnect-sidebar, .section-story-photo-1, #main-navigation-right', //, .standard-chain img, .opinions-chain img',
     css: '.overlineLabel {font-family: "Helvetica Black", sans-serif; font-weight: bold} .wf_video_article_link:link, .wf_video_article_link:visited {color: #990}',
     theme_foreground_selector: 'h1, h2, h3, h4, h5, h6, .gray-dark, .gray-darkest',
     theme_selector: 'body, .skin.skin-card, .skin.skin-button, input',
