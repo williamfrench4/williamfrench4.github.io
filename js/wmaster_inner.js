@@ -1274,7 +1274,7 @@ const sites_data = [
     homepage_css: 'h3 {visibility: visible}' + selector_for_elements_with_a_class_that_starts_with('SiteHeader__siteHeader___') + '{position: absolute}',
     article_css: 'a {text-shadow: none; background: none} body>header {position: static}' + selector_for_elements_with_a_class_that_starts_with('ArticleHeader__articleHeader___') + '{border-bottom-width: 0}' + selector_for_elements_with_a_class_that_starts_with('PageContainer__pageContent___') + '{padding-top: 0}',
     //article_hide_selector: '.social-module, .strongbox-promo-wrapper, .social-hover, .footer-content, #recirc-pos-2',
-    article_hide_selector: '.ad, .full-bleed-ad, .interstitial,' + selector_for_elements_with_a_class_that_starts_with('persistent- MainHeader__topBarItems___ MainHeader__topBar MainHeader__collapsed___ Layout__social___ RecirculationMostPopular__default___ GrowlerFailsafe__'),
+    article_hide_selector: '.newsletter-subscribe-form, .ad, .full-bleed-ad, .interstitial,' + selector_for_elements_with_a_class_that_starts_with('persistent- MainHeader__topBarItems___ MainHeader__topBar MainHeader__collapsed___ Layout__social___ RecirculationMostPopular__default___ GrowlerFailsafe__'),
     darticle_theme_background_selector: '.page,' + selector_for_elements_with_a_class_that_starts_with('SplitScreenContentHeaderMain-'),
     //article_theme_foreground_selector: 'article>header .title, article>header time.blog-post-date, .articleBody p, .caption, .author-masthead, .hero-image-caption',
     darticle_theme_foreground_selector: 'p, h1, .caption, blockquote, p:first-child:first-letter,' + selector_for_elements_with_a_class_that_starts_with('ArticleBody__articleBody___ ImageCaption__caption___ ArticleContributors__bio___ ArticleHeader__dek___'),
