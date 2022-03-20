@@ -1374,6 +1374,13 @@ const sites_data = [
   count_words: {append: '.writer-container', subject: 'article'},
 },
   {
+    name: 'Real Python',
+    origin: 'https://realpython.com',
+    dark_theme: 0,
+    article_hide_selector: '.modal, .modal-backdrop',
+    css: 'body {overflow: scroll}',
+  },
+  {
     name: 'Tampa Bay Times',
     origin: 'http://www.tampabay.com',
     article_theme_foreground_selector: '.dateline, .blurb, .head',
