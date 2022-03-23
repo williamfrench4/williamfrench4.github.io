@@ -1101,7 +1101,7 @@ const sites_data = [
     alternate_origins: 'https://blogs.wsj.com',
     article_theme_background_selector: '.bigTop__rel',
     article_theme_selector: 'html, .article-content>p, .paywall>p, .media-object, figcaption',
-    article_theme_foreground_selector: '.WSJTheme-module--text--37ld_QSx, .WSJTheme-module--text--Cws65LRA, .WSJTheme-module--headline--J5926iIY, h1, h2, tspan, .bigTop__caption',
+    article_theme_foreground_selector: '.cStoSw, .WSJTheme-module--text--37ld_QSx, .WSJTheme-module--text--Cws65LRA, .WSJTheme-module--headline--J5926iIY, h1, h2, tspan, .bigTop__caption',
     theme_background_selector: 'header, .zonedModule',
     css: 'header {position: static} .WSJTheme--padding-bottom--2SLicJJy, .style--hat-1vqyrZZ3j7vMCXYKbvaqKa, .style--hat--1vqyrZZ3 {display: none}',
     article_css: 'html {scroll-padding-top: 0} .nav-is-sticky {padding-top: 0}',
@@ -1194,7 +1194,7 @@ const sites_data = [
   {
     name: 'Marketwatch',
     origin: 'https://www.marketwatch.com',
-    hide_selector: '#ad-inline-video, #cx-membership-tile, #cx-candybar, .element--ad, .container--trending, .quote-tip',
+    hide_selector: 'mw-paywall#ad-inline-video, #cx-membership-tile, #cx-candybar, .element--ad, .container--trending, .quote-tip',
     unwanted_query_fields: 'mod',
     css: '.is-paywall {overflow: scroll} a:link {color: #00f} a:visited {color: #808}',
     dark_theme: 0,
