@@ -411,7 +411,7 @@ const sites_data = [
     alternate_origins: 'https://interactive.guim.co.uk/',
     alternate_prefixes: 'file:///d/wayback/guardian_uk/ file:///d/wayback/guardian_us/ file:///d/wayback/guardian_uk_opinion/ file:///d/wayback/guardian_us_opinion/',
     alternate_homepages: 'https://www.theguardian.com/us https://www.theguardian.com/uk',
-    append_loaded_date: 'address',
+    append_loaded_date: '#bannerandheader',
     count_words: {append: '.content__dateline, .content__standfirst', subject: '.content__article-body, .content__main-column--interactive'},
     /*
     article_css: '.js-headline-text {font-weight: normal} p {line-height: 170%} a {border-bottom: none} figure.element-tweet {margin-right: 4rem} .tweet {font-family: sans-serif} img.byline-img__img {background: transparent} .content {padding-bottom: 0} div.explainer {background-color: #00252f; border: 1px solid ' + theme_foreground_color + '} .signposting {border-right-width:0} .tabs__tab {border-top: 0.0625rem solid #aaa} .content__article-body {font-family: Adobe Caslon Pro; font-size: 109%}' +
