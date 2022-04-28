@@ -1314,6 +1314,12 @@ const sites_data = [
     count_words: {append: '.byline', subject: '.article-body'},
   },
   {
+    name: 'Stack Exchange',
+    origin: 'https://gis.stackexchange.com',
+    dark_theme: 0,
+    article_hide_selector: '.js-consent-banner',
+  },
+  {
     name: 'IMDB',
     origin: 'https://www.imdb.com',
     dark_theme: 0,
