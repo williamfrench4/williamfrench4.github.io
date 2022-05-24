@@ -1,4 +1,4 @@
-494//debug// ==UserScript==
+//debug// ==UserScript==
 // @name         wmaster
 // @namespace    http://tampermonkey.net/
 // @version      0.1
@@ -191,7 +191,7 @@ const sites_data = [
     'file:///d/wayback/nytimes_us file:///d/wayback/nytimes_world',
     count_words: {append: '.byline:last-of-type, .byline-column, .styles-bylineTimestamp--2J2fe, header time, ' + selector_for_elements_with_a_class_that_starts_with('Byline-bylineAuthor--'), prefix: ' ', subject: ['.story-body-text, .g-body', '.story-body', '#story'], grafs: 0},
     article_theme_selector: 'input, textarea, .columnGroup', // NYT dark theme
-    article_theme_background_selector: '.css-ue2vli, .css-7gyv9j, .css-f2fzwx, body, #articleBody, #articleBody:after, .bcColumn, .cColumn, .App__app, .main, .g-section, .g-graphic, .wf-unreal-interactive-graphic, .guide-content, .rad-article, .rad-story-body, .g-story, .css-f2fzwx' + selector_for_elements_with_a_class_that_starts_with('elementStyles-sectionHeader-- elementStyles-recirculation-- Card-story--'), // NYT dark theme
+    article_theme_background_selector: '.css-18qm4m2, .css-ue2vli, .css-7gyv9j, .css-f2fzwx, body, #articleBody, #articleBody:after, .bcColumn, .cColumn, .App__app, .main, .g-section, .g-graphic, .wf-unreal-interactive-graphic, .guide-content, .rad-article, .rad-story-body, .g-story, .css-f2fzwx' + selector_for_elements_with_a_class_that_starts_with('elementStyles-sectionHeader-- elementStyles-recirculation-- Card-story--'), // NYT dark theme
     article_theme_foreground_selector: 'p, .masthead .masthead-menu li, .headline, .kicker, .dateline, .story-quote, .caption, figcaption, h1, h2, h3, h4, h5, h6, .g-item.g-subhed h2, .byline, .dropcap, .g-body, .swiper-text p, .story-body-text, .story-body-text strong:first-child, .CreditedMedia__caption, .Post__byline, .Post__body, .full-art, .rad-story-body p.paragraph strong:first-child ,' + selector_for_elements_with_a_class_that_starts_with('ResponsiveMedia-captionText-- HeaderBasic-bylineTimestamp-- HeaderBasic-summary-- HeaderBasic-label-- Summary-summary-- styles-bylineTimestamp--'),
     article_css: 'main#site-content, .css-mcm29f {position: static} #gateway-content {display: none} .App__app {margin-top: 0} .story-body-text {font-family: "Times New Roman"} .caption-text {font-family: sans-serif} .story-header, .image {position: relative} ' +
       'input, textarea {background-image: none} .shell {padding-top: 0} .main {border-top: none} .nytg-chart {color: #000; background-color: #fff}' + // NYT dark theme
@@ -209,7 +209,7 @@ const sites_data = [
     article_hide_selector: ('#NYT_MAIN_CONTENT_1_REGION, .css-y1f5ai, .css-9tf9ac, .g-ad, .css-1wspfld, .css-i29ckm, .css-uw59u, .css-10cldcv, .css-1r214gk, .expanded-dock, #c-col-editors-picks, .live-blog-above-main-content, .css-1bd8bfl, #gateway-content, #top-wrapper,  #bottom-wrapper, .css-1q1hscp, .css-13pd83m, .NYTAppHideMasthead, div[data-testid="inline-message"], div[data-testid="feed-pill-message"], div[data-testid="standard-dock"],' + selector_for_elements_with_id_that_starts_with('ad-') + selector_for_elements_with_id_that_starts_with('story-ad-')),
     extra_sub_element_selectors: 'h3.story-heading',
     homepage_theme_foreground_selector: '.summary, .masthead .masthead-menu li,' + selector_for_elements_with_a_class_that_starts_with('TemplateUtils-packageName-- AssetContent-summary-- AssetMedia-meta__caption--'), // NYT dark theme
-    homepage_theme_background_selector: '.css-180b3ld, .css-1q9wuj9' + selector_for_elements_with_a_class_that_starts_with('Asset-story-- TemplateUtils-topLabel--'),
+    homepage_theme_background_selector: '.css-18qm4m2, .css-180b3ld, .css-1q9wuj9' + selector_for_elements_with_a_class_that_starts_with('Asset-story-- TemplateUtils-topLabel--'),
     //homepage_css: 'header {background-color: #aaa}', // NYT dark theme
     homepage_css: '.css-1g8r0to, .css-12csmp9, .css-1bvxxoj, .css-j7dtq5 {display: block} .g-home-fader, .css-1bcp99t, .css-1hs4eoy, .css-11kuxu4, .css-i3v2ch {max-width: 30%; max-height: 30%; padding: 0 0 20% 0} div[data-testid="masthead-desktop-logo"] {filter: invert(70%) sepia(100%) hue-rotate(65deg) saturate(7)} div:has("#top-wrapper")',
     homepage_hide_selector: 'figure, .css-oeful5, .css-dwrnad, .css-sxmela, .css-1u3a8ua, .css-1bcp99t, .css-1g8bx4t, .css-1xaqcky, .css-djiuqn, .css-1q9wuj9, .css-16ddx3c, .css-1vap5ws, #masthead-placeholder, .masthead-cap-container, .masthead.theme-in-content, div.editions.tab, #nytint-hp-watching, #site-index .section-header, #markets, .all-sections-button, #mini-navigation, #WelcomeAd_optly, .css-rpp6l6, .css-wu78io, video,' + selector_for_elements_with_a_class_that_starts_with('BlockAdvert-topAd--'),
