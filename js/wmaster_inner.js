@@ -1278,6 +1278,7 @@ const sites_data = [
     darticle_theme_background_selector: '.page,' + selector_for_elements_with_a_class_that_starts_with('SplitScreenContentHeaderMain-'),
     //article_theme_foreground_selector: 'article>header .title, article>header time.blog-post-date, .articleBody p, .caption, .author-masthead, .hero-image-caption',
     darticle_theme_foreground_selector: 'p, h1, .caption, blockquote, p:first-child:first-letter,' + selector_for_elements_with_a_class_that_starts_with('ArticleBody__articleBody___ ImageCaption__caption___ ArticleContributors__bio___ ArticleHeader__dek___'),
+    article_theme_selector: '.tny-interactives-story',
     article_theme_foreground_selector: '.irSTVw, .cEIrom, .cDNYEs, .kQxnTl, .klOfMA, .grsixU, .eCQuey, .fYICFM, .fTlKaZ, .fTlKaZ.body__container p.has-dropcap.has-dropcap__lead-standard-heading::first-letter',
     article_theme_background_selector: '.ihhMJk.ihhMJk.ihhMJk, .eubavC.eubavC',
     homepage_hide_selector: '.fixed-topnav, iframe, #strongbox-promo',
