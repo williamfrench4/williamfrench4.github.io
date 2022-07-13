@@ -1280,7 +1280,7 @@ const sites_data = [
     darticle_theme_foreground_selector: 'p, h1, .caption, blockquote, p:first-child:first-letter,' + selector_for_elements_with_a_class_that_starts_with('ArticleBody__articleBody___ ImageCaption__caption___ ArticleContributors__bio___ ArticleHeader__dek___'),
     article_theme_selector: '.tny-interactives-story',
     article_theme_foreground_selector: '.irSTVw, .cEIrom, .cDNYEs, .kQxnTl, .klOfMA, .grsixU, .eCQuey, .fYICFM, .fTlKaZ, .fTlKaZ.body__container p.has-dropcap.has-dropcap__lead-standard-heading::first-letter',
-    article_theme_background_selector: '.jeAcgq.jeAcgq.jeAcgq, .ihhMJk.ihhMJk.ihhMJk, .eubavC.eubavC',
+    article_theme_background_selector: '.jeAcgq.jeAcgq.jeAcgq, .ihhMJk.ihhMJk.ihhMJk, .eubavC.eubavC' + selector_for_elements_with_a_class_that_starts_with('BasePageWrapper'),
     homepage_hide_selector: '.fixed-topnav, iframe, #strongbox-promo',
     homepage_theme_background_selector: '#main, .logo-container,' + selector_for_elements_with_a_class_that_starts_with('MainHeader__mainHeader___ MainHeader__mainHeader___:after MainHeader__topBar___:after'),
     homepage_theme_foreground_selector: selector_for_elements_with_a_class_that_starts_with('Hero__dek___ River__dek___ Card__dek___ Byline__by___ RecirculationMostPopular__counter___ RecirculationMostPopular__byLine___ RecirculationMostPopular__title___ Card__timestamp___ ImageCaption__cartoon Video__description___'),
