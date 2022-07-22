@@ -2098,14 +2098,7 @@ function regularize_links (my_window = window, my_origin) {
       if (old_href.startsWith('/')) {
         debug(394, 30, old_href)
         if (old_href.startsWith('/d/wayback/newyorker/null')) {
-          old_href = old_href.substr(25)
-          if (my_origin) {
-            old_href = my_origin + old_href
-            debug(394, 32, old_href)
-          } else {
-            old_href = my_window.location.origin + old_href
-            debug(394, 34, old_href)
-          }
+          old_href = 'https://newyorker.com' + old_href.substr(25)
         }
         if (old_href.startsWith('/d/wayback/nymag/null')) {
           old_href = 'https:' + old_href.substr(21)
