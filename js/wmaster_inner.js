@@ -841,6 +841,7 @@ const sites_data = [
   {
     name: 'The Atlantic',
     origin: 'https://www.theatlantic.com',
+    alternate_prefixes: 'file:///d/wayback/theatlantic/',
     count_words: {append: '.article-cover-extra', subject: '.article-body'},
     //count_words_grafs: true,
     article_hide_selector: 'nav, #paywall, gpt-ad, .ad-boxinjector-wrapper, .fancy-box-wrap, c-non-metered-nudge, .module-related.video, .js-inject-promo, .social-kit-top, .article-tools, .callout, .pullquote, .c-nudge__container,' + selector_for_elements_with_a_class_that_starts_with('NonMeteredNudge_root__ adform-adbox- GptAd_'),
@@ -1203,6 +1204,7 @@ const sites_data = [
     name: 'New York Magazine',
     origin: 'https://nymag.com',
     alternate_origins: 'https://www.grubstreet.com',
+    alternate_prefixes: 'file:///d/wayback/nymag/',
     count_words: {append: '.article-timestamp', subject: '.article-content'},
     article_hide_selector: '#paywall-reader-interface, nav, .clay-share, .page-header, .modal',
     article_theme_foreground_selector: '.clay-subheader, .manual-article .manual-article-link, h1, p, figcaption, time, .by-authors, .credit',
@@ -1268,6 +1270,7 @@ const sites_data = [
   {
     name: 'The New Yorker',
     origin: 'https://www.newyorker.com',
+    alternate_prefixes: 'file:///d/wayback/newyorker/',
     css: selector_for_elements_with_a_class_that_starts_with('Logo__logo___') + '{-webkit-filter: invert(70%) sepia(100%) hue-rotate(65deg) saturate(7)}',
     count_words: {append: selector_for_elements_with_a_class_that_starts_with('ArticleHeader__metaInfo___'), subject: '#articleBody'},
     //article_css: '.single-post #articleBody p a, .single-post #articleBody .gallery-caption a, .single-post #articleBody u, .articleBody p a, .articleBody .gallery-caption a, .articleBody u, .author-masthead p a, .author-masthead .gallery-caption a, .author-masthead u {text-shadow: none; background: none}',
