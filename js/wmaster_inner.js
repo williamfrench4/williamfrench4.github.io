@@ -2076,7 +2076,7 @@ function add_getMatchedCSSRules_to_window () {
 function regularize_links (my_window = window, my_origin) {
 
   let url
-  debug(394, 10, my_window, my_origin)
+  debug(394, 10, 'my_window=', my_window, 'my_origin=', my_origin)
   const $anchors = my_window.jQuery('a')
   let anchor_index
   let anchor
@@ -2097,12 +2097,18 @@ function regularize_links (my_window = window, my_origin) {
       debug(394, 26)
       if (old_href.startsWith('/')) {
         debug(394, 30, old_href)
-        if (my_origin) {
-          old_href = my_origin + old_href
-          debug(394, 32, old_href)
-        } else {
-          old_href = my_window.location.origin + old_href
-          debug(394, 34, old_href)
+        if (old_href.startsWith('/d/wayback/newyorker/null')) {
+          old_href = old_href.substr(25)
+          if (my_origin) {
+            old_href = my_origin + old_href
+            debug(394, 32, old_href)
+          } else {
+            old_href = my_window.location.origin + old_href
+            debug(394, 34, old_href)
+          }
+        }
+        if (old_href.startsWith('/d/wayback/nymag/null')) {
+          old_href = 'https:' + old_href.substr(21)
         }
       }
       debug(394, 37)
@@ -2374,7 +2380,7 @@ if (is_node) {
         process_page()
       } else  if (parsed_command_name === 'rl') {
         //debug(382, 82, parsed_command_args_0)
-        regularize_links()
+        regularize_links(window, site_data.origin)
       } else  if (parsed_command_name === 'nyto') {
         //debug(382, 82, parsed_command_args_0)
         nyt_o()
