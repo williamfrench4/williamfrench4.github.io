@@ -2099,9 +2099,14 @@ function regularize_links (my_window = window, my_origin) {
         debug(394, 30, old_href)
         if (old_href.startsWith('/d/wayback/newyorker/null')) {
           old_href = 'https://newyorker.com' + old_href.substr(25)
-        }
-        if (old_href.startsWith('/d/wayback/nymag/null')) {
-          old_href = 'https:' + old_href.substr(21)
+        } else {
+          if (old_href.startsWith('/d/wayback/nymag/null')) {
+            old_href = 'https:' + old_href.substr(21)
+          } else {
+            if (my_origin && old_href.startsWith('/')) {
+              old_href = my_origin + old_href
+            }
+          }
         }
       }
       debug(394, 37)
@@ -2674,7 +2679,7 @@ if (is_node) {
           if (site_data.css) raw_site_css += site_data.css
           std_link_colors(site_data)
           debug(846, 50, site_data)
-          regularize_links()
+          regularize_links(window, site_data.origin)
           for (const anchor of window.$anchors) {
             const first_sighting_numeric_str = anchor.dataset.wf_web_filter_first_sighting
             let first_sighting_str
