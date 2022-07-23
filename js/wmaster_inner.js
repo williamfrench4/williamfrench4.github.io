@@ -2089,24 +2089,28 @@ function regularize_links (my_window = window, my_origin) {
     let old_href = anchor.href
     debug(394, 23, old_href)
     if (1 || old_href.hasOwnProperty('startsWith')) {
-      debug(394, 24)
+      debug(394, 24, my_origin)
       if (old_href.startsWith('file://')) {
         old_href = old_href.substr(7)
         debug(394, 25, old_href)
-      }
-      debug(394, 26)
-      if (old_href.startsWith('/')) {
-        debug(394, 30, old_href)
-        if (old_href.startsWith('/d/wayback/newyorker/null')) {
-          old_href = 'https://newyorker.com' + old_href.substr(25)
-        } else {
-          if (old_href.startsWith('/d/wayback/nymag/null')) {
+        if (old_href.startsWith('/')) {
+          debug(394, 30, old_href)
+          if (old_href.startsWith('/d/wayback/newyorker/null')) {
+            old_href = 'https://newyorker.com' + old_href.substr(25)
+          } else if (old_href.startsWith('/d/wayback/nytimes_opinion/null/')) {
+            old_href = 'https://www.nytimes.com/' + old_href.substr(32)
+          } else if (old_href.startsWith('/d/wayback/nytimes_opinion/')) {
+            old_href = old_href
+          } else if (old_href.startsWith('/d/wayback/nymag/null')) {
             old_href = 'https:' + old_href.substr(21)
           } else {
             if (my_origin && old_href.startsWith('/')) {
               old_href = my_origin + old_href
             }
           }
+          debug(394, 31, old_href)
+        } else {
+          old_href = 'https:' + old_href
         }
       }
       debug(394, 37)
