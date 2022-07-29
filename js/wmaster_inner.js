@@ -2112,6 +2112,10 @@ function regularize_links (my_window = window, my_origin) {
         } else {
           old_href = 'https:' + old_href
         }
+      } else {
+        if (old_href.startsWith('https://washingtonpost.com/')) {
+          old_href = 'https://www.' + old_href.substr(8)
+        }
       }
       debug(394, 37)
       anchor.href = old_href
