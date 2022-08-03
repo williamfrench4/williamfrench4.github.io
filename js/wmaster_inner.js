@@ -181,7 +181,7 @@ const sites_data = [
     name: 'New York Times',
     origin: 'https://www.nytimes.com',
     alternate_origins: 'https://static.nytimes.com https://cooking.nytimes.com https://douthat.blogs.nytimes.com https://krugman.blogs.nytimes.com https://kristof.blogs.nytimes.com https://well.blogs.nytimes.com https://lens.blogs.nytimes.com https://www.nytimes.com/section/magazine https://mobile.nytimes.com https://dinersjournal.blogs.nytimes.com',
-    alternate_prefixes: 'file:///d/wayback/nytimes/ file:///mnt/pi400/d/wayback/nytimes/ file:///mnt/pi400/d/wayback/nytimes_opinion/ file:///d/wayback/nytimes_todayspaper/ file:///d/wayback/nytimes_world/ file:///d/wayback/nytimes_us/ file:///d/wayback/nytimes_arts ' +
+    alternate_prefixes: 'file:///d/wayback/nytimes/ file:///mnt/pi400/d/wayback/nytimes/ http://pi400/wayback/nytimes/ file:///mnt/pi400/d/wayback/nytimes_opinion/ http://pi400/wayback/nytimes_opinion/ file:///d/wayback/nytimes_world/ file:///d/wayback/nytimes_us/ file:///d/wayback/nytimes_arts ' +
     'file:///d/wayback/nytimes_arts_dance file:///d/wayback/nytimes_arts_design file:///d/wayback/nytimes_arts_music file:///d/wayback/nytimes_arts_television file:///d/wayback/nytimes_automobiles file:///d/wayback/nytimes_books ' +
     'file:///d/wayback/nytimes_business file:///d/wayback/nytimes_corrections file:///d/wayback/nytimes_education file:///d/wayback/nytimes_fashion file:///d/wayback/nytimes_fashion_weddings file:///d/wayback/nytimes_health ' +
     'file:///d/wayback/nytimes_jobs file:///d/wayback/nytimes_magazine file:///d/wayback/nytimes_movies file:///d/wayback/nytimes_multimedia file:///d/wayback/nytimes_nyregion file:///d/wayback/nytimes_nyregion2 ' +
@@ -409,7 +409,7 @@ const sites_data = [
     name: 'Manchester Guardian',
     origin: 'https://www.theguardian.com',
     alternate_origins: 'https://interactive.guim.co.uk/',
-    alternate_prefixes: 'file:///d/wayback/guardian_uk/ file:///mnt/pi400/d/wayback/guardian_uk/ file:///d/wayback/guardian_us/ file:///d/wayback/guardian_uk_opinion/ file:///d/wayback/guardian_us_opinion/',
+    alternate_prefixes: 'file:///d/wayback/guardian_uk/ file:///mnt/pi400/d/wayback/guardian_uk/ http://pi400/wayback/guardian_uk/ file:///d/wayback/guardian_us/ file:///d/wayback/guardian_uk_opinion/ file:///d/wayback/guardian_us_opinion/',
     alternate_homepages: 'https://www.theguardian.com/us https://www.theguardian.com/uk',
     append_loaded_date: '#bannerandheader',
     count_words: {append: '.content__dateline, .content__standfirst', subject: '.content__article-body, .content__main-column--interactive'},
@@ -453,7 +453,7 @@ const sites_data = [
     name: 'Washington Post',
     origin: 'https://washingtonpost.com',
     alternate_origins: 'http://washingtonpost.com http://www.washingtonpost.com https://live.washingtonpost.com https://www.washingtonpost.com',
-    alternate_prefixes: 'file:///d/wayback/washingtonpost/ file:///d/wayback/washingtonpost_opinion/ file:///mnt/pi400/d/wayback/washingtonpost/ file:///mnt/pi400/d/wayback/washingtonpost_opinion/',
+    alternate_prefixes: 'file:///d/wayback/washingtonpost/ file:///d/wayback/washingtonpost_opinion/ file:///mnt/pi400/d/wayback/washingtonpost/ http://pi400/wayback/washingtonpost/ file:///mnt/pi400/d/wayback/washingtonpost_opinion/ http://pi400/wayback/washingtonpost_opinion/',
     article_css: 'html {overflow: visible} .live-grid {display: block} dwp-ad {visibility: hidden} .powa-wrapper {filter: none} section>div>div {min-height: 0} body {overflow: scroll} .w-100 {filter: none} .article-body>div {padding: 0} #main-content {background-image: none} #et-nav {position: absolute}.headline {font-family: sans-serif} a, .powerpost-header, .layout_article #top-content {border-bottom: none} p {line-height: 155%} body {overflow-y: visible} .fixed-image {position: static} .g-artboard img {border-bottom: 30px solid white} .g-artboard p {color: black; background-color: transparent} .bg-none {background-color: transparent} .note-button {padding: 0; box-shadow: none} .chain-wrapper {background-color: #500} .pg-visual, .photo-section-img {opacity: 1}' +
       'a.note-button:link    {color:' +         theme_autolink_foreground_color + '} a.note-button:link:hover    {color:' +         theme_link_foreground_color + '}' +
       'a.note-button:visited {color:' + theme_autolink_visited_foreground_color + '} a.note-button:visited:hover {color:' + theme_link_visited_foreground_color + '}' +
@@ -841,7 +841,7 @@ const sites_data = [
   {
     name: 'The Atlantic',
     origin: 'https://www.theatlantic.com',
-    alternate_prefixes: 'file:///d/wayback/theatlantic/ file:///mnt/pi400/d/wayback/theatlantic/',
+    alternate_prefixes: 'file:///d/wayback/theatlantic/ file:///mnt/pi400/d/wayback/theatlantic/ http://pi400/wayback/theatlantic/',
     count_words: {append: '.article-cover-extra', subject: '.article-body'},
     //count_words_grafs: true,
     article_hide_selector: 'nav, #paywall, gpt-ad, .ad-boxinjector-wrapper, .fancy-box-wrap, c-non-metered-nudge, .module-related.video, .js-inject-promo, .social-kit-top, .article-tools, .callout, .pullquote, .c-nudge__container,' + selector_for_elements_with_a_class_that_starts_with('NonMeteredNudge_root__ adform-adbox- GptAd_'),
@@ -1204,7 +1204,7 @@ const sites_data = [
     name: 'New York Magazine',
     origin: 'https://nymag.com',
     alternate_origins: 'https://www.grubstreet.com',
-    alternate_prefixes: 'file:///d/wayback/nymag/ file:///mnt/pi400/d/wayback/nymag/',
+    alternate_prefixes: 'file:///d/wayback/nymag/ file:///mnt/pi400/d/wayback/nymag/ http://pi400/wayback/nymag/',
     count_words: {append: '.article-timestamp', subject: '.article-content'},
     article_hide_selector: '#paywall-reader-interface, nav, .clay-share, .page-header, .modal',
     article_theme_foreground_selector: '.clay-subheader, .manual-article .manual-article-link, h1, p, figcaption, time, .by-authors, .credit',
@@ -1270,7 +1270,7 @@ const sites_data = [
   {
     name: 'The New Yorker',
     origin: 'https://www.newyorker.com',
-    alternate_prefixes: 'file:///d/wayback/newyorker/ file:///mnt/pi400/d/wayback/newyorker/',
+    alternate_prefixes: 'file:///d/wayback/newyorker/ file:///mnt/pi400/d/wayback/newyorker/ http://pi400/wayback/newyorker/',
     css: selector_for_elements_with_a_class_that_starts_with('Logo__logo___') + '{-webkit-filter: invert(70%) sepia(100%) hue-rotate(65deg) saturate(7)}',
     count_words: {append: selector_for_elements_with_a_class_that_starts_with('ArticleHeader__metaInfo___'), subject: '#articleBody'},
     //article_css: '.single-post #articleBody p a, .single-post #articleBody .gallery-caption a, .single-post #articleBody u, .articleBody p a, .articleBody .gallery-caption a, .articleBody u, .author-masthead p a, .author-masthead .gallery-caption a, .author-masthead u {text-shadow: none; background: none}',
