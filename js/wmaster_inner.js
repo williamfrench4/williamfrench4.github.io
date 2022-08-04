@@ -2090,7 +2090,10 @@ function regularize_links (my_window = window, my_origin) {
     debug(394, 23, old_href)
     if (1 || old_href.hasOwnProperty('startsWith')) {
       debug(394, 24, my_origin)
-      if (old_href.startsWith('file://')) {
+      if (old_href.startsWith('http://pi400/')) {
+        old_href = my_origin + old_href.substr(12)
+        debug(394, 32, old_href)
+      } else if (old_href.startsWith('file://')) {
         old_href = old_href.substr(7)
         debug(394, 25, old_href)
         if (old_href.startsWith('/')) {
@@ -2108,7 +2111,7 @@ function regularize_links (my_window = window, my_origin) {
               old_href = my_origin + old_href
             }
           }
-          debug(394, 31, old_href)
+          debug(394, 33, old_href)
         } else {
           old_href = 'https:' + old_href
         }
