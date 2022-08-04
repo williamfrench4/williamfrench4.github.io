@@ -1270,7 +1270,7 @@ const sites_data = [
   {
     name: 'The New Yorker',
     origin: 'https://www.newyorker.com',
-    alternate_prefixes: 'file:///d/wayback/newyorker/ file:///mnt/pi400/d/wayback/newyorker/ http://pi400/wayback/newyorker/',
+    alternate_prefixes: 'file:///d/wayback/newyorker/ file:///mnt/pi400/d/wayback/newyorker/ file:///mnt/pi400/var/www/html/wayback/newyorker/ http://pi400/wayback/newyorker/',
     css: selector_for_elements_with_a_class_that_starts_with('Logo__logo___') + '{-webkit-filter: invert(70%) sepia(100%) hue-rotate(65deg) saturate(7)}',
     count_words: {append: selector_for_elements_with_a_class_that_starts_with('ArticleHeader__metaInfo___'), subject: '#articleBody'},
     //article_css: '.single-post #articleBody p a, .single-post #articleBody .gallery-caption a, .single-post #articleBody u, .articleBody p a, .articleBody .gallery-caption a, .articleBody u, .author-masthead p a, .author-masthead .gallery-caption a, .author-masthead u {text-shadow: none; background: none}',
@@ -2085,12 +2085,14 @@ function regularize_links (my_window = window, my_origin) {
   let anchors_array_entries = anchors_array.entries()
   //debug(394, 18, anchors_array_entries)
   for ([anchor_index, anchor] of anchors_array_entries) {
-    debug(394, 20, anchor_index, anchor, anchor.href)
+    debug(394, 20, 'my_window=', my_window, 'my_origin=', my_origin, anchor_index, anchor, anchor.href)
     let old_href = anchor.href
     debug(394, 23, old_href)
     if (1 || old_href.hasOwnProperty('startsWith')) {
       debug(394, 24, my_origin)
-      if (old_href.startsWith('http://pi400/')) {
+      if (old_href.startsWith('/')) {
+        old_href = my_origin + old_href
+      } else if (old_href.startsWith('http://pi400/')) {
         old_href = my_origin + old_href.substr(12)
         debug(394, 32, old_href)
       } else if (old_href.startsWith('file://')) {
