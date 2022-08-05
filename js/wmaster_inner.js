@@ -480,7 +480,7 @@ const sites_data = [
     wayback: {targets: {washingtonpost: '/'}},
     customize () {
       debug(848, 0)
-      if (0) {
+      if (1) {
       let stylesheet_link
       for (stylesheet_link of jQuery("link[rel='stylesheet']")) {
         const stylesheet_link_href = stylesheet_link.href
@@ -492,7 +492,7 @@ const sites_data = [
         if (stylesheet_link_href.startsWith(alt_prefix)) {stylesheet_link.href = site_data.origin + stylesheet_link_href.substring(alt_prefix.length - 1);}
         */
         let prefix
-        for (prefix of ['file://www.washingtonpost.com/', 'file:///']) {
+        for (prefix of ['file://www.washingtonpost.com/', 'file:///', 'http://pi400/']) {
           if (stylesheet_link_href.startsWith(prefix)) {
             stylesheet_link.href = site_data.origin + stylesheet_link_href.substring(prefix.length - 1)
             break
