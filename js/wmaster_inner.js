@@ -480,6 +480,7 @@ const sites_data = [
     wayback: {targets: {washingtonpost: '/'}},
     customize () {
       debug(848, 0)
+      if (0) {
       let stylesheet_link
       for (stylesheet_link of jQuery("link[rel='stylesheet']")) {
         const stylesheet_link_href = stylesheet_link.href
@@ -500,6 +501,7 @@ const sites_data = [
 
         //debug(stylesheet_link.href)
       }
+    }
       let $imgs = jQuery('img.unprocessed')
       debug(848, 100, $imgs)
       let img
