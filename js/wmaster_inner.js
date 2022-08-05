@@ -1204,7 +1204,7 @@ const sites_data = [
     name: 'New York Magazine',
     origin: 'https://nymag.com',
     alternate_origins: 'https://www.grubstreet.com',
-    alternate_prefixes: 'file:///d/wayback/nymag/ file:///mnt/pi400/d/wayback/nymag/ http://pi400/wayback/nymag/',
+    alternate_prefixes: 'file:///d/wayback/nymag/ file:///mnt/pi400/d/wayback/nymag/ file:///mnt/pi400/var/www/html/wayback/nymag/ http://pi400/wayback/nymag/',
     count_words: {append: '.article-timestamp', subject: '.article-content'},
     article_hide_selector: '#paywall-reader-interface, nav, .clay-share, .page-header, .modal',
     article_theme_foreground_selector: '.clay-subheader, .manual-article .manual-article-link, h1, p, figcaption, time, .by-authors, .credit',
