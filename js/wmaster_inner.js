@@ -221,7 +221,46 @@ const sites_data = [
     unwanted_classes: 'theme-pinned-masthead',
     //url_to_data_filename: {year_index: 3, segments_used: 6},
     wayback: {targets: {nytimes: '/', nytimes_todayspaper: '/pages/todayspaper/index.html', nytimes_nyregion: '/pages/nyregion/index.html'}},
+
     customize () {
+
+let loadStyle = function(url) {
+  return new Promise((resolve, reject) => {
+    let link    = document.createElement('link');
+    link.type   = 'text/css';
+    link.rel    = 'stylesheet';
+    link.onload = () => { resolve(); console.log('style has loaded'); };
+    link.href   = url;
+
+    let headScript = document.querySelector('script');
+    headScript.parentNode.insertBefore(link, headScript);
+  });
+};
+
+
+      let stylesheet_link
+      debug(300)
+      for (stylesheet_link of jQuery("link[rel='stylesheet']")) {
+        const stylesheet_link_href = stylesheet_link.href
+        debug(301, stylesheet_link_href)
+        //debug(stylesheet_link_href)
+        /*
+        let alt_prefix = 'file://www.washingtonpost.com/'
+        if (stylesheet_link_href.startsWith(alt_prefix)) {stylesheet_link.href = site_data.origin + stylesheet_link_href.substring(alt_prefix.length - 1);}
+        alt_prefix = 'file:///'
+        if (stylesheet_link_href.startsWith(alt_prefix)) {stylesheet_link.href = site_data.origin + stylesheet_link_href.substring(alt_prefix.length - 1);}
+        */
+        let prefix
+        for (prefix of ['http://pi400/']) {
+          if (stylesheet_link_href.startsWith(prefix)) {
+            new_stylesheet_link_href = site_data.origin + stylesheet_link_href.substring(prefix.length - 1)
+            //loadStyle(new_stylesheet_link_href)
+            stylesheet_link.href = new_stylesheet_link_href
+            debug(302, new_stylesheet_link_href, stylesheet_link.href)
+            break
+          }
+        }
+      }
       debug(443)
       return
       if (location_href.startsWith('https://www.nytimes.com/newsletters/')) return
