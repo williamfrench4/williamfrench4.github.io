@@ -223,21 +223,6 @@ const sites_data = [
     wayback: {targets: {nytimes: '/', nytimes_todayspaper: '/pages/todayspaper/index.html', nytimes_nyregion: '/pages/nyregion/index.html'}},
 
     customize () {
-
-let loadStyle = function(url) {
-  return new Promise((resolve, reject) => {
-    let link    = document.createElement('link');
-    link.type   = 'text/css';
-    link.rel    = 'stylesheet';
-    link.onload = () => { resolve(); console.log('style has loaded'); };
-    link.href   = url;
-
-    let headScript = document.querySelector('script');
-    headScript.parentNode.insertBefore(link, headScript);
-  });
-};
-
-
       let stylesheet_link
       debug(300)
       for (stylesheet_link of jQuery("link[rel='stylesheet']")) {
@@ -254,7 +239,6 @@ let loadStyle = function(url) {
         for (prefix of ['http://pi400/']) {
           if (stylesheet_link_href.startsWith(prefix)) {
             new_stylesheet_link_href = site_data.origin + stylesheet_link_href.substring(prefix.length - 1)
-            //loadStyle(new_stylesheet_link_href)
             stylesheet_link.href = new_stylesheet_link_href
             debug(302, new_stylesheet_link_href, stylesheet_link.href)
             break
@@ -1624,9 +1608,9 @@ let loadStyle = function(url) {
   {
     name: 'Rolling Stone',
     origin: 'https://www.rollingstone.com',
-    article_theme_background_selector: '.article-main, .card-container',
+    article_theme_background_selector: '.l-header__wrap, .l-page, .c-trending--sidebar, .c-trending--sidebar .c-trending__heading, .c-editors-picks',
     article_theme_foreground_selector: 'p, .article-body-content-main-photo-caption, .content-byline, .content-title',
-    article_hide_selector: '#header, .module-trending-bar, .module-social-sharing',
+    article_hide_selector: '#sticky-rail-ad, .l-article-header__block--share', //#header, .module-trending-bar, .module-social-sharing',
     article_css: 'body {padding-top: 0} .card-container {border: none}',
     //dark_theme: 0
   },
