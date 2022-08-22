@@ -236,11 +236,11 @@ const sites_data = [
         if (stylesheet_link_href.startsWith(alt_prefix)) {stylesheet_link.href = site_data.origin + stylesheet_link_href.substring(alt_prefix.length - 1);}
         */
         let prefix
-        for (prefix of ['http://pi400/']) {
+        for (prefix of ['http://pi400/', 'http://pine64/']) {
           if (stylesheet_link_href.startsWith(prefix)) {
             new_stylesheet_link_href = site_data.origin + stylesheet_link_href.substring(prefix.length - 1)
             stylesheet_link.href = new_stylesheet_link_href
-            debug(302, new_stylesheet_link_href, stylesheet_link.href)
+            //debug(302, stylesheet_link_href, stylesheet_link.href)
             break
           }
         }
@@ -432,7 +432,7 @@ const sites_data = [
     name: 'Manchester Guardian',
     origin: 'https://www.theguardian.com',
     alternate_origins: 'https://interactive.guim.co.uk/',
-    alternate_prefixes: 'file:///d/wayback/guardian_uk/ file:///mnt/pi400/d/wayback/guardian_uk/ http://pi400/wayback/guardian_uk/ file:///d/wayback/guardian_us/ file:///d/wayback/guardian_uk_opinion/ file:///d/wayback/guardian_us_opinion/',
+    alternate_prefixes: 'file:///d/wayback/guardian_uk/ file:///mnt/pi400/d/wayback/guardian_uk/ http://pi400/wayback/guardian_uk/ file:///mnt/pine64/d/wayback/guardian_uk/ http://pine64/wayback/guardian_uk/ file:///d/wayback/guardian_us/ file:///d/wayback/guardian_uk_opinion/ file:///d/wayback/guardian_us_opinion/',
     alternate_homepages: 'https://www.theguardian.com/us https://www.theguardian.com/uk',
     append_loaded_date: '#bannerandheader',
     count_words: {append: '.content__dateline, .content__standfirst', subject: '.content__article-body, .content__main-column--interactive'},
@@ -476,7 +476,7 @@ const sites_data = [
     name: 'Washington Post',
     origin: 'https://washingtonpost.com',
     alternate_origins: 'http://washingtonpost.com http://www.washingtonpost.com https://live.washingtonpost.com https://www.washingtonpost.com',
-    alternate_prefixes: 'file:///d/wayback/washingtonpost/ file:///d/wayback/washingtonpost_opinion/ file:///mnt/pi400/d/wayback/washingtonpost/ file:///mnt/pi400/var/www/html/wayback/washingtonpost/ http://pi400/wayback/washingtonpost/ file:///mnt/pi400/d/wayback/washingtonpost_opinion/ file:///mnt/pi400/var/www/html/wayback/washingtonpost_opinion/ http://pi400/wayback/washingtonpost_opinion/',
+    alternate_prefixes: 'file:///d/wayback/washingtonpost/ file:///d/wayback/washingtonpost_opinion/ file:///mnt/pi400/d/wayback/washingtonpost/ file:///mnt/pi400/var/www/html/wayback/washingtonpost/ http://pi400/wayback/washingtonpost/ file:///mnt/pi400/d/wayback/washingtonpost_opinion/ file:///mnt/pi400/var/www/html/wayback/washingtonpost_opinion/ http://pi400/wayback/washingtonpost_opinion/ file:///mnt/pine64/d/wayback/washingtonpost/ file:///mnt/pine64/var/www/html/wayback/washingtonpost/ http://pine64/wayback/washingtonpost/ file:///mnt/pine64/d/wayback/washingtonpost_opinion/ file:///mnt/pine64/var/www/html/wayback/washingtonpost_opinion/ http://pine64/wayback/washingtonpost_opinion/',
     article_css: 'html {overflow: visible} .live-grid {display: block} dwp-ad {visibility: hidden} .powa-wrapper {filter: none} section>div>div {min-height: 0} body {overflow: scroll} .w-100 {filter: none} .article-body>div {padding: 0} #main-content {background-image: none} #et-nav {position: absolute}.headline {font-family: sans-serif} a, .powerpost-header, .layout_article #top-content {border-bottom: none} p {line-height: 155%} body {overflow-y: visible} .fixed-image {position: static} .g-artboard img {border-bottom: 30px solid white} .g-artboard p {color: black; background-color: transparent} .bg-none {background-color: transparent} .note-button {padding: 0; box-shadow: none} .chain-wrapper {background-color: #500} .pg-visual, .photo-section-img {opacity: 1}' +
       'a.note-button:link    {color:' +         theme_autolink_foreground_color + '} a.note-button:link:hover    {color:' +         theme_link_foreground_color + '}' +
       'a.note-button:visited {color:' + theme_autolink_visited_foreground_color + '} a.note-button:visited:hover {color:' + theme_link_visited_foreground_color + '}' +
@@ -515,7 +515,7 @@ const sites_data = [
         if (stylesheet_link_href.startsWith(alt_prefix)) {stylesheet_link.href = site_data.origin + stylesheet_link_href.substring(alt_prefix.length - 1);}
         */
         let prefix
-        for (prefix of ['file://www.washingtonpost.com/', 'file:///', 'http://pi400/']) {
+        for (prefix of ['file://www.washingtonpost.com/', 'file:///', 'http://pi400/', 'http://pine64/']) {
           if (stylesheet_link_href.startsWith(prefix)) {
             stylesheet_link.href = site_data.origin + stylesheet_link_href.substring(prefix.length - 1)
             break
@@ -2120,11 +2120,14 @@ function regularize_links (my_window = window, my_origin) {
       } else if (old_href.startsWith('http://pi400/')) {
         old_href = my_origin + old_href.substr(12)
         debug(394, 32, old_href)
+      } else if (old_href.startsWith('http://pine64/')) {
+        old_href = my_origin + old_href.substr(13)
+        debug(394, 33, old_href)
       } else if (old_href.startsWith('file://')) {
         old_href = old_href.substr(7)
-        debug(394, 25, old_href)
+        debug(394, 35, old_href)
         if (old_href.startsWith('/')) {
-          debug(394, 30, old_href)
+          debug(394, 40, old_href)
           if (old_href.startsWith('/d/wayback/newyorker/null')) {
             old_href = 'https://newyorker.com' + old_href.substr(25)
           } else if (old_href.startsWith('/d/wayback/nytimes_opinion/null/')) {
@@ -2138,7 +2141,7 @@ function regularize_links (my_window = window, my_origin) {
               old_href = my_origin + old_href
             }
           }
-          debug(394, 33, old_href)
+          debug(394, 43, old_href)
         } else {
           old_href = 'https:' + old_href
         }
@@ -2147,20 +2150,20 @@ function regularize_links (my_window = window, my_origin) {
           old_href = 'https://www.' + old_href.substr(8)
         }
       }
-      debug(394, 37)
+      debug(394, 47)
       anchor.href = old_href
     }
     if (!old_href) continue
     try {
-      debug(394, 40)
+      debug(394, 50)
       url = new my_window.URL(old_href)
     } catch (error) {
-      debug(394, 50)
+      debug(394, 60)
       if (error instanceof TypeError) {
-        debug(394, 60)
+        debug(394, 70)
         continue
       } else {
-        debug(394, 70)
+        debug(394, 75)
         throw error
       }
     }
@@ -2272,7 +2275,7 @@ function href_to_site_data (href) {
 
   const href_origin = new URL(href).origin
   let result
-  //debug(225, 10, href)
+  debug(225, 10, href)
   let test_site_data
   for (test_site_data of sites_data) {
     const test_site_origin = test_site_data.origin
@@ -2315,13 +2318,13 @@ function href_to_site_data (href) {
       page_level = 2
       break
     }
-    //debug(225, 300)
+    debug(225, 300, href)
     if (test_site_data.alternate_prefixes) {
-      //debug(225, 310)
+      debug(225, 310)
       for (alternate of test_site_data.alternate_prefixes_split) {
-        //debug(225, 320, alternate)
+        debug(225, 320, alternate)
         if (href.startsWith(alternate) && href !== alternate) {
-          //debug(225, 330)
+          debug(225, 330)
           result = test_site_data
           page_level = 0
           break
