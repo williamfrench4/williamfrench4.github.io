@@ -180,8 +180,8 @@ const sites_data = [
   {
     name: 'New York Times',
     origin: 'https://www.nytimes.com',
-    alternate_origins: 'https://static.nytimes.com https://cooking.nytimes.com https://douthat.blogs.nytimes.com https://krugman.blogs.nytimes.com https://kristof.blogs.nytimes.com https://well.blogs.nytimes.com https://lens.blogs.nytimes.com https://www.nytimes.com/section/magazine https://mobile.nytimes.com https://dinersjournal.blogs.nytimes.com',
-    alternate_prefixes: 'file:///d/wayback/nytimes/ file:///mnt/pi400/d/wayback/nytimes/ http://pi400/wayback/nytimes/ file:///mnt/pi400/d/wayback/nytimes_opinion/ http://pi400/wayback/nytimes_opinion/ file:///mnt/pine64/d/wayback/nytimes/ http://pine64/wayback/nytimes/ file:///mnt/pine64/d/wayback/nytimes_opinion/ http://pine64/wayback/nytimes_opinion/ file:///d/wayback/nytimes_world/ file:///d/wayback/nytimes_us/ file:///d/wayback/nytimes_arts ' +
+    alternate_origins: 'https://static.nytimes.com https://cooking.nytimes.com https://douthat.blogs.nytimes.com https://krugman.blogs.nytimes.com https://kristof.blogs.nytimes.com https://well.blogs.nytimes.com https://lens.blogs.nytimes.com https://www.nytimes.com/section/magazine https://mobile.nytimes.com https://dinersjournal.blogs.nytimes.com http://localhost/wayback/nytimes_magazine/',
+    alternate_prefixes: 'http://localhost/wayback/nytimes/ http://localhost/wayback/nytimes_opinion/ file:///d/wayback/nytimes/ file:///mnt/pi400/d/wayback/nytimes/ http://pi400/wayback/nytimes/ file:///mnt/pi400/d/wayback/nytimes_opinion/ http://pi400/wayback/nytimes_opinion/ file:///mnt/pine64/d/wayback/nytimes/ http://pine64/wayback/nytimes/ file:///mnt/pine64/d/wayback/nytimes_opinion/ http://pine64/wayback/nytimes_opinion/ file:///d/wayback/nytimes_world/ file:///d/wayback/nytimes_us/ file:///d/wayback/nytimes_arts ' +
     'file:///d/wayback/nytimes_arts_dance file:///d/wayback/nytimes_arts_design file:///d/wayback/nytimes_arts_music file:///d/wayback/nytimes_arts_television file:///d/wayback/nytimes_automobiles file:///d/wayback/nytimes_books ' +
     'file:///d/wayback/nytimes_business file:///d/wayback/nytimes_corrections file:///d/wayback/nytimes_education file:///d/wayback/nytimes_fashion file:///d/wayback/nytimes_fashion_weddings file:///d/wayback/nytimes_health ' +
     'file:///d/wayback/nytimes_jobs file:///d/wayback/nytimes_magazine file:///d/wayback/nytimes_movies file:///d/wayback/nytimes_multimedia file:///d/wayback/nytimes_nyregion file:///d/wayback/nytimes_nyregion2 ' +
@@ -432,7 +432,7 @@ const sites_data = [
     name: 'Manchester Guardian',
     origin: 'https://www.theguardian.com',
     alternate_origins: 'https://interactive.guim.co.uk/',
-    alternate_prefixes: 'file:///d/wayback/guardian_uk/ file:///mnt/pi400/d/wayback/guardian_uk/ http://pi400/wayback/guardian_uk/ file:///mnt/pine64/d/wayback/guardian_uk/ http://pine64/wayback/guardian_uk/ file:///d/wayback/guardian_us/ file:///d/wayback/guardian_uk_opinion/ file:///d/wayback/guardian_us_opinion/',
+    alternate_prefixes: 'file:///d/wayback/guardian_uk/ file:///mnt/pi400/d/wayback/guardian_uk/ http://localhost/wayback/guardian_uk/ http://pi400/wayback/guardian_uk/ file:///mnt/pine64/d/wayback/guardian_uk/ http://pine64/wayback/guardian_uk/ file:///d/wayback/guardian_us/ file:///d/wayback/guardian_uk_opinion/ file:///d/wayback/guardian_us_opinion/',
     alternate_homepages: 'https://www.theguardian.com/us https://www.theguardian.com/uk',
     append_loaded_date: '#bannerandheader',
     count_words: {append: '.content__dateline, .content__standfirst', subject: '.content__article-body, .content__main-column--interactive'},
@@ -442,7 +442,7 @@ const sites_data = [
       'a:visited[data-link-name="auto-linked-tag"] {color:' + theme_autolink_visited_foreground_color + '} a:visited:hover[data-link-name="auto-linked-tag"] {color:' + theme_link_visited_foreground_color + '}',
     */
     article_theme_selector: '.content__standfirst, .content__headline, .byline, .caption, .d-top-comment__bubble',
-    theme_background_selector: '.new-header, .new-header:after, .subnav',
+    theme_background_selector: 'section, .new-header, .new-header:after, .subnav',
     article_css: ( //'.article-body-commercial-selector > * {display: block} .article-body-commercial-selector p:nth-of-type(-n + 3) {display: none} ' +
       '#sign-in-gate ~ * {display: block} .content__article-body p {line-height: 160%}'),
     article_theme_background_selector: 'article, section, .css-wz7t6r, .facia-page, .fc-item--pillar-news, .fc-item--pillar-arts, .fc-item--pillar-lifestyle, .headline-list__item, .tabs__tab a, .content__main, .content__article-body:before, details, .d-comment:target', //'.tonal--tone-live, .tonal--tone-editorial, .tonal--tone-feature, .tonal--tone-comment, .tonal--tone-analysis, .tonal--tone-review, .block--content, .navigation, .local-navigation, .navigation-container, .top-navigation, .navigation:before, .navigation-toggle, .navigation__container--first, .signposting, .tabs__tab--selected a, .tabs__tab--selected .tab__link, .tabs__tab a, .tabs__tab .tab__link',
@@ -476,7 +476,7 @@ const sites_data = [
     name: 'Washington Post',
     origin: 'https://washingtonpost.com',
     alternate_origins: 'http://washingtonpost.com http://www.washingtonpost.com https://live.washingtonpost.com https://www.washingtonpost.com',
-    alternate_prefixes: 'file:///d/wayback/washingtonpost/ file:///d/wayback/washingtonpost_opinion/ file:///mnt/pi400/d/wayback/washingtonpost/ file:///mnt/pi400/var/www/html/wayback/washingtonpost/ http://pi400/wayback/washingtonpost/ file:///mnt/pi400/d/wayback/washingtonpost_opinion/ file:///mnt/pi400/var/www/html/wayback/washingtonpost_opinion/ http://pi400/wayback/washingtonpost_opinion/ file:///mnt/pine64/d/wayback/washingtonpost/ file:///mnt/pine64/var/www/html/wayback/washingtonpost/ http://pine64/wayback/washingtonpost/ file:///mnt/pine64/d/wayback/washingtonpost_opinion/ file:///mnt/pine64/var/www/html/wayback/washingtonpost_opinion/ http://pine64/wayback/washingtonpost_opinion/',
+    alternate_prefixes: 'http://localhost/wayback/washingtonpost/ http://localhost/wayback/washingtonpost_opinion/ file:///d/wayback/washingtonpost/ file:///d/wayback/washingtonpost_opinion/ file:///mnt/pi400/d/wayback/washingtonpost/ file:///mnt/pi400/var/www/html/wayback/washingtonpost/ http://pi400/wayback/washingtonpost/ file:///mnt/pi400/d/wayback/washingtonpost_opinion/ file:///mnt/pi400/var/www/html/wayback/washingtonpost_opinion/ http://pi400/wayback/washingtonpost_opinion/ file:///mnt/pine64/d/wayback/washingtonpost/ file:///mnt/pine64/var/www/html/wayback/washingtonpost/ http://pine64/wayback/washingtonpost/ file:///mnt/pine64/d/wayback/washingtonpost_opinion/ file:///mnt/pine64/var/www/html/wayback/washingtonpost_opinion/ http://pine64/wayback/washingtonpost_opinion/',
     article_css: 'html {overflow: visible} .live-grid {display: block} dwp-ad {visibility: hidden} .powa-wrapper {filter: none} section>div>div {min-height: 0} body {overflow: scroll} .w-100 {filter: none} .article-body>div {padding: 0} #main-content {background-image: none} #et-nav {position: absolute}.headline {font-family: sans-serif} a, .powerpost-header, .layout_article #top-content {border-bottom: none} p {line-height: 155%} body {overflow-y: visible} .fixed-image {position: static} .g-artboard img {border-bottom: 30px solid white} .g-artboard p {color: black; background-color: transparent} .bg-none {background-color: transparent} .note-button {padding: 0; box-shadow: none} .chain-wrapper {background-color: #500} .pg-visual, .photo-section-img {opacity: 1}' +
       'a.note-button:link    {color:' +         theme_autolink_foreground_color + '} a.note-button:link:hover    {color:' +         theme_link_foreground_color + '}' +
       'a.note-button:visited {color:' + theme_autolink_visited_foreground_color + '} a.note-button:visited:hover {color:' + theme_link_visited_foreground_color + '}' +
@@ -515,7 +515,7 @@ const sites_data = [
         if (stylesheet_link_href.startsWith(alt_prefix)) {stylesheet_link.href = site_data.origin + stylesheet_link_href.substring(alt_prefix.length - 1);}
         */
         let prefix
-        for (prefix of ['file://www.washingtonpost.com/', 'file:///', 'http://pi400/', 'http://pine64/']) {
+        for (prefix of ['http://localhost/', 'file://www.washingtonpost.com/', 'file:///', 'http://pi400/', 'http://pine64/']) {
           if (stylesheet_link_href.startsWith(prefix)) {
             stylesheet_link.href = site_data.origin + stylesheet_link_href.substring(prefix.length - 1)
             break
@@ -866,7 +866,7 @@ const sites_data = [
   {
     name: 'The Atlantic',
     origin: 'https://www.theatlantic.com',
-    alternate_prefixes: 'file:///d/wayback/theatlantic/ file:///mnt/pi400/d/wayback/theatlantic/ http://pi400/wayback/theatlantic/ file:///mnt/pine64/d/wayback/theatlantic/ http://pine64/wayback/theatlantic/',
+    alternate_prefixes: 'file:///var/www/html/wayback/theatlantic/ http://localhost/wayback/theatlantic/ file:///d/wayback/theatlantic/ file:///mnt/pi400/d/wayback/theatlantic/ http://pi400/wayback/theatlantic/ file:///mnt/pine64/d/wayback/theatlantic/ http://pine64/wayback/theatlantic/',
     count_words: {append: '.article-cover-extra', subject: '.article-body'},
     //count_words_grafs: true,
     article_hide_selector: 'nav, #paywall, gpt-ad, .ad-boxinjector-wrapper, .fancy-box-wrap, c-non-metered-nudge, .module-related.video, .js-inject-promo, .social-kit-top, .article-tools, .callout, .pullquote, .c-nudge__container,' + selector_for_elements_with_a_class_that_starts_with('NonMeteredNudge_root__ adform-adbox- GptAd_'),
@@ -1229,7 +1229,7 @@ const sites_data = [
     name: 'New York Magazine',
     origin: 'https://nymag.com',
     alternate_origins: 'https://www.grubstreet.com',
-    alternate_prefixes: 'file:///d/wayback/nymag/ file:///mnt/pi400/d/wayback/nymag/ file:///mnt/pi400/var/www/html/wayback/nymag/ http://pi400/wayback/nymag/ file:///mnt/pine64/d/wayback/nymag/ file:///mnt/pine64/var/www/html/wayback/nymag/ http://pine64/wayback/nymag/',
+    alternate_prefixes: 'file:///d/wayback/nymag/ file:///mnt/pi400/d/wayback/nymag/ file:///mnt/pi400/var/www/html/wayback/nymag/ http://pi400/wayback/nymag/ file:///mnt/pine64/d/wayback/nymag/ file:///mnt/pine64/var/www/html/wayback/nymag/ http://pine64/wayback/nymag/ http://localhost/wayback/nymag/',
     count_words: {append: '.article-timestamp', subject: '.article-content'},
     article_hide_selector: '#paywall-reader-interface, nav, .clay-share, .page-header, .modal',
     article_theme_foreground_selector: '.clay-subheader, .manual-article .manual-article-link, h1, p, figcaption, time, .by-authors, .credit',
@@ -1295,7 +1295,7 @@ const sites_data = [
   {
     name: 'The New Yorker',
     origin: 'https://www.newyorker.com',
-    alternate_prefixes: 'file:///d/wayback/newyorker/ file:///mnt/pi400/d/wayback/newyorker/ file:///mnt/pi400/var/www/html/wayback/newyorker/ http://pi400/wayback/newyorker/ file:///mnt/pine64/d/wayback/newyorker/ file:///mnt/pine64/var/www/html/wayback/newyorker/ http://pine64/wayback/newyorker/',
+    alternate_prefixes: 'file:///d/wayback/newyorker/ file:///mnt/pi400/d/wayback/newyorker/ file:///mnt/pi400/var/www/html/wayback/newyorker/ http://pi400/wayback/newyorker/ file:///mnt/pine64/d/wayback/newyorker/ file:///mnt/pine64/var/www/html/wayback/newyorker/ http://pine64/wayback/newyorker/ http://localhost/wayback/newyorker/',
     css: selector_for_elements_with_a_class_that_starts_with('Logo__logo___') + '{-webkit-filter: invert(70%) sepia(100%) hue-rotate(65deg) saturate(7)}',
     count_words: {append: selector_for_elements_with_a_class_that_starts_with('ArticleHeader__metaInfo___'), subject: '#articleBody'},
     //article_css: '.single-post #articleBody p a, .single-post #articleBody .gallery-caption a, .single-post #articleBody u, .articleBody p a, .articleBody .gallery-caption a, .articleBody u, .author-masthead p a, .author-masthead .gallery-caption a, .author-masthead u {text-shadow: none; background: none}',
@@ -2117,6 +2117,9 @@ function regularize_links (my_window = window, my_origin) {
       debug(394, 24, my_origin)
       if (old_href.startsWith('/')) {
         old_href = my_origin + old_href
+      } else if (old_href.startsWith('http://localhost/')) {
+        old_href = my_origin + old_href.substr(16)
+        debug(394, 31, old_href)
       } else if (old_href.startsWith('http://pi400/')) {
         old_href = my_origin + old_href.substr(12)
         debug(394, 32, old_href)
@@ -2145,12 +2148,16 @@ function regularize_links (my_window = window, my_origin) {
         } else {
           old_href = 'https:' + old_href
         }
-      } else {
-        if (old_href.startsWith('https://washingtonpost.com/')) {
-          old_href = 'https://www.' + old_href.substr(8)
-        }
+      } else if (old_href.startsWith('https://washingtonpost.com/')) {
+        old_href = 'https://www.' + old_href.substr(8)
+      } else if (old_href.startsWith('http://www.vulture.com/')) {
+        old_href = 'https' + old_href.substr(4)
+      } else if (old_href.startsWith('http://www.thecut.com/')) {
+        old_href = 'https' + old_href.substr(4)
+      } else if (old_href.startsWith('http://nymag.com/')) {
+        old_href = 'https' + old_href.substr(4)
       }
-      debug(394, 47)
+      debug(394, 47, old_href)
       anchor.href = old_href
     }
     if (!old_href) continue
