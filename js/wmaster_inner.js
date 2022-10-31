@@ -1472,7 +1472,7 @@ const sites_data = [
     theme_background_selector: '.page-ad-margins, .trb_allContentWrapper, .card',
     theme_foreground_selector: '.trb_nh_un_hw:before',
     article_theme_background_selector: '.trb_article, .Page-header, .ArticlePage .Page-ad-margins',
-    article_theme_foreground_selector: '.h7, .h7 a, h1, h1 a, h2, h2 a, h3, h3 a, h4, h4 a, h5, h5 a, h6, h6 a, article p, article ul, .caption-text', //, .dropcap, .trb_ar_page[data-content-page="1"]>p:first-child:first-letter, #story>p:first-child:first-letter',
+    article_theme_foreground_selector: '.dateline, .figure-caption, .h7, .h7 a, h1, h1 a, h2, h2 a, h3, h3 a, h4, h4 a, h5, h5 a, h6, h6 a, article p, article ul, .caption-text', //, .dropcap, .trb_ar_page[data-content-page="1"]>p:first-child:first-letter, #story>p:first-child:first-letter',
     article_css: '.PageLogo-image {filter: invert(70%) sepia(100%) hue-rotate(65deg) saturate(7)} .trb_mh {margin-top: 70px} a:link[   href^="/topic/"] {color: ' + theme_autolink_foreground_color + '} a:link:hover[href^="/topic/"] {color: ' + theme_link_foreground_color + '} a:visited[href^="/topic/"] {color: ' + theme_autolink_visited_foreground_color + '} a:visited:hover[href^="/topic/"] {color: purple}',
     hide_selector: '.met-promo',
     count_words: {append: '.trb_ar_dateline', subject: 'div[itemprop="articleBody"]', nbsp_size: '100%'},
