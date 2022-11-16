@@ -1440,7 +1440,7 @@ const sites_data = [
     alternate_origins: 'https://arstechnica.co.uk',
     hide_selector: '.site-header.is_stuck.scrolled-up',
     article_hide_selector: '.ad_wrapper, .ars-sub-app, .share-links, .pullbox, #article-footer-wrap, #action_button_container, .superscroll-pager',
-    article_css: 'figure {background: white} .site-wrapper {background-color: transparent}', // if set to black, this hides images in Chrome as of 6/19/2017
+    article_css: 'a:link {color: ' + theme_autolink_foreground_color + '} a:link:hover {color: ' + theme_link_foreground_color + '} a:visited[href^="/topic/"] {color: ' + theme_autolink_visited_foreground_color + '} a:visited:hover {color: purple} figure {background: white} .site-wrapper {background-color: transparent} ', // if set to black, this hides images in Chrome as of 6/19/2017
     count_words: {append: '.byline', subject: '.article-content'},
   },
   {
