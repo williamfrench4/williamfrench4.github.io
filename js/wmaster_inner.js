@@ -1309,7 +1309,7 @@ const sites_data = [
     homepage_hide_selector: '.fixed-topnav, iframe, #strongbox-promo',
     homepage_theme_background_selector: '#main, .logo-container,' + selector_for_elements_with_a_class_that_starts_with('MainHeader__mainHeader___ MainHeader__mainHeader___:after MainHeader__topBar___:after'),
     homepage_theme_foreground_selector: selector_for_elements_with_a_class_that_starts_with('Hero__dek___ River__dek___ Card__dek___ Byline__by___ RecirculationMostPopular__counter___ RecirculationMostPopular__byLine___ RecirculationMostPopular__title___ Card__timestamp___ ImageCaption__cartoon Video__description___'),
-    hide_selector: 'iframe, ' + selector_for_elements_with_a_class_that_starts_with('MainHeader__partial___ Ad__header___'),
+    hide_selector: 'iframe, ' + selector_for_elements_with_a_class_that_starts_with('MainHeader__partial___ Ad__header___ MessageBannerWrapper-'),
     customize () {
       //if (location_href.indexOf('?') !== -1) alert(location_href)
       if (page_level === 2) {
