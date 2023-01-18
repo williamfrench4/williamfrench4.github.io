@@ -1285,6 +1285,14 @@ const sites_data = [
     article_theme_foreground_selector: '.c-page-title, .c-byline, .e-image__meta, .p-dek' //, .p-rock-head',
   },
   {
+    name: 'Maxread',
+    origin: 'https://maxread.substack.com',
+    dark_theme: 0,
+    hide_selector: selector_for_elements_with_a_class_that_starts_with('frontend-components-SubscribePrompt-module__'),
+    article_hide_selector: '.navbar, .meter, .signup-wrapper, .subRail, .sliderAd, .paywallWrapper, .l-pullquote--3col',
+    article_css: 'body {overflow: scroll}'
+  },
+  {
     name: 'Technology Review',
     origin: 'https://www.technologyreview.com',
     dark_theme: 0,
