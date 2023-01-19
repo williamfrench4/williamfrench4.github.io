@@ -1240,12 +1240,18 @@ const sites_data = [
   },
   {
     name: 'Times Union',
-    origin: 'https://www.timesunion.com/',
+    origin: 'https://www.timesunion.com',
     css: 'a:link {color: #00f} a:visited {color: #808}',
   },
   {
+    name: 'Nature',
+    origin: 'https://www.nature.com',
+    dark_theme: 0,
+    article_hide_selector: '.cc-banner, .message',
+  },
+  {
     name: 'Wordpress',
-    origin: 'https://curiousbynature.wordpress.com/',
+    origin: 'https://curiousbynature.wordpress.com',
     article_hide_selector: 'iframe',
   },
   {
