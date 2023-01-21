@@ -913,7 +913,7 @@ const sites_data = [
     name: 'forbes',
     origin: 'https://www.forbes.com',
     dark_theme: 0,
-    article_hide_selector: '.fbs-auth__container',
+    article_hide_selector: '.tp-active, .fbs-auth__container',
     article_css: 'body {overflow: scroll}'
   },
   {
@@ -1232,7 +1232,7 @@ const sites_data = [
     alternate_prefixes: 'file:///d/wayback/nymag/ file:///mnt/pi400/d/wayback/nymag/ file:///mnt/pi400/var/www/html/wayback/nymag/ http://pi400/wayback/nymag/ file:///mnt/pine64/d/wayback/nymag/ file:///mnt/pine64/var/www/html/wayback/nymag/ http://pine64/wayback/nymag/ http://localhost/wayback/nymag/',
     count_words: {append: '.article-timestamp', subject: '.article-content'},
     article_hide_selector: '#paywall-reader-interface, nav, .clay-share, .page-header, .modal',
-    article_theme_foreground_selector: '.clay-subheader, .manual-article .manual-article-link, h1, p, figcaption, time, .by-authors, .credit',
+    article_theme_foreground_selector: '.clay-subheader, .clay-subheader_fancy, .manual-article .manual-article-link, h1, p, figcaption, time, .by-authors, .credit',
     article_theme_background_selector: '.video-promo-for-articles, .lede-wrapper, .lede-image-data',
     homepage_css: '.logo {background-color: white}',
     article_css: 'html {overflow-y: scroll} body {position: relative} blockquote, blockquote p {' + theme_foreground_rule + 'padding: 0 0 0 14px; border-left: 1px solid #3a3} blockquote:before {border-top: none} .mediaplay-image-figcaption {text-align: left} nav.rubric-wrap svg>path:last-child {fill: white} .article .primary-area:before {background: #000}', // "Intelligencer" in Daily Intelligencer logo
