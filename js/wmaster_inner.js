@@ -655,6 +655,12 @@ const sites_data = [
     }
   },
   {
+    name: 'The Watch',
+    origin: 'https://radleybalko.substack.com',
+    dark_theme: 0,
+    hide_selector: selector_for_elements_with_a_class_that_starts_with('frontend-components-SubscribePrompt'),
+  },
+  {
     name: 'MSNBC',
     origin: 'https://www.msnbc.com',
     dark_theme: 0,
