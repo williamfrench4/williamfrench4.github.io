@@ -755,6 +755,12 @@ const sites_data = [
     article_hide_selector: '#zva-modal-area',
   },
   {
+    name: 'The Athletic',
+    origin: 'https://theathletic.com',
+    article_theme_selector: '.root',
+    article_theme_foreground_selector: '.gfQdyk, .gfvUNT, .bodytext1',
+  },
+  {
     name: 'Daily Beast',
     origin: 'https://www.thedailybeast.com',
     alternate_origins: 'http://www.thedailybeast.com',
