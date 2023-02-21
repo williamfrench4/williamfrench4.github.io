@@ -903,7 +903,7 @@ const sites_data = [
     name: 'The Economist',
     origin: 'https://www.economist.com',
     theme_foreground_selector: 'h1, h2, h3, p, span, .teaser__description, .ds-section-headline, .related-story__title',
-    article_hide_selector: '.tead-container, .newsletter-form, cite',
+    article_hide_selector: '.tead-container, .newsletter-form, cite,' + selector_for_elements_with_id_that_starts_with('sp_message_container_'),
     hide_selector: '#bottom-page',
   },
   {
