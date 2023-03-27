@@ -1495,7 +1495,7 @@ const sites_data = [
     origin: 'https://www.latimes.com',
     alternate_prefixes: 'http://localhost/wayback/latimes/',
     css: 'body {overflow: visible} .Page-header-wrapper {position: static} .trb_nh {position: absolute} .trb_nh_l, .trb_nh_sm_o_svg {fill:' + theme_foreground_color + '} .trb_nh_unh_hr {border-color:' + theme_foreground_color + '}',
-    article_hide_selector: '.ActionBar, .trb_nh_lw, .trb_mh_adB, .trb_sc, .trb_ar_bc, .trb_gptAd.trb_ar_rail_ad, .trb_embed[data-content-type=story], .wf_interstitial_link, [name="support-our-journalism"], [data-content-type="pullquote"], .journo-promo, .promo, .trb_rhsAdSidebar, .pb-f-list-nav-ticker',
+    article_hide_selector: '.enhancement, .ActionBar, .trb_nh_lw, .trb_mh_adB, .trb_sc, .trb_ar_bc, .trb_gptAd.trb_ar_rail_ad, .trb_embed[data-content-type=story], .wf_interstitial_link, [name="support-our-journalism"], [data-content-type="pullquote"], .journo-promo, .promo, .trb_rhsAdSidebar, .pb-f-list-nav-ticker',
     theme_background_selector: '.page-ad-margins, .trb_allContentWrapper, .card',
     theme_foreground_selector: '.trb_nh_un_hw:before',
     article_theme_background_selector: '.article-page .page-content, .trb_article, .Page-header, .ArticlePage .Page-ad-margins',
