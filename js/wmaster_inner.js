@@ -1330,7 +1330,7 @@ const sites_data = [
     //article_hide_selector: '.social-module, .strongbox-promo-wrapper, .social-hover, .footer-content, #recirc-pos-2',
     article_hide_selector: '.newsletter-subscribe-form, .ad, .full-bleed-ad, .interstitial,' + selector_for_elements_with_a_class_that_starts_with('Persistent persistent- MainHeader__topBarItems___ MainHeader__topBar MainHeader__collapsed___ Layout__social___ RecirculationMostPopular__default___ GrowlerFailsafe__'),
     article_theme_selector: '.tny-interactives-story',
-    article_theme_foreground_selector: '.jKUQhq, .jxeLza, div.article__body, h1, .body__container p.has-dropcap.has-dropcap__lead-standard-heading::first-letter,' + selector_for_elements_with_a_class_that_starts_with('CaptionText-'),
+    article_theme_foreground_selector: '.inxuQP, .inxuQP a, .jKUQhq, .jxeLza, div.article__body, h1, .body__container p.has-dropcap.has-dropcap__lead-standard-heading::first-letter,' + selector_for_elements_with_a_class_that_starts_with('CaptionText-'),
     article_theme_background_selector: '.jeAcgq.jeAcgq.jeAcgq, .ihhMJk.ihhMJk.ihhMJk, .eubavC.eubavC' + selector_for_elements_with_a_class_that_starts_with('BasePageWrapper'),
     homepage_hide_selector: '.fixed-topnav, iframe, #strongbox-promo',
     homepage_theme_background_selector: '#main, .logo-container,' + selector_for_elements_with_a_class_that_starts_with('MainHeader__mainHeader___ MainHeader__mainHeader___:after MainHeader__topBar___:after'),
