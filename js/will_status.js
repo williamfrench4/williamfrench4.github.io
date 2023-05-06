@@ -8,11 +8,12 @@
    current_window_height,
    current_window_width,
    date_length                 =   28, // 'Mon Jan 17 17:05:37 EST 2011'.length,
-   debug_mode                  = false,
+   debug_mode                  = true,
    document_body,
    hour_labels_count           =   25,
    inter_row_margin            =    0, // spacing between        day rows                                 -- 0 for no gap
    math_round                  = Math.round,
+   meds_str                    = 'meds',
    milliseconds_in_a_day       = 24 * 60 * 60 * 1000,
    min_day_label_spacing       =    5,
    min_hour_label_spacing      =   10,
@@ -191,7 +192,6 @@
   function build_status_display () {
     //alert (status_log_data);
     now_date = Date ();
-    //console.log('66 ' + status_display_div);
     if (status_display_div) status_display_div.remove ();
     status_display_div              = document.createElement ('div');
     Element.extend (status_display_div);
@@ -303,10 +303,10 @@
           if      (status_record_status_split.length == 2 && status_record_status_split [1] == abed_str           ) current_status_str =            abed_str; // 'offline: abed'
           else if (status_record_status_split.length == 2 && status_record_status_split [1] == visiting_lauren_str) current_status_str = visiting_lauren_str;
           else                                                                                                      current_status_str =         offline_str;
-        } else if (current_status_str != online_str) {
-          if (current_status_str != 'p' && current_status_str != 'meds') {
-            alert (status_record_label + ' has unrecognized type: ' + status_record);
-          }
+        } else if (current_status_str != online_str && current_status_str != meds_str + ':') {
+          alert (status_record_label + ' has unrecognized type: ' + status_record);
+          continue;
+        } else if (current_status_str == meds_str + ':') {
           continue;
         }
       }
